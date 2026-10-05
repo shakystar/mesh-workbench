@@ -124,3 +124,53 @@ def profile(
     )
     obj["mw_layers"] = json.dumps(history)
     return report
+
+
+def radial_move(obj, name, center, radius, delta, label="Local displacement"):
+    """Frozen smooth radial weights within a named region; additive undo layer."""
+    selected = resolve(obj, name)
+    if obj.data.users != 1:
+        raise ValueError("Make a single-user mesh before radial editing")
+    center = np.array(geometry.vector(center))
+    delta = geometry.vector(delta)
+    radius = sculpt.number(radius, 1e-6, 1e6, "radius")
+    if not isinstance(label, str) or not 1 <= len(label) <= 48 or delta.length < 1e-10:
+        raise ValueError("Label and nonzero displacement required")
+    if fairing.overlap_candidates(obj):
+        raise ValueError("Input has overlap candidates")
+    original = sculpt.coordinates(obj)
+    ids = np.asarray(selected["indices"], int)
+    t = np.clip(1 - np.linalg.norm(original[ids] - center, axis=1) / radius, 0, 1)
+    weights = t * t * (3 - 2 * t)
+    if not np.any(weights > 0):
+        raise ValueError("No vertices in influence")
+    had_keys = obj.data.shape_keys is not None
+    key = layers.begin(obj)
+    try:
+        local = obj.matrix_world.inverted().to_3x3() @ delta
+        for i, w in zip(ids, weights):
+            key.data[int(i)].co += local * float(w)
+        layer = layers.finish(obj)
+        if fairing.overlap_candidates(obj):
+            obj.shape_key_remove(layer)
+            if not had_keys:
+                obj.shape_key_clear()
+            bpy.context.view_layer.update()
+            raise ValueError("Radial edit introduced overlaps; rolled back")
+    except Exception:
+        if obj.get("mw_pending"):
+            layers.finish(obj, True)
+        raise
+    layer.name = "MW " + label
+    report = {
+        "layer": layer.name,
+        "region": name,
+        "changed_vertices": int((weights > 0).sum()),
+        "max_displacement": float(weights.max() * delta.length),
+    }
+    history = json.loads(obj.get("mw_layers", "[]"))
+    history.append(
+        {"name": layer.name, "topology": sculpt.topology(obj), "report": report}
+    )
+    obj["mw_layers"] = json.dumps(history)
+    return report

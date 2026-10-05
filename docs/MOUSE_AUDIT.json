@@ -1,0 +1,1640 @@
+{
+  "construction": {
+    "blender": "5.2.2 LTS",
+    "target_sha256": "e9e9f0c5a301c31430703f883e01a061050216ee0372a217fdb7e5972607cb7a",
+    "reference_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+    "candidates": [
+      {
+        "name": "baseline",
+        "reports": [
+          {
+            "iou": 0.9536970598151686,
+            "different_pixels": 5356,
+            "boundary_mean": 1.0597270967418395,
+            "boundary_p95": 2.5,
+            "boundary_max": 2.5495097567963922,
+            "sample_count": 2397,
+            "object": "Baseline master",
+            "component": "top",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              560
+            ]
+          },
+          {
+            "iou": 0.8979369554074833,
+            "different_pixels": 6372,
+            "boundary_mean": 1.3894832476559413,
+            "boundary_p95": 4.2793106921559225,
+            "boundary_max": 4.5,
+            "sample_count": 2120,
+            "object": "Baseline master",
+            "component": "side",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              560,
+              240
+            ]
+          },
+          {
+            "iou": 0.8499805350091764,
+            "different_pixels": 5395,
+            "boundary_mean": 1.8642380477372054,
+            "boundary_p95": 4.981214711292819,
+            "boundary_max": 5.153882032022076,
+            "sample_count": 1287,
+            "object": "Baseline master",
+            "component": "front",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              240
+            ]
+          }
+        ],
+        "sections": [
+          {
+            "object": "Baseline master",
+            "value": -56.0,
+            "bound_error_max": 1.8197779212633876,
+            "actual_bounds": [
+              [
+                -19.5,
+                -56.0,
+                3.0
+              ],
+              [
+                19.5,
+                -56.0,
+                22.18000030517578
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -20.0,
+                -56.0,
+                3.0
+              ],
+              [
+                19.0,
+                -56.0,
+                23.99977822643917
+              ]
+            ]
+          },
+          {
+            "object": "Baseline master",
+            "value": -42.0,
+            "bound_error_max": 2.519693386679446,
+            "actual_bounds": [
+              [
+                -28.0,
+                -42.0,
+                2.0
+              ],
+              [
+                28.0,
+                -42.0,
+                26.479999542236328
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.0,
+                -42.0,
+                2.0
+              ],
+              [
+                27.0,
+                -42.0,
+                28.999692928915774
+              ]
+            ]
+          },
+          {
+            "object": "Baseline master",
+            "value": -22.0,
+            "bound_error_max": 3.499573512383016,
+            "actual_bounds": [
+              [
+                -30.5,
+                -22.0,
+                2.0
+              ],
+              [
+                30.5,
+                -22.0,
+                32.5
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.88414373554645,
+                -22.0,
+                2.0
+              ],
+              [
+                29.0,
+                -22.0,
+                35.999573512383016
+              ]
+            ]
+          },
+          {
+            "object": "Baseline master",
+            "value": 0.0,
+            "bound_error_max": 4.479453638086596,
+            "actual_bounds": [
+              [
+                -33.5,
+                0.0,
+                2.0
+              ],
+              [
+                33.5,
+                0.0,
+                38.52000045776367
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -35.080619167924254,
+                0.0,
+                2.0
+              ],
+              [
+                31.0,
+                0.0,
+                42.99945409585027
+              ]
+            ]
+          },
+          {
+            "object": "Baseline master",
+            "value": 22.0,
+            "bound_error_max": 4.199488977799071,
+            "actual_bounds": [
+              [
+                -34.5,
+                22.0,
+                2.0
+              ],
+              [
+                34.5,
+                22.0,
+                36.79999923706055
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -37.0,
+                22.0,
+                2.0
+              ],
+              [
+                32.0,
+                22.0,
+                40.99948821485962
+              ]
+            ]
+          },
+          {
+            "object": "Baseline master",
+            "value": 42.0,
+            "bound_error_max": 2.9396422844593495,
+            "actual_bounds": [
+              [
+                -30.0,
+                42.0,
+                2.0
+              ],
+              [
+                30.0,
+                42.0,
+                29.059999465942383
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -31.0,
+                42.0,
+                2.0
+              ],
+              [
+                29.0,
+                42.0,
+                31.999641750401732
+              ]
+            ]
+          },
+          {
+            "object": "Baseline master",
+            "value": 56.0,
+            "bound_error_max": 1.539813260975869,
+            "actual_bounds": [
+              [
+                -17.5,
+                56.0,
+                3.0
+              ],
+              [
+                17.5,
+                56.0,
+                20.459999084472656
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -18.0,
+                56.0,
+                3.0
+              ],
+              [
+                17.0,
+                56.0,
+                21.999812345448525
+              ]
+            ]
+          }
+        ],
+        "section_error_max": 4.479453638086596,
+        "nonmanifold_edges": 0,
+        "overlap_candidates": 0,
+        "constraint_violations": 1
+      },
+      {
+        "name": "guided",
+        "reports": [
+          {
+            "iou": 0.990552082416131,
+            "different_pixels": 1073,
+            "boundary_mean": 0.21395921637011267,
+            "boundary_p95": 2.0,
+            "boundary_max": 2.7613402542968153,
+            "sample_count": 2398,
+            "object": "Mouse master",
+            "component": "top",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              560
+            ]
+          },
+          {
+            "iou": 0.9995195772279606,
+            "different_pixels": 30,
+            "boundary_mean": 0.007035647279549718,
+            "boundary_p95": 0.0,
+            "boundary_max": 0.25,
+            "sample_count": 2132,
+            "object": "Mouse master",
+            "component": "side",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              560,
+              240
+            ]
+          },
+          {
+            "iou": 0.9995164822662761,
+            "different_pixels": 17,
+            "boundary_mean": 0.0064885496183206106,
+            "boundary_p95": 0.0,
+            "boundary_max": 0.25,
+            "sample_count": 1310,
+            "object": "Mouse master",
+            "component": "front",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              240
+            ]
+          }
+        ],
+        "sections": [
+          {
+            "object": "Mouse master",
+            "value": -56.0,
+            "bound_error_max": 0.002171948973348492,
+            "actual_bounds": [
+              [
+                -20.0,
+                -56.0,
+                3.0
+              ],
+              [
+                19.0,
+                -56.0,
+                23.99760627746582
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -20.0,
+                -56.0,
+                3.0
+              ],
+              [
+                19.0,
+                -56.0,
+                23.99977822643917
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": -42.0,
+            "bound_error_max": 0.0030059934909694164,
+            "actual_bounds": [
+              [
+                -29.0,
+                -42.0,
+                2.0
+              ],
+              [
+                27.0,
+                -42.0,
+                28.996686935424805
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.0,
+                -42.0,
+                2.0
+              ],
+              [
+                27.0,
+                -42.0,
+                28.999692928915774
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": -22.0,
+            "bound_error_max": 2.1158562644535515,
+            "actual_bounds": [
+              [
+                -32.0,
+                -22.0,
+                2.0
+              ],
+              [
+                29.0,
+                -22.0,
+                35.995399475097656
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.88414373554645,
+                -22.0,
+                2.0
+              ],
+              [
+                29.0,
+                -22.0,
+                35.999573512383016
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 0.0,
+            "bound_error_max": 0.9193808320757455,
+            "actual_bounds": [
+              [
+                -36.0,
+                0.0,
+                2.0
+              ],
+              [
+                31.0,
+                0.0,
+                42.994110107421875
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -35.080619167924254,
+                0.0,
+                2.0
+              ],
+              [
+                31.0,
+                0.0,
+                42.99945409585027
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 22.0,
+            "bound_error_max": 0.005011896500242585,
+            "actual_bounds": [
+              [
+                -37.0,
+                22.0,
+                2.0
+              ],
+              [
+                32.0,
+                22.0,
+                40.994476318359375
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -37.0,
+                22.0,
+                2.0
+              ],
+              [
+                32.0,
+                22.0,
+                40.99948821485962
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 42.0,
+            "bound_error_max": 0.003507946080443247,
+            "actual_bounds": [
+              [
+                -31.0,
+                42.0,
+                2.0
+              ],
+              [
+                29.0,
+                42.0,
+                31.99613380432129
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -31.0,
+                42.0,
+                2.0
+              ],
+              [
+                29.0,
+                42.0,
+                31.999641750401732
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 56.0,
+            "bound_error_max": 0.0018379496965721387,
+            "actual_bounds": [
+              [
+                -18.0,
+                56.0,
+                3.0
+              ],
+              [
+                17.0,
+                56.0,
+                21.997974395751953
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -18.0,
+                56.0,
+                3.0
+              ],
+              [
+                17.0,
+                56.0,
+                21.999812345448525
+              ]
+            ]
+          }
+        ],
+        "section_error_max": 2.1158562644535515,
+        "nonmanifold_edges": 0,
+        "overlap_candidates": 0,
+        "constraint_violations": 1
+      },
+      {
+        "name": "raised-palm",
+        "reports": [
+          {
+            "iou": 0.9997156288601161,
+            "different_pixels": 32,
+            "boundary_mean": 0.006672226855713094,
+            "boundary_p95": 0.0,
+            "boundary_max": 0.25,
+            "sample_count": 2398,
+            "object": "Mouse master",
+            "component": "top",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              560
+            ]
+          },
+          {
+            "iou": 0.9907937969238584,
+            "different_pixels": 580,
+            "boundary_mean": 0.12667258787032395,
+            "boundary_p95": 1.25,
+            "boundary_max": 1.75,
+            "sample_count": 2132,
+            "object": "Mouse master",
+            "component": "side",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              560,
+              240
+            ]
+          },
+          {
+            "iou": 0.996851778319814,
+            "different_pixels": 111,
+            "boundary_mean": 0.03968342089636532,
+            "boundary_p95": 0.3069543648262959,
+            "boundary_max": 0.5,
+            "sample_count": 1310,
+            "object": "Mouse master",
+            "component": "front",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              240
+            ]
+          }
+        ],
+        "sections": [
+          {
+            "object": "Mouse master",
+            "value": -56.0,
+            "bound_error_max": 0.002171948973348492,
+            "actual_bounds": [
+              [
+                -20.0,
+                -56.0,
+                3.0
+              ],
+              [
+                19.0,
+                -56.0,
+                23.99760627746582
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -20.0,
+                -56.0,
+                3.0
+              ],
+              [
+                19.0,
+                -56.0,
+                23.99977822643917
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": -42.0,
+            "bound_error_max": 0.0030059934909694164,
+            "actual_bounds": [
+              [
+                -29.0,
+                -42.0,
+                2.0
+              ],
+              [
+                27.0,
+                -42.0,
+                28.996686935424805
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.0,
+                -42.0,
+                2.0
+              ],
+              [
+                27.0,
+                -42.0,
+                28.999692928915774
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": -22.0,
+            "bound_error_max": 0.004184629101136039,
+            "actual_bounds": [
+              [
+                -29.879959106445312,
+                -22.0,
+                2.0
+              ],
+              [
+                29.0,
+                -22.0,
+                35.995399475097656
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.88414373554645,
+                -22.0,
+                2.0
+              ],
+              [
+                29.0,
+                -22.0,
+                35.999573512383016
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 0.0,
+            "bound_error_max": 0.0053439884283932315,
+            "actual_bounds": [
+              [
+                -35.07980728149414,
+                0.0,
+                2.0
+              ],
+              [
+                31.0,
+                0.0,
+                42.994110107421875
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -35.080619167924254,
+                0.0,
+                2.0
+              ],
+              [
+                31.0,
+                0.0,
+                42.99945409585027
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 22.0,
+            "bound_error_max": 1.65845551072632,
+            "actual_bounds": [
+              [
+                -37.0,
+                22.0,
+                2.0
+              ],
+              [
+                32.0,
+                22.0,
+                42.65794372558594
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -37.0,
+                22.0,
+                2.0
+              ],
+              [
+                32.0,
+                22.0,
+                40.99948821485962
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 42.0,
+            "bound_error_max": 0.003507946080443247,
+            "actual_bounds": [
+              [
+                -31.0,
+                42.0,
+                2.0
+              ],
+              [
+                29.0,
+                42.0,
+                31.99613380432129
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -31.0,
+                42.0,
+                2.0
+              ],
+              [
+                29.0,
+                42.0,
+                31.999641750401732
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 56.0,
+            "bound_error_max": 0.0018379496965721387,
+            "actual_bounds": [
+              [
+                -18.0,
+                56.0,
+                3.0
+              ],
+              [
+                17.0,
+                56.0,
+                21.997974395751953
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -18.0,
+                56.0,
+                3.0
+              ],
+              [
+                17.0,
+                56.0,
+                21.999812345448525
+              ]
+            ]
+          }
+        ],
+        "section_error_max": 1.65845551072632,
+        "nonmanifold_edges": 0,
+        "overlap_candidates": 0,
+        "constraint_violations": 1
+      },
+      {
+        "name": "refined",
+        "reports": [
+          {
+            "iou": 0.9997156288601161,
+            "different_pixels": 32,
+            "boundary_mean": 0.006672226855713094,
+            "boundary_p95": 0.0,
+            "boundary_max": 0.25,
+            "sample_count": 2398,
+            "object": "Mouse master",
+            "component": "top",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              560
+            ]
+          },
+          {
+            "iou": 0.9995195772279606,
+            "different_pixels": 30,
+            "boundary_mean": 0.007035647279549718,
+            "boundary_p95": 0.0,
+            "boundary_max": 0.25,
+            "sample_count": 2132,
+            "object": "Mouse master",
+            "component": "side",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              560,
+              240
+            ]
+          },
+          {
+            "iou": 0.9995164822662761,
+            "different_pixels": 17,
+            "boundary_mean": 0.0064885496183206106,
+            "boundary_p95": 0.0,
+            "boundary_max": 0.25,
+            "sample_count": 1310,
+            "object": "Mouse master",
+            "component": "front",
+            "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+            "sampling_size": [
+              384,
+              240
+            ]
+          }
+        ],
+        "sections": [
+          {
+            "object": "Mouse master",
+            "value": -56.0,
+            "bound_error_max": 0.002171948973348492,
+            "actual_bounds": [
+              [
+                -20.0,
+                -56.0,
+                3.0
+              ],
+              [
+                19.0,
+                -56.0,
+                23.99760627746582
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -20.0,
+                -56.0,
+                3.0
+              ],
+              [
+                19.0,
+                -56.0,
+                23.99977822643917
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": -42.0,
+            "bound_error_max": 0.0030059934909694164,
+            "actual_bounds": [
+              [
+                -29.0,
+                -42.0,
+                2.0
+              ],
+              [
+                27.0,
+                -42.0,
+                28.996686935424805
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.0,
+                -42.0,
+                2.0
+              ],
+              [
+                27.0,
+                -42.0,
+                28.999692928915774
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": -22.0,
+            "bound_error_max": 0.004184629101136039,
+            "actual_bounds": [
+              [
+                -29.879959106445312,
+                -22.0,
+                2.0
+              ],
+              [
+                29.0,
+                -22.0,
+                35.995399475097656
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -29.88414373554645,
+                -22.0,
+                2.0
+              ],
+              [
+                29.0,
+                -22.0,
+                35.999573512383016
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 0.0,
+            "bound_error_max": 0.0053439884283932315,
+            "actual_bounds": [
+              [
+                -35.07980728149414,
+                0.0,
+                2.0
+              ],
+              [
+                31.0,
+                0.0,
+                42.994110107421875
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -35.080619167924254,
+                0.0,
+                2.0
+              ],
+              [
+                31.0,
+                0.0,
+                42.99945409585027
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 22.0,
+            "bound_error_max": 0.005011896500242585,
+            "actual_bounds": [
+              [
+                -37.0,
+                22.0,
+                2.0
+              ],
+              [
+                32.0,
+                22.0,
+                40.994476318359375
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -37.0,
+                22.0,
+                2.0
+              ],
+              [
+                32.0,
+                22.0,
+                40.99948821485962
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 42.0,
+            "bound_error_max": 0.003507946080443247,
+            "actual_bounds": [
+              [
+                -31.0,
+                42.0,
+                2.0
+              ],
+              [
+                29.0,
+                42.0,
+                31.99613380432129
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -31.0,
+                42.0,
+                2.0
+              ],
+              [
+                29.0,
+                42.0,
+                31.999641750401732
+              ]
+            ]
+          },
+          {
+            "object": "Mouse master",
+            "value": 56.0,
+            "bound_error_max": 0.0018379496965721387,
+            "actual_bounds": [
+              [
+                -18.0,
+                56.0,
+                3.0
+              ],
+              [
+                17.0,
+                56.0,
+                21.997974395751953
+              ]
+            ],
+            "expected_bounds": [
+              [
+                -18.0,
+                56.0,
+                3.0
+              ],
+              [
+                17.0,
+                56.0,
+                21.999812345448525
+              ]
+            ]
+          }
+        ],
+        "section_error_max": 0.0053439884283932315,
+        "nonmanifold_edges": 0,
+        "overlap_candidates": 0,
+        "constraint_violations": 0
+      }
+    ],
+    "ranking": [
+      {
+        "name": "refined",
+        "accepted": true,
+        "geometry_valid": true,
+        "constraint_violations": 0,
+        "mean_iou": 0.9995838961181175
+      },
+      {
+        "name": "guided",
+        "accepted": false,
+        "geometry_valid": true,
+        "constraint_violations": 1,
+        "mean_iou": 0.9965293806367893
+      },
+      {
+        "name": "raised-palm",
+        "accepted": false,
+        "geometry_valid": true,
+        "constraint_violations": 1,
+        "mean_iou": 0.9957870680345962
+      },
+      {
+        "name": "baseline",
+        "accepted": false,
+        "geometry_valid": true,
+        "constraint_violations": 1,
+        "mean_iou": 0.9005381834106094
+      }
+    ],
+    "local_edit": {
+      "layer": "MW Thumb recess",
+      "region": "thumb well",
+      "changed_vertices": 1380,
+      "max_displacement": 2.912216311274693
+    },
+    "palm_edit": {
+      "layer": "MW Raised palm trial",
+      "region": "palm support",
+      "changed_vertices": 757,
+      "max_displacement": 1.9784732880869986
+    },
+    "palm_trial_disabled": true,
+    "unchanged_vertices": 15646,
+    "undo_error": 0.0,
+    "attachment_status": {
+      "status": "current",
+      "anchors": 14
+    },
+    "rejected_thickness_violations": 13316,
+    "normal_ray_diagnostics": [
+      {
+        "object": "Upper housing",
+        "method": "normal",
+        "samples": 13316,
+        "missing": 2,
+        "min": 1.5941945314407349,
+        "max": 1.5999195575714111,
+        "mean": 1.599368967164005,
+        "passed": false
+      },
+      {
+        "object": "Lower housing",
+        "method": "normal",
+        "samples": 17024,
+        "missing": 47,
+        "min": 1.59334135055542,
+        "max": 1.6001397371292114,
+        "mean": 1.5991526504087317,
+        "passed": false
+      },
+      {
+        "object": "Left button",
+        "method": "normal",
+        "samples": 1794,
+        "missing": 0,
+        "min": 1.5985236167907715,
+        "max": 1.5999075174331665,
+        "mean": 1.599386149691366,
+        "passed": true
+      },
+      {
+        "object": "Right button",
+        "method": "normal",
+        "samples": 1794,
+        "missing": 0,
+        "min": 1.5991921424865723,
+        "max": 1.5999200344085693,
+        "mean": 1.5996876495870593,
+        "passed": true
+      }
+    ],
+    "thickness": [
+      {
+        "object": "Upper housing",
+        "method": "nearest",
+        "samples": 13316,
+        "missing": 0,
+        "min": 1.5941911935806274,
+        "max": 1.5999194383621216,
+        "mean": 1.5993681436957952,
+        "passed": true
+      },
+      {
+        "object": "Lower housing",
+        "method": "nearest",
+        "samples": 17024,
+        "missing": 0,
+        "min": 1.593342900276184,
+        "max": 1.5999689102172852,
+        "mean": 1.5991270007999767,
+        "passed": true
+      },
+      {
+        "object": "Left button",
+        "method": "nearest",
+        "samples": 1794,
+        "missing": 0,
+        "min": 1.5985243320465088,
+        "max": 1.5999082326889038,
+        "mean": 1.599386070218506,
+        "passed": true
+      },
+      {
+        "object": "Right button",
+        "method": "nearest",
+        "samples": 1794,
+        "missing": 0,
+        "min": 1.5991939306259155,
+        "max": 1.5999201536178589,
+        "mean": 1.5996876406829095,
+        "passed": true
+      }
+    ],
+    "gaps": [
+      {
+        "objects": [
+          "Upper housing",
+          "Lower housing"
+        ],
+        "edges": 268,
+        "samples": 1608,
+        "min": 0.6889745544757837,
+        "max": 0.6996123549763175,
+        "mean": 0.6982488490578987,
+        "passed": true
+      },
+      {
+        "objects": [
+          "Upper housing",
+          "Left button"
+        ],
+        "edges": 109,
+        "samples": 654,
+        "min": 0.517043356341216,
+        "max": 0.700000246960094,
+        "mean": 0.694190779455454,
+        "passed": true
+      },
+      {
+        "objects": [
+          "Upper housing",
+          "Right button"
+        ],
+        "edges": 109,
+        "samples": 654,
+        "min": 0.5086364364011763,
+        "max": 0.6999815281305121,
+        "mean": 0.6941878920673776,
+        "passed": true
+      }
+    ],
+    "geometry": [
+      {
+        "object": "Grip fitted",
+        "vertices": 924,
+        "edges": 2016,
+        "faces": 1120,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "c07bcedd762a4515516293c9e83fe7e1c1b3d73ef51c5a8d150102dce695f090",
+        "bounds": [
+          [
+            -36.93112564086914,
+            -32.70144271850586,
+            13.797731399536133
+          ],
+          [
+            -28.72344398498535,
+            16.70090103149414,
+            18.203054428100586
+          ]
+        ],
+        "overlap_candidates": 0
+      },
+      {
+        "object": "Upper housing",
+        "vertices": 13810,
+        "edges": 27748,
+        "faces": 13938,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "7d15b37f995eced1ea4e83b283d9d2268c7d1cdb92d8811561f4310f23586f27",
+        "bounds": [
+          [
+            -36.9898567199707,
+            -61.96940612792969,
+            11.269523620605469
+          ],
+          [
+            31.99034881591797,
+            61.960060119628906,
+            42.994110107421875
+          ]
+        ],
+        "overlap_candidates": 0
+      },
+      {
+        "object": "Lower housing",
+        "vertices": 17294,
+        "edges": 34712,
+        "faces": 17420,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "60561a706e3120f3570b8f6632e7ee813c5dccb85558e6a2bc5d6af54e449fce",
+        "bounds": [
+          [
+            -36.96259689331055,
+            -61.952720642089844,
+            2.0
+          ],
+          [
+            31.971965789794922,
+            61.95279312133789,
+            10.929244995117188
+          ]
+        ],
+        "overlap_candidates": 0
+      },
+      {
+        "object": "Left button",
+        "vertices": 1920,
+        "edges": 3836,
+        "faces": 1918,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "9b12381fef5c6bd2d571c7c9d6d67bf030ac32a7ed5bd57e810de93960f61c6e",
+        "bounds": [
+          [
+            -30.29124641418457,
+            -51.441627502441406,
+            16.236610412597656
+          ],
+          [
+            -2.555612564086914,
+            -9.326101303100586,
+            40.9079704284668
+          ]
+        ],
+        "overlap_candidates": 0
+      },
+      {
+        "object": "Right button",
+        "vertices": 1920,
+        "edges": 3836,
+        "faces": 1918,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "9b12381fef5c6bd2d571c7c9d6d67bf030ac32a7ed5bd57e810de93960f61c6e",
+        "bounds": [
+          [
+            2.327578544616699,
+            -51.4336051940918,
+            15.018884658813477
+          ],
+          [
+            28.459911346435547,
+            -9.336644172668457,
+            40.16462707519531
+          ]
+        ],
+        "overlap_candidates": 0
+      },
+      {
+        "object": "Scroll wheel",
+        "vertices": 576,
+        "edges": 1152,
+        "faces": 576,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "3d870b5756a880961138e4bf057621564dea409bd70e8e264ce981ab85edbf70",
+        "bounds": [
+          [
+            -2.200000286102295,
+            -41.03419876098633,
+            24.598966598510742
+          ],
+          [
+            2.200000286102295,
+            -30.965801239013672,
+            34.667362213134766
+          ]
+        ],
+        "overlap_candidates": 0
+      },
+      {
+        "object": "DPI button",
+        "vertices": 146,
+        "edges": 312,
+        "faces": 168,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "bc370ebd10ff7b68e9fbee5f731615a0a34c36485eabe2cf2fc18c63b5d57928",
+        "bounds": [
+          [
+            -1.649512529373169,
+            -15.53686237335205,
+            38.26905822753906
+          ],
+          [
+            1.6473145484924316,
+            -12.431522369384766,
+            39.745601654052734
+          ]
+        ],
+        "overlap_candidates": 0
+      },
+      {
+        "object": "Crown accent",
+        "vertices": 218,
+        "edges": 444,
+        "faces": 228,
+        "boundary_edges": 0,
+        "nonmanifold_edges": 0,
+        "finite": true,
+        "topology": "532b0b9e33f4bcc9e1e8c91a316e7d03af485c6245fb0d3e5a58064347b57d56",
+        "bounds": [
+          [
+            -0.9686900973320007,
+            9.359620094299316,
+            40.29989242553711
+          ],
+          [
+            -0.4518623948097229,
+            24.439403533935547,
+            42.7318229675293
+          ]
+        ],
+        "overlap_candidates": 0
+      }
+    ],
+    "wheel_opening_faces": 60,
+    "assembly_intersections": [
+      {
+        "objects": [
+          "Upper housing",
+          "Lower housing"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Upper housing",
+          "Left button"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Upper housing",
+          "Right button"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Upper housing",
+          "Scroll wheel"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Lower housing",
+          "Left button"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Lower housing",
+          "Right button"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Lower housing",
+          "Scroll wheel"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Left button",
+          "Right button"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Left button",
+          "Scroll wheel"
+        ],
+        "triangle_pair_count": 0
+      },
+      {
+        "objects": [
+          "Right button",
+          "Scroll wheel"
+        ],
+        "triangle_pair_count": 0
+      }
+    ],
+    "assembly_silhouettes": [
+      {
+        "iou": 0.9994045503021685,
+        "different_pixels": 67,
+        "boundary_mean": 0.013871506049228202,
+        "boundary_p95": 0.25,
+        "boundary_max": 0.25,
+        "sample_count": 2397,
+        "component": "top",
+        "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+        "sampling_size": [
+          384,
+          560
+        ]
+      },
+      {
+        "iou": 0.9848987108655617,
+        "different_pixels": 943,
+        "boundary_mean": 2.8907751629439025,
+        "boundary_p95": 9.25,
+        "boundary_max": 17.1117649586476,
+        "sample_count": 3250,
+        "component": "side",
+        "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+        "sampling_size": [
+          560,
+          240
+        ]
+      },
+      {
+        "iou": 0.9842998947637873,
+        "different_pixels": 552,
+        "boundary_mean": 1.9895892662589278,
+        "boundary_p95": 8.570100948354623,
+        "boundary_max": 9.25,
+        "sample_count": 1854,
+        "component": "front",
+        "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+        "sampling_size": [
+          384,
+          240
+        ]
+      }
+    ],
+    "limits": [
+      "Authored target, not a scan or comfort assessment.",
+      "Thickness uses sampled outer-to-inner nearest distances; normal-ray misses at finite rims are recorded separately. Gaps use sampled shared boundaries.",
+      "Offset construction and triangle-overlap diagnostics are not a full manufacturing certificate."
+    ],
+    "model_sha256": "ac40e4d8db7c6fa5a9ceab0ef1d1c2887d49c95831b6ee6a7990b86014c02327"
+  },
+  "reopen": {
+    "blender": "5.2.2 LTS",
+    "model_sha256": "ac40e4d8db7c6fa5a9ceab0ef1d1c2887d49c95831b6ee6a7990b86014c02327",
+    "saved_coordinates_match": true,
+    "independent_palm_layer_verified": true,
+    "palm_seam_refresh_max_shift": 1.8116910422224266,
+    "unchanged_vertices": 15646,
+    "undo_max_error": 0.0,
+    "attachment_anchor_max_shift": 2.872169497488959,
+    "grip_probe_count": 1806,
+    "grip_minimum_final_shell_clearance": 0.07643854536581784,
+    "metrics": [
+      {
+        "iou": 0.9997156288601161,
+        "different_pixels": 32,
+        "boundary_mean": 0.006672226855713094,
+        "boundary_p95": 0.0,
+        "boundary_max": 0.25,
+        "sample_count": 2398,
+        "object": "Mouse master",
+        "component": "top",
+        "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+        "sampling_size": [
+          384,
+          560
+        ]
+      },
+      {
+        "iou": 0.9995195772279606,
+        "different_pixels": 30,
+        "boundary_mean": 0.007035647279549718,
+        "boundary_p95": 0.0,
+        "boundary_max": 0.25,
+        "sample_count": 2132,
+        "object": "Mouse master",
+        "component": "side",
+        "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+        "sampling_size": [
+          560,
+          240
+        ]
+      },
+      {
+        "iou": 0.9995164822662761,
+        "different_pixels": 17,
+        "boundary_mean": 0.0064885496183206106,
+        "boundary_p95": 0.0,
+        "boundary_max": 0.25,
+        "sample_count": 1310,
+        "object": "Mouse master",
+        "component": "front",
+        "target_sha256": "2d7497e1d6c054b464a3d7a3b24d6698b4c24ef638d2b381ceaa1705cc13f6cc",
+        "sampling_size": [
+          384,
+          240
+        ]
+      }
+    ],
+    "section_error_max": 0.0053439884283932315,
+    "thickness": [
+      {
+        "object": "Upper housing",
+        "method": "nearest",
+        "samples": 13316,
+        "missing": 0,
+        "min": 1.5941911935806274,
+        "max": 1.5999194383621216,
+        "mean": 1.5993681436957952,
+        "passed": true
+      },
+      {
+        "object": "Lower housing",
+        "method": "nearest",
+        "samples": 17024,
+        "missing": 0,
+        "min": 1.593342900276184,
+        "max": 1.5999689102172852,
+        "mean": 1.5991270007999767,
+        "passed": true
+      },
+      {
+        "object": "Left button",
+        "method": "nearest",
+        "samples": 1794,
+        "missing": 0,
+        "min": 1.5985243320465088,
+        "max": 1.5999082326889038,
+        "mean": 1.599386070218506,
+        "passed": true
+      },
+      {
+        "object": "Right button",
+        "method": "nearest",
+        "samples": 1794,
+        "missing": 0,
+        "min": 1.5991939306259155,
+        "max": 1.5999201536178589,
+        "mean": 1.5996876406829095,
+        "passed": true
+      }
+    ],
+    "saved_gap_reports_match": true,
+    "assembly_intersections_zero": true,
+    "closed_parts_checked": 8,
+    "candidate_restore_verified": true,
+    "saved_file_unchanged": true
+  },
+  "validation": {
+    "blender_integration_tests": 19,
+    "host_tests": 3,
+    "cli_recipe": "examples/mouse-shell.json",
+    "cli_status": "complete",
+    "status": "local verification passed; Linux CI pending"
+  }
+}

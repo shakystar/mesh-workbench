@@ -27,6 +27,186 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_mouse_recipe_dispatch_and_gauge_independence(self):
+        from mesh_workbench import shells
+        from mesh_workbench.runner import run
+
+        target = json.loads((ROOT / "examples/mouse-target.json").read_text())
+        recipe = {
+            "version": 1,
+            "operations": [
+                {
+                    "op": "guide_loft",
+                    "name": "Master",
+                    "sections": target["sections"],
+                    "options": {"tilt": target["tilt"], "rows": 32, "segments": 32},
+                },
+                {
+                    "op": "define_region",
+                    "object": "Master",
+                    "name": "thumb",
+                    "selection": {"sphere": {"center": [-31, -14, 14], "radius": 24}},
+                },
+                {
+                    "op": "radial_edit",
+                    "object": "Master",
+                    "region": "thumb",
+                    "center": [-31, -14, 14],
+                    "radius": 24,
+                    "delta": [3, 0, 0],
+                },
+                {
+                    "op": "select",
+                    "object": "Master",
+                    "name": "upper",
+                    "selection": {
+                        "domain": "FACE",
+                        "box": [[-100, -100, 11], [100, 100, 100]],
+                    },
+                },
+                {
+                    "op": "select",
+                    "object": "Master",
+                    "name": "lower",
+                    "selection": {
+                        "domain": "FACE",
+                        "box": [[-100, -100, -100], [100, 100, 11]],
+                    },
+                },
+                {
+                    "op": "extract_shell",
+                    "object": "Master",
+                    "selection": "upper",
+                    "name": "Top",
+                },
+                {
+                    "op": "extract_shell",
+                    "object": "Master",
+                    "selection": "lower",
+                    "name": "Base",
+                },
+                {"op": "measure_thickness", "object": "Top", "name": "wall"},
+                {"op": "measure_gap", "left": "Top", "right": "Base", "name": "seam"},
+                {"op": "intersection_candidates", "left": "Top", "right": "Base"},
+                {"op": "section", "object": "Master", "axis": 1, "value": 0},
+                {
+                    "op": "extract_shell",
+                    "object": "Master",
+                    "selection": "upper",
+                    "name": "Thin",
+                    "options": {"thickness": 0.7},
+                },
+                {"op": "measure_thickness", "object": "Thin", "name": "bad"},
+                {
+                    "op": "mark_violations",
+                    "measurement": "bad",
+                    "name": "Markers",
+                    "options": {"limit": 10},
+                },
+            ],
+        }
+        path = self.root / "mouse.json"
+        path.write_text(json.dumps(recipe))
+        run(path, self.root / "success")
+        audit = json.loads((self.root / "success/audit.json").read_text())
+        self.assertEqual(audit["status"], "complete")
+        self.assertTrue(audit["operations"][7]["result"]["passed"])
+        self.assertTrue(audit["operations"][8]["result"]["passed"])
+        self.assertEqual(audit["operations"][9]["result"]["triangle_pair_count"], 0)
+        thin = bpy.data.objects["Thin"]
+        state = json.loads(thin["mw_shell"])
+        state["nominal_thickness"] = 200
+        thin["mw_shell"] = json.dumps(state)
+        self.assertLess(shells.thickness(thin)["max"], 0.71)
+        recipe["operations"].append(
+            {"op": "measure_thickness", "object": "Master", "name": "not-shell"}
+        )
+        path.write_text(json.dumps(recipe))
+        with self.assertRaises(ValueError):
+            run(path, self.root / "failure")
+        audit = json.loads((self.root / "failure/audit.json").read_text())
+        self.assertEqual(audit["failed_operation"]["op"], "measure_thickness")
+        plane = m.primitive("plane", "Plane")
+        original = s.coordinates(plane).copy()
+        with self.assertRaises(ValueError):
+            shells.extract(plane, g.selection(plane, "FACE"), "Folded", trim=3)
+        self.assertNotIn("Folded", bpy.data.objects)
+        np.testing.assert_array_equal(s.coordinates(plane), original)
+
+    def test_asymmetric_loft_shell_gauges_and_failures(self):
+        from mesh_workbench import loft, shells, sections, regions, fairing
+
+        target = json.loads((ROOT / "examples/mouse-target.json").read_text())
+        obj = loft.create(
+            "Mouse", target["sections"], tilt=target["tilt"], rows=48, segments=64
+        )
+        self.assertEqual(g.inspect(obj)["nonmanifold_edges"], 0)
+        self.assertEqual(fairing.overlap_candidates(obj), 0)
+        section = sections.cut(obj, 1, 0)
+        self.assertLess(abs(section["bounds"][0][0] + 36), 1e-5)
+        self.assertLess(abs(section["bounds"][1][0] - 31), 1e-5)
+        self.assertLess(abs(section["bounds"][1][2] - 43), 0.15)
+        params = json.loads(obj["mw_loft_face_params"])
+        top = [i for i, p in enumerate(params) if p[1] < np.pi]
+        base = [i for i, p in enumerate(params) if p[1] >= np.pi]
+        upper = shells.extract(obj, g.selection(obj, "FACE", indices=top), "Top")
+        lower = shells.extract(obj, g.selection(obj, "FACE", indices=base), "Base")
+        self.assertEqual(g.inspect(upper)["nonmanifold_edges"], 0)
+        self.assertEqual(g.inspect(lower)["nonmanifold_edges"], 0)
+        thickness = shells.thickness(upper)
+        print(
+            "SHELL_TEST",
+            json.dumps({k: v for k, v in thickness.items() if k != "violations"}),
+        )
+        self.assertTrue(thickness["passed"], thickness["violations"][:3])
+        gap = shells.gap(upper, lower)
+        print(
+            "GAP_TEST", json.dumps({k: v for k, v in gap.items() if k != "violations"})
+        )
+        self.assertTrue(gap["passed"], gap["violations"][:3])
+        thin = shells.extract(
+            obj, g.selection(obj, "FACE", indices=top), "Too thin", thickness=0.7
+        )
+        bad = shells.thickness(thin)
+        self.assertFalse(bad["passed"])
+        self.assertGreater(len(bad["violations"]), 0)
+        marker = shells.markers("Violations", bad, limit=20)
+        self.assertLessEqual(len(marker.data.vertices), 120)
+        self.assertEqual(g.inspect(marker)["nonmanifold_edges"], 0)
+        # A highly concentrated pole sampling can fold an offset interior.
+        # It must be rejected atomically rather than returned as a valid shell.
+        dense = loft.create(
+            "Dense poles", target["sections"], tilt=target["tilt"], end_refinement=1
+        )
+        dense_params = json.loads(dense["mw_loft_face_params"])
+        dense_top = [i for i, p in enumerate(dense_params) if p[1] < np.pi]
+        mesh_count = len(bpy.data.meshes)
+        with self.assertRaisesRegex(ValueError, "overlaps"):
+            shells.extract(
+                dense, g.selection(dense, "FACE", indices=dense_top), "Rejected offset"
+            )
+        self.assertNotIn("Rejected offset", bpy.data.objects)
+        self.assertEqual(len(bpy.data.meshes), mesh_count)
+        original = s.coordinates(obj).copy()
+        region = g.selection(obj, "VERT", box=[[-50, -45, 5], [-10, 20, 32]])
+        regions.define(obj, "thumb", region)
+        edit = regions.radial_move(obj, "thumb", [-31, -14, 14], 24, [3, 0, 0])
+        outside = sorted(set(range(len(original))) - set(region["indices"]))
+        np.testing.assert_array_equal(s.coordinates(obj)[outside], original[outside])
+        obj.data.shape_keys.key_blocks[edit["layer"]].value = 0
+        np.testing.assert_allclose(s.coordinates(obj), original, atol=1e-7)
+        with self.assertRaises(ValueError):
+            sections.cut(obj, 1, 1000)
+        with self.assertRaises(ValueError):
+            loft.create("Invalid", target["sections"], segments=17)
+        with self.assertRaises(ValueError):
+            shells.extract(obj, g.selection(obj, "VERT"), "Bad")
+        lower.data.polygons[0].vertices = tuple(
+            reversed(lower.data.polygons[0].vertices)
+        )
+        with self.assertRaises(ValueError):
+            shells.gap(upper, lower)
+
     def test_precision_reference_regions_and_candidate_restore(self):
         from mesh_workbench import (
             precision,

@@ -1,0 +1,284 @@
+{
+  "version": 1,
+  "camera": {
+    "position": [
+      -175,
+      -210,
+      165
+    ],
+    "target": [
+      0,
+      0,
+      21
+    ],
+    "scale": 166,
+    "size": [
+      512,
+      512
+    ]
+  },
+  "operations": [
+    {
+      "op": "guide_loft",
+      "name": "Master",
+      "sections": [
+        {
+          "y": -62,
+          "left": 0,
+          "right": 0,
+          "top": 11,
+          "bottom": 11
+        },
+        {
+          "y": -56,
+          "left": 20,
+          "right": 19,
+          "top": 24,
+          "bottom": 3
+        },
+        {
+          "y": -42,
+          "left": 29,
+          "right": 27,
+          "top": 29,
+          "bottom": 2
+        },
+        {
+          "y": -22,
+          "left": 32,
+          "right": 29,
+          "top": 36,
+          "bottom": 2
+        },
+        {
+          "y": 0,
+          "left": 36,
+          "right": 31,
+          "top": 43,
+          "bottom": 2
+        },
+        {
+          "y": 22,
+          "left": 37,
+          "right": 32,
+          "top": 41,
+          "bottom": 2
+        },
+        {
+          "y": 42,
+          "left": 31,
+          "right": 29,
+          "top": 32,
+          "bottom": 2
+        },
+        {
+          "y": 56,
+          "left": 18,
+          "right": 17,
+          "top": 22,
+          "bottom": 3
+        },
+        {
+          "y": 62,
+          "left": 0,
+          "right": 0,
+          "top": 11,
+          "bottom": 11
+        }
+      ],
+      "options": {
+        "tilt": -0.12,
+        "rows": 128,
+        "segments": 128,
+        "end_refinement": 0.75
+      }
+    },
+    {
+      "op": "define_region",
+      "object": "Master",
+      "name": "thumb",
+      "selection": {
+        "sphere": {
+          "center": [
+            -31,
+            -14,
+            14
+          ],
+          "radius": 24
+        }
+      }
+    },
+    {
+      "op": "radial_edit",
+      "object": "Master",
+      "region": "thumb",
+      "center": [
+        -31,
+        -14,
+        14
+      ],
+      "radius": 24,
+      "delta": [
+        3,
+        0,
+        0
+      ]
+    },
+    {
+      "op": "select",
+      "object": "Master",
+      "name": "upper",
+      "selection": {
+        "domain": "FACE",
+        "box": [
+          [
+            -100,
+            -100,
+            11
+          ],
+          [
+            100,
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "op": "select",
+      "object": "Master",
+      "name": "lower",
+      "selection": {
+        "domain": "FACE",
+        "box": [
+          [
+            -100,
+            -100,
+            -100
+          ],
+          [
+            100,
+            100,
+            11
+          ]
+        ]
+      }
+    },
+    {
+      "op": "extract_shell",
+      "object": "Master",
+      "selection": "upper",
+      "name": "Top"
+    },
+    {
+      "op": "extract_shell",
+      "object": "Master",
+      "selection": "lower",
+      "name": "Base"
+    },
+    {
+      "op": "measure_thickness",
+      "object": "Top",
+      "name": "top wall"
+    },
+    {
+      "op": "measure_thickness",
+      "object": "Base",
+      "name": "base wall"
+    },
+    {
+      "op": "measure_gap",
+      "left": "Top",
+      "right": "Base",
+      "name": "seam"
+    },
+    {
+      "op": "section",
+      "object": "Master",
+      "axis": 1,
+      "value": 0
+    },
+    {
+      "op": "intersection_candidates",
+      "left": "Top",
+      "right": "Base"
+    },
+    {
+      "op": "material",
+      "name": "Shell enamel",
+      "objects": [
+        "Top"
+      ],
+      "color": [
+        0.1,
+        0.29,
+        0.3,
+        1
+      ],
+      "options": {
+        "metallic": 0.18,
+        "roughness": 0.32
+      }
+    },
+    {
+      "op": "material",
+      "name": "Base rubber",
+      "objects": [
+        "Base"
+      ],
+      "color": [
+        0.06,
+        0.08,
+        0.1,
+        1
+      ],
+      "options": {
+        "roughness": 0.6
+      }
+    },
+    {
+      "op": "visible",
+      "objects": [
+        "Master"
+      ],
+      "value": false,
+      "viewport": true
+    },
+    {
+      "op": "light",
+      "name": "Key",
+      "position": [
+        -150,
+        -160,
+        240
+      ],
+      "energy": 1600000,
+      "size": 160,
+      "target": [
+        0,
+        0,
+        15
+      ]
+    },
+    {
+      "op": "light",
+      "name": "Fill",
+      "position": [
+        180,
+        20,
+        120
+      ],
+      "energy": 900000,
+      "size": 160,
+      "target": [
+        0,
+        0,
+        15
+      ]
+    },
+    {
+      "op": "capture",
+      "name": "review"
+    }
+  ]
+}

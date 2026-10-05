@@ -51,6 +51,24 @@ def target_mask(view, shapes):
     if not shapes:
         raise ValueError("Empty target")
     for s in shapes:
+        if s["kind"] == "polygon":
+            points = np.asarray(s["points"], dtype=float)
+            if (
+                points.ndim != 2
+                or points.shape[1] != 2
+                or not 3 <= len(points) <= 4096
+                or not np.isfinite(points).all()
+            ):
+                raise ValueError("Finite polygon with 3..4096 XY vertices required")
+            inside = np.zeros(x.shape, dtype=bool)
+            for a, b in zip(points, np.roll(points, -1, axis=0)):
+                if abs(b[1] - a[1]) > 1e-12:
+                    crossing = ((a[1] > y) != (b[1] > y)) & (
+                        x < (b[0] - a[0]) * (y - a[1]) / (b[1] - a[1]) + a[0]
+                    )
+                    inside ^= crossing
+            result = result & ~inside if s.get("subtract", False) else result | inside
+            continue
         center = np.asarray(s["center"], dtype=float)
         radius = float(s["radius"])
         if (

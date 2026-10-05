@@ -38,15 +38,24 @@ def rank(entries, components, min_iou=0.99, max_boundary=0.012):
                 raise ValueError("Invalid metric")
             fingerprints.add(r["target_sha256"])
             sampling[r["component"]].add(tuple(r.get("sampling_size", [])))
+        constraints = entry.get("constraint_violations", 0)
+        if type(constraints) is not int or constraints < 0:
+            raise ValueError("Constraint violation count must be a nonnegative integer")
         valid = entry["nonmanifold_edges"] == 0 and entry["overlap_candidates"] == 0
-        passed = valid and all(
-            r["iou"] >= min_iou and r["boundary_mean"] <= max_boundary for r in reports
+        passed = (
+            valid
+            and constraints == 0
+            and all(
+                r["iou"] >= min_iou and r["boundary_mean"] <= max_boundary
+                for r in reports
+            )
         )
         result.append(
             {
                 "name": entry["name"],
                 "accepted": passed,
                 "geometry_valid": valid,
+                "constraint_violations": constraints,
                 "mean_iou": sum(r["iou"] for r in reports) / len(reports),
             }
         )

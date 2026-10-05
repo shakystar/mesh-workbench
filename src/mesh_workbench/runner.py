@@ -20,6 +20,9 @@ from mesh_workbench import (
     fairing,
     geometry,
     materials,
+    loft,
+    shells,
+    sections,
     models,
     patterns,
     relief,
@@ -83,6 +86,7 @@ def run(recipe_path, output):
         "sources": {},
     }
     selections = {}
+    measurements = {}
     current_operation = None
     sculpt.dump(output / "recipe.json", recipe)
 
@@ -118,6 +122,42 @@ def run(recipe_path, output):
                     c.get("scale", [1, 1, 1]),
                     **c.get("options", {}),
                 )
+            elif op == "guide_loft":
+                result = loft.create(c["name"], c["sections"], **c.get("options", {}))
+            elif op == "radial_edit":
+                result = regions.radial_move(
+                    obj(c["object"]),
+                    c["region"],
+                    c["center"],
+                    c["radius"],
+                    c["delta"],
+                    **c.get("options", {}),
+                )
+            elif op == "extract_shell":
+                result = shells.extract(
+                    obj(c["object"]),
+                    selections[c["selection"]],
+                    c["name"],
+                    **c.get("options", {}),
+                )
+            elif op == "measure_thickness":
+                result = shells.thickness(obj(c["object"]), **c.get("options", {}))
+                measurements[c["name"]] = result
+            elif op == "measure_gap":
+                result = shells.gap(
+                    obj(c["left"]), obj(c["right"]), **c.get("options", {})
+                )
+                measurements[c["name"]] = result
+            elif op == "mark_violations":
+                result = shells.markers(
+                    c["name"], measurements[c["measurement"]], **c.get("options", {})
+                )
+            elif op == "section":
+                result = sections.cut(obj(c["object"]), c["axis"], c["value"])
+                if c.get("expected_bounds") is not None:
+                    result = sections.compare(result, c["expected_bounds"])
+            elif op == "intersection_candidates":
+                result = shells.intersections(obj(c["left"]), obj(c["right"]))
             elif op == "rounded_panel":
                 result = precision.rounded_panel(
                     c["name"],

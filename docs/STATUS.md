@@ -1,5 +1,9 @@
 # Development status
 
+## Asymmetric mouse (2026-10-05)
+
+Six modeling milestones implemented and locally verified: authored target, asymmetric guide loft, independent thumb/palm layers, closed housing/button partitions with wall and gap gauges, following grip/crown details, and saved-file verification. Final native artifact: `runs/mouse-study-08/mouse.blend`. All 19 Blender integration tests pass; host and CLI checks are recorded in the [study](MOUSE_STUDY.md) and [audit](MOUSE_AUDIT.json). Linux CI pending for this change. Normal-ray rim misses remain explicitly recorded; acceptance uses sampled nearest opposite-skin distance. Comfort/manufacturing validation is outside this goal.
+
 ## Precision refinement (2026-10-05)
 
 Reference-driven speaker tooling and model refinement completed. Added analytic target comparisons, named topology-bound regions, reversible profile edits, independent panel radii, cubic sweeps, deforming mesh seams and candidate selection/restore. Three component IoUs average 91.717% before and 99.972% after at identical 0.005-unit sampling. All 17 Blender tests and 3 host tests pass; fresh-process native-file checks preserve 41 original mesh objects and verify 32 final visible parts, saved metrics, region/attachment persistence and visibility rollback. See [study](PRECISION_STUDY.md) and [audit](PRECISION_AUDIT.json). Implementation Linux CI passed: https://github.com/shakystar/mesh-workbench/actions/runs/37292317713 . The precision-refinement goal is complete.

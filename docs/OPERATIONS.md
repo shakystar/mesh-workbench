@@ -115,3 +115,37 @@ IoU and symmetric nearest-boundary distances measure sampled silhouette agreemen
 Python `candidates.rank(entries, components, min_iou=0.99, max_boundary=0.012)` requires matching target hashes, matching per-component sampling and complete reports. Entries have `name`, `reports`, `nonmanifold_edges`, `overlap_candidates`. Ranking checks supplied diagnostics and does not change geometry. `activate` changes only the listed alternatives, retaining a visibility snapshot in the scene; `restore` restores it. Shared parts are untouched. Nested transactions and missing objects fail explicitly.
 
 API reference: [Blender BVHTree](https://docs.blender.org/api/current/mathutils.bvhtree.html). Queries use explicit world-space triangles; functionality is verified by executed Blender tests.
+
+
+## Guide lofts and measured shells
+
+See the [six-milestone mouse study](MOUSE_STUDY.md), full [Python example](../examples/mouse_study.py), and [ordinary JSON recipe](../examples/mouse-shell.json).
+
+| JSON operation | Required fields | Optional fields |
+| --- | --- | --- |
+| `guide_loft` | `name`, `sections` | `options`: `seam_height`, `tilt`, `rows`, `segments`, `end_refinement` |
+| `radial_edit` | `object`, `region`, `center`, `radius`, `delta` | `options`: `label` |
+| `extract_shell` | `object`, `selection` (existing named FACE selection), `name` | `options`: `thickness`, `trim` |
+| `measure_thickness` | `object`, `name` (measurement key) | `options`: `minimum`, `maximum`, `method` (`nearest` or `normal`) |
+| `measure_gap` | `left`, `right`, `name` (measurement key) | `options`: `minimum`, `maximum` |
+| `mark_violations` | `measurement`, `name` | `options`: `radius`, `limit` |
+| `section` | `object`, `axis`, `value` | `expected_bounds`: ordered min/max XYZ vectors |
+| `intersection_candidates` | `left`, `right` | None |
+
+`guide_loft` creates a closed asymmetric ring loft. Each ordered section has `y`, positive interior `left`/`right` half-widths, `top`, `bottom`. End poles require zero widths and top/bottom equal to `seam_height`. Squared radii use shape-preserving cubic Hermite interpolation. The cross section has a smooth asymmetric lateral mapping and a normalized upper tilt. This is a bounded loft family, not arbitrary NURBS fitting or global curvature optimization. Angular `segments` must be divisible by four. `end_refinement` blends uniform Y sampling (0) and cosine sampling (1); default 0.5. Nearly identical guide/sample rows snap to the exact guide. More sampling does not guarantee a valid offset shell.
+
+`radial_edit` applies frozen smooth radial weights to an existing named vertex region. It requires a single-user static mesh, preserves all unselected coordinates and adds an independently toggleable layer. Zero influence and detected introduced overlaps fail explicitly. The mouse retains a thumb layer enabled and a separate palm trial disabled.
+
+`extract_shell` preserves its master and creates a closed, independent snapshot of a face patch. Boundary loops must be disjoint and manifold. Trim displacement spreads through a geodesic collar and projects to the master; interpolated normals define the inner offset. Reversed outer edges/cells and detected nonadjacent overlaps fail. Rejected outputs are removed without changing the source. Full arbitrary concave offsetting is not promised. Source edits require explicit regeneration, not an automatic feature-tree update.
+
+`measure_thickness` samples triangle centroids on the recorded outer skin against the actual inner mesh. Default `nearest` reports shortest opposite-skin distances; `normal` shoots geometric face-normal rays. The latter can miss the finite inner patch by exiting a rim, and such misses remain failed samples. Reports always include the method, min/max/mean, sample and miss counts, pass flag, and every violating coordinate. This is a sampled opposite-skin gauge, not a continuous minimum-thickness proof or rim-thickness measurement. It does not simply return the construction's nominal thickness.
+
+`measure_gap` requires patches from the same indexed master. It finds their shared source boundary edges and samples both directions at endpoints and midpoints, measuring nearest distance to the opposite corresponding edge. It checks outer trim boundaries, not every interior clearance. Reports retain all violating coordinates. `mark_violations` creates native octahedral location markers, bounded by `limit`; it fails if there are no violations.
+
+A measurement returning `passed: false` is a completed measurement, not a runner exception. Callers must check the flag before accepting a candidate. Invalid inputs, stale topology, or invalid shell construction throw and mark the recipe audit failed. Changed connectivity invalidates stored shell gauge metadata.
+
+`section` intersects evaluated triangles with a world-coordinate plane (axis 0/1/2). It returns line segments and XYZ bounds, or compares bounds with `expected_bounds`. A missed/coplanar section fails rather than returning an empty success. Section bounds do not by themselves constrain the whole contour.
+
+`intersection_candidates` reports cross-object triangle pairs without excluding contacts. It does not detect full containment without a surface crossing. Use it alongside shell gauges and visual review; intentionally embedded relief bottoms are a different contact class.
+
+Reference drawings also support `polygon` shapes with finite XY `points` (3..4096). Ordered simple polygons use even-odd filling. Candidate rows can include a nonnegative integer `constraint_violations`; nonzero counts reject otherwise high-overlap candidates. The mouse uses this for section constraints.

@@ -1,0 +1,214 @@
+{
+  "version": 1,
+  "name": "Asymmetric mouse authored brief v1",
+  "units": "millimeters",
+  "length": 124,
+  "notes": "Original design target fixed before model generation; not a real product scan. Physical comfort and production readiness are not asserted.",
+  "sections": [
+    {
+      "y": -62,
+      "left": 0,
+      "right": 0,
+      "top": 11,
+      "bottom": 11
+    },
+    {
+      "y": -56,
+      "left": 20,
+      "right": 19,
+      "top": 24,
+      "bottom": 3
+    },
+    {
+      "y": -42,
+      "left": 29,
+      "right": 27,
+      "top": 29,
+      "bottom": 2
+    },
+    {
+      "y": -22,
+      "left": 32,
+      "right": 29,
+      "top": 36,
+      "bottom": 2
+    },
+    {
+      "y": 0,
+      "left": 36,
+      "right": 31,
+      "top": 43,
+      "bottom": 2
+    },
+    {
+      "y": 22,
+      "left": 37,
+      "right": 32,
+      "top": 41,
+      "bottom": 2
+    },
+    {
+      "y": 42,
+      "left": 31,
+      "right": 29,
+      "top": 32,
+      "bottom": 2
+    },
+    {
+      "y": 56,
+      "left": 18,
+      "right": 17,
+      "top": 22,
+      "bottom": 3
+    },
+    {
+      "y": 62,
+      "left": 0,
+      "right": 0,
+      "top": 11,
+      "bottom": 11
+    }
+  ],
+  "seam_height": 11,
+  "tilt": -0.12,
+  "local_edit": {
+    "name": "thumb well",
+    "center": [
+      -31,
+      -14,
+      14
+    ],
+    "radius": 24,
+    "displacement": [
+      3.0,
+      0,
+      0
+    ]
+  },
+  "shell": {
+    "nominal_thickness": 1.6,
+    "minimum_thickness": 1.35,
+    "maximum_thickness": 1.9,
+    "panel_gap": 0.7,
+    "minimum_gap": 0.45,
+    "maximum_gap": 1.05
+  },
+  "buttons": {
+    "y_range": [
+      -52,
+      -10
+    ],
+    "theta_ranges": [
+      [
+        0.33,
+        1.48
+      ],
+      [
+        1.66,
+        2.79
+      ]
+    ]
+  },
+  "acceptance": {
+    "silhouette_iou_min": 0.97,
+    "section_bound_error_max_mm": 0.65,
+    "pinned_vertex_error_max_mm": 1e-05,
+    "require_closed_parts": true,
+    "require_reopen": true
+  },
+  "views": {
+    "top": {
+      "horizontal": [
+        1,
+        0,
+        0
+      ],
+      "vertical": [
+        0,
+        1,
+        0
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ],
+      "bounds": [
+        -48,
+        48,
+        -70,
+        70
+      ],
+      "depth": [
+        -80,
+        80
+      ],
+      "size": [
+        384,
+        560
+      ]
+    },
+    "side": {
+      "horizontal": [
+        0,
+        1,
+        0
+      ],
+      "vertical": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "bounds": [
+        -70,
+        70,
+        -5,
+        55
+      ],
+      "depth": [
+        -80,
+        80
+      ],
+      "size": [
+        560,
+        240
+      ]
+    },
+    "front": {
+      "horizontal": [
+        1,
+        0,
+        0
+      ],
+      "vertical": [
+        0,
+        0,
+        1
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "bounds": [
+        -48,
+        48,
+        -5,
+        55
+      ],
+      "depth": [
+        -80,
+        80
+      ],
+      "size": [
+        384,
+        240
+      ]
+    }
+  }
+}
