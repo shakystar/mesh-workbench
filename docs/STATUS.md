@@ -23,3 +23,11 @@ Two original designs now exercise the tool in actual modeling: a field robot and
 Added dimensioned rounded boxes, profile revolutions and two-anchor struts in the Python API. Local Blender 5.2.2 LTS: 8 integration tests and 3 host tests passed. Evaluated final visible mesh parts had no nonmanifold edges; this is not a collision/rig/production validation. New work has not yet been independently verified on Linux.
 
 Goal continues: try additional design families, use captured surface data for local refinement, and extract tools from demonstrated failures.
+
+## Organic modeling iteration (2026-10-05)
+
+- Added an original ray sculpture and actual render-coordinate-driven symmetric Grab. Final body: 14,850 vertices, 5,966 modified. Independent reopen test verifies saved arrays, disable/restore, 4,994 unchanged central vertices and mirror displacement error below 2.82e-7.
+- First narrow geodesic result was visually rejected for abrupt wing curvature; revised influence covers the wing thickness. Material boundaries and tail-root proportions were also revised. Separate tail junction and simple anatomy remain unresolved.
+- Added elliptical section sweep with transported frames and editable triangle cap domains. Reused it to replace the lantern's overlapping handle rods with a continuous rounded tube.
+- Nine Blender integration tests passed locally after the final sweep changes. Previous product-study CI passed on Linux: https://github.com/shakystar/mesh-workbench/actions/runs/37279692223 .
+- Actual previews and reproduction commands: [design journal](DESIGN_STUDIES.md). Goal remains active; persistent model edits and tool reuse are demonstrated, not expert-level organic modeling.

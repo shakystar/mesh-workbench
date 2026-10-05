@@ -27,6 +27,45 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_sweep_transport_geometry_and_rejections(self):
+        from mesh_workbench.sweep import sweep
+        import bmesh
+
+        centers = [[0, 0, 0], [0, 0, 1], [0.4, 0, 1.8], [1.1, 0.2, 2.1]]
+        radii = [[0.2, 0.1]] * 4
+        obj = sweep("Curved", centers, radii, segments=32)
+        world = s.coordinates(obj)
+        for i, point in enumerate(centers):
+            ring = world[i * 32 : (i + 1) * 32]
+            np.testing.assert_allclose(ring.mean(axis=0), point, atol=1e-6)
+            lengths = np.linalg.norm(ring - point, axis=1)
+            self.assertAlmostEqual(float(lengths.min()), 0.1, places=6)
+            self.assertAlmostEqual(float(lengths.max()), 0.2, places=6)
+        self.assertEqual(g.inspect(obj)["nonmanifold_edges"], 0)
+        bm = bmesh.new()
+        bm.from_mesh(obj.data)
+        self.assertGreater(bm.calc_volume(signed=True), 0)
+        bm.free()
+        # First-width and transported width axes must remain perpendicular to tangents.
+        np.testing.assert_allclose(world[0], [0.2, 0, 0], atol=1e-6)
+        for i in [1, 2]:
+            a = np.array(centers[i]) - centers[i - 1]
+            b = np.array(centers[i + 1]) - centers[i]
+            tangent = a / np.linalg.norm(a) + b / np.linalg.norm(b)
+            self.assertAlmostEqual(
+                float((world[i * 32] - centers[i]) @ tangent), 0, places=6
+            )
+        count = len(bpy.data.objects)
+        for pts, rs, ref in [
+            ([[0, 0, 0], [0, 0, 0]], [[1, 1]] * 2, [1, 0, 0]),
+            ([[0, 0, 0], [0, 0, 1], [0, 0, 0]], [[1, 1]] * 3, [1, 0, 0]),
+            (centers, [[0, 1]] * 4, [1, 0, 0]),
+            (centers, radii, [0, 0, 1]),
+        ]:
+            with self.assertRaises(ValueError):
+                sweep("Bad", pts, rs, reference=ref)
+            self.assertEqual(len(bpy.data.objects), count)
+
     def test_construction_dimensions_profiles_and_anchors(self):
         from mesh_workbench import construction as c
         import bmesh

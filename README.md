@@ -66,3 +66,5 @@ GPL-3.0-or-later; see [LICENSE](LICENSE). No third-party character models, conte
 ## Modeled design studies
 
 Two original procedural designs, their actual Blender renders, iterative critique and reproduction commands are available in the [design journal](docs/DESIGN_STUDIES.md). Reusable dimensioned construction helpers are exposed through the Python API.
+
+The [organic study](examples/organic_study.py) adds a third design family and records reversible edits from captured render coordinates. Its section-sweep tool is also reused to improve the lantern handle; see the journal for before/after evidence and remaining limits.
