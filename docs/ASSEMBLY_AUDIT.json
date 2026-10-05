@@ -880,6 +880,14 @@
     "cli_example": "assembly-basic.json",
     "cli_passed": true,
     "structured_failure_report_test_passed": true,
-    "linux_ci": "pending"
-  }
+    "linux_ci": {
+      "url": "https://github.com/shakystar/mesh-workbench/actions/runs/37318519975",
+      "conclusion": "success",
+      "blender": "4.0.2",
+      "blender_tests": 23,
+      "host_tests": 3,
+      "commit": "ae3be01553c984cefebbbb58e4cf7261c97f8c1c"
+    }
+  },
+  "goal_status": "complete"
 }

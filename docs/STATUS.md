@@ -2,7 +2,7 @@
 
 ## Regenerating assemblies (2026-10-05)
 
-Six milestones implemented: persisted dependencies, selective same-topology regeneration, measured wall/gap/attachment acceptance, staged atomic commit/rollback, sampled rigid motion, and three native mouse variants with fresh-process follow-up editing. Local Blender 5.2.2 LTS: 23 integration tests pass; three host tests and the real CLI example pass. Files: `runs/assembly-mouse-04/{width,height,thumb}/model.blend`. See [study](ASSEMBLY_STUDY.md) and [audit](ASSEMBLY_AUDIT.json). Publication/CI verification is pending. The 0.6 mm button path correctly reports interference; a 0.15 mm trial passes. Motion checks remain discrete and do not prove manufacturing readiness.
+Six milestones implemented: persisted dependencies, selective same-topology regeneration, measured wall/gap/attachment acceptance, staged atomic commit/rollback, sampled rigid motion, and three native mouse variants with fresh-process follow-up editing. Local Blender 5.2.2 LTS: 23 integration tests pass; three host tests and the real CLI example pass. Files: `runs/assembly-mouse-04/{width,height,thumb}/model.blend`. See [study](ASSEMBLY_STUDY.md) and [audit](ASSEMBLY_AUDIT.json). Goal complete. Implementation published as `ae3be01553c984cefebbbb58e4cf7261c97f8c1c`; [Linux Blender 4.0.2 CI](https://github.com/shakystar/mesh-workbench/actions/runs/37318519975) passes the same 23 integration and 3 host tests. The 0.6 mm button path correctly reports interference; a 0.15 mm trial passes. Motion checks remain discrete and do not prove manufacturing readiness.
 
 
 ## Asymmetric mouse (2026-10-05)

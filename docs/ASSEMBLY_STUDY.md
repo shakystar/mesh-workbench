@@ -52,6 +52,6 @@ Python and JSON interfaces are described in [operations](OPERATIONS.md#persisted
 
 ## Validation and development findings
 
-Windows Blender 5.2.2 LTS: 23 integration tests and 3 host tests pass; the real host CLI example completes. An additional focused test verifies structured CLI rejection reports after the final audit change. Fresh-process reopen and follow-up editing pass for all three models. Linux CI is recorded after publication.
+Windows Blender 5.2.2 LTS: 23 integration tests and 3 host tests pass; the real host CLI example completes. An additional focused test verifies structured CLI rejection reports after the final audit change. Fresh-process reopen and follow-up editing pass for all three models. [Linux CI](https://github.com/shakystar/mesh-workbench/actions/runs/37318519975) passes all 23 integration and 3 host tests with Blender 4.0.2 on implementation commit `ae3be01553c984cefebbbb58e4cf7261c97f8c1c`. All six milestones are complete.
 
 Earlier trials are retained locally. The first exposed invalid evaluated-mesh lifetime handling. A later reopen check caught a tiny wheel-coordinate change caused by matrix decomposition during motion restoration; restoring the original transform channels fixes it, with exact-coordinate regression coverage. The final reopened files pass the same revision checks used before editing.
