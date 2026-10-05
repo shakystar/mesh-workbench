@@ -31,3 +31,11 @@ Goal continues: try additional design families, use captured surface data for lo
 - Added elliptical section sweep with transported frames and editable triangle cap domains. Reused it to replace the lantern's overlapping handle rods with a continuous rounded tube.
 - Nine Blender integration tests passed locally after the final sweep changes. Previous product-study CI passed on Linux: https://github.com/shakystar/mesh-workbench/actions/runs/37279692223 .
 - Actual previews and reproduction commands: [design journal](DESIGN_STUDIES.md). Goal remains active; persistent model edits and tool reuse are demonstrated, not expert-level organic modeling.
+
+## Organic junction correction (2026-10-05)
+
+- Found a defect missed by previous manifold checks: 328 nonadjacent overlap candidates in the old ray body. Width-dependent end camber corrected the source; exact union then worked. Empty Boolean UNION results are now explicitly rejected and cleaned up.
+- Added local reversible two-pass fairing, component counts and overlap-candidate diagnostics. Rejected three overly strong edits and verified complete rollback. The accepted weak union fairing had negligible visual benefit.
+- Compared a continuous-section alternative and selected it from actual close-up renders. Final ray: one component, 18,946 vertices, 18,944 faces, zero boundary/nonmanifold edges and zero nonadjacent overlap candidates. Saved-file verification passes; the diagnostic is not a complete self-intersection proof.
+- Ten Blender integration tests passed; saved join/rejection and continuous-ray verification also passed in fresh processes. Prior commit Linux CI passed: https://github.com/shakystar/mesh-workbench/actions/runs/37281114724 .
+- Preferred example: `organic_study.py -- NEW_OUTPUT --continuous`. Journal retains the rejected alternatives and remaining work. Goal stays active.

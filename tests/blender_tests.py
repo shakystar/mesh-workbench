@@ -27,6 +27,52 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_local_fairing_and_intersection_diagnostics(self):
+        from mesh_workbench import fairing
+
+        plane = m.primitive("plane", "Base")
+        grid = g.edit_topology(
+            plane, g.selection(plane, "FACE"), "subdivide", "Grid", cuts=12
+        )
+        for v in grid.data.vertices:
+            v.co.z = 0.15 * np.sin(v.co.x * 13) * np.sin(v.co.y * 13)
+        before = s.coordinates(grid)
+        result = fairing.region(grid, [0, 0, 0], 1.2, iterations=12)
+        after = s.coordinates(grid)
+        self.assertLess(float(after[:, 2].std()), float(before[:, 2].std()))
+        pinned = (np.abs(before[:, 0]) > 0.99) | (np.abs(before[:, 1]) > 0.99)
+        np.testing.assert_array_equal(before[pinned], after[pinned])
+        s.set_layer(grid, result["layer"], 0)
+        np.testing.assert_allclose(s.coordinates(grid), before, atol=1e-6)
+        s.set_layer(grid, result["layer"], 1)
+        np.testing.assert_allclose(s.coordinates(grid), after, atol=1e-6)
+        self.assertEqual(fairing.components(grid), [len(before)])
+        keys = len(grid.data.shape_keys.key_blocks)
+        for kw in [{"iterations": 0}, {"positive": 1.1}, {"negative": 0.1}]:
+            with self.assertRaises(ValueError):
+                fairing.region(grid, [0, 0, 0], 1, **kw)
+        with self.assertRaises(ValueError):
+            fairing.region(grid, [30, 0, 0], 0.1)
+        self.assertEqual(len(grid.data.shape_keys.key_blocks), keys)
+        mesh = bpy.data.meshes.new("Crossing")
+        mesh.from_pydata(
+            [
+                (-1, 0, 0),
+                (1, 0, 0),
+                (0, 1, 0),
+                (0, 0.3, -1),
+                (0, 0.3, 1),
+                (0.5, 0.3, 0),
+            ],
+            [],
+            [(0, 1, 2), (3, 4, 5)],
+        )
+        ob = bpy.data.objects.new("Crossing", mesh)
+        bpy.context.collection.objects.link(ob)
+        self.assertEqual(fairing.overlap_candidates(ob), 1)
+        self.assertEqual(fairing.components(ob), [3, 3])
+        self.assertEqual(fairing.overlap_candidates(plane), 0)
+
     def test_sweep_transport_geometry_and_rejections(self):
         from mesh_workbench.sweep import sweep
         import bmesh

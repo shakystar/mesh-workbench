@@ -65,21 +65,38 @@ rows = [
     (1.4, 0.14, 0.07),
     (1.48, 0.045, 0.035),
 ]
+continuous = "--continuous" in sys.argv
+centers = [(0, y, 1.0) for y, w, h in rows]
+sizes = [(w, h) for y, w, h in rows]
+if continuous:
+    rows = rows[:-1]
+    centers = [(0, y, 1.0) for y, w, h in rows] + [
+        (0, 1.65, 1),
+        (0, 2.05, 1.04),
+        (0.25, 2.48, 1.17),
+        (0.38, 2.86, 1.39),
+        (0.48, 3.12, 1.6),
+    ]
+    sizes = [(w, h) for y, w, h in rows] + [
+        (0.06, 0.04),
+        (0.044, 0.029),
+        (0.033, 0.024),
+        (0.023, 0.018),
+        (0.008, 0.008),
+    ]
 body = finish(
-    sweep(
-        "Ray body", [(0, y, 1.0) for y, w, h in rows], [(w, h) for y, w, h in rows], 64
-    ),
+    sweep("Ray body", centers, sizes, 64),
     teal,
 )
 body.data.materials.append(cream)
 for i, (y, w, h) in enumerate(rows):
     for j in range(64):
         v = body.data.vertices[i * 64 + j]
-        v.co.z += 0.16 * (abs(v.co.x) / w) ** 4
+        v.co.z += 0.16 * min(1.0, w) ** 2 * (abs(v.co.x) / w) ** 4
 for p in body.data.polygons:
-    if p.index < (len(rows) - 1) * 64 and p.index % 64 < 32:
+    if p.index < (len(centers) - 1) * 64 and p.index % 64 < 32:
         p.material_index = 1
-    elif p.index >= (len(rows) - 1) * 64:
+    elif p.index >= (len(centers) - 1) * 64:
         center = sum((body.data.vertices[i].co for i in p.vertices), Vector()) / len(
             p.vertices
         )
@@ -87,30 +104,31 @@ for p in body.data.polygons:
             p.material_index = 1
 subdivide(body, 2)
 # A thin tapering tail curves upward instead of remaining a straight cylinder.
-tail = finish(
-    sweep(
-        "Tail",
-        [
-            (0, 1.42, 1),
-            (0.03, 1.65, 1.0),
-            (0.13, 2.05, 1.04),
-            (0.25, 2.48, 1.17),
-            (0.38, 2.86, 1.39),
-            (0.48, 3.12, 1.6),
-        ],
-        [
-            (0.054, 0.039),
-            (0.05, 0.032),
-            (0.044, 0.029),
-            (0.033, 0.024),
-            (0.023, 0.018),
-            (0.008, 0.008),
-        ],
-        24,
-    ),
-    teal,
-)
-subdivide(tail, 2)
+if not continuous:
+    tail = finish(
+        sweep(
+            "Tail",
+            [
+                (0, 1.42, 1),
+                (0.03, 1.65, 1.0),
+                (0.13, 2.05, 1.04),
+                (0.25, 2.48, 1.17),
+                (0.38, 2.86, 1.39),
+                (0.48, 3.12, 1.6),
+            ],
+            [
+                (0.054, 0.039),
+                (0.05, 0.032),
+                (0.044, 0.029),
+                (0.033, 0.024),
+                (0.023, 0.018),
+                (0.008, 0.008),
+            ],
+            24,
+        ),
+        teal,
+    )
+    subdivide(tail, 2)
 for sign in [-1, 1]:
     finish(
         models.primitive(
@@ -231,6 +249,7 @@ except ValueError:
 else:
     raise AssertionError("Stale capture accepted")
 shot("after", (4, -6, 5))
+shot("junction", (3, 4, 3), (0, 1.38, 1.03), 1.65)
 shot("side", (6, -0.5, 2.2))
 shot("map-after", (0, -5, 6), scale=6.6, size=384, mapping=True)
 camera((4, -6, 5), (0, 0.6, 1), 7, (640, 640))
@@ -238,6 +257,7 @@ np.savez_compressed(OUT / "deformation.npz", before=before, after=after)
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT / "ray.blend"))
 report = {
     "blender": bpy.app.version_string,
+    "continuous": continuous,
     "hit": sample,
     "edit": edit,
     "stale_rejected": stale_rejected,
@@ -246,7 +266,7 @@ report = {
     "changed_max": float(np.linalg.norm(after - before, axis=1).max()),
     "limitations": [
         "static decorative study",
-        "tail is separate overlapping mesh",
+        "continuous tail" if continuous else "tail is separate overlapping mesh",
         "no self-intersection or rig clearance proof",
     ],
 }

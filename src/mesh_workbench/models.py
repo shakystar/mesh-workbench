@@ -172,9 +172,16 @@ def boolean(left, right, operation, name):
         modifier.operation = operation
         modifier.solver = "EXACT"
         bpy.ops.object.modifier_apply(modifier=modifier.name)
+        if operation == "UNION" and not result.data.polygons:
+            raise ValueError(
+                "Boolean union returned an empty mesh; inspect input geometry"
+            )
         return result
     except Exception:
+        mesh = result.data
         bpy.data.objects.remove(result, do_unlink=True)
+        if mesh.users == 0:
+            bpy.data.meshes.remove(mesh)
         raise
 
 

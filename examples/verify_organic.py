@@ -11,7 +11,7 @@ from mathutils.kdtree import KDTree
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
-from mesh_workbench import geometry, sculpt
+from mesh_workbench import fairing, geometry, sculpt
 
 folder = Path(sys.argv[sys.argv.index("--") + 1]).resolve()
 bpy.ops.wm.open_mainfile(
@@ -37,6 +37,8 @@ tree.balance()
 errors = []
 delta = after - before
 for i, co in enumerate(before):
+    if np.linalg.norm(delta[i]) < 1e-10:
+        continue
     mirrored = co.copy()
     mirrored[0] *= -1
     _, j, dist = tree.find(Vector(mirrored))
@@ -47,7 +49,11 @@ for i, co in enumerate(before):
 assert max(errors) < 1e-5
 stats = geometry.inspect(obj)
 assert stats["finite"] and stats["nonmanifold_edges"] == 0
+assert fairing.overlap_candidates(obj) == 0
+assert len(fairing.components(obj)) == 1
 result = {
+    "overlap_candidates": 0,
+    "components": 1,
     "saved_layer_matches": True,
     "restored_base_matches": True,
     "unaffected_center_vertices": int(center.sum()),
