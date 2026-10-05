@@ -27,6 +27,198 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_assembly_dependency_commit_and_rollback(self):
+        from mesh_workbench import assembly, attachments, construction
+
+        source = construction.rounded_box("Source", [10, 10, 10], radius=1)
+        follower = construction.rounded_box(
+            "Follower", [1, 1, 1], location=[0, 0, 7], radius=0.1
+        )
+        fixed = construction.rounded_box(
+            "Fixed", [1, 1, 1], location=[20, 0, 0], radius=0.1
+        )
+        for item in (source, follower, fixed):
+            s.bake(item)
+        binding = attachments.bind(source, [[0, 0, 5]], max_distance=0.1)
+        nodes = {
+            "root": {"kind": "source", "object": source.name},
+            "fixed": {"kind": "source", "object": fixed.name},
+            "child": {
+                "kind": "anchor",
+                "object": follower.name,
+                "deps": ["root"],
+                "binding": binding,
+                "offset": [0, 0, 2],
+            },
+        }
+        assembly.register("Test", nodes)
+        fixed_mesh = fixed.data
+        result = assembly.update("root", {"kind": "dimension", "axis": 2, "delta": 2})
+        self.assertEqual(result["updated"], ["root", "child"])
+        self.assertIs(fixed.data, fixed_mesh)
+        self.assertAlmostEqual(follower.location.z, 9, places=5)
+        self.assertEqual(assembly.status()["revision"], 1)
+        coords = s.coordinates(source).copy()
+        names = set(bpy.data.objects.keys())
+        with self.assertRaises(assembly.Rejected):
+            assembly.update("root", {"kind": "dimension", "axis": 0, "delta": -20})
+        np.testing.assert_array_equal(coords, s.coordinates(source))
+        self.assertEqual(names, set(bpy.data.objects.keys()))
+        # Fail after dependent geometry was generated, not only during input checks.
+        graph = assembly.load()
+        graph["checks"] = [{"kind": "unsupported", "nodes": ["root", "child"]}]
+        bpy.context.scene[assembly.KEY] = json.dumps(graph)
+        original_graph = bpy.context.scene[assembly.KEY]
+        with self.assertRaises(assembly.Rejected):
+            assembly.update("root", {"kind": "dimension", "axis": 0, "delta": 1})
+        self.assertEqual(bpy.context.scene[assembly.KEY], original_graph)
+        self.assertEqual(names, set(bpy.data.objects.keys()))
+        # Simulate a failure during the actual pointer/property commit.
+        from unittest.mock import patch
+
+        graph["checks"] = []
+        bpy.context.scene[assembly.KEY] = json.dumps(graph)
+        original_props = assembly._setprops
+        calls = [0]
+
+        def fail_once(obj, values):
+            calls[0] += 1
+            if calls[0] == 1:
+                raise RuntimeError("Injected commit failure")
+            return original_props(obj, values)
+
+        data_before = source.data
+        with patch.object(assembly, "_setprops", fail_once):
+            with self.assertRaisesRegex(assembly.Rejected, "Injected commit failure"):
+                assembly.update("root", {"kind": "dimension", "axis": 0, "delta": 1})
+        self.assertEqual(source.data, data_before)
+        np.testing.assert_array_equal(coords, s.coordinates(source))
+        self.assertEqual(names, set(bpy.data.objects.keys()))
+        self.assertEqual(assembly.status()["revision"], 1)
+        no_op = assembly.update("root", {"kind": "dimension", "axis": 0, "delta": 0})
+        self.assertEqual(no_op["updated"], [])
+        self.assertEqual(assembly.status()["revision"], 1)
+        # Dependency corruption is rejected before scene mutation.
+        graph["nodes"]["child"]["deps"] = ["missing"]
+        bpy.context.scene[assembly.KEY] = json.dumps(graph)
+        with self.assertRaisesRegex(ValueError, "Missing assembly dependency"):
+            assembly.load()
+        graph["nodes"]["child"]["deps"] = ["child"]
+        bpy.context.scene[assembly.KEY] = json.dumps(graph)
+        with self.assertRaisesRegex(ValueError, "cycle"):
+            assembly.load()
+
+    def test_assembly_shell_violation_locations(self):
+        from mesh_workbench import assembly, shells
+
+        root = m.primitive("sphere", "Root", scale=[10, 10, 10])
+        selection = g.selection(root, "FACE", box=[[-20, -20, 0], [20, 20, 20]])
+        shell = shells.extract(root, selection, "Shell", thickness=1.6, trim=0.1)
+        nodes = {
+            "root": {"kind": "source", "object": root.name},
+            "shell": {
+                "kind": "shell",
+                "object": shell.name,
+                "deps": ["root"],
+                "faces": selection["indices"],
+                "options": {"thickness": 1.6, "trim": 0.1},
+            },
+        }
+        assembly.register("Shell", nodes, [{"kind": "thickness", "nodes": ["shell"]}])
+        graph = assembly.load()
+        graph["nodes"]["shell"]["options"]["thickness"] = 0.7
+        bpy.context.scene[assembly.KEY] = json.dumps(graph)
+        mesh = shell.data
+        names = set(bpy.data.objects.keys())
+        with self.assertRaises(assembly.Rejected) as caught:
+            assembly.update("root", {"kind": "dimension", "axis": 0, "delta": 1})
+        report = caught.exception.report
+        self.assertTrue(report["rolled_back"])
+        self.assertFalse(report["checks"][0]["passed"])
+        self.assertTrue(report["checks"][0]["violations"])
+        self.assertEqual(shell.data, mesh)
+        self.assertEqual(set(bpy.data.objects.keys()), names)
+        marker = shells.markers("Violation locations", report["checks"][0])
+        self.assertGreater(len(marker.data.vertices), 0)
+        # Manual edits and stale topology cannot silently reuse the recipes.
+        root.data.vertices[0].co.x += 0.1
+        with self.assertRaisesRegex(ValueError, "outside transaction"):
+            assembly.load()
+
+    def test_assembly_recipe_and_saved_graph(self):
+        from mesh_workbench import assembly
+        from mesh_workbench.runner import run
+
+        recipe = {
+            "version": 1,
+            "operations": [
+                {
+                    "op": "rounded_box",
+                    "name": "Root",
+                    "dimensions": [10, 10, 10],
+                    "options": {"radius": 1},
+                },
+                {"op": "bake", "object": "Root"},
+                {
+                    "op": "assembly_register",
+                    "name": "Recipe",
+                    "nodes": {"root": {"kind": "source", "object": "Root"}},
+                },
+                {
+                    "op": "assembly_update",
+                    "source": "root",
+                    "edit": {"kind": "dimension", "axis": 0, "delta": 2},
+                },
+                {"op": "assembly_status"},
+                {"op": "assembly_validate"},
+            ],
+        }
+        path = self.root / "recipe.json"
+        path.write_text(json.dumps(recipe))
+        run(path, self.root / "success")
+        bpy.ops.wm.open_mainfile(
+            filepath=str(self.root / "success/result.blend"),
+            load_ui=False,
+            use_scripts=False,
+        )
+        self.assertEqual(assembly.status()["revision"], 1)
+        self.assertAlmostEqual(
+            float(np.ptp(s.coordinates(bpy.data.objects["Root"]), axis=0)[0]),
+            12,
+            places=5,
+        )
+        recipe["operations"].append(
+            {"op": "assembly_update", "source": "root", "edit": {"kind": "invalid"}}
+        )
+        path.write_text(json.dumps(recipe))
+        with self.assertRaises(assembly.Rejected):
+            run(path, self.root / "failure")
+        audit = json.loads((self.root / "failure/audit.json").read_text())
+        self.assertEqual(audit["status"], "failed")
+        self.assertEqual(audit["failed_operation"]["op"], "assembly_update")
+        self.assertTrue(audit["rejection"]["rolled_back"])
+
+    def test_motion_path_collision_and_restore(self):
+        from mesh_workbench import construction, motion
+
+        moving = construction.rounded_box("Moving", [2, 2, 2], radius=0.1)
+        obstacle = construction.rounded_box(
+            "Obstacle", [2, 2, 2], location=[4, 0, 0], radius=0.1
+        )
+        s.bake(moving)
+        s.bake(obstacle)
+        moving.rotation_euler = [0, np.pi / 2, 0]
+        bpy.context.view_layer.update()
+        matrix = moving.matrix_world.copy()
+        coordinates_before = s.coordinates(moving).copy()
+        clear = motion.inspect(moving, [obstacle], translation=[0, 1, 0], steps=4)
+        self.assertTrue(clear["passed"])
+        hit = motion.inspect(moving, [obstacle], translation=[4, 0, 0], steps=8)
+        self.assertFalse(hit["passed"])
+        self.assertTrue(any(r["triangle_pairs"] for r in hit["samples"]))
+        self.assertEqual(matrix, moving.matrix_world)
+        np.testing.assert_array_equal(coordinates_before, s.coordinates(moving))
+
     def test_mouse_recipe_dispatch_and_gauge_independence(self):
         from mesh_workbench import shells
         from mesh_workbench.runner import run

@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "operations": [
+    {
+      "op": "primitive",
+      "kind": "sphere",
+      "name": "Body",
+      "scale": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "op": "primitive",
+      "kind": "sphere",
+      "name": "Obstacle",
+      "location": [
+        30,
+        0,
+        0
+      ],
+      "scale": [
+        2,
+        2,
+        2
+      ]
+    },
+    {
+      "op": "assembly_register",
+      "name": "Basic assembly",
+      "nodes": {
+        "body": {
+          "kind": "source",
+          "object": "Body"
+        },
+        "obstacle": {
+          "kind": "source",
+          "object": "Obstacle"
+        }
+      }
+    },
+    {
+      "op": "assembly_update",
+      "source": "body",
+      "edit": {
+        "kind": "dimension",
+        "axis": 0,
+        "delta": 2
+      }
+    },
+    {
+      "op": "assembly_status"
+    },
+    {
+      "op": "assembly_validate"
+    },
+    {
+      "op": "motion_inspect",
+      "object": "Body",
+      "obstacles": [
+        "Obstacle"
+      ],
+      "options": {
+        "translation": [
+          1,
+          0,
+          0
+        ],
+        "steps": 4
+      }
+    }
+  ]
+}

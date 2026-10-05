@@ -11,6 +11,8 @@ import bpy
 
 from mesh_workbench import (
     __version__,
+    assembly,
+    motion,
     attachments,
     candidates,
     precision,
@@ -114,7 +116,21 @@ def run(recipe_path, output):
             op = c["op"]
             current_operation = {"index": index, "op": op}
             result = None
-            if op == "primitive":
+            if op == "assembly_register":
+                result = assembly.register(c["name"], c["nodes"], c.get("checks"))
+            elif op == "assembly_status":
+                result = assembly.status()
+            elif op == "assembly_update":
+                result = assembly.update(c["source"], c["edit"])
+            elif op == "assembly_validate":
+                result = assembly.validate(assembly.load())
+            elif op == "motion_inspect":
+                result = motion.inspect(
+                    obj(c["object"]),
+                    [obj(n) for n in c["obstacles"]],
+                    **c.get("options", {}),
+                )
+            elif op == "primitive":
                 result = models.primitive(
                     c["kind"],
                     c["name"],
@@ -409,7 +425,9 @@ def run(recipe_path, output):
         bpy.ops.wm.save_as_mainfile(filepath=str(output / "result.blend"))
         audit["status"] = "complete"
         audit["source_preserved"] = True
-    except Exception:
+    except Exception as exc:
+        if isinstance(exc, assembly.Rejected):
+            audit["rejection"] = exc.report
         audit["status"] = "failed"
         audit["failed_operation"] = current_operation
         audit["error"] = traceback.format_exc()

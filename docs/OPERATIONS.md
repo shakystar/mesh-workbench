@@ -149,3 +149,36 @@ A measurement returning `passed: false` is a completed measurement, not a runner
 `intersection_candidates` reports cross-object triangle pairs without excluding contacts. It does not detect full containment without a surface crossing. Use it alongside shell gauges and visual review; intentionally embedded relief bottoms are a different contact class.
 
 Reference drawings also support `polygon` shapes with finite XY `points` (3..4096). Ordered simple polygons use even-odd filling. Candidate rows can include a nonnegative integer `constraint_violations`; nonzero counts reject otherwise high-overlap candidates. The mouse uses this for section constraints.
+
+
+## Persisted assemblies and motion inspection
+
+All commands execute inside Blender. Register existing **static, unparented, unconstrained meshes** with matching generation recipes. One graph is stored per scene in `mw_assembly_graph`; registration replaces the previous graph. Object names are stable IDs. Renames, external coordinate edits, animation and indexed topology changes are rejected; register again explicitly after intentional external edits.
+
+| JSON operation | Required fields | Result |
+| --- | --- | --- |
+| `assembly_register` | `name`, `nodes`; optional `checks` | Validated persisted dependency graph |
+| `assembly_status` | none | Revision, node count, dependency order |
+| `assembly_update` | `source` node ID, `edit` | Updated/unchanged node IDs and constraint reports |
+| `assembly_validate` | none | Actual geometry measurements for registered checks |
+| `motion_inspect` | `object`, `obstacles`; optional `options` | Discrete overlap/clearance results; transform restored exactly |
+
+Python equivalents are `assembly.register`, `assembly.status`, `assembly.update`, `assembly.validate(assembly.load())`, and `motion.inspect`. See [assembly-basic.json](../examples/assembly-basic.json) for CLI syntax and [assembly_mouse.py](../examples/assembly_mouse.py) for the full nine-node model.
+
+Each node has `object`, `kind`, and (except a source) `deps`. The first dependency is its generating surface. Additional dependencies conservatively invalidate the node when their coordinates change.
+
+- `source`: editable input mesh; updates add a reversible deformation layer.
+- `shell`: indexed source `faces`, `options` for thickness and trim.
+- `relief`: persistent barycentric `binding`, `options` from `mw_relief_settings`.
+- `seam`: persistent `binding`, `options` with radius and offset.
+- `anchor`: persistent one-point `binding`, world-space `offset`; translates the existing rigid part while preserving its orientation.
+
+Edits: `{"kind":"dimension","axis":0,"delta":6}` changes the measured world bounding dimension by six scene units; optional `pivot` defaults to the minimum coordinate. `{"kind":"radial","center":[-31,-14,14],"radius":24,"delta":[2,0,0],"normalize_peak":true}` normalizes the strongest sampled displacement to 2 units. Outside vertices remain pinned. Units are Blender scene units; the mouse uses millimeters.
+
+Checks contain `kind`, `nodes` and optional `options`. Supported checks: `thickness`, `gap`, `clearance` (relief top against actual split shell), and `intersection` (triangle overlap candidates). Wall and gap options accept minimum/maximum; relief clearance accepts minimum. Empty checks means **no dimensional acceptance constraints**, not a manufacturing approval.
+
+Updates stage all geometry, enforce unchanged indexed topology, validate, then swap data on the existing output objects. Materials and visibility survive. Previous geometry is retained as hidden `MW revision ...` objects. Errors restore source/outputs/metadata/graph and discard staged data; `assembly.Rejected.report` contains the rejection reason and any measured violations. CLI failures also save this as `audit.json.rejection`. `shells.markers` can turn violation coordinates into native marker geometry. A no-op does not create a revision.
+
+Selective hashes use shell face vertices and adjacent faces; surface details use binding vertices, a nearby footprint and adjacent faces. This is a static same-topology system, not arbitrary remesh correspondence or a background Blender handler. Legacy `attachments.status` uses a conservative whole-surface revision, so it can report `needs_refresh` for an unchanged local attachment after another region moves; assembly-local tracking is separate.
+
+Motion options: `translation`, rotation `axis`/`angle` (radians), optional world `pivot`, `steps` (intervals), `probe_limit` (vertex-distance sampling cap), and `minimum` (sampled clearance threshold). Reports retain every pose, overlap counts, up to 32 overlapping triangle index pairs and moving-triangle centers, and the nearest sampled clearance probe. Triangle centers identify affected faces, not exact contact points. Every pose includes full triangle-overlap candidate detection; distances use sampled moving vertices. No continuous collision or complete-containment guarantee is made. Geometry-inspection `passed:false` is a completed measurement; `assembly_update` raises when a registered constraint fails.

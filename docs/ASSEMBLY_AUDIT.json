@@ -1,0 +1,885 @@
+{
+  "blender": "5.2.2 LTS",
+  "source_sha256": "ac40e4d8db7c6fa5a9ceab0ef1d1c2887d49c95831b6ee6a7990b86014c02327",
+  "variants": {
+    "width": {
+      "updated": [
+        "master",
+        "upper",
+        "lower",
+        "left",
+        "right",
+        "grip",
+        "dpi",
+        "accent",
+        "wheel"
+      ],
+      "unchanged": [],
+      "dimensions": [
+        75.0,
+        124.0,
+        40.994110107421875
+      ],
+      "button_motion_passed": false,
+      "wheel_motion_passed": true,
+      "rollback": true,
+      "before_dimensions": [
+        69.0,
+        124.0,
+        40.994110107421875
+      ],
+      "after_dimensions": [
+        75.0,
+        124.0,
+        40.994110107421875
+      ],
+      "maximum_vertex_shift": 6.0,
+      "exact_rollback_verified": true,
+      "checks": [
+        {
+          "kind": "thickness",
+          "nodes": [
+            "upper"
+          ],
+          "method": "nearest",
+          "samples": 13316,
+          "missing": 0,
+          "min": 1.5942045450210571,
+          "max": 1.5999252796173096,
+          "mean": 1.599361258249234,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "lower"
+          ],
+          "method": "nearest",
+          "samples": 17024,
+          "missing": 0,
+          "min": 1.5933467149734497,
+          "max": 1.5999735593795776,
+          "mean": 1.5991059863603765,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "left"
+          ],
+          "method": "nearest",
+          "samples": 1794,
+          "missing": 0,
+          "min": 1.5984307527542114,
+          "max": 1.5999168157577515,
+          "mean": 1.5994035674709672,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "right"
+          ],
+          "method": "nearest",
+          "samples": 1794,
+          "missing": 0,
+          "min": 1.5991504192352295,
+          "max": 1.5999301671981812,
+          "mean": 1.599695151997782,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "lower"
+          ],
+          "edges": 268,
+          "samples": 1608,
+          "min": 0.6889755061083737,
+          "max": 0.699595408204401,
+          "mean": 0.6979956112959522,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "left"
+          ],
+          "edges": 109,
+          "samples": 654,
+          "min": 0.5133829617671193,
+          "max": 0.7000002702431498,
+          "mean": 0.6942017555988395,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "right"
+          ],
+          "edges": 109,
+          "samples": 654,
+          "min": 0.5082202562717582,
+          "max": 0.699980574330592,
+          "mean": 0.6942092497198141,
+          "passed": true
+        },
+        {
+          "kind": "clearance",
+          "nodes": [
+            "grip",
+            "upper"
+          ],
+          "passed": true,
+          "samples": 1806,
+          "minimum": 0.0760241390671581
+        },
+        {
+          "kind": "clearance",
+          "nodes": [
+            "dpi",
+            "upper"
+          ],
+          "passed": true,
+          "samples": 289,
+          "minimum": 0.049208136391825974
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "lower"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "left"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "left"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "left",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "left",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "right",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        }
+      ],
+      "motion": {
+        "button_motion": {
+          "passed": false,
+          "steps": 12,
+          "translation_step": 0.05000000099341074,
+          "angle_step": 0.0,
+          "minimum_sampled_clearance": 0.3037071228027344,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": 0.9166666666666666
+        },
+        "button_short_motion": {
+          "passed": true,
+          "steps": 12,
+          "translation_step": 0.012500000248352685,
+          "angle_step": 0.0,
+          "minimum_sampled_clearance": 0.45685625076293945,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": null
+        },
+        "wheel_motion": {
+          "passed": true,
+          "steps": 32,
+          "translation_step": 0.0,
+          "angle_step": 0.19634954084936207,
+          "minimum_sampled_clearance": 0.9345918893814087,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": null
+        }
+      },
+      "rejection_reason": "Trim reversed a mesh edge; reduce trim"
+    },
+    "height": {
+      "updated": [
+        "master",
+        "upper",
+        "lower",
+        "left",
+        "right",
+        "grip",
+        "dpi",
+        "accent",
+        "wheel"
+      ],
+      "unchanged": [],
+      "dimensions": [
+        69.0,
+        124.0,
+        44.994110107421875
+      ],
+      "button_motion_passed": false,
+      "wheel_motion_passed": true,
+      "rollback": true,
+      "before_dimensions": [
+        69.0,
+        124.0,
+        40.994110107421875
+      ],
+      "after_dimensions": [
+        69.0,
+        124.0,
+        44.994110107421875
+      ],
+      "maximum_vertex_shift": 4.0,
+      "exact_rollback_verified": true,
+      "checks": [
+        {
+          "kind": "thickness",
+          "nodes": [
+            "upper"
+          ],
+          "method": "nearest",
+          "samples": 13316,
+          "missing": 0,
+          "min": 1.5950065851211548,
+          "max": 1.5999188423156738,
+          "mean": 1.5993915284653977,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "lower"
+          ],
+          "method": "nearest",
+          "samples": 17024,
+          "missing": 0,
+          "min": 1.5942717790603638,
+          "max": 1.5999624729156494,
+          "mean": 1.5991584047801177,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "left"
+          ],
+          "method": "nearest",
+          "samples": 1794,
+          "missing": 0,
+          "min": 1.5985769033432007,
+          "max": 1.599890112876892,
+          "mean": 1.5993650408758633,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "right"
+          ],
+          "method": "nearest",
+          "samples": 1794,
+          "missing": 0,
+          "min": 1.599228858947754,
+          "max": 1.5999070405960083,
+          "mean": 1.599675692443465,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "lower"
+          ],
+          "edges": 268,
+          "samples": 1608,
+          "min": 0.6908232760026518,
+          "max": 0.6997529830192899,
+          "mean": 0.6985685697398807,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "left"
+          ],
+          "edges": 109,
+          "samples": 654,
+          "min": 0.5172211872635325,
+          "max": 0.7000007430553218,
+          "mean": 0.694189051794825,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "right"
+          ],
+          "edges": 109,
+          "samples": 654,
+          "min": 0.5055034138272059,
+          "max": 0.699979320834283,
+          "mean": 0.694179094716204,
+          "passed": true
+        },
+        {
+          "kind": "clearance",
+          "nodes": [
+            "grip",
+            "upper"
+          ],
+          "passed": true,
+          "samples": 1806,
+          "minimum": 0.07630885456455871
+        },
+        {
+          "kind": "clearance",
+          "nodes": [
+            "dpi",
+            "upper"
+          ],
+          "passed": true,
+          "samples": 289,
+          "minimum": 0.04898389137815684
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "lower"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "left"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "left"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "left",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "left",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "right",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        }
+      ],
+      "motion": {
+        "button_motion": {
+          "passed": false,
+          "steps": 12,
+          "translation_step": 0.05000000099341074,
+          "angle_step": 0.0,
+          "minimum_sampled_clearance": 0.2901352643966675,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": 0.9166666666666666
+        },
+        "button_short_motion": {
+          "passed": true,
+          "steps": 12,
+          "translation_step": 0.012500000248352685,
+          "angle_step": 0.0,
+          "minimum_sampled_clearance": 0.4540768265724182,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": null
+        },
+        "wheel_motion": {
+          "passed": true,
+          "steps": 32,
+          "translation_step": 0.0,
+          "angle_step": 0.19634954084936207,
+          "minimum_sampled_clearance": 0.6654402017593384,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": null
+        }
+      },
+      "rejection_reason": "Trim reversed a mesh edge; reduce trim"
+    },
+    "thumb": {
+      "updated": [
+        "master",
+        "upper",
+        "lower",
+        "left",
+        "grip"
+      ],
+      "unchanged": [
+        "right",
+        "dpi",
+        "accent",
+        "wheel"
+      ],
+      "dimensions": [
+        69.0,
+        124.0,
+        40.994110107421875
+      ],
+      "button_motion_passed": false,
+      "wheel_motion_passed": true,
+      "rollback": true,
+      "before_dimensions": [
+        69.0,
+        124.0,
+        40.994110107421875
+      ],
+      "after_dimensions": [
+        69.0,
+        124.0,
+        40.994110107421875
+      ],
+      "maximum_vertex_shift": 2.0,
+      "exact_rollback_verified": true,
+      "checks": [
+        {
+          "kind": "thickness",
+          "nodes": [
+            "upper"
+          ],
+          "method": "nearest",
+          "samples": 13316,
+          "missing": 0,
+          "min": 1.5941911935806274,
+          "max": 1.5999891757965088,
+          "mean": 1.599363391957651,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "lower"
+          ],
+          "method": "nearest",
+          "samples": 17024,
+          "missing": 0,
+          "min": 1.593342900276184,
+          "max": 1.5999689102172852,
+          "mean": 1.5991201681904215,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "left"
+          ],
+          "method": "nearest",
+          "samples": 1794,
+          "missing": 0,
+          "min": 1.5979187488555908,
+          "max": 1.5999082326889038,
+          "mean": 1.5992816844778581,
+          "passed": true
+        },
+        {
+          "kind": "thickness",
+          "nodes": [
+            "right"
+          ],
+          "method": "nearest",
+          "samples": 1794,
+          "missing": 0,
+          "min": 1.5991939306259155,
+          "max": 1.5999201536178589,
+          "mean": 1.5996876406829095,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "lower"
+          ],
+          "edges": 268,
+          "samples": 1608,
+          "min": 0.6889745544757837,
+          "max": 0.6996123549763175,
+          "mean": 0.6982972876929258,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "left"
+          ],
+          "edges": 109,
+          "samples": 654,
+          "min": 0.517043356341216,
+          "max": 0.6999989843520817,
+          "mean": 0.6942311409758175,
+          "passed": true
+        },
+        {
+          "kind": "gap",
+          "nodes": [
+            "upper",
+            "right"
+          ],
+          "edges": 109,
+          "samples": 654,
+          "min": 0.5086364364011763,
+          "max": 0.6999815281305121,
+          "mean": 0.6941878920673776,
+          "passed": true
+        },
+        {
+          "kind": "clearance",
+          "nodes": [
+            "grip",
+            "upper"
+          ],
+          "passed": true,
+          "samples": 1806,
+          "minimum": 0.074444436468184
+        },
+        {
+          "kind": "clearance",
+          "nodes": [
+            "dpi",
+            "upper"
+          ],
+          "passed": true,
+          "samples": 289,
+          "minimum": 0.04912776092533022
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "lower"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "left"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "upper",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "left"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "lower",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "left",
+            "right"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "left",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        },
+        {
+          "kind": "intersection",
+          "nodes": [
+            "right",
+            "wheel"
+          ],
+          "triangle_pair_count": 0,
+          "passed": true
+        }
+      ],
+      "motion": {
+        "button_motion": {
+          "passed": false,
+          "steps": 12,
+          "translation_step": 0.05000000099341074,
+          "angle_step": 0.0,
+          "minimum_sampled_clearance": 0.30743852257728577,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": 0.9166666666666666
+        },
+        "button_short_motion": {
+          "passed": true,
+          "steps": 12,
+          "translation_step": 0.012500000248352685,
+          "angle_step": 0.0,
+          "minimum_sampled_clearance": 0.4601186215877533,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": null
+        },
+        "wheel_motion": {
+          "passed": true,
+          "steps": 32,
+          "translation_step": 0.0,
+          "angle_step": 0.19634954084936207,
+          "minimum_sampled_clearance": 0.6874249577522278,
+          "method": "discrete triangle overlaps and sampled vertex distances",
+          "limits": "Not continuous collision detection; no full-containment test; sampled distance is not global minimum",
+          "first_failed_fraction": null
+        }
+      },
+      "rejection_reason": "Trim reversed a mesh edge; reduce trim"
+    }
+  },
+  "reopen": {
+    "width": {
+      "sha256": "3a503d56c702e1eab73a70c62868e24491033c65e367e5b54021dbc5da7884a6",
+      "coordinates_match": true,
+      "checks_passed": 19,
+      "followup_updated": [
+        "master",
+        "upper",
+        "lower",
+        "left",
+        "grip"
+      ],
+      "followup_unchanged": [
+        "right",
+        "dpi",
+        "accent",
+        "wheel"
+      ],
+      "saved_file_unchanged": true
+    },
+    "height": {
+      "sha256": "0c076fc0a5e6821eae36c1dd8f545cf5bec0eaa8d4986579f1090bf7546f69ac",
+      "coordinates_match": true,
+      "checks_passed": 19,
+      "followup_updated": [
+        "master",
+        "upper",
+        "lower",
+        "left",
+        "grip"
+      ],
+      "followup_unchanged": [
+        "right",
+        "dpi",
+        "accent",
+        "wheel"
+      ],
+      "saved_file_unchanged": true
+    },
+    "thumb": {
+      "sha256": "fc1ef4c6d7b21c95d0b52a78210e84b215ccb16351937c19b14ffe29a5972f42",
+      "coordinates_match": true,
+      "checks_passed": 19,
+      "followup_updated": [
+        "master",
+        "upper",
+        "lower",
+        "left",
+        "grip"
+      ],
+      "followup_unchanged": [
+        "right",
+        "dpi",
+        "accent",
+        "wheel"
+      ],
+      "saved_file_unchanged": true
+    }
+  },
+  "validation": {
+    "windows_blender": "5.2.2 LTS",
+    "blender_tests": 23,
+    "host_tests": 3,
+    "cli_example": "assembly-basic.json",
+    "cli_passed": true,
+    "structured_failure_report_test_passed": true,
+    "linux_ci": "pending"
+  }
+}

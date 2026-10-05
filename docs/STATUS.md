@@ -1,5 +1,10 @@
 # Development status
 
+## Regenerating assemblies (2026-10-05)
+
+Six milestones implemented: persisted dependencies, selective same-topology regeneration, measured wall/gap/attachment acceptance, staged atomic commit/rollback, sampled rigid motion, and three native mouse variants with fresh-process follow-up editing. Local Blender 5.2.2 LTS: 23 integration tests pass; three host tests and the real CLI example pass. Files: `runs/assembly-mouse-04/{width,height,thumb}/model.blend`. See [study](ASSEMBLY_STUDY.md) and [audit](ASSEMBLY_AUDIT.json). Publication/CI verification is pending. The 0.6 mm button path correctly reports interference; a 0.15 mm trial passes. Motion checks remain discrete and do not prove manufacturing readiness.
+
+
 ## Asymmetric mouse (2026-10-05)
 
 Goal complete. Six modeling milestones implemented and verified: authored target, asymmetric guide loft, independent thumb/palm layers, closed housing/button partitions with wall and gap gauges, following grip/crown details, and saved-file verification. Final native artifact: `runs/mouse-study-08/mouse.blend`. All 19 Blender integration tests pass; host and CLI checks are recorded in the [study](MOUSE_STUDY.md) and [audit](MOUSE_AUDIT.json). Implementation Linux CI passed: https://github.com/shakystar/mesh-workbench/actions/runs/37313854671 . Normal-ray rim misses remain explicitly recorded; acceptance uses sampled nearest opposite-skin distance. Comfort/manufacturing validation is outside this goal.
