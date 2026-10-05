@@ -27,6 +27,61 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_conforming_relief_geometry_and_failures(self):
+        from mesh_workbench import relief, fairing
+
+        plane = m.primitive("plane", "Target")
+        before = s.coordinates(plane).copy()
+        dots = relief.dots(
+            plane,
+            [[-0.3, 0, 1], [0.3, 0, 1]],
+            "Dots",
+            radii=0.08,
+            height=0.004,
+            embed=0.002,
+            direction=[0, 0, -1],
+            max_distance=2,
+        )
+        self.assertEqual(len(fairing.components(dots)), 2)
+        self.assertEqual(g.inspect(dots)["nonmanifold_edges"], 0)
+        coords = s.coordinates(dots)
+        self.assertAlmostEqual(float(coords[:, 2].max()), 0.0045, places=6)
+        self.assertAlmostEqual(float(coords[:, 2].min()), -0.002, places=6)
+        self.assertGreater(dots["mw_relief_sampled_clearance"], 0)
+        np.testing.assert_array_equal(before, s.coordinates(plane))
+        count = len(bpy.data.objects)
+        for pts in [[[0, 0, 1], [0.03, 0, 1]], [[0.98, 0, 1]], [[5, 0, 1]]]:
+            with self.assertRaises(ValueError):
+                relief.dots(
+                    plane, pts, "Bad", radii=0.1, direction=[0, 0, -1], max_distance=2
+                )
+            self.assertEqual(len(bpy.data.objects), count)
+        sphere = m.primitive("sphere", "Sphere")
+        with self.assertRaises(ValueError):
+            relief.dots(
+                sphere,
+                [[0, 0, 2]],
+                "Coarse",
+                radii=0.5,
+                rings=1,
+                clearance=0.00001,
+                direction=[0, 0, -1],
+                max_distance=2,
+            )
+        self.assertNotIn("Coarse", bpy.data.objects)
+        curved = relief.dots(
+            sphere,
+            [[0, 0, 2]],
+            "Curved",
+            radii=0.06,
+            rings=4,
+            clearance=0.002,
+            direction=[0, 0, -1],
+            max_distance=2,
+        )
+        self.assertEqual(g.inspect(curved)["nonmanifold_edges"], 0)
+        self.assertGreater(curved["mw_relief_sampled_clearance"], 0)
+
     def test_local_fairing_and_intersection_diagnostics(self):
         from mesh_workbench import fairing
 

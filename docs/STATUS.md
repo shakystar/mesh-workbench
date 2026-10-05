@@ -39,3 +39,11 @@ Goal continues: try additional design families, use captured surface data for lo
 - Compared a continuous-section alternative and selected it from actual close-up renders. Final ray: one component, 18,946 vertices, 18,944 faces, zero boundary/nonmanifold edges and zero nonadjacent overlap candidates. Saved-file verification passes; the diagnostic is not a complete self-intersection proof.
 - Ten Blender integration tests passed; saved join/rejection and continuous-ray verification also passed in fresh processes. Prior commit Linux CI passed: https://github.com/shakystar/mesh-workbench/actions/runs/37281114724 .
 - Preferred example: `organic_study.py -- NEW_OUTPUT --continuous`. Journal retains the rejected alternatives and remaining work. Goal stays active.
+
+## Conforming surface motifs (2026-10-05)
+
+- Modeled and compared 48-spot and 32-spot relief designs; selected the sparse layout from whole/detail renders.
+- Added `relief.dots`: per-vertex projection, closed raised motifs, individual radii, conservative inter-motif spacing and sampled top-clearance rejection. Target geometry is preserved exactly.
+- First attempt had six edge-midpoint penetrations missed by face-center-only checks. Corrected clearance and verified all 9,248 sparse probes positive after saved-file reopen. Target file hash and vertex arrays remain unchanged.
+- Eleven Blender integration tests passed locally. Prior junction changes passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37283321666 .
+- Reproduction, actual previews and limitations are in the design journal. Python API additions still need recipe integration; goal continues.

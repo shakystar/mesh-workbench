@@ -142,3 +142,43 @@ blender --background --factory-startup --disable-autoexec --python-exit-code 2 -
 Validation on Blender 5.2.2 LTS: ten integration tests passed. New coverage checks local noise reduction, pinned boundaries, reversible layers, invalid inputs, component counts and a known pair of crossing triangles. Separate saved-file tests verified the accepted join and rollback of the known failing strong edit, plus the preferred continuous design. The prior sweep/organic commit passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37281114724 .
 
 Remaining work: richer deliberate surface detail, stronger adjacent-face/intersection diagnostics and quality comparisons beyond topology counts. The connected ray is an improvement in construction and silhouette, not a completed character-production pipeline. Goal remains active.
+
+## 2026-10-05: conforming relief pattern study
+
+![Dense pattern](ray-relief-dense.png)
+![Selected sparse pattern](ray-relief-sparse.png)
+
+Two surface designs were modeled as actual closed geometry on the continuous ray: 48 larger spots and 32 smaller spots. The sparse version was selected after viewing the full model because it preserves more uninterrupted wing surface. This is a design judgment, not a numerical quality score or anatomical claim.
+
+### Defect found and corrected
+
+The first close-up showed nibbled spot edges. Testing only face centers missed the defect: all 2,304 sparse top-face centers were above the body, but six of 4,608 top-edge midpoints were below it, by up to 0.00004166 world units. The top clearance was increased from 0.0001 to 0.0005, and the construction tool now validates vertices, edge midpoints and face centers before creating the output object.
+
+![Selected detail after correction](ray-relief-detail.png)
+
+Fresh-process saved-file verification checked 13,872 probes on the dense design and 9,248 on the sparse design. Minimum signed sampled clearance was respectively 0.00031427 and 0.00035797. Independent conservative bounding-sphere gaps were at least 0.063276 and 0.100889. Each motif is a closed component, with zero nonmanifold edges and no nonadjacent overlap candidates in the relief object. Body coordinates match the source exactly, and the source file hash is unchanged.
+
+The dark/white objects do not form one booleaned mesh: bottom faces intentionally enter the ceramic body, providing separate editable relief pieces. The top-probe check is sampled, not a continuous triangle-surface collision proof. Larger, coarser patches on curved surfaces are rejected and need more samples or greater clearance. Rebuild motifs after changing the target geometry; they do not automatically follow later edits.
+
+### Reusable tool and reproduction
+
+`relief.dots(target, points, name, radii=.04, height=.004, embed=.002, segments=24, rings=3, max_distance=1, direction=None, gap=.005, clearance=.0005)`:
+
+- Projects anchors and every section vertex onto the evaluated target.
+- Builds tapered upper surfaces, embedded lower surfaces and closed side walls.
+- Supports a different radius for each anchor.
+- Rejects missed/steep footprints, insufficient sampled top clearance and overlapping motif bounding spheres before committing scene objects.
+- Preserves the target geometry. Outputs are world-space static meshes with identity object transforms.
+
+This is currently a Python API; the new construction tools still need consistent recipe dispatch and broader cross-version example coverage.
+
+```sh
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/relief_study.py -- runs/organic-continuous/ray.blend runs/relief
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_relief.py -- runs/organic-continuous/ray.blend runs/relief
+```
+
+`dense.blend` and `sparse.blend` retain editable motifs and the original body. Both have whole/detail renders and an independent `reopen-verification.json`.
+
+Validation: eleven Blender integration tests passed on 5.2.2 LTS. The added test verifies planar thickness, closed components, exact target preservation, missed footprints, too-close anchors, rejection of an under-resolved curved patch and acceptance of a sufficiently resolved patch. Previous junction-tool commit passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37283321666 .
+
+Remaining visual limits: repeated rows are deliberately regular, with no asymmetrical hand-painted variation, microtexture or underside detail. The next tool integration should make these operations accessible through the same recipe interface and preserve projection checks during reuse on changed geometry. Goal remains active.
