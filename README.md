@@ -25,7 +25,7 @@ mesh-workbench run examples/assembly.json --output runs/assembly
 mesh-workbench inspect runs/assembly/review --pixel 192 192
 ```
 
-Pixel inspection on the host requires `python -m pip install -e ".[analysis]"`. Blender includes its own NumPy. No PyPI `bpy` package is required.
+Pixel inspection on the host requires `python -m pip install -e ".[analysis]"`. Official Blender builds include NumPy. Distribution packages may require it separately (Ubuntu: `python3-numpy`). No PyPI `bpy` package is required.
 
 From a checkout without installation:
 

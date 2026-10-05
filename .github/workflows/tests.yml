@@ -16,6 +16,6 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - run: sudo apt-get update && sudo apt-get install -y blender
+      - run: sudo apt-get update && sudo apt-get install -y blender python3-numpy
       - run: blender --version
       - run: blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python tests/blender_tests.py
