@@ -11,6 +11,7 @@ import bpy
 
 from mesh_workbench import (
     __version__,
+    attachments,
     construction,
     fairing,
     geometry,
@@ -136,6 +137,19 @@ def run(recipe_path, output):
             elif op == "relief_dots":
                 result = relief.dots(
                     obj(c["target"]), c["points"], c["name"], **c.get("options", {})
+                )
+            elif op == "bind_relief":
+                result = attachments.bind_relief(
+                    obj(c["target"]), obj(c["object"]), **c.get("options", {})
+                )
+            elif op == "attachment_status":
+                result = attachments.status(obj(c["target"]), obj(c["object"]))
+            elif op == "refresh_relief":
+                result = attachments.refresh_relief(
+                    obj(c["target"]),
+                    obj(c["object"]),
+                    c["name"],
+                    **c.get("options", {}),
                 )
             elif op == "diagnose":
                 target = obj(c["object"])

@@ -11,6 +11,9 @@ Top-level fields: `version: 1`, optional `source` (`.blend` relative to the reci
 | sweep | name, centers, radii | options: segments, reference; one elliptical radius pair per center |
 | fair | object, center, radius | options: iterations, positive, negative, label; reversible layer, rejects detected overlaps |
 | relief_dots | target, points, name | options: radii, height, embed, segments, rings, max_distance, direction, gap, clearance |
+| bind_relief | target, object | options: max_distance; store anchors before deforming a static baked target |
+| attachment_status | target, object | current / needs_refresh / incompatible |
+| refresh_relief | target, object, name | options: max_distance; new pattern, retained radii/material, original preserved |
 | diagnose | object | evaluated mesh counts, component sizes and nonadjacent overlap candidates |
 | material | objects, name, color | options: metallic, roughness; new named Principled material, replaces target slots |
 | load_blend | path, objects | prefix; append named objects from another file |
@@ -71,3 +74,11 @@ Construction/fairing/relief parameter limits are enforced by their Python APIs. 
 `diagnose` reports evidence, not a universal quality pass: zero nonadjacent overlap candidates does not cover all adjacent-face folds or mechanical collisions. Relief clearance is sampled. Fairing requires a static baked mesh; rounded-box modifiers can be explicitly collapsed with `bake` when deformation is needed.
 
 Operation exceptions record `failed_operation` (zero-based index and operation name) in `audit.json`. Earlier successful operations remain recorded; the recipe as a whole is not transactional. A failed run is not marked complete and does not receive the final `result.blend`; explicit earlier checkpoints may still exist. The host CLI returns nonzero on failure. Run the CLI in its standard fresh Blender process; direct `runner.run` assumes that process setup and is not an interactive-scene reset API.
+
+## Surface attachments
+
+Create relief with the current tool, then call `bind_relief` before changing the target. Binding stores original triangle vertex IDs and barycentric weights in the pattern object's custom properties. After a topology-preserving deformation or object transform, `attachment_status` reports `needs_refresh`; `refresh_relief` creates a new pattern on the new surface. Hide the old pattern explicitly if the new one is selected.
+
+The binding requires a static baked target. Changed connectivity, a renamed/different target, collapsed triangles or incompatible surface projection require explicit rebinding. This is not automatic retopology correspondence or an animation rig. Fixed world-space radii are retained, and hand edits to the generated motifs are not replayed. Old reliefs without saved generation settings must first be regenerated with the current tool.
+
+`current` reports target revision compatibility, not a general quality certificate for later manual changes to the pattern. Reprojection still uses the relief tool's clearance and spacing checks. Binding and generation settings survive native `.blend` saves.

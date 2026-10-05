@@ -54,3 +54,10 @@ Goal continues: try additional design families, use captured surface data for lo
 - Built and visually revised a fourth design entirely through a 70-operation JSON recipe. Independent reopen verified five diagnostics, 27 visible mesh parts and cutter visibility.
 - 13 Blender integration tests and 3 host tests passed locally. Real CLI negative run returned exit 1 with the expected failed operation. The previous relief commit passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37284579488 .
 - Reproduce with `examples/field-speaker.json`; verify with `examples/verify_recipe.py`. Python-only recipe integration limitation is resolved. Goal continues with harder iterative design edits and recovery cases.
+
+## Topology-preserving attachments (2026-10-05)
+
+- Added persistent triangle/barycentric anchors, revision status and explicit relief regeneration, including JSON dispatch.
+- Actual ray trial moved 4,300 vertices; stale spots visibly sank into the edited surface. Regeneration restores 32 surface details without modifying the old pattern. Reopen and pose-undo/regeneration checks passed.
+- 15 Blender integration tests passed, including collapsed/stale topology rejection. Prior unified recipe commit passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37286453015 .
+- This is explicit static editing with stable indexed topology, not live animation or arbitrary remesh correspondence. Goal continues with the limitations and evidence recorded in the design journal.

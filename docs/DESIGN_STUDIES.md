@@ -211,3 +211,32 @@ The verifier compares recorded diagnostic counts and components/overlap candidat
 - Previous relief commit Linux CI passed: https://github.com/shakystar/mesh-workbench/actions/runs/37284579488 .
 
 The earlier Python-only integration gap is closed. Remaining development should be driven by harder design edits rather than counting more recipe operations: reusable parameter revisions, topology-sensitive selections and recovery after shape changes still need broader real-model trials. Goal remains active.
+
+## 2026-10-05: preserve surface details through a shape edit
+
+![Before second pose](ray-attachment-before.png)
+![Changed shape with stale motifs](ray-attachment-stale.png)
+![Explicitly refreshed motifs](ray-attachment-updated.png)
+
+The ray's wing pose was edited again from a captured coordinate map. The new Grab moved 4,300 vertices by up to 0.3121066 world units. The stale render demonstrates the actual failure: most of the original spots disappear into the changed wing or sit off its surface. Rebuilding from stored surface anchors restores all 32 spots on the new form while keeping the original pattern object intact.
+
+The stronger wave is a pose experiment, not a declaration that it is a better final sculpture. This trial evaluates detail persistence. The folded wing still has a pronounced crease, and it remains a static mesh without a rig.
+
+### Persistent anchors and verification
+
+New `attachments` functions bind points to original mesh triangles using barycentric weights, retain indexed topology identity, and resolve positions after vertex/object-transform changes. `bind_relief`, `attachment_status` and `refresh_relief` are available through JSON recipes as well as Python. State is stored in the `.blend`; no background handler or automatic animation update is installed.
+
+- Old pattern: `needs_refresh`; new pattern: `current`; both retain 32 anchors.
+- Refreshed spots are closed components, have no detected nonadjacent overlaps and minimum sampled clearance 0.00164388.
+- Independent reopen found zero difference between the new saved anchors and their expected projected positions.
+- Disabling the second pose switches compatibility back to the original pattern. Regenerating from the restored body differs from the original pattern by at most 0.00001939 in vertex position; the original pattern remains byte-exact.
+- Changed topology and collapsed binding triangles are rejected. Reprojection that changes the surface side is rejected. Inputs with active modifiers require an explicit baked fork.
+
+```sh
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/attachment_study.py -- runs/organic-continuous/ray.blend runs/attachment-study
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_attachments.py -- runs/attachment-study
+```
+
+Validation: 15 Blender integration tests passed on 5.2.2 LTS, including transform-aware anchor positions, old-pattern preservation, save/reopen, topology/collapse rejection and all three recipe operations. The actual ray study has separate fresh-process verification. Previous recipe integration passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37286453015 .
+
+Limits: names and indexed connectivity identify the target; arbitrary remeshing needs rebinding. Motif radii stay fixed in world units. Regeneration does not preserve manual edits made to the motif vertices. `current` means the target revision matches the last bind/update, not that any later manual pattern edits are validated. No automatic live deformation or animation rig is claimed. Goal remains active.

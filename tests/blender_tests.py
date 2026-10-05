@@ -27,6 +27,104 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_attachment_follow_persistence_and_topology_rejection(self):
+        from mesh_workbench import attachments, relief
+
+        plane = m.primitive("plane", "Target")
+        dots = relief.dots(
+            plane,
+            [[0.2, 0.3, 1]],
+            "Dots",
+            radii=0.04,
+            direction=[0, 0, -1],
+            max_distance=2,
+        )
+        old = s.coordinates(dots).copy()
+        attachments.bind_relief(plane, dots)
+        binding = json.loads(dots["mw_surface_binding"])
+        np.testing.assert_allclose(
+            attachments.resolve(plane, binding)[0]["position"], [0.2, 0.3, 0], atol=1e-6
+        )
+        plane.location.z = 0.5
+        plane.scale.y = 1.5
+        bpy.context.view_layer.update()
+        self.assertEqual(attachments.status(plane, dots)["status"], "needs_refresh")
+        np.testing.assert_allclose(
+            attachments.resolve(plane, binding)[0]["position"],
+            [0.2, 0.45, 0.5],
+            atol=1e-6,
+        )
+        refreshed = attachments.refresh_relief(plane, dots, "Refreshed")
+        self.assertEqual(attachments.status(plane, refreshed)["status"], "current")
+        np.testing.assert_array_equal(old, s.coordinates(dots))
+        np.testing.assert_allclose(
+            np.array(refreshed["mw_relief_anchors"]), [0.2, 0.45, 0.5], atol=1e-6
+        )
+        saved = self.root / "bound.blend"
+        bpy.ops.wm.save_as_mainfile(filepath=str(saved))
+        bpy.ops.wm.open_mainfile(filepath=str(saved), load_ui=False, use_scripts=False)
+        plane = bpy.data.objects["Target"]
+        dots = bpy.data.objects["Dots"]
+        refreshed = bpy.data.objects["Refreshed"]
+        self.assertEqual(attachments.status(plane, refreshed)["status"], "current")
+        saved_coords = [v.co.copy() for v in plane.data.vertices]
+        ids = json.loads(refreshed["mw_surface_binding"])["anchors"][0]["vertices"]
+        for i in ids:
+            plane.data.vertices[i].co = [0, 0, 0]
+        self.assertEqual(attachments.status(plane, refreshed)["status"], "incompatible")
+        for v, co in zip(plane.data.vertices, saved_coords):
+            v.co = co
+        changed = g.edit_topology(
+            plane, g.selection(plane, "FACE"), "subdivide", "Changed", cuts=1
+        )
+        plane.data = changed.data.copy()
+        self.assertEqual(attachments.status(plane, refreshed)["status"], "incompatible")
+        count = len(bpy.data.objects)
+        with self.assertRaises(ValueError):
+            attachments.refresh_relief(plane, refreshed, "Invalid")
+        self.assertEqual(count, len(bpy.data.objects))
+        np.testing.assert_array_equal(old, s.coordinates(dots))
+
+    def test_attachment_recipe_dispatch(self):
+        from mesh_workbench.runner import run
+
+        recipe = {
+            "version": 1,
+            "operations": [
+                {"op": "primitive", "kind": "plane", "name": "Target"},
+                {
+                    "op": "relief_dots",
+                    "target": "Target",
+                    "name": "Dots",
+                    "points": [[0, 0, 1]],
+                    "options": {"direction": [0, 0, -1], "max_distance": 2},
+                },
+                {"op": "bind_relief", "target": "Target", "object": "Dots"},
+                {
+                    "op": "transform",
+                    "object": "Target",
+                    "transform": {"location": [0, 0, 0.3]},
+                },
+                {"op": "attachment_status", "target": "Target", "object": "Dots"},
+                {
+                    "op": "refresh_relief",
+                    "target": "Target",
+                    "object": "Dots",
+                    "name": "Updated",
+                },
+                {"op": "attachment_status", "target": "Target", "object": "Updated"},
+            ],
+        }
+        path = self.root / "attachments.json"
+        path.write_text(json.dumps(recipe))
+        run(path, self.root / "result")
+        audit = json.loads((self.root / "result" / "audit.json").read_text())
+        self.assertEqual(audit["operations"][4]["result"]["status"], "needs_refresh")
+        self.assertEqual(audit["operations"][6]["result"]["status"], "current")
+        self.assertAlmostEqual(
+            bpy.data.objects["Updated"]["mw_relief_anchors"][2], 0.3, places=6
+        )
+
     def test_material_assignment_isolates_shared_meshes(self):
         from mesh_workbench import materials
 

@@ -1,5 +1,6 @@
 """Closed relief dots that conform each vertex to an evaluated target surface."""
 
+import json
 import math
 
 import bmesh
@@ -129,6 +130,17 @@ def dots(
     bpy.context.collection.objects.link(obj)
     for p in mesh.polygons:
         p.use_smooth = True
+    obj["mw_relief_settings"] = json.dumps(
+        {
+            "radii": rs,
+            "height": height,
+            "embed": embed,
+            "segments": segments,
+            "rings": rings,
+            "gap": gap,
+            "clearance": clearance,
+        }
+    )
     obj["mw_relief_count"] = len(points)
     obj["mw_relief_anchors"] = [v for a in anchors for v in a]
     obj["mw_relief_gap"] = gap
