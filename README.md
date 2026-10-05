@@ -4,7 +4,17 @@ Coordinate-driven modeling tools that operate **inside Blender**. Inspect render
 
 Early **0.1.0** implementation. Built for iterative work by people and coding agents, with explicit failure checks and source-preserving operations.
 
-See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for actual modeled results, design revisions and reproducible evidence.
+## Modeled designs
+
+Actual Blender renders created with this toolkit.
+
+| Field robot | Work lantern |
+| --- | --- |
+| ![Field robot](docs/field-robot.png) | ![Work lantern](docs/lantern-final.png) |
+| Ray sculpture | Field speaker |
+| ![Ray sculpture](docs/ray-relief-sparse.png) | ![Field speaker](docs/field-speaker-front.png) |
+
+See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
 
 ## Features
 
@@ -38,8 +48,6 @@ PYTHONPATH=src python -m mesh_workbench run examples/polygon-edit.json --output 
 
 PowerShell equivalent: `$env:PYTHONPATH='src'`. Alternatively use the installed `mesh-workbench` command. Output paths must be new; each run produces `result.blend`, `recipe.json`, `audit.json` and requested captures. Logs are stored beside the run directory.
 
-![Procedural assembly example](docs/assembly.png)
-
 ## Recipes and API
 
 See [operation reference](docs/OPERATIONS.md), [design and limits](docs/DESIGN.md), [validation status](docs/STATUS.md), and the asset-free [examples](examples).
@@ -65,11 +73,3 @@ python -m unittest discover -s tests -p "test_*.py"
 ## License
 
 GPL-3.0-or-later; see [LICENSE](LICENSE). No third-party character models, contest references, textures or proprietary assets are bundled. Included examples are generated procedurally by this repository. Blender is a separate dependency; this is an independent project, not an official Blender product.
-
-## Modeled design studies
-
-Two original procedural designs, their actual Blender renders, iterative critique and reproduction commands are available in the [design journal](docs/DESIGN_STUDIES.md). Reusable dimensioned construction helpers are exposed through the Python API.
-
-The [organic study](examples/organic_study.py) adds a third design family and records reversible edits from captured render coordinates. Its section-sweep tool is also reused to improve the lantern handle; see the journal for before/after evidence and remaining limits.
-
-The [field speaker recipe](examples/field-speaker.json) demonstrates the integrated construction tools without a custom Blender script. Run it with the same CLI command as the introductory recipes.
