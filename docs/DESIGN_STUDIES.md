@@ -182,3 +182,32 @@ blender --background --factory-startup --disable-autoexec --python-exit-code 2 -
 Validation: eleven Blender integration tests passed on 5.2.2 LTS. The added test verifies planar thickness, closed components, exact target preservation, missed footprints, too-close anchors, rejection of an under-resolved curved patch and acceptance of a sufficiently resolved patch. Previous junction-tool commit passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37283321666 .
 
 Remaining visual limits: repeated rows are deliberately regular, with no asymmetrical hand-painted variation, microtexture or underside detail. The next tool integration should make these operations accessible through the same recipe interface and preserve projection checks during reuse on changed geometry. Goal remains active.
+
+## 2026-10-05: unified recipe interface and fourth design
+
+![Field speaker front](field-speaker-front.png)
+![Field speaker rear](field-speaker-rear.png)
+
+The construction tools developed in the earlier studies now execute through the standard JSON/host CLI: `rounded_box`, `revolve`, `strut`, `sweep`, `fair`, `relief_dots`, `diagnose` and `material`. No custom Blender script is required to build the included speaker recipe. Optional `viewport: true` on `visible` also hides construction cutters in the saved Blender viewport, while keeping the older render-only default.
+
+A fourth original design, a portable field speaker, was modeled through 70 recipe operations. It combines rounded shells, boolean-cut front openings, revolved speaker cones, a swept handle, projected tactile dots, rear service panel, eight actual vent apertures and a power socket. The initial rear render was visually underdeveloped; the service panel was added after inspection. Front and rear captures include coordinate maps.
+
+The resulting file was independently reopened: all five recorded diagnostics match the saved geometry; 27 visible mesh parts (including the studio floor) have no nonmanifold edges; viewport hiding matches the recipe. This does not establish assembly collision clearance, acoustic behavior, sealing or manufacturing viability. The visual design still lacks labels and physical control mechanisms, and the shell has no modeled wall thickness.
+
+```sh
+mesh-workbench run examples/field-speaker.json --output runs/speaker
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_recipe.py -- runs/speaker
+```
+
+The verifier compares recorded diagnostic counts and components/overlap candidates, checks requested viewport state, and reports manifoldness of visible parts. It does not reject intentional open surfaces merely because they are open.
+
+### Integration validation
+
+- Blender 5.2.2 LTS: 13 integration tests passed; Python host: 3 tests passed.
+- The new recipe test exercises all added operations, generated coordinate maps, material persistence, saved-file reopen and a rejected overlapping motif. Failure audit includes the exact zero-based operation index; no final result file is emitted.
+- A separate real host CLI negative run returned exit code 1 and recorded failed operation 1 (`relief_dots`), proving failure propagation beyond direct Python dispatch.
+- Material assignment validates inputs before mutation and isolates shared mesh data so unlisted linked objects retain their materials. Simple Principled RGBA/metallic/roughness settings are supported; arbitrary shader graphs are outside this operation.
+- The first in-process test reused material datablocks from its previous scene and failed at material creation. The test was corrected to use factory-startup state between runs, matching the documented host CLI process model. Material-name collision rejection remains intentional.
+- Previous relief commit Linux CI passed: https://github.com/shakystar/mesh-workbench/actions/runs/37284579488 .
+
+The earlier Python-only integration gap is closed. Remaining development should be driven by harder design edits rather than counting more recipe operations: reusable parameter revisions, topology-sensitive selections and recovery after shape changes still need broader real-model trials. Goal remains active.

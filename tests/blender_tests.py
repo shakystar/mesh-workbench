@@ -27,6 +27,135 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_material_assignment_isolates_shared_meshes(self):
+        from mesh_workbench import materials
+
+        a = m.primitive("cube", "A")
+        materials.assign([a], "Old", [0.1, 0.2, 0.3, 1])
+        b = a.copy()
+        b.data = a.data
+        bpy.context.collection.objects.link(b)
+        materials.assign([a], "New", [0.7, 0.4, 0.2, 0.5], roughness=0.25)
+        self.assertNotEqual(a.data, b.data)
+        self.assertEqual(b.data.materials[0].name, "Old")
+        shader = a.data.materials[0].node_tree.nodes.get("Principled BSDF")
+        self.assertAlmostEqual(shader.inputs["Alpha"].default_value, 0.5)
+        before = set(bpy.data.materials)
+        with self.assertRaises(ValueError):
+            materials.assign([a], "Invalid", [2, 0, 0, 1])
+        self.assertEqual(before, set(bpy.data.materials))
+        self.assertEqual(a.data.materials[0].name, "New")
+
+    def test_extended_recipe_success_and_failure_audits(self):
+        from mesh_workbench.runner import run
+
+        recipe = {
+            "version": 1,
+            "camera": {"size": [32, 32]},
+            "operations": [
+                {
+                    "op": "rounded_box",
+                    "name": "Case",
+                    "dimensions": [1, 1, 1],
+                    "options": {"radius": 0.1, "location": [-3, 0, 0]},
+                },
+                {
+                    "op": "revolve",
+                    "name": "Ring",
+                    "profile": [[0.2, 0], [0.3, 0], [0.3, 0.1], [0.2, 0.1]],
+                    "options": {"closed": True},
+                },
+                {
+                    "op": "strut",
+                    "name": "Strut",
+                    "start": [1, 0, 0],
+                    "end": [1, 0, 1],
+                    "options": {"radius": 0.1},
+                },
+                {
+                    "op": "sweep",
+                    "name": "Sweep",
+                    "centers": [[2, 0, 0], [2, 0, 1], [2.2, 0, 1.5]],
+                    "radii": [[0.1, 0.1]] * 3,
+                },
+                {
+                    "op": "primitive",
+                    "kind": "sphere",
+                    "name": "Ball",
+                    "location": [4, 0, 0],
+                },
+                {
+                    "op": "fair",
+                    "object": "Ball",
+                    "center": [4, 0, 1],
+                    "radius": 0.8,
+                    "options": {"iterations": 2, "positive": 0.1, "negative": -0.11},
+                },
+                {
+                    "op": "primitive",
+                    "kind": "plane",
+                    "name": "Pad",
+                    "location": [0, 0, 2],
+                },
+                {
+                    "op": "relief_dots",
+                    "target": "Pad",
+                    "name": "Dots",
+                    "points": [[0, 0, 3]],
+                    "options": {"direction": [0, 0, -1], "max_distance": 2},
+                },
+                {
+                    "op": "material",
+                    "name": "Red",
+                    "objects": ["Case", "Dots"],
+                    "color": [0.4, 0.1, 0.1, 1],
+                    "options": {"metallic": 0.3},
+                },
+                {"op": "visible", "objects": ["Pad"], "value": False, "viewport": True},
+                {"op": "diagnose", "object": "Dots"},
+                {"op": "capture", "name": "map", "render": False},
+            ],
+        }
+        path = self.root / "recipe.json"
+        path.write_text(json.dumps(recipe))
+        output = self.root / "success"
+        run(path, output)
+        audit = json.loads((output / "audit.json").read_text())
+        self.assertEqual(audit["status"], "complete")
+        self.assertEqual(len(audit["operations"]), len(recipe["operations"]))
+        diagnostic = audit["operations"][-2]["result"]
+        self.assertEqual(len(diagnostic["components"]), 1)
+        self.assertEqual(diagnostic["nonmanifold_edges"], 0)
+        bpy.ops.wm.open_mainfile(
+            filepath=str(output / "result.blend"), load_ui=False, use_scripts=False
+        )
+        self.assertEqual(bpy.data.objects["Case"].data.materials[0].name, "Red")
+        self.assertTrue(bpy.data.objects["Pad"].hide_get())
+        self.assertAlmostEqual(bpy.data.objects["Strut"].dimensions.z, 1, places=6)
+        self.assertTrue((output / "map" / "surface.npz").is_file())
+        recipe["operations"].append(
+            {
+                "op": "relief_dots",
+                "target": "Pad",
+                "name": "Rejected",
+                "points": [[0, 0, 3], [0, 0, 3]],
+                "options": {"direction": [0, 0, -1], "max_distance": 2},
+            }
+        )
+        path.write_text(json.dumps(recipe))
+        failed = self.root / "failed"
+        bpy.ops.wm.read_factory_settings(use_empty=True)
+        with self.assertRaises(ValueError):
+            run(path, failed)
+        audit = json.loads((failed / "audit.json").read_text())
+        self.assertEqual(audit["status"], "failed")
+        self.assertEqual(
+            audit["failed_operation"],
+            {"index": len(recipe["operations"]) - 1, "op": "relief_dots"},
+        )
+        self.assertNotIn("Rejected", bpy.data.objects)
+        self.assertFalse((failed / "result.blend").exists())
+
     def test_conforming_relief_geometry_and_failures(self):
         from mesh_workbench import relief, fairing
 

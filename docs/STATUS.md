@@ -47,3 +47,10 @@ Goal continues: try additional design families, use captured surface data for lo
 - First attempt had six edge-midpoint penetrations missed by face-center-only checks. Corrected clearance and verified all 9,248 sparse probes positive after saved-file reopen. Target file hash and vertex arrays remain unchanged.
 - Eleven Blender integration tests passed locally. Prior junction changes passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37283321666 .
 - Reproduction, actual previews and limitations are in the design journal. Python API additions still need recipe integration; goal continues.
+
+## Unified recipes and field speaker (2026-10-05)
+
+- Integrated eight new JSON operations covering construction, fairing, relief, diagnosis and simple materials. Operation errors now record their index/name. Added optional viewport hiding for saved construction objects.
+- Built and visually revised a fourth design entirely through a 70-operation JSON recipe. Independent reopen verified five diagnostics, 27 visible mesh parts and cutter visibility.
+- 13 Blender integration tests and 3 host tests passed locally. Real CLI negative run returned exit 1 with the expected failed operation. The previous relief commit passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37284579488 .
+- Reproduce with `examples/field-speaker.json`; verify with `examples/verify_recipe.py`. Python-only recipe integration limitation is resolved. Goal continues with harder iterative design edits and recovery cases.

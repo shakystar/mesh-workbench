@@ -11,7 +11,8 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 - Multiple models: selected `.blend` append; OBJ/STL/PLY/glTF import; transforms; copies; mesh joining; exact booleans; voxel fusion; indexed-topology morph blending.
 - Vertex/edge/face selection by indices or world bounds; vertex growth; precise displacement; subdivision, extrusion, inset, bevel, weld, deletion and triangulation.
 - Surface projection and conforming; raised seam curves; repeated real mesh motifs; cylindrical UVs and a procedural woven material.
-- Mesh inspection/export, multi-view capture, saved-file checkpoints and structured run audits.
+- Dimensioned boxes, revolved profiles, anchored struts, transported section sweeps, local fairing and conforming relief dots through Python and JSON recipes.
+- Simple materials, mesh diagnostics/export, multi-view capture, saved-file checkpoints and structured failure audits.
 
 Topology edits and combinations create new objects. Deformation layers can be disabled independently. Existing inputs and files are preserved.
 
@@ -68,3 +69,5 @@ GPL-3.0-or-later; see [LICENSE](LICENSE). No third-party character models, conte
 Two original procedural designs, their actual Blender renders, iterative critique and reproduction commands are available in the [design journal](docs/DESIGN_STUDIES.md). Reusable dimensioned construction helpers are exposed through the Python API.
 
 The [organic study](examples/organic_study.py) adds a third design family and records reversible edits from captured render coordinates. Its section-sweep tool is also reused to improve the lantern handle; see the journal for before/after evidence and remaining limits.
+
+The [field speaker recipe](examples/field-speaker.json) demonstrates the integrated construction tools without a custom Blender script. Run it with the same CLI command as the introductory recipes.

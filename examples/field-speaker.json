@@ -1,0 +1,1390 @@
+{
+  "version": 1,
+  "camera": {
+    "position": [
+      4,
+      -7,
+      3.8
+    ],
+    "target": [
+      0,
+      0,
+      1.25
+    ],
+    "scale": 4.6,
+    "size": [
+      512,
+      512
+    ]
+  },
+  "operations": [
+    {
+      "op": "rounded_box",
+      "name": "Case",
+      "dimensions": [
+        2.8,
+        0.95,
+        1.85
+      ],
+      "options": {
+        "location": [
+          0,
+          0,
+          1.05
+        ],
+        "radius": 0.2
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Faceplate source",
+      "dimensions": [
+        2.52,
+        0.07,
+        1.5
+      ],
+      "options": {
+        "location": [
+          0,
+          -0.505,
+          1.05
+        ],
+        "radius": 0.028
+      }
+    },
+    {
+      "op": "material",
+      "objects": [
+        "Case"
+      ],
+      "name": "Blue enamel",
+      "color": [
+        0.045,
+        0.19,
+        0.25,
+        1
+      ],
+      "options": {
+        "metallic": 0.25,
+        "roughness": 0.32
+      }
+    },
+    {
+      "op": "material",
+      "objects": [
+        "Faceplate source"
+      ],
+      "name": "Ivory enamel",
+      "color": [
+        0.66,
+        0.72,
+        0.64,
+        1
+      ],
+      "options": {
+        "metallic": 0.18
+      }
+    },
+    {
+      "op": "primitive",
+      "kind": "cylinder",
+      "name": "Cutter L",
+      "location": [
+        -0.68,
+        -0.505,
+        1.06
+      ],
+      "scale": [
+        0.472,
+        0.472,
+        0.2
+      ],
+      "options": {
+        "segments": 64
+      }
+    },
+    {
+      "op": "transform",
+      "object": "Cutter L",
+      "transform": {
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "op": "boolean",
+      "left": "Faceplate source",
+      "right": "Cutter L",
+      "operation": "DIFFERENCE",
+      "name": "Plate L"
+    },
+    {
+      "op": "revolve",
+      "name": "Cone L",
+      "profile": [
+        [
+          0.065,
+          0.025
+        ],
+        [
+          0.14,
+          0.015
+        ],
+        [
+          0.26,
+          -0.055
+        ],
+        [
+          0.39,
+          -0.035
+        ],
+        [
+          0.43,
+          0.025
+        ],
+        [
+          0.455,
+          0.02
+        ],
+        [
+          0.455,
+          -0.1
+        ],
+        [
+          0.065,
+          -0.1
+        ]
+      ],
+      "options": {
+        "closed": true,
+        "segments": 96
+      }
+    },
+    {
+      "op": "transform",
+      "object": "Cone L",
+      "transform": {
+        "location": [
+          -0.68,
+          -0.56,
+          1.06
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "op": "revolve",
+      "name": "Bezel L",
+      "profile": [
+        [
+          0.455,
+          -0.018
+        ],
+        [
+          0.48,
+          -0.018
+        ],
+        [
+          0.488,
+          0
+        ],
+        [
+          0.48,
+          0.022
+        ],
+        [
+          0.455,
+          0.022
+        ]
+      ],
+      "options": {
+        "closed": true,
+        "segments": 96
+      }
+    },
+    {
+      "op": "transform",
+      "object": "Bezel L",
+      "transform": {
+        "location": [
+          -0.68,
+          -0.56,
+          1.06
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "op": "primitive",
+      "kind": "sphere",
+      "name": "Dust cap L",
+      "location": [
+        -0.68,
+        -0.595,
+        1.06
+      ],
+      "scale": [
+        0.14,
+        0.052,
+        0.14
+      ],
+      "options": {
+        "segments": 48,
+        "rings": 24
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Screw L0.45",
+      "start": [
+        -1.1152,
+        -0.548,
+        0.45
+      ],
+      "end": [
+        -1.1152,
+        -0.57,
+        0.45
+      ],
+      "options": {
+        "radius": 0.032,
+        "segments": 24
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Screw L1.65",
+      "start": [
+        -1.1152,
+        -0.548,
+        1.65
+      ],
+      "end": [
+        -1.1152,
+        -0.57,
+        1.65
+      ],
+      "options": {
+        "radius": 0.032,
+        "segments": 24
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Foot L",
+      "dimensions": [
+        0.55,
+        0.65,
+        0.15
+      ],
+      "options": {
+        "location": [
+          -0.68,
+          0,
+          0.075
+        ],
+        "radius": 0.05
+      }
+    },
+    {
+      "op": "primitive",
+      "kind": "cylinder",
+      "name": "Cutter R",
+      "location": [
+        0.68,
+        -0.505,
+        1.06
+      ],
+      "scale": [
+        0.472,
+        0.472,
+        0.2
+      ],
+      "options": {
+        "segments": 64
+      }
+    },
+    {
+      "op": "transform",
+      "object": "Cutter R",
+      "transform": {
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "op": "boolean",
+      "left": "Plate L",
+      "right": "Cutter R",
+      "operation": "DIFFERENCE",
+      "name": "Plate R"
+    },
+    {
+      "op": "revolve",
+      "name": "Cone R",
+      "profile": [
+        [
+          0.065,
+          0.025
+        ],
+        [
+          0.14,
+          0.015
+        ],
+        [
+          0.26,
+          -0.055
+        ],
+        [
+          0.39,
+          -0.035
+        ],
+        [
+          0.43,
+          0.025
+        ],
+        [
+          0.455,
+          0.02
+        ],
+        [
+          0.455,
+          -0.1
+        ],
+        [
+          0.065,
+          -0.1
+        ]
+      ],
+      "options": {
+        "closed": true,
+        "segments": 96
+      }
+    },
+    {
+      "op": "transform",
+      "object": "Cone R",
+      "transform": {
+        "location": [
+          0.68,
+          -0.56,
+          1.06
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "op": "revolve",
+      "name": "Bezel R",
+      "profile": [
+        [
+          0.455,
+          -0.018
+        ],
+        [
+          0.48,
+          -0.018
+        ],
+        [
+          0.488,
+          0
+        ],
+        [
+          0.48,
+          0.022
+        ],
+        [
+          0.455,
+          0.022
+        ]
+      ],
+      "options": {
+        "closed": true,
+        "segments": 96
+      }
+    },
+    {
+      "op": "transform",
+      "object": "Bezel R",
+      "transform": {
+        "location": [
+          0.68,
+          -0.56,
+          1.06
+        ],
+        "rotation": [
+          1.5707963267948966,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "op": "primitive",
+      "kind": "sphere",
+      "name": "Dust cap R",
+      "location": [
+        0.68,
+        -0.595,
+        1.06
+      ],
+      "scale": [
+        0.14,
+        0.052,
+        0.14
+      ],
+      "options": {
+        "segments": 48,
+        "rings": 24
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Screw R0.45",
+      "start": [
+        1.1152,
+        -0.548,
+        0.45
+      ],
+      "end": [
+        1.1152,
+        -0.57,
+        0.45
+      ],
+      "options": {
+        "radius": 0.032,
+        "segments": 24
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Screw R1.65",
+      "start": [
+        1.1152,
+        -0.548,
+        1.65
+      ],
+      "end": [
+        1.1152,
+        -0.57,
+        1.65
+      ],
+      "options": {
+        "radius": 0.032,
+        "segments": 24
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Foot R",
+      "dimensions": [
+        0.55,
+        0.65,
+        0.15
+      ],
+      "options": {
+        "location": [
+          0.68,
+          0,
+          0.075
+        ],
+        "radius": 0.05
+      }
+    },
+    {
+      "op": "visible",
+      "objects": [
+        "Faceplate source",
+        "Plate L",
+        "Cutter L",
+        "Cutter R"
+      ],
+      "value": false,
+      "viewport": true
+    },
+    {
+      "op": "sweep",
+      "name": "Handle",
+      "centers": [
+        [
+          -1,
+          0,
+          1.88
+        ],
+        [
+          -1,
+          0,
+          2.35
+        ],
+        [
+          -1.0,
+          0,
+          2.36
+        ],
+        [
+          -0.9965413504725814,
+          0,
+          2.395116257962903
+        ],
+        [
+          -0.9862983158520315,
+          0,
+          2.428883017825716
+        ],
+        [
+          -0.9696645302144581,
+          0,
+          2.4600026419435284
+        ],
+        [
+          -0.9472792206135785,
+          0,
+          2.4872792206135785
+        ],
+        [
+          -0.9200026419435283,
+          0,
+          2.509664530214458
+        ],
+        [
+          -0.8888830178257161,
+          0,
+          2.5262983158520314
+        ],
+        [
+          -0.855116257962903,
+          0,
+          2.5365413504725813
+        ],
+        [
+          -0.82,
+          0,
+          2.54
+        ],
+        [
+          0.82,
+          0,
+          2.54
+        ],
+        [
+          0.855116257962903,
+          0,
+          2.5365413504725813
+        ],
+        [
+          0.8888830178257161,
+          0,
+          2.5262983158520314
+        ],
+        [
+          0.9200026419435283,
+          0,
+          2.509664530214458
+        ],
+        [
+          0.9472792206135785,
+          0,
+          2.4872792206135785
+        ],
+        [
+          0.9696645302144581,
+          0,
+          2.4600026419435284
+        ],
+        [
+          0.9862983158520315,
+          0,
+          2.428883017825716
+        ],
+        [
+          0.9965413504725814,
+          0,
+          2.395116257962903
+        ],
+        [
+          1.0,
+          0,
+          2.36
+        ],
+        [
+          1,
+          0,
+          1.88
+        ]
+      ],
+      "radii": [
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ],
+        [
+          0.06,
+          0.06
+        ]
+      ],
+      "options": {
+        "segments": 32
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Grip",
+      "start": [
+        -0.56,
+        0,
+        2.54
+      ],
+      "end": [
+        0.56,
+        0,
+        2.54
+      ],
+      "options": {
+        "radius": 0.085,
+        "segments": 48
+      }
+    },
+    {
+      "op": "revolve",
+      "name": "Volume knob",
+      "profile": [
+        [
+          0.12,
+          0
+        ],
+        [
+          0.145,
+          0.02
+        ],
+        [
+          0.145,
+          0.12
+        ],
+        [
+          0.12,
+          0.14
+        ]
+      ],
+      "options": {
+        "location": [
+          0.55,
+          0,
+          1.96
+        ],
+        "segments": 48
+      }
+    },
+    {
+      "op": "relief_dots",
+      "target": "Plate R",
+      "name": "Tactile controls",
+      "points": [
+        [
+          0,
+          -1,
+          0.8
+        ],
+        [
+          0,
+          -1,
+          1.05
+        ],
+        [
+          0,
+          -1,
+          1.3
+        ]
+      ],
+      "options": {
+        "radii": 0.04,
+        "height": 0.012,
+        "embed": 0.004,
+        "direction": [
+          0,
+          1,
+          0
+        ],
+        "max_distance": 1,
+        "clearance": 0.001
+      }
+    },
+    {
+      "op": "material",
+      "objects": [
+        "Tactile controls"
+      ],
+      "name": "Amber controls",
+      "color": [
+        0.85,
+        0.26,
+        0.035,
+        1
+      ],
+      "options": {
+        "metallic": 0.2
+      }
+    },
+    {
+      "op": "material",
+      "objects": [
+        "Cone L",
+        "Dust cap L",
+        "Foot L",
+        "Cone R",
+        "Dust cap R",
+        "Foot R",
+        "Grip",
+        "Volume knob"
+      ],
+      "name": "Graphite",
+      "color": [
+        0.018,
+        0.025,
+        0.029,
+        1
+      ],
+      "options": {
+        "roughness": 0.48
+      }
+    },
+    {
+      "op": "material",
+      "objects": [
+        "Bezel L",
+        "Screw L0.45",
+        "Screw L1.65",
+        "Bezel R",
+        "Screw R0.45",
+        "Screw R1.65",
+        "Handle"
+      ],
+      "name": "Aluminium",
+      "color": [
+        0.25,
+        0.31,
+        0.34,
+        1
+      ],
+      "options": {
+        "metallic": 0.8,
+        "roughness": 0.24
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Back gasket",
+      "dimensions": [
+        2,
+        0.07,
+        1.27
+      ],
+      "options": {
+        "location": [
+          0,
+          0.49,
+          1.05
+        ],
+        "radius": 0.03
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Back panel source",
+      "dimensions": [
+        1.9,
+        0.09,
+        1.17
+      ],
+      "options": {
+        "location": [
+          0,
+          0.54,
+          1.05
+        ],
+        "radius": 0.035
+      }
+    },
+    {
+      "op": "material",
+      "name": "Service enamel",
+      "objects": [
+        "Back panel source"
+      ],
+      "color": [
+        0.35,
+        0.44,
+        0.45,
+        1
+      ],
+      "options": {
+        "metallic": 0.5,
+        "roughness": 0.4
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 0",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          -0.65,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 1",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          -0.465,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 2",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          -0.28,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 3",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          -0.09500000000000008,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 4",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          0.08999999999999997,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 5",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          0.275,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 6",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          0.45999999999999985,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "rounded_box",
+      "name": "Vent 7",
+      "dimensions": [
+        0.075,
+        0.3,
+        0.34
+      ],
+      "options": {
+        "location": [
+          0.6449999999999999,
+          0.54,
+          1.22
+        ],
+        "radius": 0.026
+      }
+    },
+    {
+      "op": "combine",
+      "objects": [
+        "Vent 0",
+        "Vent 1",
+        "Vent 2",
+        "Vent 3",
+        "Vent 4",
+        "Vent 5",
+        "Vent 6",
+        "Vent 7"
+      ],
+      "name": "Vent cutters"
+    },
+    {
+      "op": "boolean",
+      "left": "Back panel source",
+      "right": "Vent cutters",
+      "operation": "DIFFERENCE",
+      "name": "Back service panel"
+    },
+    {
+      "op": "visible",
+      "objects": [
+        "Vent 0",
+        "Vent 1",
+        "Vent 2",
+        "Vent 3",
+        "Vent 4",
+        "Vent 5",
+        "Vent 6",
+        "Vent 7",
+        "Vent cutters",
+        "Back panel source"
+      ],
+      "value": false,
+      "viewport": true
+    },
+    {
+      "op": "revolve",
+      "name": "Power port bezel",
+      "profile": [
+        [
+          0.06,
+          -0.02
+        ],
+        [
+          0.09,
+          -0.02
+        ],
+        [
+          0.09,
+          0.018
+        ],
+        [
+          0.06,
+          0.018
+        ]
+      ],
+      "options": {
+        "closed": true
+      }
+    },
+    {
+      "op": "transform",
+      "object": "Power port bezel",
+      "transform": {
+        "location": [
+          0.55,
+          0.604,
+          0.76
+        ],
+        "rotation": [
+          -1.5707963267948966,
+          0,
+          0
+        ]
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Power socket",
+      "start": [
+        0.55,
+        0.59,
+        0.76
+      ],
+      "end": [
+        0.55,
+        0.603,
+        0.76
+      ],
+      "options": {
+        "radius": 0.058
+      }
+    },
+    {
+      "op": "material",
+      "name": "Port rubber",
+      "objects": [
+        "Back gasket",
+        "Power socket"
+      ],
+      "color": [
+        0.015,
+        0.02,
+        0.025,
+        1
+      ],
+      "options": {
+        "roughness": 0.6
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Back screw -0.82 0.58",
+      "start": [
+        -0.82,
+        0.58,
+        0.58
+      ],
+      "end": [
+        -0.82,
+        0.601,
+        0.58
+      ],
+      "options": {
+        "radius": 0.022,
+        "segments": 24
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Back screw -0.82 1.52",
+      "start": [
+        -0.82,
+        0.58,
+        1.52
+      ],
+      "end": [
+        -0.82,
+        0.601,
+        1.52
+      ],
+      "options": {
+        "radius": 0.022,
+        "segments": 24
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Back screw 0.82 0.58",
+      "start": [
+        0.82,
+        0.58,
+        0.58
+      ],
+      "end": [
+        0.82,
+        0.601,
+        0.58
+      ],
+      "options": {
+        "radius": 0.022,
+        "segments": 24
+      }
+    },
+    {
+      "op": "strut",
+      "name": "Back screw 0.82 1.52",
+      "start": [
+        0.82,
+        0.58,
+        1.52
+      ],
+      "end": [
+        0.82,
+        0.601,
+        1.52
+      ],
+      "options": {
+        "radius": 0.022,
+        "segments": 24
+      }
+    },
+    {
+      "op": "material",
+      "name": "Service metal",
+      "objects": [
+        "Power port bezel",
+        "Back screw -0.82 0.58",
+        "Back screw -0.82 1.52",
+        "Back screw 0.82 0.58",
+        "Back screw 0.82 1.52"
+      ],
+      "color": [
+        0.26,
+        0.3,
+        0.32,
+        1
+      ],
+      "options": {
+        "metallic": 0.8,
+        "roughness": 0.22
+      }
+    },
+    {
+      "op": "diagnose",
+      "object": "Back service panel"
+    },
+    {
+      "op": "rounded_box",
+      "name": "Floor",
+      "dimensions": [
+        100,
+        100,
+        0.2
+      ],
+      "options": {
+        "location": [
+          0,
+          0,
+          -0.1
+        ],
+        "radius": 0.01
+      }
+    },
+    {
+      "op": "material",
+      "objects": [
+        "Floor"
+      ],
+      "name": "Studio",
+      "color": [
+        0.065,
+        0.085,
+        0.1,
+        1
+      ],
+      "options": {
+        "roughness": 0.7
+      }
+    },
+    {
+      "op": "light",
+      "name": "Key",
+      "position": [
+        -3,
+        -4,
+        6
+      ],
+      "energy": 900,
+      "size": 4,
+      "target": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "op": "light",
+      "name": "Rim",
+      "position": [
+        4,
+        3,
+        5
+      ],
+      "energy": 1200,
+      "size": 3,
+      "target": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "op": "light",
+      "name": "Fill",
+      "position": [
+        4,
+        -3,
+        2
+      ],
+      "energy": 350,
+      "size": 3,
+      "target": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "op": "diagnose",
+      "object": "Case"
+    },
+    {
+      "op": "diagnose",
+      "object": "Plate R"
+    },
+    {
+      "op": "diagnose",
+      "object": "Handle"
+    },
+    {
+      "op": "diagnose",
+      "object": "Tactile controls"
+    },
+    {
+      "op": "capture",
+      "name": "front"
+    },
+    {
+      "op": "camera",
+      "camera": {
+        "position": [
+          -4,
+          6,
+          3
+        ],
+        "target": [
+          0,
+          0,
+          1.25
+        ],
+        "scale": 4.6,
+        "size": [
+          512,
+          512
+        ]
+      }
+    },
+    {
+      "op": "capture",
+      "name": "rear"
+    }
+  ]
+}

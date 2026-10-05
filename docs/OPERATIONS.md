@@ -5,6 +5,14 @@ Top-level fields: `version: 1`, optional `source` (`.blend` relative to the reci
 | Operation | Required fields | Optional fields / behavior |
 |---|---|---|
 | primitive | kind, name | location, scale, options; cube/sphere/plane/cylinder |
+| rounded_box | name, dimensions | options: location, radius, segments; full world-unit dimensions |
+| revolve | name, profile | options: segments, closed, location; positive radius/Z profile |
+| strut | name, start, end | options: radius, segments; world-space endpoints |
+| sweep | name, centers, radii | options: segments, reference; one elliptical radius pair per center |
+| fair | object, center, radius | options: iterations, positive, negative, label; reversible layer, rejects detected overlaps |
+| relief_dots | target, points, name | options: radii, height, embed, segments, rings, max_distance, direction, gap, clearance |
+| diagnose | object | evaluated mesh counts, component sizes and nonadjacent overlap candidates |
+| material | objects, name, color | options: metallic, roughness; new named Principled material, replaces target slots |
 | load_blend | path, objects | prefix; append named objects from another file |
 | load_mesh | path | prefix; OBJ/STL/PLY/glTF/GLB |
 | transform | object, transform | location/rotation (Euler radians)/scale |
@@ -20,7 +28,7 @@ Top-level fields: `version: 1`, optional `source` (`.blend` relative to the reci
 | mesh_export | object, name | output subdirectory with mesh.npz and mesh.json |
 | camera | camera | position, target, scale, size |
 | light | name, position | target, energy, size; area light |
-| visible | objects, value | changes render visibility |
+| visible | objects, value | changes render visibility; viewport: true also updates viewport hiding |
 | capture | name | render (default true); paired PNG and dense arrays |
 | views | name, views | render; views contain name/position/target/scale/size |
 | activate_map | map | restores a captured camera, still checks geometry on subsequent use |
@@ -49,3 +57,17 @@ An example operation:
 ```
 
 See [DESIGN.md](DESIGN.md) for units, correspondence, remeshing and pattern limitations.
+
+## Integrated construction example
+
+`examples/field-speaker.json` builds a complete procedural product study through the host CLI. It uses dimensioned shells, boolean apertures, revolved drivers, a swept handle, surface relief controls, materials, diagnostics and two paired render/coordinate captures.
+
+```sh
+mesh-workbench run examples/field-speaker.json --output runs/speaker
+```
+
+Construction/fairing/relief parameter limits are enforced by their Python APIs. New object and material names must be unused. `material` validates all targets before assignment and copies shared object data so an unlisted linked object keeps its original material. Color is RGBA in shader space. These are simple Principled materials, not a general node-graph interface.
+
+`diagnose` reports evidence, not a universal quality pass: zero nonadjacent overlap candidates does not cover all adjacent-face folds or mechanical collisions. Relief clearance is sampled. Fairing requires a static baked mesh; rounded-box modifiers can be explicitly collapsed with `bake` when deformation is needed.
+
+Operation exceptions record `failed_operation` (zero-based index and operation name) in `audit.json`. Earlier successful operations remain recorded; the recipe as a whole is not transactional. A failed run is not marked complete and does not receive the final `result.blend`; explicit earlier checkpoints may still exist. The host CLI returns nonzero on failure. Run the CLI in its standard fresh Blender process; direct `runner.run` assumes that process setup and is not an interactive-scene reset API.

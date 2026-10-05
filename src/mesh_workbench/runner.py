@@ -6,8 +6,22 @@ import json
 import sys
 import traceback
 from pathlib import Path
+
 import bpy
-from mesh_workbench import __version__, surface, sculpt, geometry, models, patterns
+
+from mesh_workbench import (
+    __version__,
+    construction,
+    fairing,
+    geometry,
+    materials,
+    models,
+    patterns,
+    relief,
+    sculpt,
+    surface,
+    sweep,
+)
 
 
 def confined(root, name):
@@ -64,6 +78,7 @@ def run(recipe_path, output):
         "sources": {},
     }
     selections = {}
+    current_operation = None
     sculpt.dump(output / "recipe.json", recipe)
 
     def source(name):
@@ -88,6 +103,7 @@ def run(recipe_path, output):
         camera(**recipe.get("camera", {}))
         for index, c in enumerate(recipe["operations"]):
             op = c["op"]
+            current_operation = {"index": index, "op": op}
             result = None
             if op == "primitive":
                 result = models.primitive(
@@ -95,6 +111,42 @@ def run(recipe_path, output):
                     c["name"],
                     c.get("location", [0, 0, 0]),
                     c.get("scale", [1, 1, 1]),
+                    **c.get("options", {}),
+                )
+            elif op == "rounded_box":
+                result = construction.rounded_box(
+                    c["name"], c["dimensions"], **c.get("options", {})
+                )
+            elif op == "revolve":
+                result = construction.revolve(
+                    c["name"], c["profile"], **c.get("options", {})
+                )
+            elif op == "strut":
+                result = construction.strut(
+                    c["name"], c["start"], c["end"], **c.get("options", {})
+                )
+            elif op == "sweep":
+                result = sweep.sweep(
+                    c["name"], c["centers"], c["radii"], **c.get("options", {})
+                )
+            elif op == "fair":
+                result = fairing.region(
+                    obj(c["object"]), c["center"], c["radius"], **c.get("options", {})
+                )
+            elif op == "relief_dots":
+                result = relief.dots(
+                    obj(c["target"]), c["points"], c["name"], **c.get("options", {})
+                )
+            elif op == "diagnose":
+                target = obj(c["object"])
+                result = geometry.inspect(target)
+                result["components"] = fairing.components(target)
+                result["overlap_candidates"] = fairing.overlap_candidates(target)
+            elif op == "material":
+                result = materials.assign(
+                    [obj(n) for n in c["objects"]],
+                    c["name"],
+                    c["color"],
                     **c.get("options", {}),
                 )
             elif op == "load_blend":
@@ -208,6 +260,8 @@ def run(recipe_path, output):
             elif op == "visible":
                 for name in c["objects"]:
                     obj(name).hide_render = not c["value"]
+                    if c.get("viewport", False):
+                        obj(name).hide_set(not c["value"])
                 result = {"visible": c["value"], "objects": c["objects"]}
             elif op == "light":
                 light = bpy.data.objects.new(
@@ -248,6 +302,7 @@ def run(recipe_path, output):
         audit["source_preserved"] = True
     except Exception:
         audit["status"] = "failed"
+        audit["failed_operation"] = current_operation
         audit["error"] = traceback.format_exc()
         raise
     finally:
