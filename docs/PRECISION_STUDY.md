@@ -60,6 +60,8 @@ A fresh Blender process reopened the final file and verified:
 - Named grip membership and seam anchors persist. Cross-section translation error is below 2.39e-7 units; layer undo was exact in the construction run.
 - The shell/panel candidate visibility transaction restores exactly; unrelated shared parts remain untouched. This transaction is scoped to shell/panel alternatives, not the whole scene.
 
+Implementation [Linux CI passed](https://github.com/shakystar/mesh-workbench/actions/runs/37292317713) for commit `47de44d62ec37c2227ba1371c273009b07850026`.
+
 Machine-readable evidence: [audit](PRECISION_AUDIT.json). Native local result: `runs/precision-speaker-03/refined-speaker.blend`. Generated runs are ignored by Git.
 
 ## Reproduce

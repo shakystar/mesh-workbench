@@ -986,7 +986,9 @@
   "validation": {
     "blender_integration_tests": 17,
     "host_tests": 3,
-    "status": "passed locally"
+    "status": "passed locally and in Linux CI",
+    "implementation_commit": "47de44d62ec37c2227ba1371c273009b07850026",
+    "ci_url": "https://github.com/shakystar/mesh-workbench/actions/runs/37292317713"
   },
   "limits": [
     "Orthographic component silhouettes evaluated independently of occlusion.",
