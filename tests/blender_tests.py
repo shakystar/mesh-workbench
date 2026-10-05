@@ -27,6 +27,45 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_construction_dimensions_profiles_and_anchors(self):
+        from mesh_workbench import construction as c
+        import bmesh
+        from mathutils import Vector
+
+        ring = c.revolve(
+            "Ring", [(0.8, -0.1), (1, -0.1), (1, 0.1), (0.8, 0.1)], closed=True
+        )
+        self.assertEqual(g.inspect(ring)["nonmanifold_edges"], 0)
+        bm = bmesh.new()
+        bm.from_mesh(ring.data)
+        self.assertGreater(bm.calc_volume(signed=True), 0)
+        bm.free()
+        beam = c.strut("Beam", [1, 2, 3], [2, 4, 6], 0.1)
+        world = s.coordinates(beam)
+        np.testing.assert_allclose(world[:64].mean(axis=0), [1.5, 3, 4.5], atol=1e-6)
+        # Each endpoint ring center must coincide with the requested anchor.
+        np.testing.assert_allclose(world[:32].mean(axis=0), [1, 2, 3], atol=1e-6)
+        np.testing.assert_allclose(world[32:].mean(axis=0), [2, 4, 6], atol=1e-6)
+        box = c.rounded_box("Rounded", [2, 3, 4], [1, 2, 3], 0.2)
+        evaluated = box.evaluated_get(bpy.context.evaluated_depsgraph_get())
+        bounds = np.array(
+            [evaluated.matrix_world @ Vector(v) for v in evaluated.bound_box]
+        )
+        np.testing.assert_allclose(
+            bounds.max(axis=0) - bounds.min(axis=0), [2, 3, 4], atol=1e-6
+        )
+        count = len(bpy.data.objects)
+        for fn in [
+            lambda: c.strut("Bad", [0, 0, 0], [0, 0, 0]),
+            lambda: c.revolve("Bad", [(0, 0), (1, 1)]),
+            lambda: c.revolve("Bad", [(1, 0), (1, 0)]),
+            lambda: c.rounded_box("Bad", [1, 1, 1], radius=0.5),
+            lambda: c.revolve("Ring", [(1, 0), (1, 1)]),
+        ]:
+            with self.assertRaises(ValueError):
+                fn()
+            self.assertEqual(len(bpy.data.objects), count)
+
     def test_selection_move_undo_and_stale(self):
         a = m.primitive("cube", "A", scale=[2, 1, 0.5])
         before = s.coordinates(a)

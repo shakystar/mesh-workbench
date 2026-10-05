@@ -15,3 +15,11 @@ Remaining limitations: orthographic maps, fixed topology for morph blending, app
 - Linux CI (Ubuntu 24.04, distribution Blender 4.0.2) passed the same 7 Blender tests and 3 host CLI tests. Initial missing NumPy dependency was corrected. Evidence: https://github.com/shakystar/mesh-workbench/actions/runs/37277671758 .
 - The wheel was installed into an isolated directory and its CLI entry point executed successfully.
 - Public repository: https://github.com/shakystar/mesh-workbench (GPL-3.0-or-later).
+
+## Active design iteration (2026-10-05)
+
+Two original designs now exercise the tool in actual modeling: a field robot and work lantern. Both were rendered, visually evaluated, revised and reopened for coordinate/mesh verification. See [design journal](DESIGN_STUDIES.md) for before/after findings, reproducible commands, measured geometry and unresolved defects.
+
+Added dimensioned rounded boxes, profile revolutions and two-anchor struts in the Python API. Local Blender 5.2.2 LTS: 8 integration tests and 3 host tests passed. Evaluated final visible mesh parts had no nonmanifold edges; this is not a collision/rig/production validation. New work has not yet been independently verified on Linux.
+
+Goal continues: try additional design families, use captured surface data for local refinement, and extract tools from demonstrated failures.

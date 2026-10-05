@@ -62,3 +62,7 @@ python -m unittest discover -s tests -p "test_*.py"
 ## License
 
 GPL-3.0-or-later; see [LICENSE](LICENSE). No third-party character models, contest references, textures or proprietary assets are bundled. Included examples are generated procedurally by this repository. Blender is a separate dependency; this is an independent project, not an official Blender product.
+
+## Modeled design studies
+
+Two original procedural designs, their actual Blender renders, iterative critique and reproduction commands are available in the [design journal](docs/DESIGN_STUDIES.md). Reusable dimensioned construction helpers are exposed through the Python API.
