@@ -93,8 +93,10 @@ def resolve(target, binding):
         normal = (b - a).cross(c - a)
         if normal.length < 1e-12:
             raise ValueError("Binding triangle collapsed")
-        p = a * weights[0] + b * weights[1] + c * weights[2]
-        result.append({"position": list(p), "normal": list(normal.normalized())})
+        # Accumulate barycentric positions in float64; Vector arithmetic rounds each
+        # intermediate term to float32 and loses precision after triangle splits.
+        p = (coords[list(ids)] * np.asarray(weights)[:, None]).sum(axis=0)
+        result.append({"position": p.tolist(), "normal": list(normal.normalized())})
     return result
 
 

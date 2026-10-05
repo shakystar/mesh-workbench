@@ -182,3 +182,35 @@ Updates stage all geometry, enforce unchanged indexed topology, validate, then s
 Selective hashes use shell face vertices and adjacent faces; surface details use binding vertices, a nearby footprint and adjacent faces. This is a static same-topology system, not arbitrary remesh correspondence or a background Blender handler. Legacy `attachments.status` uses a conservative whole-surface revision, so it can report `needs_refresh` for an unchanged local attachment after another region moves; assembly-local tracking is separate.
 
 Motion options: `translation`, rotation `axis`/`angle` (radians), optional world `pivot`, `steps` (intervals), `probe_limit` (vertex-distance sampling cap), and `minimum` (sampled clearance threshold). Reports retain every pose, overlap counts, up to 32 overlapping triangle index pairs and moving-triangle centers, and the nearest sampled clearance probe. Triangle centers identify affected faces, not exact contact points. Every pose includes full triangle-overlap candidate detection; distances use sampled moving vertices. No continuous collision or complete-containment guarantee is made. Geometry-inspection `passed:false` is a completed measurement; `assembly_update` raises when a registered constraint fails.
+
+
+## Surface quality, explicit refinement, paths and hinges
+
+See [headphone-tools.json](../examples/headphone-tools.json) for runnable JSON and the [headphone study](HEADPHONE_STUDY.md) for measured native results. Units follow world coordinates; the study uses millimeters.
+
+| Operation | Key inputs | Behavior |
+| --- | --- | --- |
+| `curvature` | `object`, optional `options.indices` / `attribute` | Evaluated-triangle cotangent mean-curvature magnitudes and interior edge-gradient statistics; optional point attribute |
+| `fair_patch` | `object`, named vertex `selection`, `options` | Reversible local correction; pins outside vertices, the selection boundary and mesh boundaries |
+| `reflection_bands` | `object`, optional frequency/name | Assigns a diagnostic reflected-view-direction stripe material |
+| `refine_faces` | `object`, face `selection`, new `name` | Splits selected evaluated triangles into centroid fans on a new mesh |
+| `transfer_selection` | `source`, `target`, named `selection`, new selection `name` | Transfers faces or vertices through explicit provenance |
+| `transfer_pattern` | `source`, `target`, bound `pattern`, new `name` | Migrates barycentric anchors and regenerates relief or a bound seam |
+| `path_create` | `name`, `centers`, `radii`, `options` | Open transported elliptical sweep or a closed planar loop |
+| `path_reshape` | source `object`, new `centers`, new `name` | Rebuilds with the stored radius pairs and matching center count |
+| `path_sections` | `object` | Measures ring centers and covariance-derived ellipse radii |
+| `ring_bridge` | equal-count `start` / `end` rings and `start_tangent` / `end_tangent` arrays | Cubic Hermite ring transition, optionally capped |
+| `joints_register` | `joints` | Stores named groups, axes, world pivots, radian limits and rest matrices |
+| `joints_inspect` | angle map `angles`, fixed object names `fixed`, `options` | Samples simultaneous hinge paths and restores input transforms exactly |
+
+Python modules mirror these operations. Additional Python functions: `quality.curvature_material` renders a shared-scale diagnostic color map, `refinement.transfer_binding` transfers raw anchors, `pathmodel.bridge_report` measures endpoint positions/tessellated tangent angles, and `joints.pose` / `joints.restore` provide an absolute pose and its restoration snapshot.
+
+`fair_patch` supports `method="laplacian"` (paired passes) or `method="quadratic"` (weighted local quadratic fits). Options include iterations, strength, reverse Laplacian step, fit radius and maximum displacement. Quadratic neighborhoods are frozen in world space and filtered by normal direction; insufficient or rank-deficient support rejects the edit. Pinned vertices do not move. The operation reports quality changes; smoothing alone is not a guarantee of better shape. Failed post-edit measurement or overlap checks restore the layer state.
+
+Curvature comparisons need matching topology, physical scale and selected region. Mesh boundaries are excluded from summary statistics. The color map defaults to a maximum of 0.1 inverse scene units; it is a diagnostic, not a surface tolerance certificate.
+
+Refinement retains parent-face IDs and sparse vertex weights. Face selections expand to all children. A new vertex joins a vertex selection only if **all** of its contributing source vertices were selected. Named regions follow the same rule. Vertex groups interpolate linearly; registered protection masks update their topology signature. Edge selections have no defined transfer rule and are rejected. Foreign/stale source geometry, masks or provenance are rejected. Inputs and previous bindings stay intact. Existing shape layers, UVs, custom corner attributes, shell metadata and arbitrary modifier history are not transferred to the new output. Assembly graph registration must be explicit after topology changes.
+
+Closed paths require a planar loop and its plane normal as `reference`; duplicate closure points are not included. Open paths use transported frames. `path_reshape` rebuilds from saved section parameters and does not carry arbitrary manual surface edits. A ring bridge interpolates supplied endpoint derivatives; it does not discover or stitch unrelated mesh boundaries automatically. No general self-intersection solver is implied; run geometry diagnostics on outputs.
+
+A hinge entry has `name`, `objects`, `axis`, `pivot` and `limits=[low,high]` in radians, including zero. Objects are static, unparented and unconstrained. An object can belong to only one group. `pose` uses the registered rest matrices, so repeated equal angles are idempotent and cannot silently accumulate beyond the limit. Inspection accepts interval `steps`, a `probe_limit`, and explicit `ignore_pairs` if a known interface must be excluded; the study excludes none. Same-group pairs are not tested. Reports retain per-pose overlapping triangle IDs and nearest sampled clearance probes. This is discrete rigid-group inspection, not a nested rig, continuous collision solver or material deformation simulation.

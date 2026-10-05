@@ -1,5 +1,10 @@
 # Development status
 
+## Surface quality and folding headphones (2026-10-05)
+
+Six milestones implemented: curvature/reflection diagnostics, boundary-pinned quadratic surface repair and Hermite connections, measured section paths, explicit triangle-refinement correspondence, absolute group hinges, and three native headphone sizes. `runs/headphone-study-06/{compact,standard,wide}/headphones.blend` passes fresh-process follow-up sculpt, mask/binding, path and folding checks. RMS guide error falls from 0.226153 to 0.054355 mm; curvature-gradient RMS falls about 51%. Windows Blender 5.2.2 LTS: 28 integration and 3 host tests pass; the host CLI example completes. See [study](HEADPHONE_STUDY.md) and [audit](HEADPHONE_AUDIT.json). Publication/CI verification is pending. Correspondence is limited to the implemented centroid refinement; no arbitrary remesh, UV transfer, nested rig or continuous collision claim is made.
+
+
 ## Regenerating assemblies (2026-10-05)
 
 Six milestones implemented: persisted dependencies, selective same-topology regeneration, measured wall/gap/attachment acceptance, staged atomic commit/rollback, sampled rigid motion, and three native mouse variants with fresh-process follow-up editing. Local Blender 5.2.2 LTS: 23 integration tests pass; three host tests and the real CLI example pass. Files: `runs/assembly-mouse-04/{width,height,thumb}/model.blend`. See [study](ASSEMBLY_STUDY.md) and [audit](ASSEMBLY_AUDIT.json). Goal complete. Implementation published as `ae3be01553c984cefebbbb58e4cf7261c97f8c1c`; [Linux Blender 4.0.2 CI](https://github.com/shakystar/mesh-workbench/actions/runs/37318519975) passes the same 23 integration and 3 host tests. The 0.6 mm button path correctly reports interference; a 0.15 mm trial passes. Motion checks remain discrete and do not prove manufacturing readiness.

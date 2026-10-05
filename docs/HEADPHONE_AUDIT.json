@@ -1,0 +1,1480 @@
+{
+  "target_sha256": "c2dfd29789fa58e6525db37ba6ff0165f01f6048cb285dcadc1970f976738e5f",
+  "blender": "5.2.2 LTS",
+  "variants": {
+    "compact": {
+      "span": 156,
+      "fairing": {
+        "method": "quadratic",
+        "layer": "MW pinned patch",
+        "active": 1553,
+        "pinned": 2961,
+        "pinned_error": 0.0,
+        "max_shift": 0.8224529284565939,
+        "before": {
+          "method": "cotangent mean-curvature magnitude with barycentric mass",
+          "samples": 1553,
+          "boundary_excluded": 0,
+          "mean": 0.05105876184323361,
+          "p95": 0.1853513241814765,
+          "max": 0.26472484881796865,
+          "roughness_rms": 0.036677462449104026
+        },
+        "after": {
+          "method": "cotangent mean-curvature magnitude with barycentric mass",
+          "samples": 1553,
+          "boundary_excluded": 0,
+          "mean": 0.016054438592029558,
+          "p95": 0.04359266502555528,
+          "max": 0.08608674843043052,
+          "roughness_rms": 0.018152705078980702
+        }
+      },
+      "shape_error_before": 0.22615302195242334,
+      "shape_error_after": 0.05435542186004972,
+      "binding_transfer_error": 1.7083785883254788e-06,
+      "refined_vertices": 7058,
+      "transferred_region_vertices": 4197,
+      "mask_max": 0.6000000238418579,
+      "band_sections": {
+        "rings": 65,
+        "radius_error_max": 3.266833086268406e-06,
+        "center_error_max": 7.741842048819448e-06
+      },
+      "left_cushion_sections": {
+        "rings": 96,
+        "radius_error_max": 1.4837045121396386e-06,
+        "center_error_max": 3.7927548495436257e-06
+      },
+      "left_bridge": {
+        "endpoint_position_error": 3.0510350654822105e-06,
+        "sampled_endpoint_tangent_angle_degrees": 3.2212598579109297,
+        "analytic_endpoint_derivatives": "specified Hermite tangents"
+      },
+      "right_cushion_sections": {
+        "rings": 96,
+        "radius_error_max": 1.4837045121396386e-06,
+        "center_error_max": 3.7927548495436257e-06
+      },
+      "right_bridge": {
+        "endpoint_position_error": 3.0510350654822105e-06,
+        "sampled_endpoint_tangent_angle_degrees": 3.2212598579109297,
+        "analytic_endpoint_derivatives": "specified Hermite tangents"
+      },
+      "fold": {
+        "passed": true,
+        "steps": 18,
+        "angles": {
+          "Left": -0.7853981633974483,
+          "Right": 0.7853981633974483
+        },
+        "angular_step_max": 0.04363323129985824,
+        "pairs": 52,
+        "ignored_interfaces": [],
+        "samples": [
+          {
+            "fraction": 0.0,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9997139573097229,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.05555555555555555,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0096884965896606,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.21809387207031,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.1111111111111111,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.02916419506073,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.43577575683594,
+                5.699999809265137,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.16666666666666666,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0268595218658447,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.2222222222222222,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0083070993423462,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.56422424316406,
+                5.699999809265137,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.2777777777777778,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9992561340332031,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.78190612792969,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.3333333333333333,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9997139573097229,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.3888888888888889,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0096884965896606,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.21809387207031,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.4444444444444444,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.02916419506073,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.43577575683594,
+                -5.700000762939453,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.5,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0268595218658447,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.5555555555555556,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0083070993423462,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.56422424316406,
+                -5.6999993324279785,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.6111111111111112,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9992561340332031,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.78190612792969,
+                5.700000286102295,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.6666666666666666,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9997139573097229,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.7222222222222222,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0096884965896606,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.21809387207031,
+                5.700000286102295,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.7777777777777778,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0291640758514404,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.43578338623047,
+                -5.6999993324279785,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.8333333333333334,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0268595218658447,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.8888888888888888,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0083070993423462,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.56422424316406,
+                -5.6999993324279785,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.9444444444444444,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9992561340332031,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -77.78189849853516,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 1.0,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9997139573097229,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -78.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          }
+        ],
+        "minimum_sampled_clearance": 0.9992561340332031,
+        "limits": "Discrete triangle-overlap candidates and sampled vertex distances; not continuous collision or full containment testing"
+      },
+      "cup_reference": {
+        "iou": 0.9993564019080791,
+        "different_pixels": 68,
+        "boundary_mean": 0.01359949302915082,
+        "boundary_p95": 0.2099999999999973,
+        "boundary_max": 0.21666666666666856,
+        "sample_count": 2104
+      },
+      "band_reference": {
+        "iou": 0.9933879545781228,
+        "different_pixels": 92,
+        "boundary_mean": 0.013148705599036676,
+        "boundary_p95": 0.23999999999998067,
+        "boundary_max": 0.2400000000000091,
+        "sample_count": 3322
+      },
+      "geometry": {
+        "Headband": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Headband pad": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left cup": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left cushion": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left driver": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left yoke": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left hinge": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left detail": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right cup": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right cushion": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right driver": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right yoke": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right hinge": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        }
+      }
+    },
+    "standard": {
+      "span": 168,
+      "fairing": {
+        "method": "quadratic",
+        "layer": "MW pinned patch",
+        "active": 1553,
+        "pinned": 2961,
+        "pinned_error": 0.0,
+        "max_shift": 0.8224529284565939,
+        "before": {
+          "method": "cotangent mean-curvature magnitude with barycentric mass",
+          "samples": 1553,
+          "boundary_excluded": 0,
+          "mean": 0.05105876184323361,
+          "p95": 0.1853513241814765,
+          "max": 0.26472484881796865,
+          "roughness_rms": 0.036677462449104026
+        },
+        "after": {
+          "method": "cotangent mean-curvature magnitude with barycentric mass",
+          "samples": 1553,
+          "boundary_excluded": 0,
+          "mean": 0.016054438592029558,
+          "p95": 0.04359266502555528,
+          "max": 0.08608674843043052,
+          "roughness_rms": 0.018152705078980702
+        }
+      },
+      "shape_error_before": 0.22615302195242334,
+      "shape_error_after": 0.05435542186004972,
+      "binding_transfer_error": 1.7083785883254788e-06,
+      "refined_vertices": 7058,
+      "transferred_region_vertices": 4197,
+      "mask_max": 0.6000000238418579,
+      "band_sections": {
+        "rings": 65,
+        "radius_error_max": 4.047885277635999e-06,
+        "center_error_max": 8.048468189512692e-06
+      },
+      "left_cushion_sections": {
+        "rings": 96,
+        "radius_error_max": 1.4837045121396386e-06,
+        "center_error_max": 3.7927548495436257e-06
+      },
+      "left_bridge": {
+        "endpoint_position_error": 3.0510350654822105e-06,
+        "sampled_endpoint_tangent_angle_degrees": 3.2212598579109297,
+        "analytic_endpoint_derivatives": "specified Hermite tangents"
+      },
+      "right_cushion_sections": {
+        "rings": 96,
+        "radius_error_max": 1.4837045121396386e-06,
+        "center_error_max": 3.7927548495436257e-06
+      },
+      "right_bridge": {
+        "endpoint_position_error": 3.0510350654822105e-06,
+        "sampled_endpoint_tangent_angle_degrees": 3.2212598579109297,
+        "analytic_endpoint_derivatives": "specified Hermite tangents"
+      },
+      "fold": {
+        "passed": true,
+        "steps": 18,
+        "angles": {
+          "Left": -0.7853981633974483,
+          "Right": 0.7853981633974483
+        },
+        "angular_step_max": 0.04363323129985824,
+        "pairs": 52,
+        "ignored_interfaces": [],
+        "samples": [
+          {
+            "fraction": 0.0,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996681213378906,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.05555555555555555,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0100475549697876,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.21809387207031,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.1111111111111111,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0299209356307983,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.43577575683594,
+                5.699999809265137,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.16666666666666666,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0256168842315674,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.2222222222222222,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0074602365493774,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.56422424316406,
+                5.699999809265137,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.2777777777777778,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9988057017326355,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.78190612792969,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.3333333333333333,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996681213378906,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.3888888888888889,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0100475549697876,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.21809387207031,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.4444444444444444,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0299209356307983,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.43577575683594,
+                5.69999885559082,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.5,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0256168842315674,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.5555555555555556,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0074602365493774,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.56422424316406,
+                5.700000286102295,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.6111111111111112,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9988057017326355,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.78190612792969,
+                5.700000286102295,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.6666666666666666,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996681213378906,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.7222222222222222,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0100475549697876,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.21809387207031,
+                5.700000286102295,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.7777777777777778,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0299209356307983,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.43577575683594,
+                5.700000286102295,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.8333333333333334,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0256168842315674,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.8888888888888888,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0074602365493774,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.56422424316406,
+                5.700000286102295,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.9444444444444444,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9988055229187012,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -83.78189849853516,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 1.0,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996681213378906,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -84.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          }
+        ],
+        "minimum_sampled_clearance": 0.9988055229187012,
+        "limits": "Discrete triangle-overlap candidates and sampled vertex distances; not continuous collision or full containment testing"
+      },
+      "cup_reference": {
+        "iou": 0.9993564019080791,
+        "different_pixels": 68,
+        "boundary_mean": 0.01359949302915082,
+        "boundary_p95": 0.2099999999999973,
+        "boundary_max": 0.21666666666666856,
+        "sample_count": 2104
+      },
+      "band_reference": {
+        "iou": 0.9926653750345973,
+        "different_pixels": 106,
+        "boundary_mean": 0.014986803519061663,
+        "boundary_p95": 0.23999999999998067,
+        "boundary_max": 0.328125,
+        "sample_count": 3410
+      },
+      "geometry": {
+        "Headband": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Headband pad": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left cup": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left cushion": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left driver": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left yoke": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left hinge": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left detail": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right cup": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right cushion": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right driver": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right yoke": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right hinge": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        }
+      }
+    },
+    "wide": {
+      "span": 180,
+      "fairing": {
+        "method": "quadratic",
+        "layer": "MW pinned patch",
+        "active": 1553,
+        "pinned": 2961,
+        "pinned_error": 0.0,
+        "max_shift": 0.8224529284565939,
+        "before": {
+          "method": "cotangent mean-curvature magnitude with barycentric mass",
+          "samples": 1553,
+          "boundary_excluded": 0,
+          "mean": 0.05105876184323361,
+          "p95": 0.1853513241814765,
+          "max": 0.26472484881796865,
+          "roughness_rms": 0.036677462449104026
+        },
+        "after": {
+          "method": "cotangent mean-curvature magnitude with barycentric mass",
+          "samples": 1553,
+          "boundary_excluded": 0,
+          "mean": 0.016054438592029558,
+          "p95": 0.04359266502555528,
+          "max": 0.08608674843043052,
+          "roughness_rms": 0.018152705078980702
+        }
+      },
+      "shape_error_before": 0.22615302195242334,
+      "shape_error_after": 0.05435542186004972,
+      "binding_transfer_error": 1.7083785883254788e-06,
+      "refined_vertices": 7058,
+      "transferred_region_vertices": 4197,
+      "mask_max": 0.6000000238418579,
+      "band_sections": {
+        "rings": 65,
+        "radius_error_max": 4.941709415007267e-06,
+        "center_error_max": 8.018739518328419e-06
+      },
+      "left_cushion_sections": {
+        "rings": 96,
+        "radius_error_max": 1.4837045121396386e-06,
+        "center_error_max": 3.7927548495436257e-06
+      },
+      "left_bridge": {
+        "endpoint_position_error": 3.0510350654822105e-06,
+        "sampled_endpoint_tangent_angle_degrees": 3.2212598579109297,
+        "analytic_endpoint_derivatives": "specified Hermite tangents"
+      },
+      "right_cushion_sections": {
+        "rings": 96,
+        "radius_error_max": 1.4837045121396386e-06,
+        "center_error_max": 3.7927548495436257e-06
+      },
+      "right_bridge": {
+        "endpoint_position_error": 3.0510350654822105e-06,
+        "sampled_endpoint_tangent_angle_degrees": 3.2212598579109297,
+        "analytic_endpoint_derivatives": "specified Hermite tangents"
+      },
+      "fold": {
+        "passed": true,
+        "steps": 18,
+        "angles": {
+          "Left": -0.7853981633974483,
+          "Right": 0.7853981633974483
+        },
+        "angular_step_max": 0.04363323129985824,
+        "pairs": 52,
+        "ignored_interfaces": [],
+        "samples": [
+          {
+            "fraction": 0.0,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996178150177002,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.05555555555555555,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.010394811630249,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.21809387207031,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.1111111111111111,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0306663513183594,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.43577575683594,
+                5.699999809265137,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.16666666666666666,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0243620872497559,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.2222222222222222,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0066092014312744,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.56422424316406,
+                5.699999809265137,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.2777777777777778,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9983586072921753,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.78190612792969,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.3333333333333333,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996178150177002,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.3888888888888889,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.010394811630249,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.21809387207031,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.4444444444444444,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0306662321090698,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.43577575683594,
+                5.69999885559082,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.5,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0243620872497559,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.5555555555555556,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0066092014312744,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.56422424316406,
+                -5.6999993324279785,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.6111111111111112,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9983586072921753,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.78190612792969,
+                5.700000286102295,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.6666666666666666,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996178150177002,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          },
+          {
+            "fraction": 0.7222222222222222,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.010394811630249,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.21809387207031,
+                5.700000286102295,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 0.7777777777777778,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0306662321090698,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.43578338623047,
+                -5.6999993324279785,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.8333333333333334,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0243620872497559,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.34736633300781,
+                5.699999809265137,
+                108.95722198486328
+              ]
+            }
+          },
+          {
+            "fraction": 0.8888888888888888,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 1.0066092014312744,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.56422424316406,
+                -5.6999993324279785,
+                108.98097229003906
+              ]
+            }
+          },
+          {
+            "fraction": 0.9444444444444444,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9983586072921753,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -89.78189849853516,
+                5.699999809265137,
+                108.9952392578125
+              ]
+            }
+          },
+          {
+            "fraction": 1.0,
+            "passed": true,
+            "collisions": [],
+            "sampled_clearance": 0.9996178150177002,
+            "nearest_probe": {
+              "objects": [
+                "Left hinge",
+                "Headband"
+              ],
+              "position": [
+                -90.0,
+                5.700000286102295,
+                109.0
+              ]
+            }
+          }
+        ],
+        "minimum_sampled_clearance": 0.9983586072921753,
+        "limits": "Discrete triangle-overlap candidates and sampled vertex distances; not continuous collision or full containment testing"
+      },
+      "cup_reference": {
+        "iou": 0.9993564019080791,
+        "different_pixels": 68,
+        "boundary_mean": 0.01359949302915082,
+        "boundary_p95": 0.2099999999999973,
+        "boundary_max": 0.21666666666666856,
+        "sample_count": 2104
+      },
+      "band_reference": {
+        "iou": 0.9917465388711395,
+        "different_pixels": 124,
+        "boundary_mean": 0.017180531732418555,
+        "boundary_p95": 0.23999999999999488,
+        "boundary_max": 0.328125,
+        "sample_count": 3498
+      },
+      "geometry": {
+        "Headband": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Headband pad": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left cup": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left cushion": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left driver": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left yoke": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left hinge": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Left detail": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right cup": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right cushion": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right driver": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right yoke": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        },
+        "Right hinge": {
+          "nonmanifold_edges": 0,
+          "overlap_candidates": 0
+        }
+      }
+    }
+  },
+  "reopen": {
+    "compact": {
+      "sha256": "9e4b226d78a6148c4455e8918efe38b2022d35027f0fdb965766f2e63f93b6ac",
+      "coordinates_match": true,
+      "source_surface_sample_error": 1.3867922461940907e-05,
+      "spatial_float32_tolerance": 6.103515625e-05,
+      "provenance_coordinate_error": 4.628569216958665e-06,
+      "binding_transfer_error": 1.7083785883254788e-06,
+      "masks_verified": true,
+      "fairing_undo_verified": true,
+      "fold_passed": true,
+      "motion_restored_exactly": true,
+      "limits_enforced": true,
+      "refined_followup_pattern_shift": 0.1985532759456762,
+      "reshaped_band_sections": {
+        "rings": 65,
+        "radius_error_max": 5.40552861361121e-06,
+        "center_error_max": 7.3767462373542266e-06
+      },
+      "saved_file_unchanged": true
+    },
+    "standard": {
+      "sha256": "5eba0cb794379bbeb3578dea38775cf573a0d8fec53e41c43f21d5217c3e848f",
+      "coordinates_match": true,
+      "source_surface_sample_error": 1.3867922461940907e-05,
+      "spatial_float32_tolerance": 6.103515625e-05,
+      "provenance_coordinate_error": 4.628569216958665e-06,
+      "binding_transfer_error": 1.7083785883254788e-06,
+      "masks_verified": true,
+      "fairing_undo_verified": true,
+      "fold_passed": true,
+      "motion_restored_exactly": true,
+      "limits_enforced": true,
+      "refined_followup_pattern_shift": 0.1985532759456762,
+      "reshaped_band_sections": {
+        "rings": 65,
+        "radius_error_max": 4.256457483364784e-06,
+        "center_error_max": 7.776011790532068e-06
+      },
+      "saved_file_unchanged": true
+    },
+    "wide": {
+      "sha256": "d020f66f0bc2a6c64116fb443b8047ba8927f1eda6f933efa12dd67bb148abce",
+      "coordinates_match": true,
+      "source_surface_sample_error": 1.3867922461940907e-05,
+      "spatial_float32_tolerance": 6.103515625e-05,
+      "provenance_coordinate_error": 4.628569216958665e-06,
+      "binding_transfer_error": 1.7083785883254788e-06,
+      "masks_verified": true,
+      "fairing_undo_verified": true,
+      "fold_passed": true,
+      "motion_restored_exactly": true,
+      "limits_enforced": true,
+      "refined_followup_pattern_shift": 0.1985532759456762,
+      "reshaped_band_sections": {
+        "rings": 65,
+        "radius_error_max": 4.333342992435263e-06,
+        "center_error_max": 7.4222281401052945e-06
+      },
+      "saved_file_unchanged": true
+    }
+  },
+  "validation": {
+    "windows_blender": "5.2.2 LTS",
+    "blender_tests": 28,
+    "host_tests": 3,
+    "host_cli_example": "headphone-tools.json",
+    "host_cli_passed": true,
+    "linux_ci": "pending"
+  }
+}

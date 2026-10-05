@@ -15,10 +15,14 @@ Actual Blender renders created with this toolkit.
 | ![Ray sculpture](docs/ray-relief-sparse.png) | ![Field speaker](docs/precision-after-hero.png) |
 | Asymmetric mouse | Mouse shell separation |
 | ![Asymmetric mouse](docs/mouse-final-hero.png) | ![Separated mouse shells](docs/mouse-exploded-hero.png) |
+| Folding headphones | Folded configuration |
+| ![Headphones](docs/headphone-standard-open.png) | ![Folded headphones](docs/headphone-standard-folded.png) |
 
 See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
 
-Latest: [regenerating mouse assembly](docs/ASSEMBLY_STUDY.md): persisted dependencies, selective updates, atomic rollback and sampled motion checks, demonstrated on three native variants.
+Latest: [folding headphones](docs/HEADPHONE_STUDY.md): measured surface repair, explicit subdivision correspondence, section-preserving paths and constrained group hinges across three sizes.
+
+Previous: [regenerating mouse assembly](docs/ASSEMBLY_STUDY.md): persisted dependencies, selective updates, atomic rollback and sampled motion checks, demonstrated on three native variants.
 
 Previous: [asymmetric mouse and measured shell study](docs/MOUSE_STUDY.md), including guide lofts, independent local edits, real wall thickness, panel gaps and deformation-following details. Earlier: [reference-driven speaker refinement](docs/PRECISION_STUDY.md).
 
@@ -33,6 +37,7 @@ Previous: [asymmetric mouse and measured shell study](docs/MOUSE_STUDY.md), incl
 - Reference silhouette metrics, named vertex regions, reversible section profiles, cubic handles, bound mesh seams and candidate comparison/restore.
 - Asymmetric guide lofts, source-preserving shell partitions, section cuts, wall/gap gauges and native violation markers.
 - Persisted assembly recipes, selective regeneration, measured acceptance, atomic failure recovery and discrete rigid-motion interference checks.
+- Curvature maps and reflection diagnostics, pinned quadratic surface fitting, explicit triangle-refinement correspondence, measured section paths and absolute group hinges.
 - Simple materials, mesh diagnostics/export, multi-view capture, saved-file checkpoints and structured failure audits.
 
 Topology edits and combinations create new objects. Deformation layers can be disabled independently. Existing inputs and files are preserved.

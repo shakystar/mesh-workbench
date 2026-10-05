@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "units": "mm",
+  "variants": {
+    "compact": 156,
+    "standard": 168,
+    "wide": 180
+  },
+  "cup": {
+    "depth_radius": 11,
+    "side_radius": 34,
+    "height_radius": 45,
+    "z": 55
+  },
+  "band": {
+    "end_z": 110,
+    "rise": 80,
+    "width_radius": 11,
+    "thickness_radius": 2.2,
+    "samples": 65,
+    "segments": 24
+  },
+  "cushion": {
+    "side_radius": 27,
+    "height_radius": 37,
+    "axial_radius": 7,
+    "tube_radius": 6
+  },
+  "hinge": {
+    "z": 104,
+    "angle_degrees": 45,
+    "limits_degrees": [
+      -60,
+      60
+    ]
+  },
+  "acceptance": {
+    "cup_iou_min": 0.985,
+    "band_iou_min": 0.97,
+    "roughness_ratio_max": 0.7,
+    "rms_shape_error_max": 0.45,
+    "section_error_max": 0.0001
+  }
+}

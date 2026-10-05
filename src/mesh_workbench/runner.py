@@ -11,6 +11,10 @@ import bpy
 
 from mesh_workbench import (
     __version__,
+    quality,
+    refinement,
+    pathmodel,
+    joints,
     assembly,
     motion,
     attachments,
@@ -116,7 +120,53 @@ def run(recipe_path, output):
             op = c["op"]
             current_operation = {"index": index, "op": op}
             result = None
-            if op == "assembly_register":
+            if op == "curvature":
+                result = quality.curvature(obj(c["object"]), **c.get("options", {}))
+            elif op == "fair_patch":
+                result = quality.fair_patch(
+                    obj(c["object"]), selections[c["selection"]], **c.get("options", {})
+                )
+            elif op == "reflection_bands":
+                result = {
+                    "material": quality.reflection_bands(
+                        obj(c["object"]), **c.get("options", {})
+                    ).name
+                }
+            elif op == "refine_faces":
+                result = refinement.split(
+                    obj(c["object"]), selections[c["selection"]], c["name"]
+                )
+            elif op == "transfer_selection":
+                result = refinement.transfer_selection(
+                    obj(c["source"]), obj(c["target"]), selections[c["selection"]]
+                )
+                selections[c["name"]] = result
+            elif op == "transfer_pattern":
+                result = refinement.transfer_pattern(
+                    obj(c["source"]), obj(c["target"]), obj(c["pattern"]), c["name"]
+                )
+            elif op == "path_create":
+                result = pathmodel.create(
+                    c["name"], c["centers"], c["radii"], **c.get("options", {})
+                )
+            elif op == "path_reshape":
+                result = pathmodel.reshape(obj(c["object"]), c["centers"], c["name"])
+            elif op == "path_sections":
+                result = pathmodel.sections(obj(c["object"]))
+            elif op == "ring_bridge":
+                result = pathmodel.bridge(
+                    c["name"],
+                    c["start"],
+                    c["end"],
+                    c["start_tangent"],
+                    c["end_tangent"],
+                    **c.get("options", {}),
+                )
+            elif op == "joints_register":
+                result = joints.register(c["joints"])
+            elif op == "joints_inspect":
+                result = joints.inspect(c["angles"], c["fixed"], **c.get("options", {}))
+            elif op == "assembly_register":
                 result = assembly.register(c["name"], c["nodes"], c.get("checks"))
             elif op == "assembly_status":
                 result = assembly.status()

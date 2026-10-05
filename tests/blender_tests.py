@@ -27,6 +27,226 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_headphone_tools_recipe_and_failure(self):
+        from mesh_workbench.runner import run
+
+        recipe = json.loads((ROOT / "examples/headphone-tools.json").read_text())
+        path = self.root / "tools.json"
+        path.write_text(json.dumps(recipe))
+        run(path, self.root / "success")
+        audit = json.loads((self.root / "success/audit.json").read_text())
+        self.assertEqual(audit["status"], "complete")
+        measured = next(
+            x["result"] for x in audit["operations"] if x["op"] == "path_sections"
+        )
+        self.assertLess(measured["radius_error_max"], 1e-5)
+        recipe["operations"].append(
+            {"op": "joints_inspect", "angles": {"hinge": 3}, "fixed": ["Source"]}
+        )
+        path.write_text(json.dumps(recipe))
+        with self.assertRaises(ValueError):
+            run(path, self.root / "failed")
+        failed = json.loads((self.root / "failed/audit.json").read_text())
+        self.assertEqual(failed["failed_operation"]["op"], "joints_inspect")
+
+    def test_curvature_and_pinned_patch(self):
+        from mesh_workbench import quality, pathmodel
+
+        sphere = m.primitive(
+            "sphere", "Sphere", scale=[10, 10, 10], segments=48, rings=24
+        )
+        report = quality.curvature(sphere)
+        self.assertAlmostEqual(report["mean"], 0.1, delta=0.01)
+        verts = [
+            (
+                x,
+                y,
+                0.15
+                * np.sin(x * 2)
+                * np.sin(y * 2)
+                * (1 - (x / 3) ** 2) ** 2
+                * (1 - (y / 3) ** 2) ** 2,
+            )
+            for y in np.linspace(-3, 3, 25)
+            for x in np.linspace(-3, 3, 25)
+        ]
+        faces = [
+            (i * 25 + j, i * 25 + j + 1, (i + 1) * 25 + j + 1, (i + 1) * 25 + j)
+            for i in range(24)
+            for j in range(24)
+        ]
+        patch = pathmodel._mesh("Patch", verts, faces)
+        before = s.coordinates(patch).copy()
+        sel = g.selection(patch, "VERT")
+        result = quality.fair_patch(
+            patch,
+            sel,
+            iterations=5,
+            strength=0.8,
+            max_shift=1,
+            method="quadratic",
+            fit_radius=1.2,
+        )
+        self.assertEqual(result["pinned_error"], 0)
+        self.assertLess(
+            result["after"]["roughness_rms"], result["before"]["roughness_rms"]
+        )
+        patch.data.shape_keys.key_blocks[result["layer"]].value = 0
+        np.testing.assert_array_equal(s.coordinates(patch), before)
+        with self.assertRaises(ValueError):
+            quality.fair_patch(patch, sel, max_shift=1e-6)
+        from unittest.mock import patch as mock_patch
+
+        original_curvature = quality.curvature
+        call_count = [0]
+
+        def fail_after_edit(*args, **kwargs):
+            call_count[0] += 1
+            if call_count[0] == 2:
+                raise ValueError("Injected post-edit measurement failure")
+            return original_curvature(*args, **kwargs)
+
+        keys_before = len(patch.data.shape_keys.key_blocks)
+        with mock_patch.object(quality, "curvature", fail_after_edit):
+            with self.assertRaisesRegex(ValueError, "post-edit"):
+                quality.fair_patch(patch, sel, iterations=2, max_shift=1)
+        self.assertEqual(len(patch.data.shape_keys.key_blocks), keys_before)
+        np.testing.assert_array_equal(s.coordinates(patch), before)
+        material = quality.reflection_bands(patch)
+        self.assertTrue(material.use_nodes)
+
+    def test_refinement_provenance_masks_and_attachments(self):
+        from mesh_workbench import refinement, attachments, regions
+
+        source = m.primitive(
+            "sphere", "Source", scale=[10, 10, 10], segments=16, rings=8
+        )
+        coords = s.coordinates(source).copy()
+        region = g.selection(source, "VERT")
+        regions.define(source, "all", region)
+        group = source.vertex_groups.new(name="Protect")
+        group.add(list(range(len(coords))), 0.4, "REPLACE")
+        source["mw_masks"] = json.dumps(
+            {"mask": {"group": group.name, "topology": s.topology(source)}}
+        )
+        binding = attachments.bind(source, [[10, 0, 0], [0, 0, 10]], max_distance=0.1)
+        faces = g.selection(source, "FACE")
+        refined = refinement.split(source, faces, "Refined")
+        transferred = refinement.transfer_binding(source, refined, binding)
+        np.testing.assert_allclose(
+            [h["position"] for h in attachments.resolve(source, binding)],
+            [h["position"] for h in attachments.resolve(refined, transferred)],
+            atol=1e-5,
+        )
+        self.assertGreater(len(refined.data.vertices), len(source.data.vertices))
+        np.testing.assert_allclose(s.protection(refined, "mask"), 0.4, atol=1e-6)
+        self.assertEqual(
+            len(regions.resolve(refined, "all")["indices"]), len(refined.data.vertices)
+        )
+        self.assertEqual(
+            len(refinement.transfer_selection(source, refined, faces)["indices"]),
+            len(refined.data.polygons),
+        )
+        np.testing.assert_array_equal(s.coordinates(source), coords)
+        with self.assertRaises(ValueError):
+            refinement.transfer_selection(source, refined, g.selection(source, "EDGE"))
+        source.data.vertices[0].co.x += 0.1
+        with self.assertRaisesRegex(ValueError, "Stale"):
+            refinement.transfer_binding(source, refined, binding)
+
+    def test_refinement_evaluated_surface_and_failed_mask_cleanup(self):
+        from mesh_workbench import refinement, pathmodel, assembly
+        from mathutils import Vector
+
+        source = pathmodel._mesh(
+            "Quad", [(0, 0, 0), (2, 0, 0), (2, 2, 0), (0, 2, 0)], [(0, 1, 2, 3)]
+        )
+        g.move(source, g.selection(source, "VERT", indices=[0]), [0, 0, 1])
+        target = refinement.split(source, g.selection(source, "FACE"), "Split")
+        tree = assembly._tree(source)
+        self.assertLess(
+            max(tree.find_nearest(Vector(p))[3] for p in s.coordinates(target)), 1e-6
+        )
+        source["mw_masks"] = json.dumps(
+            {"invalid": {"group": "Missing", "topology": "stale"}}
+        )
+        meshes = set(bpy.data.meshes.keys())
+        with self.assertRaisesRegex(ValueError, "Stale source mask"):
+            refinement.split(source, g.selection(source, "FACE"), "Rejected")
+        self.assertNotIn("Rejected", bpy.data.objects)
+        self.assertEqual(meshes, set(bpy.data.meshes.keys()))
+
+        source["mw_masks"] = json.dumps(
+            {"invalid": {"group": "Missing", "topology": s.topology(source)}}
+        )
+        with self.assertRaisesRegex(ValueError, "Missing source mask group"):
+            refinement.split(
+                source, g.selection(source, "FACE"), "Rejected missing group"
+            )
+        self.assertNotIn("Rejected missing group", bpy.data.objects)
+        self.assertEqual(meshes, set(bpy.data.meshes.keys()))
+
+    def test_path_sections_bridge_and_hinge_limits(self):
+        from mesh_workbench import pathmodel, joints
+
+        centers = [[0, 0, 0], [0, 0, 5], [2, 0, 10], [4, 0, 15]]
+        path = pathmodel.create(
+            "Path", centers, [[2, 1]] * 4, segments=24, reference=[0, 1, 0]
+        )
+        moved = pathmodel.reshape(
+            path, [[0, 0, 0], [0, 0, 5], [4, 0, 10], [8, 0, 15]], "Changed"
+        )
+        self.assertLess(pathmodel.sections(moved)["radius_error_max"], 1e-5)
+        theta = np.linspace(0, np.pi * 2, 16, endpoint=False)
+        start = [[2 * np.cos(t), 2 * np.sin(t), 0] for t in theta]
+        end = [[3 + 2 * np.cos(t), 2 * np.sin(t), 10] for t in theta]
+        bridge = pathmodel.bridge(
+            "Bridge", start, end, [[0, 0, 10]] * 16, [[0, 0, 10]] * 16
+        )
+        self.assertEqual(g.inspect(bridge)["nonmanifold_edges"], 0)
+        np.testing.assert_allclose(s.coordinates(bridge)[:16], start, atol=1e-6)
+        body = m.primitive("cube", "Rigid", location=[20, 0, 0])
+        obstacle = m.primitive("cube", "Obstacle", location=[0, 0, 0])
+        joints.register(
+            [
+                {
+                    "name": "hinge",
+                    "objects": [body.name],
+                    "axis": [0, 1, 0],
+                    "pivot": [0, 0, 0],
+                    "limits": [-1, 1],
+                }
+            ]
+        )
+        before = s.coordinates(body).copy()
+        self.assertTrue(
+            joints.inspect({"hinge": 0.5}, [obstacle.name], steps=4)["passed"]
+        )
+        np.testing.assert_array_equal(s.coordinates(body), before)
+        original_state = joints.pose({"hinge": 0.5})
+        posed = s.coordinates(body).copy()
+        joints.pose({"hinge": 0.5})
+        np.testing.assert_array_equal(s.coordinates(body), posed)
+        joints.restore(original_state)
+        with self.assertRaises(ValueError):
+            joints.inspect({"hinge": 2}, [obstacle.name])
+        np.testing.assert_array_equal(s.coordinates(body), before)
+        obstacle.location = [0, 0, -20]
+        joints.register(
+            [
+                {
+                    "name": "hinge",
+                    "objects": [body.name],
+                    "axis": [0, 1, 0],
+                    "pivot": [0, 0, 0],
+                    "limits": [-2, 2],
+                }
+            ]
+        )
+        self.assertFalse(
+            joints.inspect({"hinge": np.pi / 2}, [obstacle.name], steps=8)["passed"]
+        )
+
     def test_assembly_dependency_commit_and_rollback(self):
         from mesh_workbench import assembly, attachments, construction
 
