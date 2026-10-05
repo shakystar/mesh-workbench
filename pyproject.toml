@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mesh-workbench"
+version = "0.1.0"
+description = "Coordinate-driven Blender modeling: mesh edits, multi-model operations and surface patterns"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "GPL-3.0-or-later"
+authors = [{name = "Mesh Workbench contributors"}]
+dependencies = []
+
+[project.optional-dependencies]
+analysis = ["numpy>=1.24", "Pillow>=10"]
+
+[project.scripts]
+mesh-workbench = "mesh_workbench.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.urls]
+Repository = "https://github.com/shakystar/mesh-workbench"

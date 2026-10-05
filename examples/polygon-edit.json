@@ -1,0 +1,15 @@
+{
+  "version":1,
+  "camera":{"position":[4,-6,4],"target":[0,0,0.5],"scale":6,"size":[256,256]},
+  "operations":[
+    {"op":"primitive","kind":"cube","name":"Block"},
+    {"op":"select","object":"Block","name":"top","selection":{"domain":"FACE","box":[[-2,-2,0.99],[2,2,1.01]]}},
+    {"op":"mesh_edit","object":"Block","selection":"top","operation":"inset","name":"Inset","options":{"thickness":0.25}},
+    {"op":"select","object":"Inset","name":"center","selection":{"domain":"FACE","box":[[-0.1,-0.1,0.99],[0.1,0.1,1.01]]}},
+    {"op":"mesh_edit","object":"Inset","selection":"center","operation":"extrude","name":"Tower","options":{"delta":[0,0,0.8]}},
+    {"op":"visible","objects":["Block","Inset"],"value":false},
+    {"op":"light","name":"Key","position":[-3,-4,6],"energy":1000},
+    {"op":"inspect","object":"Tower"},
+    {"op":"capture","name":"review"}
+  ]
+}

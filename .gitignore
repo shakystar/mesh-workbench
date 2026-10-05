@@ -1,0 +1,12 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+build/
+dist/
+runs/
+*.blend
+*.blend1
+*.npz
+*.log
+.DS_Store
