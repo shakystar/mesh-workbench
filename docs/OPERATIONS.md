@@ -82,3 +82,36 @@ Create relief with the current tool, then call `bind_relief` before changing the
 The binding requires a static baked target. Changed connectivity, a renamed/different target, collapsed triangles or incompatible surface projection require explicit rebinding. This is not automatic retopology correspondence or an animation rig. Fixed world-space radii are retained, and hand edits to the generated motifs are not replayed. Old reliefs without saved generation settings must first be regenerated with the current tool.
 
 `current` reports target revision compatibility, not a general quality certificate for later manual changes to the pattern. Reprojection still uses the relief tool's clearance and spacing checks. Binding and generation settings survive native `.blend` saves.
+
+
+## Reference-driven precision tools
+
+See [the speaker study](PRECISION_STUDY.md) and its frozen [target drawing data](../examples/speaker-target.json).
+
+| Operation | Required fields | Optional fields |
+| --- | --- | --- |
+| `rounded_panel` | `name`, `dimensions` (X,Y,Z), `corner_radius`, `edge_radius` | `options`: `location`, `segments` (per quarter), `edge_segments` |
+| `bezier_tube` | `name`, `controls` (cubic segments, four XYZ controls each) | `options`: `radius`, `samples`, `segments`, `reference` |
+| `define_region` | `object`, `name` | `selection`: vertex `indices`, `box`, `sphere`, `grow` |
+| `profile_edit` | `object`, `region`, `axis`, `displacement_axis`, `knots` | `options`: `label`, `max_displacement` |
+| `bound_seam` | `target`, `points`, `name` | `options`: `radius`, `offset`, `max_distance`, `spacing` |
+| `refresh_seam` | `target`, `object`, `name` | None |
+| `compare_reference` | `object`, `path` (target JSON), `component` | `supersample` (1..4, resulting axis maximum 1024), `overlay` (new relative PNG) |
+| `activate_candidate` | `objects` (selected names), `alternatives` (all affected names) | None |
+| `restore_candidate` | None | None |
+
+`rounded_panel` is a closed XZ rounded outline extruded along Y. Outline radius is independent of thickness; edge radius must be smaller than half the thickness and the outline radius. It creates a solid panel, not a hollow shell.
+
+`bezier_tube` requires connected cubic segments with matching tangent directions at joins. It samples a capped section sweep, without guarantees of exact circular arcs, uniform arc-length spacing or collision-free bends.
+
+Named regions survive saves and topology-preserving edits. Vertex membership is fixed; a spatial box is not reevaluated. Changed connectivity is rejected. No remesh transfer or semantic recognition is implied. Profile edits require a single-user static baked mesh. Axes are world XYZ indices 0/1/2. Ordered `[coordinate, displacement]` knots use smoothstep interpolation and must start/end at zero. Outside the knot range the displacement is zero. Only selected vertices move. Vertices at the same input coordinate receive one translation, preserving cross-section differences. Shape-key layers permit undo. Detected nonadjacent triangle overlaps reject and roll back edits; this is not a full collision certificate.
+
+Bound seams are capped meshes swept through sampled surface anchors plus normal offsets. Refresh creates a new seam after topology-preserving deformation and preserves the old one. Use `attachment_status` for revision compatibility. Strong curvature, sparse sampling or extreme deformation may still cause collisions; inspect the resulting mesh.
+
+Target JSON uses `version: 1`, `views`, and `components`. Each view has orthonormal `horizontal`, `vertical`, `direction`, `bounds: [xmin,xmax,ymin,ymax]`, `depth: [near,far]` and `size: [width,height]`. Each component has a `view` and ordered `shapes`: `rounded_rect` (`center`, `size`, `radius`) or `circle` (`center`, `radius`). `subtract: true` removes coverage. Target data is hashed; reports record sampling size. Measurements use one evaluated mesh independently of visibility and occlusion. Empty/clipped masks, incompatible modifiers and excessive boundary complexity fail explicitly. PNG colors: gray agreement, orange excess, blue missing.
+
+IoU and symmetric nearest-boundary distances measure sampled silhouette agreement in drawing units, not complete 3D likeness. Increase sampling to distinguish raster-boundary error from geometry error; keep the same resolution across candidates. No photo segmentation, perspective camera calibration or hidden-surface recovery is implemented.
+
+Python `candidates.rank(entries, components, min_iou=0.99, max_boundary=0.012)` requires matching target hashes, matching per-component sampling and complete reports. Entries have `name`, `reports`, `nonmanifold_edges`, `overlap_candidates`. Ranking checks supplied diagnostics and does not change geometry. `activate` changes only the listed alternatives, retaining a visibility snapshot in the scene; `restore` restores it. Shared parts are untouched. Nested transactions and missing objects fail explicitly.
+
+API reference: [Blender BVHTree](https://docs.blender.org/api/current/mathutils.bvhtree.html). Queries use explicit world-space triangles; functionality is verified by executed Blender tests.

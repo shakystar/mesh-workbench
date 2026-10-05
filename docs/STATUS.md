@@ -1,5 +1,10 @@
 # Development status
 
+## Precision refinement (2026-10-05)
+
+Reference-driven speaker tooling and model refinement completed locally. Added analytic target comparisons, named topology-bound regions, reversible profile edits, independent panel radii, cubic sweeps, deforming mesh seams and candidate selection/restore. Three component IoUs average 91.717% before and 99.972% after at identical 0.005-unit sampling. All 17 Blender tests and 3 host tests pass; fresh-process native-file checks preserve 41 original mesh objects and verify 32 final visible parts, saved metrics, region/attachment persistence and visibility rollback. See [study](PRECISION_STUDY.md) and [audit](PRECISION_AUDIT.json). Linux CI verification pending for this change.
+
+
 Current result (2026-10-05): the requested multi-design modeling/evaluation/tool-development objective is complete. Four native models were reopened for the final audit; implementation CI passed. See [portfolio](PORTFOLIO.md) and [artifact audit](PORTFOLIO_AUDIT.json). Entries below retain the development history and its then-current goals.
 
 Version 0.1.0, initial open-source extraction. Implementation includes coordinate sculpting, multi-model assembly, explicit polygon editing and surface patterns. It is an API/CLI package; no finished interactive UI is claimed.

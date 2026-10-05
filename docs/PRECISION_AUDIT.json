@@ -1,0 +1,995 @@
+{
+  "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+  "source_sha256": "1b3ad8de61e20abaf2e9b4e943fe6481dc609d645f19181e694339167696b97a",
+  "blender": "5.2.2 LTS",
+  "candidates": [
+    {
+      "name": "before",
+      "reports": [
+        {
+          "iou": 0.9649781347947674,
+          "different_pixels": 7464,
+          "boundary_mean": 0.020925040698915674,
+          "boundary_p95": 0.06000000000000005,
+          "boundary_max": 0.06000000000000005,
+          "sample_count": 3528,
+          "object": "Case",
+          "component": "case_front",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            680,
+            610
+          ]
+        },
+        {
+          "iou": 0.8046513200148734,
+          "different_pixels": 23116,
+          "boundary_mean": 0.04280243648497742,
+          "boundary_p95": 0.08999999999999986,
+          "boundary_max": 0.08999999999999986,
+          "sample_count": 5360,
+          "object": "Plate R",
+          "component": "panel_front",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            680,
+            610
+          ]
+        },
+        {
+          "iou": 0.9818731117824774,
+          "different_pixels": 1272,
+          "boundary_mean": 0.005157252311757418,
+          "boundary_p95": 0.040000000000000036,
+          "boundary_max": 0.056568542494924205,
+          "sample_count": 2112,
+          "object": "Case",
+          "component": "case_side",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            340,
+            610
+          ]
+        }
+      ],
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    {
+      "name": "soft",
+      "reports": [
+        {
+          "iou": 0.9860459001615145,
+          "different_pixels": 2972,
+          "boundary_mean": 0.007161126061419468,
+          "boundary_p95": 0.044721359549996176,
+          "boundary_max": 0.049497474683058845,
+          "sample_count": 3472,
+          "object": "soft case",
+          "component": "case_front",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            680,
+            610
+          ]
+        },
+        {
+          "iou": 0.9811716188351418,
+          "different_pixels": 2228,
+          "boundary_mean": 0.003535121338201299,
+          "boundary_p95": 0.03354101966249683,
+          "boundary_max": 0.04609772228646471,
+          "sample_count": 5340,
+          "object": "soft panel",
+          "component": "panel_front",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            680,
+            610
+          ]
+        },
+        {
+          "iou": 0.9998859944137263,
+          "different_pixels": 8,
+          "boundary_mean": 3.676470588235226e-05,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.0050000000000000044,
+          "sample_count": 2176,
+          "object": "soft case",
+          "component": "case_side",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            340,
+            610
+          ]
+        }
+      ],
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    {
+      "name": "fitted",
+      "reports": [
+        {
+          "iou": 0.9999624384930323,
+          "different_pixels": 8,
+          "boundary_mean": 2.267573696145089e-05,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.0050000000000001155,
+          "sample_count": 3528,
+          "object": "fitted case",
+          "component": "case_front",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            680,
+            610
+          ]
+        },
+        {
+          "iou": 0.9993239360443498,
+          "different_pixels": 80,
+          "boundary_mean": 0.00014836795252225234,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.0050000000000001155,
+          "sample_count": 5392,
+          "object": "fitted panel",
+          "component": "panel_front",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            680,
+            610
+          ]
+        },
+        {
+          "iou": 0.9998859944137263,
+          "different_pixels": 8,
+          "boundary_mean": 3.676470588235226e-05,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.0050000000000000044,
+          "sample_count": 2176,
+          "object": "fitted case",
+          "component": "case_side",
+          "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+          "sampling_size": [
+            340,
+            610
+          ]
+        }
+      ],
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    }
+  ],
+  "ranking": [
+    {
+      "name": "fitted",
+      "accepted": true,
+      "geometry_valid": true,
+      "mean_iou": 0.9997241229837028
+    },
+    {
+      "name": "soft",
+      "accepted": false,
+      "geometry_valid": true,
+      "mean_iou": 0.9890345044701275
+    },
+    {
+      "name": "before",
+      "accepted": false,
+      "geometry_valid": true,
+      "mean_iou": 0.9171675221973726
+    }
+  ],
+  "grip_edit": {
+    "region": "grip crown",
+    "layer": "MW Grip crown",
+    "changed_vertices": 1872,
+    "max_displacement": 0.025
+  },
+  "undo_max_error": 0.0,
+  "reopen_verification": {
+    "blender": "5.2.2 LTS",
+    "model_sha256": "4ce5ed7749b8e0ae0dda0595449558bee251a06eff1b65c34e9081f436ce4885",
+    "original_mesh_objects_unchanged": 41,
+    "saved_metrics_match": [
+      {
+        "iou": 0.9999624384930323,
+        "different_pixels": 8,
+        "boundary_mean": 2.267573696145089e-05,
+        "boundary_p95": 0.0,
+        "boundary_max": 0.0050000000000001155,
+        "sample_count": 3528,
+        "object": "fitted case",
+        "component": "case_front",
+        "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+        "sampling_size": [
+          680,
+          610
+        ]
+      },
+      {
+        "iou": 0.9993239360443498,
+        "different_pixels": 80,
+        "boundary_mean": 0.00014836795252225234,
+        "boundary_p95": 0.0,
+        "boundary_max": 0.0050000000000001155,
+        "sample_count": 5392,
+        "object": "fitted panel",
+        "component": "panel_front",
+        "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+        "sampling_size": [
+          680,
+          610
+        ]
+      },
+      {
+        "iou": 0.9998859944137263,
+        "different_pixels": 8,
+        "boundary_mean": 3.676470588235226e-05,
+        "boundary_p95": 0.0,
+        "boundary_max": 0.0050000000000000044,
+        "sample_count": 2176,
+        "object": "fitted case",
+        "component": "case_side",
+        "target_sha256": "e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed",
+        "sampling_size": [
+          340,
+          610
+        ]
+      }
+    ],
+    "visible_parts_checked": 32,
+    "named_region_persisted": true,
+    "profile_section_translation_error": 2.384185791015625e-07,
+    "seam_binding_current": true,
+    "candidate_visibility_restored": true,
+    "saved_file_unchanged": true
+  },
+  "geometry": [
+    {
+      "object": "Cone L",
+      "vertices": 768,
+      "edges": 1536,
+      "faces": 768,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "6f4e84696151209485a0ceb3926074ff62170a3f1be6ec2cc8b66299b01a8843",
+      "bounds": [
+        [
+          -1.1349999904632568,
+          -0.5850000381469727,
+          0.6049998998641968
+        ],
+        [
+          -0.22499999403953552,
+          -0.4599999785423279,
+          1.5149999856948853
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Bezel L",
+      "vertices": 480,
+      "edges": 960,
+      "faces": 480,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "6d8a5896f250731dcb91477c26517c7ef0acb358228298e8586f7d4965705fd3",
+      "bounds": [
+        [
+          -1.1679999828338623,
+          -0.5820000171661377,
+          0.5719999074935913
+        ],
+        [
+          -0.19200000166893005,
+          -0.5419999957084656,
+          1.5479999780654907
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Dust cap L",
+      "vertices": 1106,
+      "edges": 2256,
+      "faces": 1152,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "4e2017ebe4e2afedeb805da82256bc01c31a3030a2de6886d33ba38c55e6691e",
+      "bounds": [
+        [
+          -0.820000171661377,
+          -0.6470000743865967,
+          0.9199999570846558
+        ],
+        [
+          -0.5399999618530273,
+          -0.5429999828338623,
+          1.1999999284744263
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Foot L",
+      "vertices": 488,
+      "edges": 972,
+      "faces": 486,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "7f27df8ba6183978574d8edb6d9954458cf1a6b8ef2ac371e4d5ff669cde2a92",
+      "bounds": [
+        [
+          -0.9550000429153442,
+          -0.32499998807907104,
+          0.0
+        ],
+        [
+          -0.4050000011920929,
+          0.32499998807907104,
+          0.15000000596046448
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Cone R",
+      "vertices": 768,
+      "edges": 1536,
+      "faces": 768,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "6f4e84696151209485a0ceb3926074ff62170a3f1be6ec2cc8b66299b01a8843",
+      "bounds": [
+        [
+          0.22499999403953552,
+          -0.5850000381469727,
+          0.6049998998641968
+        ],
+        [
+          1.1349999904632568,
+          -0.4599999785423279,
+          1.5149999856948853
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Bezel R",
+      "vertices": 480,
+      "edges": 960,
+      "faces": 480,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "6d8a5896f250731dcb91477c26517c7ef0acb358228298e8586f7d4965705fd3",
+      "bounds": [
+        [
+          0.19200000166893005,
+          -0.5820000171661377,
+          0.5719999074935913
+        ],
+        [
+          1.1679999828338623,
+          -0.5419999957084656,
+          1.5479999780654907
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Dust cap R",
+      "vertices": 1106,
+      "edges": 2256,
+      "faces": 1152,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "17ba9595807926f563ff7faa7f9ec809527a84158af39796ccc030e6a48fc39d",
+      "bounds": [
+        [
+          0.5399998426437378,
+          -0.6470000743865967,
+          0.9199999570846558
+        ],
+        [
+          0.8200000524520874,
+          -0.5429999828338623,
+          1.1999999284744263
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Foot R",
+      "vertices": 488,
+      "edges": 972,
+      "faces": 486,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "7f27df8ba6183978574d8edb6d9954458cf1a6b8ef2ac371e4d5ff669cde2a92",
+      "bounds": [
+        [
+          0.4050000011920929,
+          -0.32499998807907104,
+          0.0
+        ],
+        [
+          0.9550000429153442,
+          0.32499998807907104,
+          0.15000000596046448
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Volume knob",
+      "vertices": 192,
+      "edges": 336,
+      "faces": 146,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "a40d2c860ebc257584fb619391aee6ea5a5d3e251a7f3af9d031d1f40f493461",
+      "bounds": [
+        [
+          0.4050000309944153,
+          -0.14499999582767487,
+          1.9600000381469727
+        ],
+        [
+          0.6949999928474426,
+          0.14499999582767487,
+          2.1000001430511475
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Tactile controls",
+      "vertices": 438,
+      "edges": 936,
+      "faces": 504,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "f4a62ed0b9f9b80beaae082c9494bb69ad3d925b953b74d2e20d0152fb86e450",
+      "bounds": [
+        [
+          -0.03999999910593033,
+          -0.5530000329017639,
+          0.7599999904632568
+        ],
+        [
+          0.03999999910593033,
+          -0.5360000133514404,
+          1.3399999141693115
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Back gasket",
+      "vertices": 488,
+      "edges": 972,
+      "faces": 486,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "7f27df8ba6183978574d8edb6d9954458cf1a6b8ef2ac371e4d5ff669cde2a92",
+      "bounds": [
+        [
+          -1.0,
+          0.45500001311302185,
+          0.41499996185302734
+        ],
+        [
+          1.0,
+          0.5250000357627869,
+          1.684999942779541
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Back service panel",
+      "vertices": 1064,
+      "edges": 1854,
+      "faces": 776,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "172640af3c872df3c190a3852b6fcfeb6b940ddd1d1c3a417bd5376bef92a9bc",
+      "bounds": [
+        [
+          -0.949999988079071,
+          0.4950000047683716,
+          0.4649999737739563
+        ],
+        [
+          0.949999988079071,
+          0.5850000381469727,
+          1.6349999904632568
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Power port bezel",
+      "vertices": 256,
+      "edges": 512,
+      "faces": 256,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "d3c826e4b12659207a212bd34ca69b7b9b6cc56c1dad79ddf472b4ffddae7af6",
+      "bounds": [
+        [
+          0.46000000834465027,
+          0.5839999914169312,
+          0.6699999570846558
+        ],
+        [
+          0.6399999856948853,
+          0.621999979019165,
+          0.8500000238418579
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Power socket",
+      "vertices": 64,
+      "edges": 96,
+      "faces": 34,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "5685c334a548d85a969ab8ceb3bf8915957a8c23db85e6468be56c805bb59181",
+      "bounds": [
+        [
+          0.492000013589859,
+          0.5899999737739563,
+          0.7019999623298645
+        ],
+        [
+          0.6080000400543213,
+          0.6029999852180481,
+          0.8180000185966492
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Back screw -0.82 0.58",
+      "vertices": 48,
+      "edges": 72,
+      "faces": 26,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "448c9ca40364802948c827a81fd563908947541ae0d904ab31f5c4763e381166",
+      "bounds": [
+        [
+          -0.8420000076293945,
+          0.5799999833106995,
+          0.5579999685287476
+        ],
+        [
+          -0.7979999780654907,
+          0.6010000109672546,
+          0.6019999980926514
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Back screw -0.82 1.52",
+      "vertices": 48,
+      "edges": 72,
+      "faces": 26,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "448c9ca40364802948c827a81fd563908947541ae0d904ab31f5c4763e381166",
+      "bounds": [
+        [
+          -0.8420000076293945,
+          0.5799999833106995,
+          1.4980000257492065
+        ],
+        [
+          -0.7979999780654907,
+          0.6010000109672546,
+          1.5419999361038208
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Back screw 0.82 0.58",
+      "vertices": 48,
+      "edges": 72,
+      "faces": 26,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "448c9ca40364802948c827a81fd563908947541ae0d904ab31f5c4763e381166",
+      "bounds": [
+        [
+          0.7979999780654907,
+          0.5799999833106995,
+          0.5579999685287476
+        ],
+        [
+          0.8420000076293945,
+          0.6010000109672546,
+          0.6019999980926514
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Back screw 0.82 1.52",
+      "vertices": 48,
+      "edges": 72,
+      "faces": 26,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "448c9ca40364802948c827a81fd563908947541ae0d904ab31f5c4763e381166",
+      "bounds": [
+        [
+          0.7979999780654907,
+          0.5799999833106995,
+          1.4980000257492065
+        ],
+        [
+          0.8420000076293945,
+          0.6010000109672546,
+          1.5419999361038208
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "fitted case",
+      "vertices": 816,
+      "edges": 1564,
+      "faces": 750,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "23df40f1f7ed0b0c19d37ee88ae49878da46ccdf80cc3ba345017201348bc032",
+      "bounds": [
+        [
+          -1.4600000381469727,
+          -0.4749999940395355,
+          0.12499994039535522
+        ],
+        [
+          1.4600000381469727,
+          0.4749999940395355,
+          1.9749999046325684
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "fitted panel",
+      "vertices": 1075,
+      "edges": 1959,
+      "faces": 882,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "a920a326624e90b979fbb311f4708931586a363902c733306a32b49511391939",
+      "bounds": [
+        [
+          -1.350000023841858,
+          -0.5400000214576721,
+          0.23499995470046997
+        ],
+        [
+          1.350000023841858,
+          -0.4699999988079071,
+          1.8650000095367432
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Refined handle",
+      "vertices": 2594,
+      "edges": 5216,
+      "faces": 2624,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "fdd7a32edd827111a4806b843203db22fb36f5adec503738810aa373813486d3",
+      "bounds": [
+        [
+          -1.1049998998641968,
+          -0.054999999701976776,
+          1.899999976158142
+        ],
+        [
+          1.1049998998641968,
+          0.054999999701976776,
+          2.695000171661377
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Refined grip",
+      "vertices": 1970,
+      "edges": 3984,
+      "faces": 2016,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "0b2d3cb4dab30e607f90551b0c8e67adfa2ade904c9350c7ae4ffc4f3f97a9ba",
+      "bounds": [
+        [
+          -0.5799999833106995,
+          -0.08500000089406967,
+          2.555000066757202
+        ],
+        [
+          0.5799999833106995,
+          0.08500000089406967,
+          2.750000238418579
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Grip seam fitted",
+      "vertices": 542,
+      "edges": 1092,
+      "faces": 552,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "c7f0639ae880afd1983d5536f4487234bf9fe6bd8b4582cdfe06eac99b8f68b3",
+      "bounds": [
+        [
+          -0.5301147699356079,
+          -0.08264395594596863,
+          2.673367738723755
+        ],
+        [
+          0.5301147699356079,
+          -0.07466033846139908,
+          2.7057929039001465
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Handle seat -1",
+      "vertices": 816,
+      "edges": 1564,
+      "faces": 750,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "23df40f1f7ed0b0c19d37ee88ae49878da46ccdf80cc3ba345017201348bc032",
+      "bounds": [
+        [
+          -1.1699999570846558,
+          -0.14000000059604645,
+          1.933000087738037
+        ],
+        [
+          -0.9299999475479126,
+          0.14000000059604645,
+          2.0329999923706055
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Handle collar -1",
+      "vertices": 320,
+      "edges": 640,
+      "faces": 320,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "1fa6c4d3bf34c5cae6b36936a1b6354c1524c8c607968cc65fb83c4758e1e494",
+      "bounds": [
+        [
+          -1.1349999904632568,
+          -0.08500000089406967,
+          2.0199999809265137
+        ],
+        [
+          -0.9649999737739563,
+          0.08500000089406967,
+          2.0899999141693115
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Handle seat 1",
+      "vertices": 816,
+      "edges": 1564,
+      "faces": 750,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "23df40f1f7ed0b0c19d37ee88ae49878da46ccdf80cc3ba345017201348bc032",
+      "bounds": [
+        [
+          0.9299999475479126,
+          -0.14000000059604645,
+          1.933000087738037
+        ],
+        [
+          1.1699999570846558,
+          0.14000000059604645,
+          2.0329999923706055
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Handle collar 1",
+      "vertices": 320,
+      "edges": 640,
+      "faces": 320,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "1fa6c4d3bf34c5cae6b36936a1b6354c1524c8c607968cc65fb83c4758e1e494",
+      "bounds": [
+        [
+          0.9649999737739563,
+          -0.08500000089406967,
+          2.0199999809265137
+        ],
+        [
+          1.1349999904632568,
+          0.08500000089406967,
+          2.0899999141693115
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Seated screw L0.45",
+      "vertices": 72,
+      "edges": 110,
+      "faces": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "2c25a51e916a02ff19e14a004231778c8e086996defe33f8fa73cd73e8ed181e",
+      "bounds": [
+        [
+          -1.1471999883651733,
+          -0.5590000152587891,
+          0.4179999828338623
+        ],
+        [
+          -1.0832000970840454,
+          -0.5369999408721924,
+          0.4819999933242798
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Seated screw L1.65",
+      "vertices": 72,
+      "edges": 110,
+      "faces": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "2c25a51e916a02ff19e14a004231778c8e086996defe33f8fa73cd73e8ed181e",
+      "bounds": [
+        [
+          -1.1471999883651733,
+          -0.5590000152587891,
+          1.6180000305175781
+        ],
+        [
+          -1.0832000970840454,
+          -0.5369999408721924,
+          1.681999921798706
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Seated screw R0.45",
+      "vertices": 72,
+      "edges": 110,
+      "faces": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "2c25a51e916a02ff19e14a004231778c8e086996defe33f8fa73cd73e8ed181e",
+      "bounds": [
+        [
+          1.0832000970840454,
+          -0.5590000152587891,
+          0.4179999828338623
+        ],
+        [
+          1.1471999883651733,
+          -0.5369999408721924,
+          0.4819999933242798
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Seated screw R1.65",
+      "vertices": 72,
+      "edges": 110,
+      "faces": 40,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "2c25a51e916a02ff19e14a004231778c8e086996defe33f8fa73cd73e8ed181e",
+      "bounds": [
+        [
+          1.0832000970840454,
+          -0.5590000152587891,
+          1.6180000305175781
+        ],
+        [
+          1.1471999883651733,
+          -0.5369999408721924,
+          1.681999921798706
+        ]
+      ],
+      "overlap_candidates": 0
+    },
+    {
+      "object": "Front gasket",
+      "vertices": 816,
+      "edges": 1564,
+      "faces": 750,
+      "boundary_edges": 0,
+      "nonmanifold_edges": 0,
+      "finite": true,
+      "topology": "23df40f1f7ed0b0c19d37ee88ae49878da46ccdf80cc3ba345017201348bc032",
+      "bounds": [
+        [
+          -1.3660000562667847,
+          -0.48899999260902405,
+          0.218999981880188
+        ],
+        [
+          1.3660000562667847,
+          -0.46699997782707214,
+          1.8809999227523804
+        ]
+      ],
+      "overlap_candidates": 0
+    }
+  ],
+  "validation": {
+    "blender_integration_tests": 17,
+    "host_tests": 3,
+    "status": "passed locally"
+  },
+  "limits": [
+    "Orthographic component silhouettes evaluated independently of occlusion.",
+    "Raster metrics do not prove arbitrary surface likeness or manufacturing tolerances."
+  ]
+}

@@ -12,9 +12,11 @@ Actual Blender renders created with this toolkit.
 | --- | --- |
 | ![Field robot](docs/field-robot.png) | ![Work lantern](docs/lantern-final.png) |
 | Ray sculpture | Field speaker |
-| ![Ray sculpture](docs/ray-relief-sparse.png) | ![Field speaker](docs/field-speaker-front.png) |
+| ![Ray sculpture](docs/ray-relief-sparse.png) | ![Field speaker](docs/precision-after-hero.png) |
 
 See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
+
+Latest: [reference-driven speaker refinement](docs/PRECISION_STUDY.md), with fixed target drawings, measured candidate comparisons and reversible local edits.
 
 ## Features
 
@@ -24,6 +26,7 @@ See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for mode
 - Vertex/edge/face selection by indices or world bounds; vertex growth; precise displacement; subdivision, extrusion, inset, bevel, weld, deletion and triangulation.
 - Surface projection and conforming; raised seam curves; repeated real mesh motifs; cylindrical UVs and a procedural woven material.
 - Dimensioned boxes, revolved profiles, anchored struts, transported section sweeps, local fairing and conforming relief dots through Python and JSON recipes.
+- Reference silhouette metrics, named vertex regions, reversible section profiles, cubic handles, bound mesh seams and candidate comparison/restore.
 - Simple materials, mesh diagnostics/export, multi-view capture, saved-file checkpoints and structured failure audits.
 
 Topology edits and combinations create new objects. Deformation layers can be disabled independently. Existing inputs and files are preserved.

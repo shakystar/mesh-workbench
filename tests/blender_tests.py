@@ -27,6 +27,207 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_precision_reference_regions_and_candidate_restore(self):
+        from mesh_workbench import (
+            precision,
+            reference,
+            regions,
+            candidates,
+            attachments,
+            fairing,
+        )
+
+        spec = json.loads((ROOT / "examples/speaker-target.json").read_text())
+        panel = precision.rounded_panel("Precision", **spec["construction"]["case"])
+        report, actual, expected = reference.evaluate(panel, spec, "case_front")
+        self.assertGreater(report["iou"], 0.995)
+        self.assertLess(report["boundary_mean"], 0.006)  # below one 0.01-unit pixel
+        self.assertEqual(g.inspect(panel)["nonmanifold_edges"], 0)
+        self.assertEqual(fairing.overlap_candidates(panel), 0)
+        moved = panel.copy()
+        moved.data = panel.data.copy()
+        moved.name = "Shifted"
+        bpy.context.collection.objects.link(moved)
+        moved.location.x += 0.15
+        worse, _, _ = reference.evaluate(moved, spec, "case_front")
+        self.assertLess(worse["iou"], report["iou"] - 0.05)
+        view = spec["views"]["front"]
+        with self.assertRaises(ValueError):
+            reference.compare(np.zeros_like(actual), expected, view)
+        cropped = dict(view, bounds=[-0.1, 0.1, 0.9, 1.1])
+        with self.assertRaisesRegex(ValueError, "clips"):
+            reference.compare(
+                reference.mesh_mask(panel, cropped),
+                reference.target_mask(
+                    cropped, spec["components"]["case_front"]["shapes"]
+                ),
+                cropped,
+            )
+        entries = [
+            {"name": n, "reports": [r], "nonmanifold_edges": 0, "overlap_candidates": 0}
+            for n, r in [("correct", report), ("shifted", worse)]
+        ]
+        ranked = candidates.rank(entries, ["case_front"])
+        self.assertTrue(ranked[0]["accepted"])
+        self.assertFalse(ranked[1]["accepted"])
+        broken = json.loads(json.dumps(entries))
+        broken[1]["reports"][0]["target_sha256"] = "different"
+        with self.assertRaises(ValueError):
+            candidates.rank(broken, ["case_front"])
+        high, _, _ = reference.evaluate(panel, spec, "case_front", supersample=2)
+        self.assertGreater(high["iou"], 0.999)
+        mixed = json.loads(json.dumps(entries))
+        mixed[1]["reports"][0]["sampling_size"] = [128, 128]
+        with self.assertRaisesRegex(ValueError, "sampling"):
+            candidates.rank(mixed, ["case_front"])
+        snapshot = candidates.activate([panel.name], [panel.name, moved.name])
+        self.assertTrue(moved.hide_render)
+        with self.assertRaises(ValueError):
+            candidates.activate([panel.name], [panel.name, moved.name])
+        candidates.restore()
+        self.assertEqual(panel.hide_render, snapshot[panel.name]["render"])
+        self.assertEqual(moved.hide_get(), snapshot[moved.name]["viewport"])
+        coords = s.coordinates(panel)
+        sel = g.selection(panel, "VERT", box=[[-2, -1, 1.85], [2, 1, 2.1]])
+        regions.define(panel, "top rim", sel)
+        seam = precision.bound_seam(
+            panel,
+            [[-0.8, -0.1, 1.975], [0, -0.1, 1.975], [0.8, -0.1, 1.975]],
+            "Seam",
+            spacing=0.1,
+        )
+        old_seam = s.coordinates(seam).copy()
+        linked = panel.copy()
+        bpy.context.collection.objects.link(linked)
+        with self.assertRaisesRegex(ValueError, "single-user"):
+            regions.profile(panel, "top rim", 0, 2, [[-1.4, 0], [0, 0.03], [1.4, 0]])
+        np.testing.assert_array_equal(s.coordinates(panel), coords)
+        bpy.data.objects.remove(linked, do_unlink=True)
+        edit = regions.profile(panel, "top rim", 0, 2, [[-1.4, 0], [0, 0.03], [1.4, 0]])
+        after = s.coordinates(panel)
+        outside = sorted(set(range(len(coords))) - set(sel["indices"]))
+        np.testing.assert_array_equal(after[outside], coords[outside])
+        self.assertEqual(regions.resolve(panel, "top rim")["indices"], sel["indices"])
+        self.assertEqual(attachments.status(panel, seam)["status"], "needs_refresh")
+        refreshed = precision.refresh_seam(panel, seam, "Seam refreshed")
+        self.assertEqual(attachments.status(panel, refreshed)["status"], "current")
+        np.testing.assert_array_equal(s.coordinates(seam), old_seam)
+        self.assertEqual(g.inspect(refreshed)["nonmanifold_edges"], 0)
+        panel.data.shape_keys.key_blocks[edit["layer"]].value = 0
+        np.testing.assert_allclose(s.coordinates(panel), coords, atol=1e-7)
+        panel.data.shape_keys.key_blocks[edit["layer"]].value = 1
+        filename = self.root / "precision.blend"
+        bpy.ops.wm.save_as_mainfile(filepath=str(filename))
+        bpy.ops.wm.open_mainfile(
+            filepath=str(filename), load_ui=False, use_scripts=False
+        )
+        panel = bpy.data.objects["Precision"]
+        self.assertEqual(regions.resolve(panel, "top rim")["indices"], sel["indices"])
+        self.assertEqual(
+            attachments.status(panel, bpy.data.objects["Seam refreshed"])["status"],
+            "current",
+        )
+        panel.data.polygons[0].vertices = tuple(
+            reversed(panel.data.polygons[0].vertices)
+        )
+        with self.assertRaises(ValueError):
+            regions.resolve(panel, "top rim")
+
+    def test_precision_curves_and_recipe_failure(self):
+        from mesh_workbench import precision, fairing
+        from mesh_workbench.runner import run
+
+        controls = [
+            [[0, 0, 0], [0, 0, 0.3], [0.3, 0, 0.5], [0.6, 0, 0.5]],
+            [[0.6, 0, 0.5], [0.9, 0, 0.5], [1.2, 0, 0.3], [1.2, 0, 0]],
+        ]
+        tube = precision.bezier_tube("Curve", controls, radius=0.04)
+        self.assertEqual(g.inspect(tube)["nonmanifold_edges"], 0)
+        self.assertEqual(fairing.overlap_candidates(tube), 0)
+        invalid = json.loads(json.dumps(controls))
+        invalid[1][0][0] += 0.1
+        with self.assertRaises(ValueError):
+            precision.bezier_tube("Bad", invalid)
+        self.assertNotIn("Bad", bpy.data.objects)
+        with self.assertRaises(ValueError):
+            precision.rounded_panel("BadPanel", [2, 0.1, 1], 0.2, 0.1)
+        self.assertNotIn("BadPanel", bpy.data.objects)
+        spec = json.loads((ROOT / "examples/speaker-target.json").read_text())
+        recipe = {
+            "version": 1,
+            "operations": [
+                {"op": "rounded_panel", "name": "Case", **spec["construction"]["case"]}
+            ],
+        }
+        # location belongs in options in the public JSON operation.
+        recipe["operations"][0]["options"] = {
+            "location": recipe["operations"][0].pop("location")
+        }
+        recipe["operations"] += [
+            {
+                "op": "compare_reference",
+                "object": "Case",
+                "path": str(ROOT / "examples/speaker-target.json"),
+                "component": "case_front",
+                "overlay": "reference.png",
+            },
+            {
+                "op": "define_region",
+                "object": "Case",
+                "name": "top",
+                "selection": {"box": [[-2, -1, 1.85], [2, 1, 2.1]]},
+            },
+            {
+                "op": "bound_seam",
+                "target": "Case",
+                "name": "Seam",
+                "points": [[-0.8, 0, 1.975], [0.8, 0, 1.975]],
+            },
+            {
+                "op": "profile_edit",
+                "object": "Case",
+                "region": "top",
+                "axis": 0,
+                "displacement_axis": 2,
+                "knots": [[-1.4, 0], [0, 0.03], [1.4, 0]],
+            },
+            {
+                "op": "refresh_seam",
+                "target": "Case",
+                "object": "Seam",
+                "name": "Refreshed",
+            },
+            {"op": "bezier_tube", "name": "Tube", "controls": controls},
+            {
+                "op": "activate_candidate",
+                "objects": ["Refreshed"],
+                "alternatives": ["Seam", "Refreshed"],
+            },
+            {"op": "restore_candidate"},
+        ]
+        path = self.root / "recipe.json"
+        path.write_text(json.dumps(recipe))
+        run(path, self.root / "success")
+        audit = json.loads((self.root / "success/audit.json").read_text())
+        self.assertEqual(audit["status"], "complete")
+        self.assertTrue((self.root / "success/reference.png").is_file())
+        recipe["operations"].append(
+            {
+                "op": "profile_edit",
+                "object": "Case",
+                "region": "missing",
+                "axis": 0,
+                "displacement_axis": 2,
+                "knots": [[-1, 0], [0, 0.1], [1, 0]],
+            }
+        )
+        path.write_text(json.dumps(recipe))
+        with self.assertRaises(ValueError):
+            run(path, self.root / "failure")
+        audit = json.loads((self.root / "failure/audit.json").read_text())
+        self.assertEqual(audit["status"], "failed")
+        self.assertEqual(audit["failed_operation"]["op"], "profile_edit")
+
     def test_attachment_follow_persistence_and_topology_rejection(self):
         from mesh_workbench import attachments, relief
 

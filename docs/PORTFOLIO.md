@@ -1,4 +1,6 @@
-﻿# Four-design portfolio
+# Four-design portfolio
+
+The speaker has a newer [reference-driven refinement](PRECISION_STUDY.md). The four-model table below records the original portfolio audit.
 
 All images below are actual Blender renders from included procedural examples. Native editable files were reopened during the final audit. No external character models or generated raster substitutes are included.
 

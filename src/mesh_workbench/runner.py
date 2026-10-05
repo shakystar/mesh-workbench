@@ -12,6 +12,10 @@ import bpy
 from mesh_workbench import (
     __version__,
     attachments,
+    candidates,
+    precision,
+    reference,
+    regions,
     construction,
     fairing,
     geometry,
@@ -114,6 +118,57 @@ def run(recipe_path, output):
                     c.get("scale", [1, 1, 1]),
                     **c.get("options", {}),
                 )
+            elif op == "rounded_panel":
+                result = precision.rounded_panel(
+                    c["name"],
+                    c["dimensions"],
+                    c["corner_radius"],
+                    c["edge_radius"],
+                    **c.get("options", {}),
+                )
+            elif op == "bezier_tube":
+                result = precision.bezier_tube(
+                    c["name"], c["controls"], **c.get("options", {})
+                )
+            elif op == "define_region":
+                selected = geometry.selection(
+                    obj(c["object"]), "VERT", **c.get("selection", {})
+                )
+                result = regions.define(obj(c["object"]), c["name"], selected)
+            elif op == "profile_edit":
+                result = regions.profile(
+                    obj(c["object"]),
+                    c["region"],
+                    c["axis"],
+                    c["displacement_axis"],
+                    c["knots"],
+                    **c.get("options", {}),
+                )
+            elif op == "bound_seam":
+                result = precision.bound_seam(
+                    obj(c["target"]), c["points"], c["name"], **c.get("options", {})
+                )
+            elif op == "refresh_seam":
+                result = precision.refresh_seam(
+                    obj(c["target"]), obj(c["object"]), c["name"]
+                )
+            elif op == "compare_reference":
+                spec = json.loads(source(c["path"]).read_text(encoding="utf-8"))
+                result, actual, expected = reference.evaluate(
+                    obj(c["object"]),
+                    spec,
+                    c["component"],
+                    supersample=c.get("supersample", 1),
+                )
+                if c.get("overlay"):
+                    destination = confined(output, c["overlay"])
+                    if destination.exists():
+                        raise ValueError("Overlay exists")
+                    reference.save_overlay(destination, actual, expected)
+            elif op == "activate_candidate":
+                result = candidates.activate(c["objects"], c["alternatives"])
+            elif op == "restore_candidate":
+                result = candidates.restore()
             elif op == "rounded_box":
                 result = construction.rounded_box(
                     c["name"], c["dimensions"], **c.get("options", {})
