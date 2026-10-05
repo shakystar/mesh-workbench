@@ -1635,6 +1635,9 @@
     "host_tests": 3,
     "cli_recipe": "examples/mouse-shell.json",
     "cli_status": "complete",
-    "status": "local verification passed; Linux CI pending"
+    "status": "passed locally and in Linux CI",
+    "implementation_commit": "59c9708c30c843055391d0490c0b8afae09a6773",
+    "ci_url": "https://github.com/shakystar/mesh-workbench/actions/runs/37313854671",
+    "goal_status": "complete"
   }
 }

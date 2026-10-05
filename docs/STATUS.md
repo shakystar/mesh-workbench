@@ -2,7 +2,7 @@
 
 ## Asymmetric mouse (2026-10-05)
 
-Six modeling milestones implemented and locally verified: authored target, asymmetric guide loft, independent thumb/palm layers, closed housing/button partitions with wall and gap gauges, following grip/crown details, and saved-file verification. Final native artifact: `runs/mouse-study-08/mouse.blend`. All 19 Blender integration tests pass; host and CLI checks are recorded in the [study](MOUSE_STUDY.md) and [audit](MOUSE_AUDIT.json). Linux CI pending for this change. Normal-ray rim misses remain explicitly recorded; acceptance uses sampled nearest opposite-skin distance. Comfort/manufacturing validation is outside this goal.
+Goal complete. Six modeling milestones implemented and verified: authored target, asymmetric guide loft, independent thumb/palm layers, closed housing/button partitions with wall and gap gauges, following grip/crown details, and saved-file verification. Final native artifact: `runs/mouse-study-08/mouse.blend`. All 19 Blender integration tests pass; host and CLI checks are recorded in the [study](MOUSE_STUDY.md) and [audit](MOUSE_AUDIT.json). Implementation Linux CI passed: https://github.com/shakystar/mesh-workbench/actions/runs/37313854671 . Normal-ray rim misses remain explicitly recorded; acceptance uses sampled nearest opposite-skin distance. Comfort/manufacturing validation is outside this goal.
 
 ## Precision refinement (2026-10-05)
 

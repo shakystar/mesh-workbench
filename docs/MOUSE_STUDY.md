@@ -22,6 +22,8 @@ Brief hash: `e9e9f0c5a301c31430703f883e01a061050216ee0372a217fdb7e5972607cb7a`.
 
 ## Milestone evidence
 
+All six milestones are complete within the explicit sampled-modeling scope below.
+
 | Milestone | Implemented result | Evidence |
 | --- | --- | --- |
 | 1. Freeze target | Dimensions, sections, local field and acceptance fixed before candidate construction | Brief and drawing JSON with hashes |
@@ -92,7 +94,7 @@ A fresh Blender process verifies saved coordinate arrays, target hashes and rege
 
 Grip anchors shift by up to 2.872 mm with the thumb recess. Top vertices, edge midpoints and face centers were checked against the final upper housing, not just the hidden master: 1,806 probes, minimum signed clearance **0.07644 mm**. Pattern bottoms intentionally embed. Candidate visibility restoration and the native file hash are verified.
 
-Local validation: Blender 5.2.2 LTS on Windows, **19 Blender tests and 3 host tests**. The standard CLI completes `examples/mouse-shell.json`, including real capture and gauge reports. [Machine-readable completion evidence](MOUSE_AUDIT.json) includes all candidate, geometry and reopen summaries.
+Validation: Blender 5.2.2 LTS on Windows, **19 Blender tests and 3 host tests**. Implementation [Linux CI passed](https://github.com/shakystar/mesh-workbench/actions/runs/37313854671) for commit `59c9708c30c843055391d0490c0b8afae09a6773`. The standard CLI completes `examples/mouse-shell.json`, including real capture and gauge reports. [Machine-readable completion evidence](MOUSE_AUDIT.json) includes all candidate, geometry and reopen summaries.
 
 Native result: `runs/mouse-study-08/mouse.blend`. The hidden master retains editable thumb/palm layers; shell outputs are independent snapshots. After changing the master, explicitly regenerate shells and refresh bound details; this is not an automatically updating CAD feature tree.
 
