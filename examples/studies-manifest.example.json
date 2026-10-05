@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Field robot",
+    "model": "../runs/design-studies/field-robot/model.blend"
+  },
+  {
+    "name": "Work lantern",
+    "model": "../runs/lantern-refined/lantern.blend"
+  },
+  {
+    "name": "Ray sculpture",
+    "model": "../runs/relief/sparse.blend",
+    "exclude": [
+      "Floor"
+    ]
+  },
+  {
+    "name": "Field speaker",
+    "model": "../runs/speaker/result.blend",
+    "exclude": [
+      "Floor"
+    ]
+  }
+]

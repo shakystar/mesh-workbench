@@ -1,0 +1,48 @@
+{
+  "objective": "여러 디자인을 시도해보고 스스로 평가하며 필요한 도구는 개발하면서 스스로 진화하라.",
+  "blender": "5.2.2 LTS",
+  "source_commit": "7c7b997c7f146d15e5c9a580e36826bf855fe780",
+  "ci": "https://github.com/shakystar/mesh-workbench/actions/runs/37288030843",
+  "designs": [
+    {
+      "name": "Field robot",
+      "model": "design-studies-03/field-robot/model.blend",
+      "sha256": "6d0b04d4a08d1fec118a7b268c28263295e8701d9009ac310315d4d4c0a68423",
+      "bytes": 428958,
+      "part_count": 71,
+      "vertices": 24249,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    {
+      "name": "Work lantern",
+      "model": "lantern-sweep-01/lantern.blend",
+      "sha256": "d8b0b1d62e3dc4ae1d3f5747974c1a91b6f31a69110fffb4a3a477d3290f67c0",
+      "bytes": 149247,
+      "part_count": 64,
+      "vertices": 9960,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    {
+      "name": "Ray sculpture",
+      "model": "relief-02/sparse.blend",
+      "sha256": "e23cdf71f338b0e5fafce30d8f4d3ce442629511ecb96b2a7dd5a48d2193a10b",
+      "bytes": 1239206,
+      "part_count": 10,
+      "vertices": 26702,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    {
+      "name": "Field speaker",
+      "model": "field-speaker-03/result.blend",
+      "sha256": "1b3ad8de61e20abaf2e9b4e943fe6481dc609d645f19181e694339167696b97a",
+      "bytes": 376268,
+      "part_count": 26,
+      "vertices": 10576,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    }
+  ]
+}

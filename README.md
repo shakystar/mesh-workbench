@@ -4,6 +4,8 @@ Coordinate-driven modeling tools that operate **inside Blender**. Inspect render
 
 Early **0.1.0** implementation. Built for iterative work by people and coding agents, with explicit failure checks and source-preserving operations.
 
+See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for actual modeled results, design revisions and reproducible evidence.
+
 ## Features
 
 - Orthographic render-to-surface maps: world position, geometric normal, depth, object/face IDs, geometry/camera revision checks.

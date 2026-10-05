@@ -1,5 +1,7 @@
 # Development status
 
+Current result (2026-10-05): the requested multi-design modeling/evaluation/tool-development objective is complete. Four native models were reopened for the final audit; implementation CI passed. See [portfolio](PORTFOLIO.md) and [artifact audit](PORTFOLIO_AUDIT.json). Entries below retain the development history and its then-current goals.
+
 Version 0.1.0, initial open-source extraction. Implementation includes coordinate sculpting, multi-model assembly, explicit polygon editing and surface patterns. It is an API/CLI package; no finished interactive UI is claimed.
 
 Validation is recorded after executing Blender integration tests and procedural examples. Generated files are kept in ignored `runs/`; only asset-free preview images are published. Model assets from the originating project are not part of this repository.
@@ -61,3 +63,9 @@ Goal continues: try additional design families, use captured surface data for lo
 - Actual ray trial moved 4,300 vertices; stale spots visibly sank into the edited surface. Regeneration restores 32 surface details without modifying the old pattern. Reopen and pose-undo/regeneration checks passed.
 - 15 Blender integration tests passed, including collapsed/stale topology rejection. Prior unified recipe commit passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37286453015 .
 - This is explicit static editing with stable indexed topology, not live animation or arbitrary remesh correspondence. Goal continues with the limitations and evidence recorded in the design journal.
+
+## Final objective audit (2026-10-05)
+
+The requested multi-design/self-evaluation/tool-development cycle is complete. A fresh Blender process reopened the four selected native files without changing their hashes. The final audit counted 71 robot, 64 lantern, 10 ray and 26 speaker mesh objects, excluding studio floors. Each model's per-object nonmanifold and nonadjacent-overlap candidate totals were zero. The last implementation commit passed CI with 15 Blender and 3 host tests.
+
+The [portfolio](PORTFOLIO.md) maps the original objective to concrete artifacts and verification, retains explicit capability limits, and supplies reproduction commands. The [artifact audit](PORTFOLIO_AUDIT.json) records hashes and counts. Earlier "goal continues" entries describe the state at those intermediate checkpoints.
