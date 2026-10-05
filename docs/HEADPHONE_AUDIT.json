@@ -1475,6 +1475,14 @@
     "host_tests": 3,
     "host_cli_example": "headphone-tools.json",
     "host_cli_passed": true,
-    "linux_ci": "pending"
-  }
+    "linux_ci": {
+      "url": "https://github.com/shakystar/mesh-workbench/actions/runs/37325726988",
+      "commit": "b1cf4aacbcdc9d7232372a266b5c443a181ff7ca",
+      "conclusion": "success",
+      "blender": "4.0.2",
+      "blender_tests": 28,
+      "host_tests": 3
+    }
+  },
+  "goal_status": "complete"
 }
