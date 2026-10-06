@@ -465,7 +465,24 @@
     "blender_tests": 31,
     "host_tests": 3,
     "host_cli": "runs/remesh-cli-01",
-    "linux_ci": "pending publication",
+    "linux_ci": {
+      "url": "https://github.com/shakystar/mesh-workbench/actions/runs/37398919639",
+      "commit": "a03b8fab4928116f8fc5406cfc0643023de171ed",
+      "conclusion": "success",
+      "blender": "4.0.2",
+      "blender_tests": 31,
+      "host_tests": 3
+    },
     "artifact": "runs/drill-study-09/drill.blend"
+  },
+  "completion": {
+    "milestones": {
+      "local_edge_operations": "Python API, planar fixture, curved-sphere CLI and drill housing; split/collapse/flip verified",
+      "attribute_and_binding_transfer": "material/UV seam fixture, mask interpolation, same-chart attachment transfer and stale rejection",
+      "atomic_assembly_migration": "direct bound detail regeneration; staged and post-commit injected failures restore originals",
+      "native_model_and_reopen": "51 parts, six through vents, five native previews, fresh-process follow-up edit and source hash verified"
+    },
+    "status": "complete",
+    "scope": "Conservative triangle remesh and directly bound assembly details; limits in DRILL_STUDY.md"
   }
 }

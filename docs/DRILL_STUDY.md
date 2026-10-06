@@ -71,7 +71,7 @@ PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py'
 
 `--quick` after the output path skips renders; it is useful for geometry iterations but does not produce the illustrated evidence. On PowerShell, set `$env:PYTHONPATH='src'` before host Python commands. `--blender` or `BLENDER_BIN` selects an installed Blender executable.
 
-Windows Blender 5.2.2 LTS: 31 integration tests and 3 host tests pass. The actual host CLI recipe also completes. The latest focused run includes material/UV boundary preservation, all edge operations, transferred masks/bindings, stale correspondence rejection, failed-output cleanup, assembly rollback and structured CLI failure reporting. Linux CI will be recorded after publication.
+Windows Blender 5.2.2 LTS: 31 integration tests and 3 host tests pass. The actual host CLI recipe also completes. The latest focused run includes material/UV boundary preservation, all edge operations, transferred masks/bindings, stale correspondence rejection, failed-output cleanup, assembly rollback and structured CLI failure reporting. [Linux CI](https://github.com/shakystar/mesh-workbench/actions/runs/37398919639) on implementation `a03b8fab4928116f8fc5406cfc0643023de171ed` also passes all 31 Blender integration and 3 host tests using Blender 4.0.2. The four milestones are complete.
 
 ## Scope
 
