@@ -4,13 +4,13 @@ An original 124 mm mouse study demonstrates guide-based asymmetric surfaces, loc
 
 | Baseline | Refined assembly |
 | --- | --- |
-| ![Baseline](mouse-baseline-hero.png) | ![Final](mouse-final-hero.png) |
+| ![Baseline](../assets/mouse-baseline-hero.png) | ![Final](../assets/mouse-final-hero.png) |
 
 ## Frozen target and requirements
 
-![Frozen mouse drawing](mouse-target.svg)
+![Frozen mouse drawing](../assets/mouse-target.svg)
 
-The [brief](../examples/mouse-target.json) was saved before modeling. Nine Y sections define left/right widths, crown and underside; a specified local field defines the thumb recess. [Drawing polygons](../examples/mouse-reference.json) were derived before candidate meshes were built, using [the reference-freezing script](../examples/freeze_mouse_reference.py). They are mathematical design envelopes, not independent measurements of a real product. The front envelope is convex; the top/side drawings retain longitudinal concavity.
+The [brief](../../examples/mouse-target.json) was saved before modeling. Nine Y sections define left/right widths, crown and underside; a specified local field defines the thumb recess. [Drawing polygons](../../examples/mouse-reference.json) were derived before candidate meshes were built, using [the reference-freezing script](../../examples/freeze_mouse_reference.py). They are mathematical design envelopes, not independent measurements of a real product. The front envelope is convex; the top/side drawings retain longitudinal concavity.
 
 - Length 124 mm; asymmetric widths and a 43 mm crown guide.
 - Fixed-view silhouette IoU >= 97%; guide-section bound error <= 0.65 mm.
@@ -37,14 +37,14 @@ All six milestones are complete within the explicit sampled-modeling scope below
 
 | Baseline top | Final top |
 | --- | --- |
-| ![Baseline top](mouse-baseline-top.png) | ![Final top](mouse-final-top.png) |
-| ![Baseline side](mouse-baseline-side.png) | ![Final side](mouse-final-side.png) |
+| ![Baseline top](../assets/mouse-baseline-top.png) | ![Final top](../assets/mouse-final-top.png) |
+| ![Baseline side](../assets/mouse-baseline-side.png) | ![Final side](../assets/mouse-final-side.png) |
 
 The retained form has an asymmetric crown and thumb indentation. Split buttons follow the master surface. The lower shell is hollow and separate; the wheel enters an actual opening. Grip motifs are real closed meshes. The last sampling revision removes the visibly angular nose/tail of the earlier uniform-row model.
 
-![Surface detail](mouse-final-detail.png)
+![Surface detail](../assets/mouse-final-detail.png)
 
-![Exploded shells](mouse-exploded-hero.png)
+![Exploded shells](../assets/mouse-exploded-hero.png)
 
 ## Candidates and target error
 
@@ -67,7 +67,7 @@ The final split-shell measurement includes intentional trim gaps and the wheel o
 
 | Top assembly discrepancy | Side assembly discrepancy |
 | --- | --- |
-| ![Top mask](mouse-assembly-top-error.png) | ![Side mask](mouse-assembly-side-error.png) |
+| ![Top mask](../assets/mouse-assembly-top-error.png) | ![Side mask](../assets/mouse-assembly-side-error.png) |
 
 Gray: agreement; orange: excess; blue: missing (including intended openings).
 
@@ -75,7 +75,7 @@ Gray: agreement; orange: excess; blue: missing (including intended openings).
 
 Final nearest opposite-skin measurements: **1.59334..1.59997 mm**, 33,928 triangle-centroid probes, zero misses. Outer trim gaps: **0.50864..0.70000 mm**, 2,916 bidirectional endpoint/midpoint probes. Four shell objects and the wheel have zero cross-object triangle-intersection candidates over all ten pairs. All eight visible model mesh objects are closed and have zero nonadjacent self-overlap candidates.
 
-![Rejected thin shell with violation markers](mouse-rejected-thin-hero.png)
+![Rejected thin shell with violation markers](../assets/mouse-rejected-thin-hero.png)
 
 The deliberately thin 0.7 mm shell fails the unchanged wall limits. The red native mesh markers show a bounded sample of offending coordinates; the local full report retains every violation.
 
@@ -94,7 +94,7 @@ A fresh Blender process verifies saved coordinate arrays, target hashes and rege
 
 Grip anchors shift by up to 2.872 mm with the thumb recess. Top vertices, edge midpoints and face centers were checked against the final upper housing, not just the hidden master: 1,806 probes, minimum signed clearance **0.07644 mm**. Pattern bottoms intentionally embed. Candidate visibility restoration and the native file hash are verified.
 
-Validation: Blender 5.2.2 LTS on Windows, **19 Blender tests and 3 host tests**. Implementation [Linux CI passed](https://github.com/shakystar/mesh-workbench/actions/runs/37313854671) for commit `59c9708c30c843055391d0490c0b8afae09a6773`. The standard CLI completes `examples/mouse-shell.json`, including real capture and gauge reports. [Machine-readable completion evidence](MOUSE_AUDIT.json) includes all candidate, geometry and reopen summaries.
+Validation: Blender 5.2.2 LTS on Windows, **19 Blender tests and 3 host tests**. Implementation [Linux CI passed](https://github.com/shakystar/mesh-workbench/actions/runs/37313854671) for commit `59c9708c30c843055391d0490c0b8afae09a6773`. The standard CLI completes `examples/mouse-shell.json`, including real capture and gauge reports. [Machine-readable completion evidence](../audits/MOUSE_AUDIT.json) includes all candidate, geometry and reopen summaries.
 
 Native result: `runs/mouse-study-08/mouse.blend`. The hidden master retains editable thumb/palm layers; shell outputs are independent snapshots. After changing the master, explicitly regenerate shells and refresh bound details; this is not an automatically updating CAD feature tree.
 
@@ -111,4 +111,4 @@ mesh-workbench run examples/mouse-shell.json --output runs/mouse-shell-new
 
 The frozen drawing is checked in. To derive an additional copy without reading candidate geometry, run `freeze_mouse_reference.py -- NEW_REFERENCE_JSON` in factory Blender; it refuses to overwrite a target. Geometry-only iteration is available as an extra `--geometry-only` argument to the study, but it does not provide the required render deliverables.
 
-[Tool operations](OPERATIONS.md#guide-lofts-and-measured-shells). Real comfort, internals, switches, fastening, sensor mounting, travel stops and manufacturing validation remain outside this modeling study. The sharp button corners and simple finish are visible design limitations, not validated production details.
+[Tool operations](../reference/OPERATIONS.md#guide-lofts-and-measured-shells). Real comfort, internals, switches, fastening, sensor mounting, travel stops and manufacturing validation remain outside this modeling study. The sharp button corners and simple finish are visible design limitations, not validated production details.

@@ -4,9 +4,9 @@ The mouse master now drives shell partitions, surface details and a rigid wheel 
 
 | Before | Width +6 mm |
 | --- | --- |
-| ![Original assembly](assembly-before.png) | ![Wider assembly](assembly-width.png) |
+| ![Original assembly](../assets/assembly-before.png) | ![Wider assembly](../assets/assembly-width.png) |
 | Height +4 mm | Thumb recess +2 mm peak |
-| ![Taller assembly](assembly-height.png) | ![Deeper local recess](assembly-thumb.png) |
+| ![Taller assembly](../assets/assembly-height.png) | ![Deeper local recess](../assets/assembly-thumb.png) |
 
 These are native Blender renders with identical camera and lighting. No generated illustration replaces the model. The thumb change is a normalized **2 mm peak displacement** into the left flank; it is not a claim about human fit or a uniform 2 mm offset across the region.
 
@@ -46,9 +46,9 @@ blender --background --factory-startup --disable-autoexec --python-exit-code 2 -
 mesh-workbench run examples/assembly-basic.json --output runs/assembly-cli
 ```
 
-Each output directory must be new. The native outputs are `width/model.blend`, `height/model.blend`, and `thumb/model.blend`. This verification used `runs/assembly-mouse-04`; generated runs are ignored, and the [public audit](ASSEMBLY_AUDIT.json) records file hashes and measurements. The source mouse file hash remains unchanged.
+Each output directory must be new. The native outputs are `width/model.blend`, `height/model.blend`, and `thumb/model.blend`. This verification used `runs/assembly-mouse-04`; generated runs are ignored, and the [public audit](../audits/ASSEMBLY_AUDIT.json) records file hashes and measurements. The source mouse file hash remains unchanged.
 
-Python and JSON interfaces are described in [operations](OPERATIONS.md#persisted-assemblies-and-motion-inspection). The system updates explicitly through the tool; it does not install handlers, add-ons or global preferences. Only static meshes with stable indexed topology are supported. Previously committed geometry remains in hidden revision objects; source edits retain deformation layers.
+Python and JSON interfaces are described in [operations](../reference/OPERATIONS.md#persisted-assemblies-and-motion-inspection). The system updates explicitly through the tool; it does not install handlers, add-ons or global preferences. Only static meshes with stable indexed topology are supported. Previously committed geometry remains in hidden revision objects; source edits retain deformation layers.
 
 ## Validation and development findings
 

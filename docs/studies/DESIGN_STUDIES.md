@@ -15,7 +15,7 @@ Each study saves a native editable `model.blend`, front/rear renders and a repor
 
 ### Field robot
 
-![Field robot](field-robot.png)
+![Field robot](../assets/field-robot.png)
 
 - First render exposed faceted shell corners, visibly empty knee collars and flat dark rectangles standing in for vents.
 - Revision increases bevel resolution, weights surface normals, fills the knee with an axle/bolt, cuts 14 actual recesses into the shell and adds a rear service panel with connectors.
@@ -25,7 +25,7 @@ Each study saves a native editable `model.blend`, front/rear renders and a repor
 
 ### Work lantern
 
-![Work lantern](work-lantern.png)
+![Work lantern](../assets/work-lantern.png)
 
 - First render exposed an unbroken lower housing and a visually uniform diffuser.
 - Revision adds real circumferential seams and repeated vertical grip ribs, preserving the switch and protective cage.
@@ -55,8 +55,8 @@ The broader iterative modeling goal remains active. Passing these checks does no
 
 ## 2026-10-05: organic ray and tool reuse
 
-![Original wing pose](organic-ray-before.png)
-![Coordinate-sculpted wing pose](organic-ray.png)
+![Original wing pose](../assets/organic-ray-before.png)
+![Coordinate-sculpted wing pose](../assets/organic-ray.png)
 
 Third design family: a stylized ray sculpture on a display stand. Body sections define the planform; the tail uses a tapering curved sweep. This is an original decorative design, not a measured anatomical reconstruction.
 
@@ -86,7 +86,7 @@ This tool does not interpolate/smooth the supplied path, support closed paths or
 
 ### Reused on the earlier lantern
 
-![Continuous handle detail](lantern-handle.png)
+![Continuous handle detail](../assets/lantern-handle.png)
 
 The earlier handle had overlapping straight rods. The same sweep tool now creates a continuous tube through two rounded corners, with a separate shorter grip. Native Blender geometry and the close-up render were checked. The handle mesh has no nonmanifold edges. The mechanical hinge and manufacturing clearance remain unvalidated.
 
@@ -108,15 +108,15 @@ The narrow end sections inherited the same camber amplitude as the wide wings. S
 
 ### Two junction designs compared
 
-![Separate tail junction](ray-junction-before.png)
-![Continuous-section junction](ray-junction-after.png)
+![Separate tail junction](../assets/ray-junction-before.png)
+![Continuous-section junction](../assets/ray-junction-after.png)
 
 1. **Exact union plus local fairing:** structurally connected the pieces, retaining the original inputs. Three stronger smoothing candidates introduced nonadjacent overlap candidates and were rejected with coordinate/key/history rollback. The accepted weak candidate moved vertices at most 0.00007725 units, which had negligible visual benefit. This is retained as a tool-validation example, not presented as a successfully rounded transition.
 2. **Continuous section design:** extended the body sweep through the tail with a gradual taper. The actual close-up shows a continuous transition instead of an attached cylinder. Initial asymmetric root controls propagated a small asymmetry toward the wing; aligning the root controls before the tail bend restored the required wing-edit symmetry. This is the preferred design.
 
 The final continuous design has 18,946 vertices, 18,944 faces and one connected component. Boundary/nonmanifold edge counts and nonadjacent triangle-overlap candidates are zero. The coordinate Grab changes 5,964 vertices; the middle 6,090 vertices remain unchanged. A fresh Blender process matched saved edited and base arrays and verified mirrored edit error below 2.82e-7. This is still a decorative static mesh without anatomical or rigging validation.
 
-![Continuous ray](ray-continuous.png)
+![Continuous ray](../assets/ray-continuous.png)
 
 Recommended reproduction:
 
@@ -145,8 +145,8 @@ Remaining work: richer deliberate surface detail, stronger adjacent-face/interse
 
 ## 2026-10-05: conforming relief pattern study
 
-![Dense pattern](ray-relief-dense.png)
-![Selected sparse pattern](ray-relief-sparse.png)
+![Dense pattern](../assets/ray-relief-dense.png)
+![Selected sparse pattern](../assets/ray-relief-sparse.png)
 
 Two surface designs were modeled as actual closed geometry on the continuous ray: 48 larger spots and 32 smaller spots. The sparse version was selected after viewing the full model because it preserves more uninterrupted wing surface. This is a design judgment, not a numerical quality score or anatomical claim.
 
@@ -154,7 +154,7 @@ Two surface designs were modeled as actual closed geometry on the continuous ray
 
 The first close-up showed nibbled spot edges. Testing only face centers missed the defect: all 2,304 sparse top-face centers were above the body, but six of 4,608 top-edge midpoints were below it, by up to 0.00004166 world units. The top clearance was increased from 0.0001 to 0.0005, and the construction tool now validates vertices, edge midpoints and face centers before creating the output object.
 
-![Selected detail after correction](ray-relief-detail.png)
+![Selected detail after correction](../assets/ray-relief-detail.png)
 
 Fresh-process saved-file verification checked 13,872 probes on the dense design and 9,248 on the sparse design. Minimum signed sampled clearance was respectively 0.00031427 and 0.00035797. Independent conservative bounding-sphere gaps were at least 0.063276 and 0.100889. Each motif is a closed component, with zero nonmanifold edges and no nonadjacent overlap candidates in the relief object. Body coordinates match the source exactly, and the source file hash is unchanged.
 
@@ -185,8 +185,8 @@ Remaining visual limits: repeated rows are deliberately regular, with no asymmet
 
 ## 2026-10-05: unified recipe interface and fourth design
 
-![Field speaker front](field-speaker-front.png)
-![Field speaker rear](field-speaker-rear.png)
+![Field speaker front](../assets/field-speaker-front.png)
+![Field speaker rear](../assets/field-speaker-rear.png)
 
 The construction tools developed in the earlier studies now execute through the standard JSON/host CLI: `rounded_box`, `revolve`, `strut`, `sweep`, `fair`, `relief_dots`, `diagnose` and `material`. No custom Blender script is required to build the included speaker recipe. Optional `viewport: true` on `visible` also hides construction cutters in the saved Blender viewport, while keeping the older render-only default.
 
@@ -214,9 +214,9 @@ The earlier Python-only integration gap is closed. Remaining development should 
 
 ## 2026-10-05: preserve surface details through a shape edit
 
-![Before second pose](ray-attachment-before.png)
-![Changed shape with stale motifs](ray-attachment-stale.png)
-![Explicitly refreshed motifs](ray-attachment-updated.png)
+![Before second pose](../assets/ray-attachment-before.png)
+![Changed shape with stale motifs](../assets/ray-attachment-stale.png)
+![Explicitly refreshed motifs](../assets/ray-attachment-updated.png)
 
 The ray's wing pose was edited again from a captured coordinate map. The new Grab moved 4,300 vertices by up to 0.3121066 world units. The stale render demonstrates the actual failure: most of the original spots disappear into the changed wing or sit off its surface. Rebuilding from stored surface anchors restores all 32 spots on the new form while keeping the original pattern object intact.
 

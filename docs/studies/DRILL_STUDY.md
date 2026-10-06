@@ -4,7 +4,7 @@ Native Blender study, 2026-10-06. Original authored dimensions, not a reconstruc
 
 | Assembled drill | Separated housing |
 | --- | --- |
-| ![Drill](drill-hero.png) | ![Housing separation](drill-exploded.png) |
+| ![Drill](../assets/drill-hero.png) | ![Housing separation](../assets/drill-exploded.png) |
 
 ## Delivered milestones
 
@@ -35,7 +35,7 @@ Distance probes include every vertex, edge midpoint and triangle centroid: 18,47
 
 | Original polygon layout | Remeshed triangle layout |
 | --- | --- |
-| ![Before](drill-topology-before.png) | ![After](drill-topology-after.png) |
+| ![Before](../assets/drill-topology-before.png) | ![After](../assets/drill-topology-after.png) |
 
 Both renders use identical cameras and lighting, with only the respective housing and its wire overlay visible. The output is globally triangulated at snapshot time; only the selected chart interiors undergo edge operations. Outside-patch coordinates are preserved, but original outside polygon IDs and n-gon/quad representation are not retained.
 
@@ -49,7 +49,7 @@ Both renders use identical cameras and lighting, with only the respective housin
 - A manual edit on a fork can be disabled to restore its coordinates. The input `.blend` hash remains unchanged throughout verification.
 - Artifact: `runs/drill-study-09/drill.blend`, SHA-256 `d99ed5e940aff6bde0b7827f1c585d5b1cf791dba54f7c121c7da6f4a35f1f81`.
 
-[Machine-readable evidence](DRILL_AUDIT.json) includes the per-part results, six vent probes, transfer/clearance results and reopened-file checks.
+[Machine-readable evidence](../audits/DRILL_AUDIT.json) includes the per-part results, six vent probes, transfer/clearance results and reopened-file checks.
 
 ## Development findings retained
 

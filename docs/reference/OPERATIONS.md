@@ -86,7 +86,7 @@ The binding requires a static baked target. Changed connectivity, a renamed/diff
 
 ## Reference-driven precision tools
 
-See [the speaker study](PRECISION_STUDY.md) and its frozen [target drawing data](../examples/speaker-target.json).
+See [the speaker study](../studies/PRECISION_STUDY.md) and its frozen [target drawing data](../../examples/speaker-target.json).
 
 | Operation | Required fields | Optional fields |
 | --- | --- | --- |
@@ -119,7 +119,7 @@ API reference: [Blender BVHTree](https://docs.blender.org/api/current/mathutils.
 
 ## Guide lofts and measured shells
 
-See the [six-milestone mouse study](MOUSE_STUDY.md), full [Python example](../examples/mouse_study.py), and [ordinary JSON recipe](../examples/mouse-shell.json).
+See the [six-milestone mouse study](../studies/MOUSE_STUDY.md), full [Python example](../../examples/mouse_study.py), and [ordinary JSON recipe](../../examples/mouse-shell.json).
 
 | JSON operation | Required fields | Optional fields |
 | --- | --- | --- |
@@ -163,7 +163,7 @@ All commands execute inside Blender. Register existing **static, unparented, unc
 | `assembly_validate` | none | Actual geometry measurements for registered checks |
 | `motion_inspect` | `object`, `obstacles`; optional `options` | Discrete overlap/clearance results; transform restored exactly |
 
-Python equivalents are `assembly.register`, `assembly.status`, `assembly.update`, `assembly.validate(assembly.load())`, and `motion.inspect`. See [assembly-basic.json](../examples/assembly-basic.json) for CLI syntax and [assembly_mouse.py](../examples/assembly_mouse.py) for the full nine-node model.
+Python equivalents are `assembly.register`, `assembly.status`, `assembly.update`, `assembly.validate(assembly.load())`, and `motion.inspect`. See [assembly-basic.json](../../examples/assembly-basic.json) for CLI syntax and [assembly_mouse.py](../../examples/assembly_mouse.py) for the full nine-node model.
 
 Each node has `object`, `kind`, and (except a source) `deps`. The first dependency is its generating surface. Additional dependencies conservatively invalidate the node when their coordinates change.
 
@@ -186,7 +186,7 @@ Motion options: `translation`, rotation `axis`/`angle` (radians), optional world
 
 ## Surface quality, explicit refinement, paths and hinges
 
-See [headphone-tools.json](../examples/headphone-tools.json) for runnable JSON and the [headphone study](HEADPHONE_STUDY.md) for measured native results. Units follow world coordinates; the study uses millimeters.
+See [headphone-tools.json](../../examples/headphone-tools.json) for runnable JSON and the [headphone study](../studies/HEADPHONE_STUDY.md) for measured native results. Units follow world coordinates; the study uses millimeters.
 
 | Operation | Key inputs | Behavior |
 | --- | --- | --- |
@@ -227,6 +227,6 @@ UV seams in every layer, explicit seam/sharp flags, material discontinuities, an
 - `remesh.transfer_pattern(source, target, pattern, name, max_distance=None)` regenerates supported bound relief or seam geometry.
 - `assembly.remesh_source(source_node_id, selection, name, **options)` stages a new source and its direct bound relief/seam/anchor children. It validates constraints before switching graph object references and hiding old objects. Rejection restores graph/visibility and removes staged objects/meshes. Shell and nested topology dependencies are explicitly rejected.
 
-JSON operations are `remesh`, `remesh_selection`, `remesh_pattern` and `assembly_remesh`; see [complete executable recipe](../examples/local-remesh.json). `remesh` returns an object name plus measurements in the audit. `assembly_remesh` returns updated nodes, actual object names, transfers and constraint results. Same-topology `assembly_update` remains supported afterward.
+JSON operations are `remesh`, `remesh_selection`, `remesh_pattern` and `assembly_remesh`; see [complete executable recipe](../../examples/local-remesh.json). `remesh` returns an object name plus measurements in the audit. `assembly_remesh` returns updated nodes, actual object names, transfers and constraint results. Same-topology `assembly_update` remains supported afterward.
 
-These tools do not establish a continuous geometric error bound, guarantee mesh-quality convergence, perform UV repacking, or implement general quad retopology. See [drill evidence and limitations](DRILL_STUDY.md).
+These tools do not establish a continuous geometric error bound, guarantee mesh-quality convergence, perform UV repacking, or implement general quad retopology. See [drill evidence and limitations](../studies/DRILL_STUDY.md).

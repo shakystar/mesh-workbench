@@ -4,31 +4,33 @@ Coordinate-driven modeling tools that operate **inside Blender**. Inspect render
 
 Early **0.1.0** implementation. Built for iterative work by people and coding agents, with explicit failure checks and source-preserving operations.
 
+[Documentation index](docs/README.md) ? [Current status](docs/STATUS.md) ? [Next milestones](docs/ROADMAP.md)
+
 ## Modeled designs
 
 Actual Blender renders created with this toolkit.
 
 | Field robot | Work lantern |
 | --- | --- |
-| ![Field robot](docs/field-robot.png) | ![Work lantern](docs/lantern-final.png) |
+| ![Field robot](docs/assets/field-robot.png) | ![Work lantern](docs/assets/lantern-final.png) |
 | Ray sculpture | Field speaker |
-| ![Ray sculpture](docs/ray-relief-sparse.png) | ![Field speaker](docs/precision-after-hero.png) |
+| ![Ray sculpture](docs/assets/ray-relief-sparse.png) | ![Field speaker](docs/assets/precision-after-hero.png) |
 | Asymmetric mouse | Mouse shell separation |
-| ![Asymmetric mouse](docs/mouse-final-hero.png) | ![Separated mouse shells](docs/mouse-exploded-hero.png) |
+| ![Asymmetric mouse](docs/assets/mouse-final-hero.png) | ![Separated mouse shells](docs/assets/mouse-exploded-hero.png) |
 | Folding headphones | Folded configuration |
-| ![Headphones](docs/headphone-standard-open.png) | ![Folded headphones](docs/headphone-standard-folded.png) |
+| ![Headphones](docs/assets/headphone-standard-open.png) | ![Folded headphones](docs/assets/headphone-standard-folded.png) |
 | Cordless drill | Separated drill housing |
-| ![Drill](docs/drill-hero.png) | ![Housing](docs/drill-exploded.png) |
+| ![Drill](docs/assets/drill-hero.png) | ![Housing](docs/assets/drill-exploded.png) |
 
-See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
+See the [four-design portfolio and completion audit](docs/studies/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/studies/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
 
-Latest: [local remeshing and cordless drill](docs/DRILL_STUDY.md): feature-pinned edge operations, UV/mask/binding transfer, atomic assembly migration and saved-file follow-up editing.
+Latest: [local remeshing and cordless drill](docs/studies/DRILL_STUDY.md): feature-pinned edge operations, UV/mask/binding transfer, atomic assembly migration and saved-file follow-up editing.
 
-Previous: [folding headphones](docs/HEADPHONE_STUDY.md): measured surface repair, explicit subdivision correspondence, section-preserving paths and constrained group hinges across three sizes.
+Previous: [folding headphones](docs/studies/HEADPHONE_STUDY.md): measured surface repair, explicit subdivision correspondence, section-preserving paths and constrained group hinges across three sizes.
 
-Previous: [regenerating mouse assembly](docs/ASSEMBLY_STUDY.md): persisted dependencies, selective updates, atomic rollback and sampled motion checks, demonstrated on three native variants.
+Previous: [regenerating mouse assembly](docs/studies/ASSEMBLY_STUDY.md): persisted dependencies, selective updates, atomic rollback and sampled motion checks, demonstrated on three native variants.
 
-Previous: [asymmetric mouse and measured shell study](docs/MOUSE_STUDY.md), including guide lofts, independent local edits, real wall thickness, panel gaps and deformation-following details. Earlier: [reference-driven speaker refinement](docs/PRECISION_STUDY.md).
+Previous: [asymmetric mouse and measured shell study](docs/studies/MOUSE_STUDY.md), including guide lofts, independent local edits, real wall thickness, panel gaps and deformation-following details. Earlier: [reference-driven speaker refinement](docs/studies/PRECISION_STUDY.md).
 
 ## Features
 
@@ -69,7 +71,7 @@ PowerShell equivalent: `$env:PYTHONPATH='src'`. Alternatively use the installed 
 
 ## Recipes and API
 
-See [operation reference](docs/OPERATIONS.md), [design and limits](docs/DESIGN.md), [validation status](docs/STATUS.md), and the asset-free [examples](examples).
+See [operation reference](docs/reference/OPERATIONS.md), [design and limits](docs/reference/DESIGN.md), [validation status](docs/STATUS.md), and the asset-free [examples](examples).
 
 ```python
 # Inside Blender Python, with this package on sys.path

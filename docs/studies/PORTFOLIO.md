@@ -6,12 +6,12 @@ All images below are actual Blender renders from included procedural examples. N
 
 | Field robot | Work lantern |
 |---|---|
-| ![Robot](field-robot.png) | ![Lantern](lantern-final.png) |
+| ![Robot](../assets/field-robot.png) | ![Lantern](../assets/lantern-final.png) |
 | Rounded shells, recessed vents and articulated assembly study. | Revolved housing, protective cage and continuous swept handle. |
 
 | Ray sculpture | Field speaker |
 |---|---|
-| ![Ray](ray-relief-sparse.png) | ![Speaker](field-speaker-front.png) |
+| ![Ray](../assets/ray-relief-sparse.png) | ![Speaker](../assets/field-speaker-front.png) |
 | Continuous organic form, reversible coordinate edits and conforming motifs. | 70-operation JSON construction with driver profiles, service panel and real vent cuts. |
 
 ## Audit against the requested objective
@@ -37,7 +37,7 @@ The requested modeling/evaluation/development cycle is complete. The code remain
 | Ray sculpture | 10 | 26,702 | 0 | 0 |
 | Field speaker | 26 | 10,576 | 0 | 0 |
 
-Studio floors are excluded. Disconnected designed parts are counted separately. Overlap counts are per object and exclude triangles sharing vertices; this is not an assembly-intersection certificate. File hashes and sizes are in [PORTFOLIO_AUDIT.json](PORTFOLIO_AUDIT.json). Full local per-part data is retained under `runs/portfolio-audit.json`.
+Studio floors are excluded. Disconnected designed parts are counted separately. Overlap counts are per object and exclude triangles sharing vertices; this is not an assembly-intersection certificate. File hashes and sizes are in [PORTFOLIO_AUDIT.json](../audits/PORTFOLIO_AUDIT.json). Full local per-part data is retained under `runs/portfolio-audit.json`.
 
 Final implementation [CI passed](https://github.com/shakystar/mesh-workbench/actions/runs/37288030843): 15 Blender integration tests and 3 host tests. Windows native studies used Blender 5.2.2 LTS; CI also exercised the integration suite on the distribution Blender in Ubuntu 24.04. Saved-file checks additionally verified detail clearances, material/visibility persistence, shape-key rollback and attachment regeneration after pose undo.
 
@@ -54,4 +54,4 @@ mesh-workbench run examples/field-speaker.json --output runs/speaker
 blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/audit_studies.py -- examples/studies-manifest.example.json runs/portfolio-audit-new.json
 ```
 
-Further visual comparisons, rejected candidates and design-specific limitations are retained in the [design journal](DESIGN_STUDIES.md). Detailed operations are in the [recipe reference](OPERATIONS.md).
+Further visual comparisons, rejected candidates and design-specific limitations are retained in the [design journal](DESIGN_STUDIES.md). Detailed operations are in the [recipe reference](../reference/OPERATIONS.md).
