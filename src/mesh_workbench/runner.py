@@ -13,6 +13,7 @@ from mesh_workbench import (
     __version__,
     quality,
     refinement,
+    remesh,
     pathmodel,
     joints,
     assembly,
@@ -132,6 +133,30 @@ def run(recipe_path, output):
                         obj(c["object"]), **c.get("options", {})
                     ).name
                 }
+            elif op == "remesh":
+                result = remesh.remesh(
+                    obj(c["object"]),
+                    selections[c["selection"]],
+                    c["name"],
+                    **c["options"],
+                )
+            elif op == "remesh_selection":
+                result = remesh.transfer_selection(
+                    obj(c["source"]), obj(c["target"]), selections[c["selection"]]
+                )
+                selections[c["name"]] = result
+            elif op == "remesh_pattern":
+                result = remesh.transfer_pattern(
+                    obj(c["source"]),
+                    obj(c["target"]),
+                    obj(c["pattern"]),
+                    c["name"],
+                    **c.get("options", {}),
+                )
+            elif op == "assembly_remesh":
+                result = assembly.remesh_source(
+                    c["source"], selections[c["selection"]], c["name"], **c["options"]
+                )
             elif op == "refine_faces":
                 result = refinement.split(
                     obj(c["object"]), selections[c["selection"]], c["name"]
@@ -464,7 +489,12 @@ def run(recipe_path, output):
             else:
                 raise ValueError("Unknown operation " + op)
             if isinstance(result, bpy.types.Object):
-                result = {"object": result.name}
+                item = {"object": result.name}
+                if op == "remesh":
+                    item["report"] = json.loads(result["mw_remesh"])["report"]
+                if op == "remesh_pattern":
+                    item["transfer"] = json.loads(result["mw_transfer_report"])
+                result = item
             bpy.context.view_layer.update()
             audit["operations"].append({"index": index, "op": op, "result": result})
             sculpt.dump(output / "audit.json", audit)

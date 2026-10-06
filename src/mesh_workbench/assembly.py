@@ -459,3 +459,100 @@ def update(source, edit):
             if mesh not in before_meshes and mesh.users == 0:
                 bpy.data.meshes.remove(mesh)
         bpy.context.view_layer.update()
+
+
+def remesh_source(source, selection, name, **options):
+    """Fork a source and its direct bound details; atomically switch the graph.
+
+    Shell partitions and nested dependents need independent correspondence and
+    are rejected before editing. The original assembly remains as hidden objects.
+    """
+    from . import remesh
+
+    graph = load()
+    if source not in graph["nodes"] or graph["nodes"][source]["kind"] != "source":
+        raise ValueError("Remesh requires a source node")
+    affected = {source}
+    for key in _order(graph):
+        node = graph["nodes"][key]
+        if any(dep in affected for dep in node.get("deps", [])):
+            if node["deps"] != [source] or node["kind"] not in (
+                "relief",
+                "seam",
+                "anchor",
+            ):
+                raise ValueError(
+                    "Remesh assembly supports direct bound details; shell/nested correspondence required"
+                )
+            affected.add(key)
+    before_objects = set(bpy.data.objects)
+    before_meshes = set(bpy.data.meshes)
+    old_graph = bpy.context.scene[KEY]
+    originals = {k: _object(n["object"]) for k, n in graph["nodes"].items()}
+    visibility = {k: (o.hide_get(), o.hide_render) for k, o in originals.items()}
+    objects = dict(originals)
+    reports = []
+    transfers = {}
+    try:
+        root = remesh.remesh(originals[source], selection, name, **options)
+        objects[source] = root
+        graph["nodes"][source]["object"] = root.name
+        for key in _order(graph):
+            if key not in affected or key == source:
+                continue
+            node = graph["nodes"][key]
+            node["binding"], transfers[key] = remesh.transfer_binding(
+                originals[source], root, node["binding"]
+            )
+            obj = _build(node, objects, name + " " + key)
+            obj.data.materials.clear()
+            for mat in originals[key].data.materials:
+                obj.data.materials.append(mat)
+            objects[key] = obj
+            node["object"] = obj.name
+        for key in affected:
+            if fairing.overlap_candidates(objects[key]):
+                raise ValueError("Remeshed assembly has overlap candidates: " + key)
+        reports = validate(graph, objects)
+        if not all(r["passed"] for r in reports):
+            raise ValueError("Remeshed assembly constraints failed")
+        for key, node in graph["nodes"].items():
+            node["topology"] = geometry.signature(objects[key])
+            node["output_revision"] = attachments.revision(objects[key])
+            node["input_hash"] = _input(node, objects)
+        graph["revision"] += 1
+        bpy.context.scene[KEY] = json.dumps(graph)
+        for key in affected:
+            originals[key].hide_set(True)
+            originals[key].hide_render = True
+            objects[key].hide_set(False)
+            objects[key].hide_render = False
+        status()  # Validate committed references; failures still roll back.
+        return {
+            "passed": True,
+            "revision": graph["revision"],
+            "updated": sorted(affected),
+            "objects": {k: objects[k].name for k in affected},
+            "transfers": transfers,
+            "checks": reports,
+            "remesh": json.loads(root["mw_remesh"])["report"],
+        }
+    except Exception as exc:
+        bpy.context.scene[KEY] = old_graph
+        for key, obj in originals.items():
+            obj.hide_set(visibility[key][0])
+            obj.hide_render = visibility[key][1]
+        for obj in list(bpy.data.objects):
+            if obj not in before_objects:
+                bpy.data.objects.remove(obj, do_unlink=True)
+        for mesh in list(bpy.data.meshes):
+            if mesh not in before_meshes and mesh.users == 0:
+                bpy.data.meshes.remove(mesh)
+        raise Rejected(
+            {
+                "passed": False,
+                "rolled_back": True,
+                "reason": str(exc),
+                "checks": reports,
+            }
+        ) from exc

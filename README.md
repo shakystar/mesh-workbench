@@ -17,10 +17,14 @@ Actual Blender renders created with this toolkit.
 | ![Asymmetric mouse](docs/mouse-final-hero.png) | ![Separated mouse shells](docs/mouse-exploded-hero.png) |
 | Folding headphones | Folded configuration |
 | ![Headphones](docs/headphone-standard-open.png) | ![Folded headphones](docs/headphone-standard-folded.png) |
+| Cordless drill | Separated drill housing |
+| ![Drill](docs/drill-hero.png) | ![Housing](docs/drill-exploded.png) |
 
 See the [four-design portfolio and completion audit](docs/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
 
-Latest: [folding headphones](docs/HEADPHONE_STUDY.md): measured surface repair, explicit subdivision correspondence, section-preserving paths and constrained group hinges across three sizes.
+Latest: [local remeshing and cordless drill](docs/DRILL_STUDY.md): feature-pinned edge operations, UV/mask/binding transfer, atomic assembly migration and saved-file follow-up editing.
+
+Previous: [folding headphones](docs/HEADPHONE_STUDY.md): measured surface repair, explicit subdivision correspondence, section-preserving paths and constrained group hinges across three sizes.
 
 Previous: [regenerating mouse assembly](docs/ASSEMBLY_STUDY.md): persisted dependencies, selective updates, atomic rollback and sampled motion checks, demonstrated on three native variants.
 
@@ -38,6 +42,7 @@ Previous: [asymmetric mouse and measured shell study](docs/MOUSE_STUDY.md), incl
 - Asymmetric guide lofts, source-preserving shell partitions, section cuts, wall/gap gauges and native violation markers.
 - Persisted assembly recipes, selective regeneration, measured acceptance, atomic failure recovery and discrete rigid-motion interference checks.
 - Curvature maps and reflection diagnostics, pinned quadratic surface fitting, explicit triangle-refinement correspondence, measured section paths and absolute group hinges.
+- Local triangle remeshing with fixed feature charts, sampled shape-error gates, UV/mask/material/binding correspondence and direct-detail assembly migration.
 - Simple materials, mesh diagnostics/export, multi-view capture, saved-file checkpoints and structured failure audits.
 
 Topology edits and combinations create new objects. Deformation layers can be disabled independently. Existing inputs and files are preserved.

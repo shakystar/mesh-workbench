@@ -1,0 +1,471 @@
+{
+  "blender": "5.2.2 LTS",
+  "units": "mm",
+  "brief": {
+    "kind": "original authored cordless drill, not a replica",
+    "head_x": [
+      -60,
+      45
+    ],
+    "head_center_z": 160,
+    "wall": 2,
+    "split_trim": 0.4,
+    "vents": 6,
+    "remesh_limit": 0.09
+  },
+  "assembly": {
+    "passed": true,
+    "revision": 1,
+    "updated": [
+      "fasteners",
+      "housing"
+    ],
+    "objects": {
+      "housing": "Housing refined",
+      "fasteners": "Housing refined fasteners"
+    },
+    "transfers": {
+      "fasteners": {
+        "samples": 4,
+        "max_error": 0.06596948206424713,
+        "method": "same connected feature chart; distance and normal gates"
+      }
+    },
+    "checks": [
+      {
+        "kind": "clearance",
+        "nodes": [
+          "fasteners",
+          "housing"
+        ],
+        "passed": true,
+        "samples": 516,
+        "minimum": 0.06662509267334826,
+        "violations": []
+      }
+    ],
+    "remesh": {
+      "operations": {
+        "split": 0,
+        "collapse": 106,
+        "flip": 60
+      },
+      "selected_triangles_before": 1290,
+      "selected_triangles_after": 1078,
+      "vertices_before": 3177,
+      "vertices_after": 3071,
+      "triangles_before": 6374,
+      "triangles_after": 6162,
+      "pinned_vertices": 2603,
+      "pinned_error": 0.0,
+      "sampled_error_max": 0.08477245271205902,
+      "forward_samples": 18476,
+      "reverse_samples": 19112,
+      "quality_mean_before": 0.781678486186897,
+      "quality_mean_after": 0.7800596884176253,
+      "max_error": 0.09
+    }
+  },
+  "vents": [
+    {
+      "x": -48.0,
+      "through_ray_clear": true,
+      "adjacent_wall_hit": true
+    },
+    {
+      "x": -42.6,
+      "through_ray_clear": true,
+      "adjacent_wall_hit": true
+    },
+    {
+      "x": -37.2,
+      "through_ray_clear": true,
+      "adjacent_wall_hit": true
+    },
+    {
+      "x": -31.799999999999997,
+      "through_ray_clear": true,
+      "adjacent_wall_hit": true
+    },
+    {
+      "x": -26.4,
+      "through_ray_clear": true,
+      "adjacent_wall_hit": true
+    },
+    {
+      "x": -21.0,
+      "through_ray_clear": true,
+      "adjacent_wall_hit": true
+    }
+  ],
+  "geometry": {
+    "Right housing": {
+      "vertices": 2838,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Housing refined": {
+      "vertices": 3071,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Housing refined fasteners": {
+      "vertices": 264,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Rear cover": {
+      "vertices": 192,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Torque collar": {
+      "vertices": 320,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck": {
+      "vertices": 320,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 00": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 01": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 02": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 03": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 04": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 05": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 06": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 07": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 08": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 09": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 10": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 11": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 12": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 13": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 14": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 15": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 16": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 17": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 18": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 19": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 20": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 21": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 22": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 23": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 24": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 25": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 26": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 27": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 28": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 29": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 30": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Chuck flute 31": {
+      "vertices": 16,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Nose ring": {
+      "vertices": 192,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Hex bit": {
+      "vertices": 12,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Grip core": {
+      "vertices": 1202,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Grip tactile pads": {
+      "vertices": 1500,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Battery slide": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Battery tongue": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Battery pack": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Battery bumper": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Battery release": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Trigger": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Direction switch": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Battery rail -49": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    },
+    "Battery rail -7": {
+      "vertices": 152,
+      "nonmanifold_edges": 0,
+      "overlap_candidates": 0
+    }
+  },
+  "housing": "Housing refined",
+  "source": "Housing baseline",
+  "binding": {
+    "version": 1,
+    "target": "Housing refined",
+    "topology": "787db825247115bed31fa7b915ac646426ebe0c7ff13d7bbb0f4e9fc68138e8e",
+    "anchors": [
+      {
+        "vertices": [
+          749,
+          750,
+          781
+        ],
+        "weights": [
+          0.0779734845063823,
+          0.6179390457844167,
+          0.304087469709201
+        ]
+      },
+      {
+        "vertices": [
+          744,
+          745,
+          774
+        ],
+        "weights": [
+          0.5230903442561581,
+          0.20758491005501994,
+          0.26932474568882186
+        ]
+      },
+      {
+        "vertices": [
+          1081,
+          1111,
+          1110
+        ],
+        "weights": [
+          0.23811186587636568,
+          0.140799078020113,
+          0.6210890561035214
+        ]
+      },
+      {
+        "vertices": [
+          1072,
+          1073,
+          1105
+        ],
+        "weights": [
+          0.15349903131592402,
+          0.1479367983124364,
+          0.6985641703716395
+        ]
+      }
+    ]
+  },
+  "bounds": {
+    "min": [
+      -66.5,
+      -28.5,
+      1.5
+    ],
+    "max": [
+      117.0,
+      27.0,
+      186.7124481201172
+    ]
+  },
+  "reopen": {
+    "passed": true,
+    "blender": "5.2.2 LTS",
+    "sha256": "d99ed5e940aff6bde0b7827f1c585d5b1cf791dba54f7c121c7da6f4a35f1f81",
+    "pinned_vertices": 2603,
+    "pinned_error": 0,
+    "mask_error": 2.9802322387695312e-08,
+    "uv_error": 4.777675735000263e-08,
+    "region_vertices": 544,
+    "source_preserved": true,
+    "assembly_failure_rollback": true,
+    "follow_up_assembly": {
+      "passed": true,
+      "revision": 2,
+      "updated": [
+        "housing",
+        "fasteners"
+      ],
+      "unchanged": [],
+      "checks": [
+        {
+          "kind": "clearance",
+          "nodes": [
+            "fasteners",
+            "housing"
+          ],
+          "passed": true,
+          "samples": 516,
+          "minimum": 0.06609523278893903,
+          "violations": []
+        }
+      ]
+    },
+    "attachment_movement": 0.06459624123332594,
+    "reversible_edit": true
+  },
+  "validation": {
+    "windows_blender": "5.2.2 LTS",
+    "blender_tests": 31,
+    "host_tests": 3,
+    "host_cli": "runs/remesh-cli-01",
+    "linux_ci": "pending publication",
+    "artifact": "runs/drill-study-09/drill.blend"
+  }
+}

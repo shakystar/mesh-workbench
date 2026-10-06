@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "operations": [
+    {
+      "op": "primitive",
+      "kind": "sphere",
+      "name": "Source",
+      "scale": [
+        10,
+        10,
+        10
+      ]
+    },
+    {
+      "op": "select",
+      "object": "Source",
+      "name": "all",
+      "selection": {
+        "domain": "FACE"
+      }
+    },
+    {
+      "op": "select",
+      "object": "Source",
+      "name": "vertices"
+    },
+    {
+      "op": "relief_dots",
+      "target": "Source",
+      "name": "Dot",
+      "points": [
+        [
+          11,
+          0,
+          4
+        ]
+      ],
+      "options": {
+        "radii": 0.4,
+        "height": 0.2,
+        "embed": 0.03,
+        "clearance": 0.05,
+        "max_distance": 4
+      }
+    },
+    {
+      "op": "bind_relief",
+      "target": "Source",
+      "object": "Dot"
+    },
+    {
+      "op": "remesh",
+      "object": "Source",
+      "selection": "all",
+      "name": "Remeshed",
+      "options": {
+        "target_length": 1.3,
+        "iterations": 1,
+        "max_error": 0.05
+      }
+    },
+    {
+      "op": "remesh_selection",
+      "source": "Source",
+      "target": "Remeshed",
+      "selection": "vertices",
+      "name": "transferred"
+    },
+    {
+      "op": "remesh_pattern",
+      "source": "Source",
+      "target": "Remeshed",
+      "pattern": "Dot",
+      "name": "New dot"
+    },
+    {
+      "op": "assembly_register",
+      "name": "Recipe assembly",
+      "nodes": {
+        "body": {
+          "kind": "source",
+          "object": "Source"
+        }
+      }
+    },
+    {
+      "op": "assembly_remesh",
+      "source": "body",
+      "selection": "all",
+      "name": "Assembly source",
+      "options": {
+        "target_length": 1.3,
+        "iterations": 1,
+        "max_error": 0.05
+      }
+    },
+    {
+      "op": "assembly_status"
+    }
+  ]
+}

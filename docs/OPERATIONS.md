@@ -214,3 +214,19 @@ Refinement retains parent-face IDs and sparse vertex weights. Face selections ex
 Closed paths require a planar loop and its plane normal as `reference`; duplicate closure points are not included. Open paths use transported frames. `path_reshape` rebuilds from saved section parameters and does not carry arbitrary manual surface edits. A ring bridge interpolates supplied endpoint derivatives; it does not discover or stitch unrelated mesh boundaries automatically. No general self-intersection solver is implied; run geometry diagnostics on outputs.
 
 A hinge entry has `name`, `objects`, `axis`, `pivot` and `limits=[low,high]` in radians, including zero. Objects are static, unparented and unconstrained. An object can belong to only one group. `pose` uses the registered rest matrices, so repeated equal angles are idempotent and cannot silently accumulate beyond the limit. Inspection accepts interval `steps`, a `probe_limit`, and explicit `ignore_pairs` if a known interface must be excluded; the study excludes none. Same-group pairs are not tested. Reports retain per-pose overlapping triangle IDs and nearest sampled clearance probes. This is discrete rigid-group inspection, not a nested rig, continuous collision solver or material deformation simulation.
+
+
+## Local triangle remeshing
+
+`remesh.remesh(source, face_selection, name, target_length, iterations=3, max_error=0.1, sharp_angle=40)` creates a baked, world-space triangle mesh. It pins boundary/feature vertices, splits long interior edges, collapses short ones after the link condition, and flips diagonals only when the minimum local triangle quality improves. Entire source geometry is triangulated for processing; local edge changes are restricted to selected chart interiors. A sampled bidirectional distance gate and overlap/connectivity checks reject invalid output. Original object and history remain intact.
+
+UV seams in every layer, explicit seam/sharp flags, material discontinuities, angle features and the face-selection boundary define frozen charts. Vertex groups and registered masks transfer by barycentric weights; each UV corner samples its own chart. Material slots and face indices transfer. Other custom attributes and edit history do not transfer. Saved `mw_remesh` JSON contains mapping, source/target revisions, parent classification, fixed vertex pairs and measurement report. Both revisions must match before subsequent migration calls.
+
+- `remesh.transfer_selection(source, target, selection)` supports FACE centroid classification and conservative VERT support membership. EDGE is rejected.
+- `remesh.transfer_binding(source, target, binding, max_distance=None)` returns `(binding, report)` after same-chart distance and normal gates. The default distance is the remesh error limit.
+- `remesh.transfer_pattern(source, target, pattern, name, max_distance=None)` regenerates supported bound relief or seam geometry.
+- `assembly.remesh_source(source_node_id, selection, name, **options)` stages a new source and its direct bound relief/seam/anchor children. It validates constraints before switching graph object references and hiding old objects. Rejection restores graph/visibility and removes staged objects/meshes. Shell and nested topology dependencies are explicitly rejected.
+
+JSON operations are `remesh`, `remesh_selection`, `remesh_pattern` and `assembly_remesh`; see [complete executable recipe](../examples/local-remesh.json). `remesh` returns an object name plus measurements in the audit. `assembly_remesh` returns updated nodes, actual object names, transfers and constraint results. Same-topology `assembly_update` remains supported afterward.
+
+These tools do not establish a continuous geometric error bound, guarantee mesh-quality convergence, perform UV repacking, or implement general quad retopology. See [drill evidence and limitations](DRILL_STUDY.md).

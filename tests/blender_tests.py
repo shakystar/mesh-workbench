@@ -27,6 +27,213 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_local_remesh_uv_masks_binding_and_rollback(self):
+        from mesh_workbench import remesh, attachments, regions
+
+        # Irregular planar triangulation with a UV seam down its center.
+        vertices = [
+            (x + (0.16 if y % 2 and x not in (0, 10) else 0), y, 0)
+            for y in range(11)
+            for x in range(11)
+        ]
+        faces = []
+        for y in range(10):
+            for x in range(10):
+                a = y * 11 + x
+                faces.extend([(a, a + 1, a + 12), (a, a + 12, a + 11)])
+        mesh = bpy.data.meshes.new("patch")
+        mesh.from_pydata(vertices, [], faces)
+        mesh.update()
+        obj = bpy.data.objects.new("patch", mesh)
+        bpy.context.collection.objects.link(obj)
+        uv = mesh.uv_layers.new(name="UVMap")
+        for f in mesh.polygons:
+            for i in f.loop_indices:
+                co = mesh.vertices[mesh.loops[i].vertex_index].co
+                uv.data[i].uv = (co.x / 10, co.y / 10)
+        group = obj.vertex_groups.new(name="gradient")
+        for v in mesh.vertices:
+            group.add([v.index], v.co.y / 10, "REPLACE")
+        obj["mw_masks"] = json.dumps(
+            {"gradient": {"group": "gradient", "topology": s.topology(obj)}}
+        )
+        regions.define(obj, "all", g.selection(obj, "VERT"))
+        binding = attachments.bind(obj, [[4.2, 4.4, 0], [6.2, 6.4, 0]])
+        before = s.coordinates(obj).copy()
+        result = remesh.remesh(
+            obj, g.selection(obj, "FACE"), "reduced", 1.8, iterations=4, max_error=0.001
+        )
+        state = json.loads(result["mw_remesh"])
+        self.assertGreater(state["report"]["operations"]["collapse"], 0)
+        self.assertGreater(state["report"]["operations"]["flip"], 0)
+        self.assertEqual(state["report"]["pinned_error"], 0)
+        np.testing.assert_array_equal(before, s.coordinates(obj))
+        for loop in result.data.loops:
+            co = result.data.vertices[loop.vertex_index].co
+            np.testing.assert_allclose(
+                result.data.uv_layers[0].data[loop.index].uv,
+                [co.x / 10, co.y / 10],
+                atol=1e-6,
+            )
+        for v in result.data.vertices:
+            self.assertAlmostEqual(
+                result.vertex_groups["gradient"].weight(v.index) if v.co.y else 0,
+                v.co.y / 10,
+                places=5,
+            )
+        transferred, report = remesh.transfer_binding(obj, result, binding)
+        self.assertLess(report["max_error"], 1e-5)
+        np.testing.assert_allclose(
+            [h["position"] for h in attachments.resolve(result, transferred)],
+            [[4.2, 4.4, 0], [6.2, 6.4, 0]],
+            atol=1e-5,
+        )
+        finer = remesh.remesh(
+            obj, g.selection(obj, "FACE"), "finer", 0.6, iterations=2, max_error=0.001
+        )
+        self.assertGreater(
+            json.loads(finer["mw_remesh"])["report"]["operations"]["split"], 0
+        )
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        obj["mw_masks"] = json.dumps(
+            {"bad": {"group": "absent", "topology": s.topology(obj)}}
+        )
+        with self.assertRaisesRegex(ValueError, "mask"):
+            remesh.remesh(
+                obj, g.selection(obj, "FACE"), "bad", 1.8, iterations=1, max_error=0.001
+            )
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        result.data.vertices[0].co.z += 0.1
+        with self.assertRaisesRegex(ValueError, "Stale"):
+            remesh.transfer_binding(obj, result, binding)
+
+    def test_remesh_features_locality_and_assembly_transaction(self):
+        from mesh_workbench import remesh, assembly, attachments, relief
+        from unittest.mock import patch
+
+        bpy.ops.mesh.primitive_grid_add(x_subdivisions=12, y_subdivisions=12, size=10)
+        obj = bpy.context.object
+        obj.name = "grid"
+        mesh = obj.data
+        uv = mesh.uv_layers.active
+        mesh.materials.append(bpy.data.materials.new("left material"))
+        mesh.materials.append(bpy.data.materials.new("right material"))
+        for face in mesh.polygons:
+            face.material_index = int(face.center.x > 0)
+        # Mark a full center UV seam; preserve the discontinuous values exactly.
+        for f in mesh.polygons:
+            side = f.center.x > 0
+            for loop in f.loop_indices:
+                v = mesh.vertices[mesh.loops[loop].vertex_index]
+                uv.data[loop].uv = (v.co.x / 10 + (2 if side else 0), v.co.y / 10)
+        for e in mesh.edges:
+            if all(abs(mesh.vertices[i].co.x) < 1e-6 for i in e.vertices):
+                e.use_seam = True
+        selection = g.selection(obj, "FACE", box=[[0, -6, -1], [6, 6, 1]])
+        out = remesh.remesh(obj, selection, "local", 0.5, iterations=3, max_error=0.001)
+        for f in out.data.polygons:
+            self.assertEqual(f.material_index, int(f.center.x > 0))
+            for loop in f.loop_indices:
+                v = out.data.vertices[out.data.loops[loop].vertex_index]
+                expected = [v.co.x / 10 + (2 if f.center.x > 0 else 0), v.co.y / 10]
+                np.testing.assert_allclose(
+                    out.data.uv_layers[0].data[loop].uv, expected, atol=1e-6
+                )
+        before = s.coordinates(obj)
+        after = s.coordinates(out)
+        for co in before[before[:, 0] <= 0]:
+            self.assertTrue(np.any(np.all(after == co, axis=1)))
+        pattern = relief.dots(
+            obj,
+            [[1, 1, 0]],
+            "dot",
+            radii=[0.2],
+            height=0.1,
+            segments=12,
+            rings=2,
+            max_distance=0.01,
+        )
+        attachments.bind_relief(obj, pattern)
+        nodes = {
+            "body": {"kind": "source", "object": obj.name},
+            "dot": {
+                "kind": "relief",
+                "object": pattern.name,
+                "deps": ["body"],
+                "binding": json.loads(pattern["mw_surface_binding"]),
+                "options": json.loads(pattern["mw_relief_settings"]),
+            },
+        }
+        assembly.register("fixture", nodes)
+        old = bpy.context.scene[assembly.KEY]
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        with patch.object(assembly, "validate", return_value=[{"passed": False}]):
+            with self.assertRaises(assembly.Rejected):
+                assembly.remesh_source(
+                    "body",
+                    g.selection(obj, "FACE"),
+                    "rejected",
+                    target_length=0.5,
+                    iterations=1,
+                    max_error=0.001,
+                )
+        self.assertEqual(old, bpy.context.scene[assembly.KEY])
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        self.assertFalse(obj.hide_get())
+        with patch.object(assembly, "status", side_effect=RuntimeError("commit check")):
+            with self.assertRaises(assembly.Rejected):
+                assembly.remesh_source(
+                    "body",
+                    g.selection(obj, "FACE"),
+                    "commit rejected",
+                    target_length=0.5,
+                    iterations=1,
+                    max_error=0.001,
+                )
+        self.assertEqual(old, bpy.context.scene[assembly.KEY])
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        self.assertFalse(obj.hide_get())
+        result = assembly.remesh_source(
+            "body",
+            g.selection(obj, "FACE"),
+            "accepted",
+            target_length=0.5,
+            iterations=2,
+            max_error=0.001,
+        )
+        self.assertTrue(result["passed"])
+        self.assertEqual(set(result["updated"]), {"body", "dot"})
+        self.assertTrue(obj.hide_get())
+        self.assertEqual(assembly.load()["nodes"]["body"]["object"], "accepted")
+        self.assertLess(result["transfers"]["dot"]["max_error"], 1e-5)
+
+    def test_remesh_recipe_and_rejection(self):
+        from mesh_workbench.runner import run
+
+        recipe = json.loads((ROOT / "examples/local-remesh.json").read_text())
+        path = self.root / "recipe.json"
+        path.write_text(json.dumps(recipe))
+        run(path, self.root / "success")
+        audit = json.loads((self.root / "success/audit.json").read_text())
+        remeshed = next(
+            x["result"]["report"] for x in audit["operations"] if x["op"] == "remesh"
+        )
+        self.assertGreater(remeshed["operations"]["split"], 0)
+        self.assertLessEqual(remeshed["sampled_error_max"], 0.05)
+        recipe["operations"][5]["options"]["target_length"] = -1
+        bpy.ops.wm.read_factory_settings(use_empty=True)
+        path.write_text(json.dumps(recipe))
+        with self.assertRaises(ValueError):
+            run(path, self.root / "failed")
+        failed = json.loads((self.root / "failed/audit.json").read_text())
+        self.assertEqual(failed["failed_operation"]["op"], "remesh")
+        self.assertEqual(failed["status"], "failed")
+
     def test_headphone_tools_recipe_and_failure(self):
         from mesh_workbench.runner import run
 
