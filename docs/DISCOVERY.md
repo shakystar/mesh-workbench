@@ -14,7 +14,13 @@ These changes help tools discover and understand the project. `llms.txt` is an o
 
 ## Indexing follow-up
 
-Search Console ownership verification and sitemap submission are account-specific operations. They have not been performed by this change. After verifying the URL-prefix property for the documentation site, submit its sitemap and inspect the homepage/agent quickstart indexing status. Search rankings and AI citations require actual observation over time; they cannot be verified from a successful deployment.
+Verified on 2026-10-07: the URL-prefix property `https://shakystar.github.io/mesh-workbench/` is owned and verified through the homepage HTML meta tag. Keep that public tag in `scripts/build_docs.py`; removing it can invalidate ownership. No account credentials are stored in this repository.
+
+The sitemap submission was accepted, and the homepage plus agent quickstart were added to Google's priority crawl queue through URL Inspection. These are accepted requests, not completed indexing.
+
+The Sitemaps report still displays **Could not fetch**, with 0 discovered pages, after one resubmission. Independent HTTP requests return 200/application/xml and parse 21 in-scope URLs. Google's own live URL test of the sitemap at 2026-10-07 14:51 KST reports crawling allowed, page fetch successful and indexing allowed. The live fetch and Sitemaps processing status are separate observations; the report error is not claimed resolved. No site-side cause was established, and no access restrictions were weakened.
+
+Next verification: inspect the Sitemaps processing result and indexed status after Google recrawls. Repeated indexing requests do not improve queue priority. See [Google's sitemap fetch troubleshooting](https://support.google.com/webmasters/answer/7451001?hl=en). Search rankings and AI citations remain unverified. A compact [registration record](audits/SEARCH_DISCOVERY.json) preserves these boundaries.
 
 This is a GitHub Pages project site. A `robots.txt` in `/mesh-workbench/` would not control crawlers for the host root, so the project does not pretend to configure root crawler policy. If host-wide crawler controls are needed, manage them at the owning `shakystar.github.io` site. Public project pages use `index,follow` metadata.
 

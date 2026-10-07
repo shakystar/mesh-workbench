@@ -1,0 +1,43 @@
+{
+  "date": "2026-10-07",
+  "property": "https://shakystar.github.io/mesh-workbench/",
+  "ownership": {
+    "verified": true,
+    "method": "HTML meta tag",
+    "verification_deploy_commit": "f89f676a1be1613177eb03b8a56896f4b678c040"
+  },
+  "sitemap": {
+    "url": "https://shakystar.github.io/mesh-workbench/sitemap.xml",
+    "submission_accepted": true,
+    "resubmissions": 1,
+    "report_status": "Could not fetch",
+    "discovered_pages": 0,
+    "external_http": {
+      "status": 200,
+      "content_type": "application/xml",
+      "parsed_in_scope_urls": 21
+    },
+    "google_live_test": {
+      "time": "2026-10-07T14:51:24+09:00",
+      "crawl_allowed": true,
+      "page_fetch": "Successful",
+      "indexing_allowed": true
+    },
+    "processing_success_confirmed": false,
+    "established_site_side_cause": null
+  },
+  "index_requests": [
+    {
+      "url": "https://shakystar.github.io/mesh-workbench/",
+      "accepted": true,
+      "indexed_confirmed": false
+    },
+    {
+      "url": "https://shakystar.github.io/mesh-workbench/docs/AGENT_QUICKSTART.html",
+      "accepted": true,
+      "indexed_confirmed": false
+    }
+  ],
+  "evidence": "Observed Search Console UI states; public HTTP and XML checks. Account screenshots remain local and are not published.",
+  "next_check": "Recheck Google sitemap processing and page indexing after recrawl. No search ranking or agent adoption claim."
+}

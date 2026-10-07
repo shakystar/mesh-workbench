@@ -22,3 +22,5 @@ The preceding [M0-M5 assembly study](studies/DRILL_ASSEMBLY_STUDY.md), [audit](a
 ## Open-source access and discovery
 
 Original project code/documentation now use MIT. The public repository includes contribution instructions, an agent quickstart, llms.txt and a descriptive CLI manifest. A GitHub Pages workflow publishes static HTML, raw Markdown and a sitemap; see [discovery operations](DISCOVERY.md). Search indexing and external agent adoption are separate from deployment and have not been claimed.
+
+Search Console update (2026-10-07): URL-prefix ownership verified; homepage and agent-guide indexing requests accepted. Sitemap submission accepted, but its report still says Could not fetch despite a successful Google live fetch. Indexing and sitemap processing success remain unconfirmed; see [registration evidence](audits/SEARCH_DISCOVERY.json).
