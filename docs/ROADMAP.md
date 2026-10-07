@@ -1,6 +1,6 @@
-# Active milestones: drill surface refinement
+# Completed milestones: drill surface refinement
 
-Status: **in progress**. The preceding M0-M5 assembly phase remains complete; its [contract](archive/DRILL_ASSEMBLY_ROADMAP.md) and [audit](audits/DRILL_ASSEMBLY_AUDIT.json) are preserved. This phase improves actual surface geometry and editability.
+Status: **complete**. [Measured audit](audits/DRILL_SURFACE_AUDIT.json) and [native comparisons](studies/DRILL_SURFACE_STUDY.md) record the result. The preceding M0-M5 assembly phase remains complete; its [contract](archive/DRILL_ASSEMBLY_ROADMAP.md) and [audit](audits/DRILL_ASSEMBLY_AUDIT.json) are preserved. This phase improves actual surface geometry and editability.
 
 | Stage | Deliverable | Acceptance |
 | --- | --- | --- |

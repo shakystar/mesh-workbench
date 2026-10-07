@@ -257,7 +257,7 @@ Reports combine triangle-overlap candidates and bidirectional vertex/edge/centro
 JSON operations: `actuators_register`, `actuators_sweep`. A failed sweep raises a structured rejection in the CLI audit. See the [completed drill evidence](../studies/DRILL_ASSEMBLY_STUDY.md) for current validation status.
 
 
-## Surface refinement (active validation)
+## Surface refinement
 
 `enclosure.create(..., section_controls={rows, pins, maximum_displacement})` accepts `[z,rear,front,crown]` rows and `[x,z,fixed_radius,release_radius]` pins. Width fields preserve XZ coordinates, fade toward the split plane and reject folds/excess displacement. Nested `enclosure` nodes accept these arguments.
 
@@ -267,4 +267,6 @@ JSON operations `profiled_ring`, `surface_paths`, `variable_bevel`, and `rebuild
 
 `rebuild_patch` requires both improved selected p10 triangle quality and reduced edge-length coefficient of variation. It preserves unselected source polygons, their corner UVs and boundary coordinates. Legacy `remesh` can opt into `preserve_polygons=True` and `relaxation` without the additional quality acceptance gate. Outputs can contain both original polygons and rebuilt triangles; this is not general quad retopology. Nested `remesh_request` accepts `method: "rebuild"` for the same staged propagation and rollback path.
 
-See the [active surface study](../studies/DRILL_SURFACE_STUDY.md) for actual evidence and remaining acceptance work.
+`semantic.resolve` accepts optional `seed: [x,y,z]` and positive `seed_distance` to choose the uniquely nearest connected candidate component. Equal-distance ties reject; all projected samples must still lie on the selected chart. `enclosure.sharp_role_edges` splits shading at physical outer/inner/cut-role boundaries without changing coordinates; nested `cut_cylinder` accepts `sharp_roles: true`.
+
+The [surface recipe](../../examples/drill-surface.json) initializes, edits and reconstructs the full drill through the CLI. See the [completed surface study](../studies/DRILL_SURFACE_STUDY.md) for measured evidence, commands and remaining limits.
