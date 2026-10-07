@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "source": "../runs/drill-assembly-cli/result.blend",
+  "operations": [
+    {
+      "op": "nested_update",
+      "parameters": {
+        "grip_width": 100
+      }
+    }
+  ]
+}

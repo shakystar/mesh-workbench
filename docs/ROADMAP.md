@@ -1,6 +1,6 @@
 # Next milestones: editable drill assembly
 
-Status: **planned**. This document defines the next implementation phase; no new modeling goal or completion claim is created by this planning change.
+Status: **in progress**. An implementation goal is active. The frozen brief is recorded in `audits/DRILL_ASSEMBLY_BRIEF.json`; all M0-M5 acceptance evidence is still required before completion.
 
 ## Objective and baseline
 

@@ -43,15 +43,17 @@ def bind(target, points, max_distance=0.01):
         if hit is None:
             raise ValueError("Anchor outside binding distance")
         ids = triangles[index]
-        a, b, c = [Vector(coords[i]) for i in ids]
-        u, v, w = b - a, c - a, hit - a
+        # Solve in float64. Vector dot products round slender triangles in
+        # millimetre-scale models enough to push valid edge anchors outside.
+        a, b, c = coords[list(ids)]
+        u, v, w = b - a, c - a, np.asarray(hit, dtype=np.float64) - a
         aa, ab, bb = u.dot(u), u.dot(v), v.dot(v)
         den = aa * bb - ab * ab
         if abs(den) < 1e-20:
             raise ValueError("Degenerate binding triangle")
         wb = (bb * w.dot(u) - ab * w.dot(v)) / den
         wc = (aa * w.dot(v) - ab * w.dot(u)) / den
-        weights = [1 - wb - wc, wb, wc]
+        weights = [float(1 - wb - wc), float(wb), float(wc)]
         if min(weights) < -1e-5 or max(weights) > 1 + 1e-5:
             raise ValueError("Unstable binding weights")
         anchors.append({"vertices": ids, "weights": weights})

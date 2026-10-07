@@ -11,6 +11,8 @@ import bpy
 
 from mesh_workbench import (
     __version__,
+    nested,
+    actuators,
     quality,
     refinement,
     remesh,
@@ -191,6 +193,28 @@ def run(recipe_path, output):
                 result = joints.register(c["joints"])
             elif op == "joints_inspect":
                 result = joints.inspect(c["angles"], c["fixed"], **c.get("options", {}))
+            elif op == "nested_initialize":
+                result = nested.initialize(
+                    c["name"], c["nodes"], c["parameters"], c["ranges"], c.get("checks")
+                )
+            elif op == "nested_status":
+                result = nested.load()
+            elif op == "nested_update":
+                result = nested.update(c.get("parameters"), c.get("remesh_request"))
+            elif op == "actuators_register":
+                result = actuators.register(
+                    c["parts"], c["channels"], c.get("interlocks")
+                )
+            elif op == "actuators_sweep":
+                result = actuators.sweep(
+                    c["channel"],
+                    c["start"],
+                    c["end"],
+                    c["pairs"],
+                    **c.get("options", {}),
+                )
+                if not result["passed"]:
+                    raise assembly.Rejected(result)
             elif op == "assembly_register":
                 result = assembly.register(c["name"], c["nodes"], c.get("checks"))
             elif op == "assembly_status":

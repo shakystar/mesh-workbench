@@ -27,6 +27,355 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_mechanical_constructor_failure_preserves_scene(self):
+        from mesh_workbench import mechanical, enclosure
+        from unittest.mock import patch
+
+        source = m.primitive("cube", "preserved")
+        before = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        coords = s.coordinates(source).copy()
+        with self.assertRaises(ValueError):
+            mechanical.annulus("bad axis", 3, 2, [0, 0, 0], 2, axis=[0, 0, 0])
+        with patch.object(enclosure, "_valid", side_effect=ValueError("invalid solid")):
+            with self.assertRaises(ValueError):
+                mechanical.box("bad solid", [3, 3, 3], [0, 0, 0])
+        self.assertEqual(before, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        np.testing.assert_array_equal(coords, s.coordinates(source))
+
+    def test_actuator_contacts_interlock_containment_and_recovery(self):
+        from mesh_workbench import actuators, joints
+        from unittest.mock import patch
+
+        moving = m.primitive("cube", "slider")
+        stop = m.primitive("cube", "stop", location=[5, 0, 0])
+        latch = m.primitive("cube", "latch", location=[0, 10, 0])
+        actuators.register(
+            {"slider": moving.name, "stop": stop.name, "latch": latch.name},
+            {
+                "slide": {
+                    "limits": [0, 3],
+                    "rest": 0,
+                    "max_step": 0.25,
+                    "vectors": {"slider": [1, 0, 0]},
+                },
+                "release": {
+                    "limits": [0, 2],
+                    "rest": 0,
+                    "max_step": 0.25,
+                    "vectors": {"latch": [0, 0, -1]},
+                },
+            },
+            [{"channel": "slide", "above": 0, "requires": "release", "at_least": 2}],
+        )
+        before = joints.snapshot([moving.name, stop.name, latch.name])
+        with self.assertRaisesRegex(ValueError, "interlock"):
+            actuators.pose({"slide": 1})
+        self.assertEqual(before, joints.snapshot(list(before)))
+        with self.assertRaises(ValueError):
+            actuators.pose({"slide": 3.1, "release": 2})
+        report = actuators.sweep(
+            "slide",
+            0,
+            3,
+            [["slider", "stop"]],
+            base={"release": 2},
+            contacts=[{"parts": ["slider", "stop"], "at": 3, "max_penetration": 0.01}],
+        )
+        self.assertTrue(report["passed"], report)
+        self.assertTrue(report["rest_restored"])
+        self.assertEqual(
+            report["samples"][-1]["pairs"][0]["category"], "intentional contact"
+        )
+        with patch.object(
+            actuators, "pair", side_effect=RuntimeError("measurement failure")
+        ):
+            with self.assertRaises(RuntimeError):
+                actuators.sweep(
+                    "slide", 0, 3, [["slider", "stop"]], base={"release": 2}
+                )
+        self.assertEqual(before, joints.snapshot(list(before)))
+        outer = m.primitive("cube", "container", scale=[3, 3, 3])
+        result = actuators.pair(moving, outer)
+        self.assertFalse(result["passed"])
+        self.assertGreater(result["maximum_sampled_penetration"], 1)
+        moving.data.vertices[0].co.x -= 0.1
+        with self.assertRaisesRegex(ValueError, "geometry changed"):
+            actuators.pose({})
+
+    def test_nested_shell_insert_regeneration_and_atomic_failures(self):
+        from mesh_workbench import nested, assembly, attachments
+        from unittest.mock import patch
+
+        query = {
+            "box": [[-8, -12, 5], [8, -4, 25]],
+            "normal": [0, -1, 0],
+            "normal_min": 0.8,
+            "materials": [0],
+            "components": 1,
+        }
+        nodes = {
+            "master": {
+                "kind": "enclosure",
+                "visible": False,
+                "args": {
+                    "profile_xz": [[-12, 0], [12, 0], [12, 30], [-12, 30]],
+                    "corner_trim": 5,
+                    "rim_radius": 3,
+                    "rim_steps": 12,
+                    "edge_spacing": 2,
+                    "cap_spacing": 3,
+                    "head_half_width": 7,
+                    "grip_half_width": 7,
+                    "grip_width": {"param": "width"},
+                },
+            },
+            "skin": {
+                "kind": "hollow",
+                "visible": False,
+                "deps": [{"id": "master"}],
+                "args": {"thickness": 1},
+            },
+            "left": {
+                "kind": "partition",
+                "deps": [{"id": "skin"}],
+                "args": {"side": "left"},
+            },
+            "insert": {
+                "kind": "insert",
+                "deps": [{"id": "left"}],
+                "args": {
+                    "query": query,
+                    "center": [0, 0, 15],
+                    "radii": [5, 8],
+                    "rings": 4,
+                    "segments": 24,
+                    "offset": 0.4,
+                    "thickness": 0.6,
+                },
+            },
+            "dot": {
+                "kind": "relief",
+                "deps": [{"id": "insert"}],
+                "args": {
+                    "query": {"normal": [0, -1, 0], "normal_min": 0.8, "components": 1},
+                    "points": [[0, -12, 15]],
+                    "radii": 0.35,
+                    "height": 0.2,
+                    "embed": 0.08,
+                    "clearance": 0.06,
+                    "max_distance": 10,
+                    "direction": [0, 1, 0],
+                },
+            },
+            "fixed": {
+                "kind": "annulus",
+                "deps": [{"id": "master", "use": "frame"}],
+                "args": {
+                    "outer_radius": 2,
+                    "inner_radius": 1,
+                    "start": [30, 0, 15],
+                    "length": 3,
+                },
+            },
+        }
+        result = nested.initialize(
+            "test nested",
+            nodes,
+            {"width": 0},
+            {"width": [0, 2]},
+            [
+                {
+                    "kind": "wall",
+                    "parts": ["left"],
+                    "options": {"minimum": 0.8, "maximum": 1.2},
+                }
+            ],
+        )
+        self.assertTrue(result["passed"])
+        state = nested.load()
+        fixed = state["outputs"]["fixed"]["object"]
+        old = bpy.context.scene[nested.KEY]
+        original_objects = set(bpy.data.objects)
+        original_meshes = set(bpy.data.meshes)
+        visibility = {
+            o.name: (o.hide_get(), o.hide_render, o.hide_viewport)
+            for o in bpy.data.objects
+        }
+        before = {
+            k: attachments.revision(bpy.data.objects[r["object"]])
+            for k, r in state["outputs"].items()
+        }
+        for phase in (
+            "after_build",
+            "after_transfer",
+            "after_validate",
+            "after_commit",
+        ):
+
+            def fail(actual):
+                if actual == phase:
+                    raise RuntimeError("injected " + phase)
+
+            with patch.object(nested, "_checkpoint", side_effect=fail):
+                with self.assertRaises(assembly.Rejected):
+                    nested.update({"width": 1})
+            self.assertEqual(old, bpy.context.scene[nested.KEY])
+            self.assertEqual(original_objects, set(bpy.data.objects))
+            self.assertEqual(original_meshes, set(bpy.data.meshes))
+            nested.load()
+            self.assertEqual(
+                visibility,
+                {
+                    o.name: (o.hide_get(), o.hide_render, o.hide_viewport)
+                    for o in bpy.data.objects
+                },
+            )
+            for k, r in state["outputs"].items():
+                self.assertEqual(
+                    before[k], attachments.revision(bpy.data.objects[r["object"]])
+                )
+        result = nested.update({"width": 2})
+        self.assertEqual(
+            set(result["updated"]), {"master", "skin", "left", "insert", "dot"}
+        )
+        self.assertEqual(result["objects"]["fixed"], fixed)
+        current = nested.load()
+        parent = bpy.data.objects[current["outputs"]["insert"]["object"]]
+        dot = bpy.data.objects[current["outputs"]["dot"]["object"]]
+        self.assertEqual(attachments.status(parent, dot)["status"], "current")
+        result = nested.update(
+            remesh_request={
+                "part": "master",
+                "query": {
+                    "box": [[-7, -12, 7], [7, -4, 23]],
+                    "normal": [0, -1, 0],
+                    "normal_min": 0.9,
+                    "components": 1,
+                },
+                "options": {"target_length": 1.2, "iterations": 1, "max_error": 0.09},
+            }
+        )
+        self.assertTrue(result["passed"])
+        self.assertEqual(result["objects"]["fixed"], fixed)
+        self.assertEqual(
+            set(result["updated"]), {"master", "skin", "left", "insert", "dot"}
+        )
+        with self.assertRaisesRegex(ValueError, "Unknown"):
+            nested.update(
+                remesh_request={"part": "missing", "query": {}, "options": {}}
+            )
+        with self.assertRaisesRegex(ValueError, "cycle"):
+            nested._order(
+                {
+                    "a": {"kind": "box", "deps": [{"id": "b"}]},
+                    "b": {"kind": "box", "deps": [{"id": "a"}]},
+                }
+            )
+
+    def test_enclosure_shell_and_semantic_regions(self):
+        from mesh_workbench import enclosure, semantic
+        from unittest.mock import patch
+
+        profile = [[-12, 0], [12, 0], [12, 30], [-12, 30]]
+        body = enclosure.create(
+            "Envelope",
+            profile,
+            corner_trim=5,
+            rim_radius=3,
+            rim_steps=12,
+            edge_spacing=2,
+            cap_spacing=3,
+            head_half_width=7,
+            grip_half_width=7,
+        )
+        self.assertEqual(g.inspect(body)["nonmanifold_edges"], 0)
+        group = body.vertex_groups.new(name="Z field")
+        for v in body.data.vertices:
+            group.add([v.index], v.co.z / 30, "REPLACE")
+        skin = enclosure.hollow(body, "Skin", 1)
+        panel = enclosure.partition(skin, "Left", "left")
+        self.assertIn("Z field", panel.vertex_groups)
+        self.assertEqual(
+            json.loads(panel["mw_masks"])["grip"]["topology"], s.topology(panel)
+        )
+        report = enclosure.gauge(panel, minimum=0.8, maximum=1.2)
+        self.assertTrue(report["passed"], report["violations"][:2])
+        self.assertEqual(report["missing_or_invalid"], 0)
+        query = {
+            "box": [[-7, -8, 7], [7, -5, 23]],
+            "normal": [0, -1, 0],
+            "normal_min": 0.9,
+            "materials": [0],
+            "components": 1,
+        }
+        resolved = semantic.register(panel, "grip", query)
+        self.assertGreater(len(resolved["indices"]), 2)
+        self.assertFalse(enclosure.gauge(panel, minimum=1.5, maximum=2)["passed"])
+        from mesh_workbench import inserts
+
+        patch_obj = inserts.create(
+            panel,
+            query,
+            "Known field insert",
+            [0, 0, 15],
+            [4, 6],
+            offset=0.4,
+            thickness=0.6,
+            rings=3,
+            segments=16,
+        )
+        for loop in patch_obj.data.loops:
+            point = s.coordinates(patch_obj)[loop.vertex_index]
+            np.testing.assert_allclose(
+                patch_obj.data.uv_layers["DesignXZ"].data[loop.index].uv,
+                [point[0] / 120, point[2] / 200],
+                atol=1e-6,
+            )
+        for vertex in patch_obj.data.vertices:
+            self.assertAlmostEqual(
+                patch_obj.vertex_groups["Z field"].weight(vertex.index),
+                vertex.co.z / 30,
+                places=5,
+            )
+        before = set(bpy.data.objects)
+        with self.assertRaisesRegex(ValueError, "side"):
+            inserts.create(panel, query, "Wrong side", [0, 0, 15], [4, 6], side=1)
+        self.assertEqual(before, set(bpy.data.objects))
+        face = panel.data.polygons[resolved["indices"][0]]
+        loop = face.loop_indices[0]
+        uv = panel.data.uv_layers["DesignXZ"].data[loop].uv.copy()
+        panel.data.uv_layers["DesignXZ"].data[loop].uv.x += 0.2
+        with self.assertRaisesRegex(ValueError, "UV chart seam"):
+            inserts.create(panel, query, "Seam crossing", [0, 0, 15], [4, 6])
+        panel.data.uv_layers["DesignXZ"].data[loop].uv = uv
+
+        for v in panel.data.vertices:
+            if abs(v.co.x) < 6 and 8 < v.co.z < 22:
+                self.assertAlmostEqual(
+                    panel.vertex_groups["Z field"].weight(v.index),
+                    v.co.z / 30,
+                    places=5,
+                )
+        before = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        with patch.object(
+            enclosure, "_valid", side_effect=ValueError("injected geometry check")
+        ):
+            with self.assertRaises(ValueError):
+                enclosure.hollow(body, "Rejected", 1)
+        self.assertEqual(before, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        with self.assertRaisesRegex(ValueError, "Empty"):
+            semantic.resolve(panel, {"box": [[200, 200, 200], [210, 210, 210]]})
+        # Two nearby disconnected sheets must not be treated as one semantic patch.
+        a = m.primitive("plane", "sheet1")
+        b = m.primitive("plane", "sheet2", location=[0, 0, 0.01])
+        combined = m.combine([a, b], "two sheets")
+        with self.assertRaisesRegex(ValueError, "Ambiguous"):
+            semantic.resolve(combined, {"components": 1})
+
     def test_local_remesh_uv_masks_binding_and_rollback(self):
         from mesh_workbench import remesh, attachments, regions
 

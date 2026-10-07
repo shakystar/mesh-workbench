@@ -230,3 +230,28 @@ UV seams in every layer, explicit seam/sharp flags, material discontinuities, an
 JSON operations are `remesh`, `remesh_selection`, `remesh_pattern` and `assembly_remesh`; see [complete executable recipe](../../examples/local-remesh.json). `remesh` returns an object name plus measurements in the audit. `assembly_remesh` returns updated nodes, actual object names, transfers and constraint results. Same-topology `assembly_update` remains supported afterward.
 
 These tools do not establish a continuous geometric error bound, guarantee mesh-quality convergence, perform UV repacking, or implement general quad retopology. See [drill evidence and limitations](../studies/DRILL_STUDY.md).
+
+
+## Nested dimensioned assemblies
+
+`nested.initialize(name, nodes, parameters, ranges, checks)` creates a version-2 scene graph. `nested.update(parameters=None, remesh_request=None)` forks affected outputs, validates the entire assembly, then commits object references. `nested.load()` checks geometry, UVs, deform groups, materials and registered correspondence before any update. This graph is independent of the earlier version-1 assembly API.
+
+Each node declares `kind`, `args`, optional `frame`, `material`, `visible`, and `deps=[{"id":"parent","use":"geometry"}]`. A frame-only dependency uses `use="frame"`; it is appropriate only when geometry is independently specified. A value such as `{"param":"grip_width","scale":0.5,"offset":14}` is a bounded scalar expression. No Python expression evaluation or file-load handler is installed. Logical IDs persist; physical object names change per revision. Old geometry remains hidden and recoverable.
+
+Builders include `enclosure`, `hollow`, `partition`, `cut_box`, `cut_cylinder`, `box`, `annulus`, `cylinder`, `prism`, `jaw`, `cage`, `insert`, `relief` and `union`. Checks include opposite-skin `wall`, split-plane `gap`, `clearance` and `semantic`. A remesh request names `part`, a semantic face `query`, and existing `remesh.remesh` options. Parameters and topology updates are separate transactions. Direct external edits invalidate the registered output rather than silently overwriting it.
+
+`semantic.resolve(object, query)` and `semantic.register/named` select face regions by world box, normal, material roles and required connected-component count. Queries are re-resolved after topology changes. Indexed face IDs are not stable identities.
+
+`inserts.create` projects an independently sampled ellipse onto one connected facing surface, transfers named weights and per-corner UV samples, and creates a closed offset patch. Every projection must have support. A selected region crossing a UV chart or material discontinuity is rejected; general seam-aware patch retopology is not implemented. `enclosure.boolean` preserves native Blender deform and corner layers; newly cut surfaces are generated data, not claimed source-face correspondence. Numerical tangent slivers are dissolved at 1e-5 world units before validation.
+
+JSON operations: `nested_initialize`, `nested_status`, `nested_update`. The [drill recipe](../../examples/drill-assembly.json) builds the complete assembly and edits its grip width. After running it to `runs/drill-assembly-cli`, the [rejected-edit recipe](../../examples/drill-assembly-rejected.json) loads that saved result and must exit nonzero for an out-of-range width. Inputs are hashed and preserved.
+
+## Prismatic and radial mechanism inspection
+
+`actuators.register(parts, channels, interlocks=None)` records static unparented meshes and rest matrices. Parts map stable IDs to physical object names. A channel declares `limits`, `rest`, `max_step`, and per-part translation `vectors` per unit. Several channels can affect one part, such as latch release and battery translation. Three radial vectors can represent a jaw diameter. Interlocks declare `channel`, `above`, `requires`, and `at_least`.
+
+`actuators.pose(values)` is absolute relative to rest. `actuators.sweep(channel, start, end, pairs, base=None, step=None, contacts=None)` checks explicit cross-part pairs at bounded intervals and always restores initial transform channels. Contacts name a pair, exact channel value, maximum sampled penetration (at most 0.01) and optional maximum separation. No pair is silently ignored. Same rigid-group internal contacts should be documented separately; moving cross-jaw pairs must be included.
+
+Reports combine triangle-overlap candidates and bidirectional vertex/edge/centroid distances. Bounding boxes provide conservative lower bounds for distant probes. Containment uses three ray-parity directions, with float64 solid-angle classification when votes disagree. Remaining ambiguity fails. Distances and penetration are sampled, not continuous collision or global separation proofs. Geometry changes invalidate an actuator registration; register again after rebuilding a graph.
+
+JSON operations: `actuators_register`, `actuators_sweep`. A failed sweep raises a structured rejection in the CLI audit. See the [active drill evidence](../studies/DRILL_ASSEMBLY_STUDY.md) for current validation status.
