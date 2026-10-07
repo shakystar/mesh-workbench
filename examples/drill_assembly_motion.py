@@ -129,6 +129,87 @@ def verify(out, only=None):
     return reports
 
 
+def verify_interfaces(out):
+    import json
+    import numpy as np
+
+    parts, channels = register()
+    state = nested.load()
+    spec = json.loads(
+        (ROOT / "examples/drill-assembly-target.json").read_text(encoding="utf-8")
+    )
+    length = state["parameters"]["grip_length"]
+    reports = {}
+    checks = []
+    for kind in ["rail", "channel"]:
+        config = spec["construction"][kind]
+        for i, side in enumerate(["left", "right"]):
+            key = kind + "_" + side
+            obj = bpy.data.objects[parts[key]]
+            actual = sculpt.coordinates(obj)
+            origin = np.array(config["origins"][i], dtype=float)
+            origin[2] -= length
+            expected = np.array(
+                [
+                    origin + [x, y, z]
+                    for x in [0, config["length"]]
+                    for y, z in config["section_yz"]
+                ]
+            )
+            error = float(
+                np.linalg.norm(expected[:, None] - actual[None, :], axis=2)
+                .min(axis=1)
+                .max()
+            )
+            checks.append(
+                {
+                    "part": key,
+                    "section_vertex_error": error,
+                    "passed": error <= spec["gates"]["frame_position"],
+                }
+            )
+    reports["sections"] = checks
+    before = joints.snapshot(list(parts.values()))
+    latch = bpy.data.objects[parts["battery_latch"]]
+    foot = bpy.data.objects[parts["foot"]]
+    try:
+        # Deliberately violate the release interlock in the geometry fixture.
+        # The public pose API rejects this move; here we verify its physical stop.
+        latch.location.x -= 1
+        bpy.context.view_layer.update()
+        collision = actuators.pair(latch, foot)
+        reports["unreleased_slide_physically_blocked"] = {
+            "passed": not collision["passed"],
+            "measurement": collision,
+        }
+    finally:
+        joints.restore(before)
+    try:
+        actuators.pose({"battery": 40, "latch": 2})
+        separation = []
+        for side in ["left", "right"]:
+            rail = sculpt.coordinates(bpy.data.objects[parts["rail_" + side]])
+            channel = sculpt.coordinates(bpy.data.objects[parts["channel_" + side]])
+            gap = float(rail[:, 0].min() - channel[:, 0].max())
+            separation.append(
+                {"side": side, "axial_disengagement_gap": gap, "passed": gap > 0}
+            )
+        reports["fully_disengaged"] = separation
+    finally:
+        joints.restore(before)
+    reports["rest_restored"] = joints.snapshot(list(before)) == before
+    reports["passed"] = (
+        all(c["passed"] for c in checks)
+        and reports["unreleased_slide_physically_blocked"]["passed"]
+        and all(c["passed"] for c in reports["fully_disengaged"])
+        and reports["rest_restored"]
+    )
+    sculpt.dump(Path(out) / "interfaces.json", reports)
+    nested.load()
+    print("INTERFACES", reports["passed"], flush=True)
+    return reports
+
+
 def verify_alternate_bits(out):
     parts, channels = register()
     state = actuators.load()
@@ -215,7 +296,9 @@ if __name__ == "__main__":
     out = Path(args[1])
     out.mkdir(parents=True, exist_ok=False)
     mode = args[2] if len(args) > 2 else None
-    if mode == "alternate-bits":
+    if mode == "interfaces":
+        verify_interfaces(out)
+    elif mode == "alternate-bits":
         verify_alternate_bits(out)
     elif mode == "failures":
         verify_failures(out)

@@ -1,21 +1,26 @@
 {
   "phase": "M0",
   "specification": "examples/drill-assembly-target.json",
-  "sha256": "38f18ad8966e24865c5187e127be89e7ca0ab48d64adafaa62641e3d7d42f443",
-  "part_count": 37,
+  "sha256": "72943ad3fd4dadc9eb07a68352ef4f51ba76a4e7128cf4e0c9f6ff5b84740c18",
+  "part_count": 38,
   "threshold_policy": "Frozen before modeling acceptance; changes require versioned rationale.",
   "guide_status": "Side quadratic outline; front/top dimension envelopes; part-parent map generated and XML parsed.",
-  "guide_sha256": "6c0a294efca56845cdbd1bf517249b3d9d20cd8625c4034760d68d4cae8b9a8e",
+  "guide_sha256": "37f6d5935a0f127363a2d1a68910611268899b1170029dacbc3dc297c061d008",
   "frame_convention": "Part origins and axes are baseline world frames; parent IDs express dependencies, not compounded local transforms.",
   "profile_sampling": "Quadratic corner trims limited to 0.45 of adjacent edge length; geometric fillet radius limited by profile curvature. Numerical acceptance gates unchanged.",
-  "previous_sha256": "e6c119b8cb87ee983a5abef703d2eeb4a2866527b409d3447bba61e33a355b7f",
-  "revision": 3,
-  "revision_reason": "Complete physical fastening and latch retention before M2 acceptance: add opposed receivers, clearance bores, slotted screws and captive latch sleeve. Move the lower fastening axis outside the independent grip insert to keep its support unperforated. Record previously implicit insert guide dimensions. No acceptance gate changed.",
+  "previous_sha256": "38f18ad8966e24865c5187e127be89e7ca0ab48d64adafaa62641e3d7d42f443",
+  "revision": 4,
+  "revision_reason": "Correct derived frame metadata for lower fasteners and grip insert frames when grip length changes; name the second trigger guide rail explicitly. Geometry dimensions and all acceptance gates unchanged. Existing graph revisions migrate atomically and preserve source geometry.",
   "revisions": [
     {
       "revision": 2,
       "sha256": "e6c119b8cb87ee983a5abef703d2eeb4a2866527b409d3447bba61e33a355b7f",
       "reason": "M0 construction-dimension completion before M1 acceptance; rear boss moved above vent envelope to prevent overlap. No acceptance gate changed."
+    },
+    {
+      "revision": 3,
+      "sha256": "38f18ad8966e24865c5187e127be89e7ca0ab48d64adafaa62641e3d7d42f443",
+      "reason": "Complete physical fastening and latch retention before M2 acceptance: add opposed receivers, clearance bores, slotted screws and captive latch sleeve. Move the lower fastening axis outside the independent grip insert to keep its support unperforated. Record previously implicit insert guide dimensions. No acceptance gate changed."
     }
   ]
 }

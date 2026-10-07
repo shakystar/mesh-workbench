@@ -118,6 +118,12 @@ def run(recipe_path, output):
             bpy.ops.wm.open_mainfile(
                 filepath=str(source(recipe["source"])), load_ui=False, use_scripts=False
             )
+        if "units" in recipe:
+            scales = {"mm": 0.001, "cm": 0.01, "m": 1.0}
+            if recipe["units"] not in scales:
+                raise ValueError("Recipe units must be mm, cm or m")
+            bpy.context.scene.unit_settings.system = "METRIC"
+            bpy.context.scene.unit_settings.scale_length = scales[recipe["units"]]
         camera(**recipe.get("camera", {}))
         for index, c in enumerate(recipe["operations"]):
             op = c["op"]
@@ -199,6 +205,8 @@ def run(recipe_path, output):
                 )
             elif op == "nested_status":
                 result = nested.load()
+            elif op == "nested_reconfigure":
+                result = nested.reconfigure(c["nodes"], c.get("checks"))
             elif op == "nested_update":
                 result = nested.update(c.get("parameters"), c.get("remesh_request"))
             elif op == "actuators_register":

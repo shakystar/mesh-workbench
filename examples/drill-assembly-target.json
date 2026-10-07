@@ -1265,6 +1265,36 @@
         "kind": "fixed to battery"
       },
       "minimum_noncontact_clearance": 0.2
+    },
+    "trigger_guide_right": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          -1,
+          10.3,
+          125
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "opposed trigger guide rail",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
     }
   },
   "interfaces": [
@@ -1379,7 +1409,7 @@
       10
     ]
   },
-  "revision": 3,
+  "revision": 4,
   "construction": {
     "rear_cover": {
       "dimensions": [
@@ -1768,5 +1798,52 @@
       "slot_depth": 0.7
     }
   },
-  "frame_convention": "Baseline world coordinates; parent IDs are dependency relations. Moving interfaces use explicit motion axes. Foot/battery descendants move down by grip_length; chuck frame remains fixed."
+  "frame_convention": "Baseline world coordinates; parent IDs are dependency relations. Moving interfaces use explicit motion axes. Foot/battery descendants move down by grip_length; chuck frame remains fixed.",
+  "frame_z_parameter_rules": {
+    "grip_left": {
+      "grip_length": -0.5
+    },
+    "grip_right": {
+      "grip_length": -0.5
+    },
+    "texture_left": {
+      "grip_length": -0.5
+    },
+    "texture_right": {
+      "grip_length": -0.5
+    },
+    "boss_2": {
+      "grip_length": -1
+    },
+    "receiver_2": {
+      "grip_length": -1
+    },
+    "fastener_2": {
+      "grip_length": -1
+    },
+    "foot": {
+      "grip_length": -1
+    },
+    "battery": {
+      "grip_length": -1
+    },
+    "battery_latch": {
+      "grip_length": -1
+    },
+    "latch_guide": {
+      "grip_length": -1
+    },
+    "rail_left": {
+      "grip_length": -1
+    },
+    "rail_right": {
+      "grip_length": -1
+    },
+    "channel_left": {
+      "grip_length": -1
+    },
+    "channel_right": {
+      "grip_length": -1
+    }
+  }
 }

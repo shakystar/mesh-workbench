@@ -2,7 +2,7 @@
 
 Status: **in progress**. The [roadmap](../ROADMAP.md) remains the completion contract. No M1-M5 completion claim is made by this record.
 
-The authored [dimension brief](../../examples/drill-assembly-target.json) is frozen at revision 3; its [audit](../audits/DRILL_ASSEMBLY_BRIEF.json) records the construction additions and unchanged acceptance gates. The previous exterior drill is preserved at `runs/drill-study-09/drill.blend`.
+The authored [dimension brief](../../examples/drill-assembly-target.json) is frozen at revision 4; its [audit](../audits/DRILL_ASSEMBLY_BRIEF.json) records the construction additions and unchanged acceptance gates. The previous exterior drill is preserved at `runs/drill-study-09/drill.blend`.
 
 ## Implemented work under validation
 
@@ -30,3 +30,9 @@ blender --background --factory-startup --python-exit-code 2 --python examples/dr
 ```
 
 All output directories must be new, except the render directory. The motion script writes per-channel evidence; inspect each `passed` result. A render or successful process exit alone does not certify the assembly.
+
+## Revision 4 verification in progress
+
+The geometry of every baseline and variant part is unchanged by the explicit frame migration. Lower fastening frames now descend with grip length; grip frames move by half that change. The second trigger guide has a named frame. `examples/drill_assembly_migrate.py` verifies per-part geometry hashes and preserves all prior native objects.
+
+The initial implementation checkpoint `a641c8158dd27cdd64bcf08830807981e2030f41` passes [Linux CI](https://github.com/shakystar/mesh-workbench/actions/runs/37566931683). Subsequent frame and acceptance-check additions require the final CI run. Revision-3 native files all passed fresh-process reopening and a further width edit; revision-4 files are undergoing the same checks plus stronger actual-frame measurements.

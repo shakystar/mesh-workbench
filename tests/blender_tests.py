@@ -27,6 +27,95 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_nested_thin_wall_rejection_restores_scene(self):
+        from mesh_workbench import nested, assembly
+
+        nodes = {
+            "master": {
+                "kind": "enclosure",
+                "args": {
+                    "profile_xz": [[-12, 0], [12, 0], [12, 30], [-12, 30]],
+                    "corner_trim": 5,
+                    "rim_radius": 3,
+                    "rim_steps": 12,
+                    "head_half_width": 7,
+                    "grip_half_width": 7,
+                },
+            },
+            "skin": {
+                "kind": "hollow",
+                "deps": [{"id": "master"}],
+                "args": {"thickness": 1},
+            },
+            "left": {
+                "kind": "partition",
+                "deps": [{"id": "skin"}],
+                "args": {"side": "left"},
+            },
+        }
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        with self.assertRaises(assembly.Rejected) as caught:
+            nested.initialize(
+                "thin wall",
+                nodes,
+                {},
+                {},
+                [
+                    {
+                        "kind": "wall",
+                        "parts": ["left"],
+                        "options": {"minimum": 1.6, "maximum": 2.6},
+                    }
+                ],
+            )
+        self.assertTrue(caught.exception.report["rolled_back"])
+        self.assertFalse(caught.exception.report["checks"][0]["passed"])
+        self.assertNotIn(nested.KEY, bpy.context.scene)
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+
+    def test_nested_recipe_revision_and_rollback(self):
+        from mesh_workbench import nested, assembly
+        from unittest.mock import patch
+        import copy
+
+        nodes = {
+            "body": {
+                "kind": "box",
+                "args": {"dimensions": [4, 4, 4], "center": [0, 0, 0]},
+            }
+        }
+        nested.initialize("recipe revision", nodes, {}, {})
+        state = nested.load()
+        original = state["outputs"]["body"]["object"]
+        revised = copy.deepcopy(nodes)
+        revised["body"]["frame"] = {"origin": [0, 0, 2], "axis": [1, 0, 0]}
+        before = bpy.context.scene[nested.KEY]
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+
+        def fail(phase):
+            if phase == "after_commit":
+                raise RuntimeError("reconfigure commit failure")
+
+        with patch.object(nested, "_checkpoint", side_effect=fail):
+            with self.assertRaises(assembly.Rejected):
+                nested.reconfigure(revised)
+        self.assertEqual(before, bpy.context.scene[nested.KEY])
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        result = nested.reconfigure(revised)
+        self.assertEqual(result["updated"], ["body"])
+        self.assertNotEqual(original, result["objects"]["body"])
+        np.testing.assert_array_equal(
+            s.coordinates(bpy.data.objects[original]),
+            s.coordinates(bpy.data.objects[result["objects"]["body"]]),
+        )
+        self.assertEqual(nested.load()["outputs"]["body"]["frame"]["origin"], [0, 0, 2])
+        with self.assertRaisesRegex(ValueError, "logical part IDs"):
+            nested.reconfigure({})
+
     def test_mechanical_constructor_failure_preserves_scene(self):
         from mesh_workbench import mechanical, enclosure
         from unittest.mock import patch
@@ -350,6 +439,15 @@ class Modeling(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "UV chart seam"):
             inserts.create(panel, query, "Seam crossing", [0, 0, 15], [4, 6])
         panel.data.uv_layers["DesignXZ"].data[loop].uv = uv
+        face_index = resolved["indices"][0]
+        old_role = panel.data.polygons[face_index].material_index
+        panel.data.polygons[face_index].material_index = 1
+        material_query = {k: v for k, v in query.items() if k != "materials"}
+        with self.assertRaisesRegex(ValueError, "material boundary"):
+            inserts.create(
+                panel, material_query, "Material crossing", [0, 0, 15], [4, 6]
+            )
+        panel.data.polygons[face_index].material_index = old_role
 
         for v in panel.data.vertices:
             if abs(v.co.x) < 6 and 8 < v.co.z < 22:

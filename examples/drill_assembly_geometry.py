@@ -159,12 +159,76 @@ def verify(out):
                 "passed": radial_error <= g["frame_position"],
             }
         )
+    for i in range(3):
+        for prefix in ["boss_", "receiver_", "fastener_"]:
+            key = prefix + str(i)
+            x = sculpt.coordinates(objects[key])
+            center = (x.min(axis=0) + x.max(axis=0)) / 2
+            frame = state["outputs"][key]["frame"]
+            expected = np.asarray(frame["origin"])
+            error = float(np.linalg.norm(center[[0, 2]] - expected[[0, 2]]))
+            frames.append(
+                {
+                    "part": key,
+                    "radial_axis_error": error,
+                    "passed": error <= g["frame_position"],
+                }
+            )
+    for key in ["torque_ring", "chuck_body", "bit"]:
+        obj = objects[key]
+        x = sculpt.coordinates(obj)
+        matrix = obj.matrix_world.inverted().transposed().to_3x3()
+        angles = []
+        for face in obj.data.polygons:
+            values = x[list(face.vertices), 0]
+            if np.ptp(values) < 1e-4 and (
+                abs(values[0] - x[:, 0].min()) < 1e-4
+                or abs(values[0] - x[:, 0].max()) < 1e-4
+            ):
+                normal = (matrix @ face.normal).normalized()
+                angles.append(
+                    math.degrees(math.acos(float(np.clip(abs(normal.x), 0, 1))))
+                )
+        frames.append(
+            {
+                "part": key,
+                "axial_cap_samples": len(angles),
+                "axis_angle_degrees": max(angles) if angles else None,
+                "passed": bool(angles) and max(angles) <= g["frame_angle_degrees"],
+            }
+        )
+    for i in range(3):
+        x = sculpt.coordinates(objects["jaw_" + str(i)])
+        angle = math.tau * i / 3
+        radial = np.array([0, math.cos(angle), math.sin(angle)])
+        tangent = np.array([0, -math.sin(angle), math.cos(angle)])
+        relative = x - np.array([0, 0, 160])
+        r = relative @ radial
+        t = relative @ tangent
+        error = max(abs(float(r.min()) - 1), abs(float(t.min() + t.max()) / 2))
+        frames.append(
+            {
+                "part": "jaw_" + str(i),
+                "radial_contact_plane_error": error,
+                "passed": error <= g["frame_position"],
+            }
+        )
+    units_ok = (
+        bpy.context.scene.unit_settings.system == "METRIC"
+        and abs(bpy.context.scene.unit_settings.scale_length - 0.001) < 1e-9
+    )
     report = {
-        "passed": silhouette["passed"]
+        "passed": units_ok
+        and silhouette["passed"]
         and all(c["passed"] for c in cuts)
         and all(j["passed"] for j in joins)
         and all(r["passed"] for r in solids.values())
         and all(r["passed"] for r in frames),
+        "units": {
+            "system": bpy.context.scene.unit_settings.system,
+            "scale_length": bpy.context.scene.unit_settings.scale_length,
+            "passed": units_ok,
+        },
         "parameters": params,
         "silhouette": silhouette,
         "sections": cuts,

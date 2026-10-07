@@ -281,6 +281,22 @@ def initialize(name, nodes, parameters, ranges, checks=None):
     return _transaction(state, parameters, None, initial=True)
 
 
+def reconfigure(nodes, checks=None):
+    """Explicit recipe revision preserving logical IDs and current geometry.
+
+    Changed recipes are staged through the same validator and atomic commit as
+    dimension edits. Adding/removing logical parts requires a separate graph.
+    """
+    state = load()
+    if set(nodes) != set(state["nodes"]):
+        raise ValueError("Recipe revision must preserve logical part IDs")
+    _order(nodes)
+    state["nodes"] = copy.deepcopy(nodes)
+    if checks is not None:
+        state["checks"] = copy.deepcopy(checks)
+    return _transaction(state, {}, None)
+
+
 def update(parameters=None, remesh_request=None):
     state = load()
     return _transaction(state, parameters or {}, remesh_request)

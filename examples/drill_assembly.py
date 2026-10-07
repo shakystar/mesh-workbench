@@ -409,14 +409,11 @@ def blueprint(spec):
                 "frame",
                 material=steel,
             )
-    # Physical frames descend with their associated geometry. No relative-frame compounding.
-    for key, node in nodes.items():
-        if key in spec["parts"] and (
-            key in ["foot", "battery", "battery_latch", "latch_guide"]
-            or key.startswith(("rail_", "channel_"))
-        ):
-            node["frame"]["origin"][2] = parameter(
-                "grip_length", node["frame"]["origin"][2], -1
+    # Explicit derived world frames follow their dependent physical interfaces.
+    for key, rules in spec["frame_z_parameter_rules"].items():
+        for name, scale in rules.items():
+            nodes[key]["frame"]["origin"][2] = parameter(
+                name, spec["parts"][key]["frame"]["origin"][2], scale
             )
     checks = [
         {
