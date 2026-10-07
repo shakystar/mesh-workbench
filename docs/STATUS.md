@@ -16,8 +16,12 @@ Native baseline: `runs/drill-assembly-r4/baseline/drill.blend`. Variant and foll
 
 ## Boundaries and next work
 
-The [roadmap](ROADMAP.md) retains the completed acceptance contract. No subsequent implementation milestone is active. Future scope must define its own reference and acceptance gates.
+The [roadmap](ROADMAP.md) retains the completed acceptance contract. M6-M10 surface refinement is now active; see the [new brief](audits/DRILL_SURFACE_BRIEF.json). The earlier assembly completion does not certify the new surface candidate.
 
 The model is an original authored assembly, not a manufacturer replica. Collision/distance checks are sampled; no continuous collision, strength or manufacturing claim is made. Local remeshing bakes triangles; general quad retopology and seam-aware projected patch reconstruction are unsupported. This remains an early Blender Python/JSON toolkit.
 
 Use the [documentation index](README.md) for APIs and earlier studies; historical checkpoints remain in [development history](archive/DEVELOPMENT_HISTORY.md).
+
+## Active surface refinement checkpoint
+
+The [M6-M10 surface study](studies/DRILL_SURFACE_STUDY.md) now includes section-shaped housing, fluted/tapered parts, projected ribs/grooves, variable edge offsets and bounded patch reconstruction. Windows Blender 5.2.2 passes 44 integration tests. The actual 519-to-487-triangle master patch improves lower-tail quality and edge-length spread, preserves unedited polygons, and regenerates the nested model within wall/gap limits. Final CLI, Linux, fresh-process edits and visual delivery remain required.

@@ -14,6 +14,8 @@ from mesh_workbench import (
     nested,
     actuators,
     quality,
+    detail,
+    surfacedetail,
     refinement,
     remesh,
     pathmodel,
@@ -141,6 +143,26 @@ def run(recipe_path, output):
                         obj(c["object"]), **c.get("options", {})
                     ).name
                 }
+            elif op == "profiled_ring":
+                result = detail.profiled_ring(c["name"], **c["options"])
+            elif op == "variable_bevel":
+                result = detail.variable_bevel(
+                    obj(c["object"]),
+                    selections[c["selection"]],
+                    c["name"],
+                    **c["options"],
+                )
+            elif op == "surface_paths":
+                result = surfacedetail.paths(
+                    obj(c["object"]), c["name"], **c["options"]
+                )
+            elif op == "rebuild_patch":
+                result = remesh.rebuild_patch(
+                    obj(c["object"]),
+                    selections[c["selection"]],
+                    c["name"],
+                    **c["options"],
+                )
             elif op == "remesh":
                 result = remesh.remesh(
                     obj(c["object"]),

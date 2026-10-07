@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1100" viewBox="0 0 1400 1100">
+<rect width="1400" height="1100" fill="#111b26"/>
+<g fill="#eaf2f8" font-family="sans-serif"><text x="35" y="40" font-size="25">DRILL / SURFACE DESIGN 01</text><text x="35" y="68" font-size="14">Authored target envelopes and detail intent - millimetres - not manufacturer drawings</text></g>
+<rect x="35" y="95" width="430" height="310" rx="10" fill="#1a2938"/>
+<text x="51" y="123" fill="white" font-family="sans-serif" font-size="18">LEFT</text>
+<polygon points="168.20,196.84 165.64,155.88 182.28,139.24 289.80,146.92 305.16,155.88 305.16,201.96 280.84,210.92 251.40,212.20 239.88,232.68 224.52,322.28 189.96,329.96 183.56,319.72 206.60,222.44 191.24,207.08" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<text x="51" y="395" fill="#a8c4d9" font-family="sans-serif" font-size="12">Sloped crown / finger relief</text>
+<rect x="490" y="95" width="430" height="310" rx="10" fill="#1a2938"/>
+<text x="506" y="123" fill="white" font-family="sans-serif" font-size="18">RIGHT</text>
+<polygon points="776.80,196.84 779.36,155.88 762.72,139.24 655.20,146.92 639.84,155.88 639.84,201.96 664.16,210.92 693.60,212.20 705.12,232.68 720.48,322.28 755.04,329.96 761.44,319.72 738.40,222.44 753.76,207.08" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<text x="506" y="395" fill="#a8c4d9" font-family="sans-serif" font-size="12">Sloped crown / finger relief</text>
+<rect x="945" y="95" width="430" height="310" rx="10" fill="#1a2938"/>
+<text x="961" y="123" fill="white" font-family="sans-serif" font-size="18">FRONT</text>
+<polygon points="1137.08,329.96 1134.52,276.20 1135.80,244.20 1125.56,199.40 1120.44,173.80 1123.00,154.60 1155.00,139.24 1187.00,154.60 1189.56,173.80 1184.44,199.40 1174.20,244.20 1175.48,276.20 1172.92,329.96" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<text x="961" y="395" fill="#a8c4d9" font-family="sans-serif" font-size="12">Independent palm and head widths</text>
+<rect x="35" y="425" width="430" height="310" rx="10" fill="#1a2938"/>
+<text x="51" y="453" fill="white" font-family="sans-serif" font-size="18">REAR</text>
+<polygon points="262.92,659.96 265.48,606.20 264.20,574.20 274.44,529.40 279.56,503.80 277.00,484.60 245.00,469.24 213.00,484.60 210.44,503.80 215.56,529.40 225.80,574.20 224.52,606.20 227.08,659.96" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<text x="51" y="725" fill="#a8c4d9" font-family="sans-serif" font-size="12">Independent palm and head widths</text>
+<rect x="490" y="425" width="430" height="310" rx="10" fill="#1a2938"/>
+<text x="506" y="453" fill="white" font-family="sans-serif" font-size="18">TOP</text>
+<polygon points="561.20,536.20 602.00,524.20 710.00,524.20 822.80,533.80 822.80,644.20 710.00,653.80 602.00,653.80 561.20,641.80" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<text x="506" y="725" fill="#a8c4d9" font-family="sans-serif" font-size="12">Front taper / crowned side panels</text>
+<rect x="945" y="425" width="430" height="310" rx="10" fill="#1a2938"/>
+<text x="961" y="453" fill="white" font-family="sans-serif" font-size="18">BOTTOM</text>
+<polygon points="1016.20,536.20 1057.00,524.20 1165.00,524.20 1277.80,533.80 1277.80,644.20 1165.00,653.80 1057.00,653.80 1016.20,641.80" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<text x="961" y="725" fill="#a8c4d9" font-family="sans-serif" font-size="12">Front taper / crowned side panels</text>
+<rect x="35" y="785" width="430" height="255" rx="10" fill="#1a2938"/>
+<text x="51" y="817" fill="#e7b45e" font-family="sans-serif" font-size="19">CHUCK + TORQUE</text>
+<text x="51" y="850" fill="white" font-family="sans-serif" font-size="13">X 45-60: 18 flutes, 0.8 depth</text>
+<text x="51" y="874" fill="white" font-family="sans-serif" font-size="13">X 60-93: 24 flutes, 0.7 depth</text>
+<text x="51" y="898" fill="white" font-family="sans-serif" font-size="13">Inner radii &gt;= 14 / 12; 1.2 end chamfer</text>
+<polygon points="80.00,990.00 80.00,935.00 170.00,935.00 170.00,943.00 365.00,943.00 385.00,955.00 385.00,990.00" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<path d="M187 945v43" stroke="#8197a5"/>
+<path d="M201 945v43" stroke="#8197a5"/>
+<path d="M215 945v43" stroke="#8197a5"/>
+<path d="M229 945v43" stroke="#8197a5"/>
+<path d="M243 945v43" stroke="#8197a5"/>
+<path d="M257 945v43" stroke="#8197a5"/>
+<path d="M271 945v43" stroke="#8197a5"/>
+<path d="M285 945v43" stroke="#8197a5"/>
+<path d="M299 945v43" stroke="#8197a5"/>
+<path d="M313 945v43" stroke="#8197a5"/>
+<path d="M327 945v43" stroke="#8197a5"/>
+<path d="M341 945v43" stroke="#8197a5"/>
+<rect x="490" y="785" width="430" height="255" rx="10" fill="#1a2938"/>
+<text x="506" y="817" fill="#e7b45e" font-family="sans-serif" font-size="19">GRIP + TRIGGER</text>
+<text x="506" y="850" fill="white" font-family="sans-serif" font-size="13">Broader rubber patch, 0.6 perimeter</text>
+<text x="506" y="874" fill="white" font-family="sans-serif" font-size="13">0.4 ribs; preserve contact lands</text>
+<text x="506" y="898" fill="white" font-family="sans-serif" font-size="13">Trigger grooves &lt;= 0.3; travel 0-3</text>
+<polygon points="600.00,925.00 675.00,931.00 638.00,1020.00 570.00,1009.00" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<path d="M605 942l42 8" stroke="#8197a5" stroke-width="3"/>
+<path d="M601 953l42 8" stroke="#8197a5" stroke-width="3"/>
+<path d="M597 964l42 8" stroke="#8197a5" stroke-width="3"/>
+<path d="M593 975l42 8" stroke="#8197a5" stroke-width="3"/>
+<path d="M589 986l42 8" stroke="#8197a5" stroke-width="3"/>
+<path d="M585 997l42 8" stroke="#8197a5" stroke-width="3"/>
+<rect x="945" y="785" width="430" height="255" rx="10" fill="#1a2938"/>
+<text x="961" y="817" fill="#e7b45e" font-family="sans-serif" font-size="19">BATTERY INTERFACE</text>
+<text x="961" y="850" fill="white" font-family="sans-serif" font-size="13">Side shrouds move with battery</text>
+<text x="961" y="874" fill="white" font-family="sans-serif" font-size="13">Open rear withdrawal / latch window</text>
+<text x="961" y="898" fill="white" font-family="sans-serif" font-size="13">Noncontact clearance &gt;= 0.2</text>
+<polygon points="1015.00,1015.00 1015.00,965.00 1065.00,965.00 1065.00,930.00 1235.00,930.00 1235.00,965.00 1285.00,965.00 1285.00,1015.00" fill="none" stroke="#e7b45e" stroke-width="2"/>
+<path d="M1085 935v35h130v-35" fill="none" stroke="#8197a5" stroke-width="3"/>
+<text x="35" y="1074" fill="#a8c4d9" font-family="sans-serif" font-size="13">Envelope guides omit rounded corners and hidden hardware. JSON specification owns exact section fields, pins, cameras and gates.</text></svg>

@@ -1,0 +1,47 @@
+{
+  "status": "M6 target specification and six-view/detail guide frozen; candidate acceptance pending",
+  "revision": 5,
+  "specification": "examples/drill-surface-target.json",
+  "sha256": "cadc31678f298e09343684bc9754de499f53f5b667d59b3aec98c2f18809a5be",
+  "source_preserved": {
+    "kind": "original authored refinement; no manufacturer likeness claim",
+    "baseline": "runs/drill-assembly-r4/baseline/drill.blend",
+    "baseline_sha256": "5d9b2eb2677abf619fd0b37bf0b28a84e2615986ce4759ed24bb4f8b5bbc5751",
+    "previous_specification": "examples/drill-assembly-target.json",
+    "previous_specification_sha256": "72943ad3fd4dadc9eb07a68352ef4f51ba76a4e7128cf4e0c9f6ff5b84740c18"
+  },
+  "note": "Targets were recorded before generating the first surface-refinement candidate. Geometry validation and visual approval remain pending.",
+  "guide": "docs/assets/drill-surface-target.svg",
+  "guide_sha256": "e89570d6ebbabae84772604235db25ae399186361d285c70f9a6d8a2a88ff21d",
+  "design_revisions": [
+    {
+      "from": 1,
+      "to": 2,
+      "previous_sha256": "32f86be9a8c35806140aa77dba7a036081c9c169b57666dcc96e69890fb3304c",
+      "reason": "Candidate 01 front bore intersects the lowered roof transition: wall probes reach 2.7742 mm, exceeding unchanged 2.6 mm maximum. Restore front roof elevation around the fixed 15 mm bore while retaining rear crown slope and independent side shaping.",
+      "rejected_evidence": "runs/drill-surface-01/rejected.json",
+      "gates_changed": false
+    },
+    {
+      "from": 2,
+      "to": 3,
+      "previous_sha256": "9bc5bb2e440913ee16e951c21fb6a4f72d51a941899ddd594a7cf16d8bdf648e",
+      "reason": "Freeze explicit chuck taper and flute runouts before M8 generation; outer envelopes shrink and inner radii retain declared mechanism space.",
+      "gates_changed": false
+    },
+    {
+      "from": 3,
+      "to": 4,
+      "previous_sha256": "9a8b6c125f3d5c540d9743281d8d841da300fcb5fcf3e8bf1bf7439ab08f11c1",
+      "reason": "Freeze broader rubber footprint, perimeter/rib guides, three fingertip grooves and two battery-fixed side shrouds before generation. Covers leave 0.6 mm nominal vertical foot clearance and preserve open withdrawal ends.",
+      "gates_changed": false
+    },
+    {
+      "from": 4,
+      "to": 5,
+      "previous_sha256": "e3f7dd97ba396a39422b2825e55db2ab2113dfab187ad4d7a0279332af04b894",
+      "reason": "Freeze index tick depth/span and top/bottom/vertical cover offsets; declare the two cover frames and shared battery travel before evaluating the finished surfaces.",
+      "gates_changed": false
+    }
+  ]
+}

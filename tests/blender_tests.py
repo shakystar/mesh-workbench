@@ -27,6 +27,352 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_patch_preserves_unedited_polygons_and_quad_binding(self):
+        from mesh_workbench import remesh, attachments
+
+        bpy.ops.mesh.primitive_grid_add(x_subdivisions=6, y_subdivisions=6, size=6)
+        obj = bpy.context.object
+        obj.name = "Quad source"
+        selected = g.selection(obj, "FACE", box=[[0, -4, -1], [4, 4, 1]])
+        binding = attachments.bind(obj, [[-2, 0.2, 0]], max_distance=0.01)
+        old_uv = {
+            tuple(sorted(tuple(obj.data.vertices[v].co) for v in f.vertices)): [
+                tuple(obj.data.uv_layers[0].data[l].uv) for l in f.loop_indices
+            ]
+            for f in obj.data.polygons
+            if f.index not in selected["indices"]
+        }
+        result = remesh.remesh(
+            obj,
+            selected,
+            "Mixed patch",
+            0.7,
+            iterations=2,
+            max_error=0.001,
+            relaxation=0.5,
+            preserve_polygons=True,
+        )
+        report = json.loads(result["mw_remesh"])["report"]
+        self.assertEqual(report["preserved_polygons"], len(old_uv))
+        found = 0
+        for f in result.data.polygons:
+            key = tuple(sorted(tuple(result.data.vertices[v].co) for v in f.vertices))
+            if key in old_uv:
+                found += 1
+                self.assertEqual(
+                    [
+                        tuple(result.data.uv_layers[0].data[l].uv)
+                        for l in f.loop_indices
+                    ],
+                    old_uv[key],
+                )
+        self.assertEqual(found, len(old_uv))
+        transferred, check = remesh.transfer_binding(obj, result, binding)
+        self.assertLess(check["max_error"], 1e-5)
+        np.testing.assert_allclose(
+            attachments.resolve(result, transferred)[0]["position"],
+            [-2, 0.2, 0],
+            atol=1e-5,
+        )
+
+    def test_patch_rebuild_quality_boundary_and_attributes(self):
+        from mesh_workbench import remesh
+
+        bpy.ops.mesh.primitive_grid_add(x_subdivisions=10, y_subdivisions=10, size=10)
+        obj = bpy.context.object
+        obj.name = "Uneven patch"
+        for v in obj.data.vertices:
+            if abs(v.co.x) < 4.9 and abs(v.co.y) < 4.9:
+                v.co.x += 0.32 * np.sin(v.index * 1.7)
+                v.co.y += 0.28 * np.cos(v.index * 2.1)
+        obj.data.update()
+        xyz = s.coordinates(obj)
+        before = xyz.copy()
+        uv = obj.data.uv_layers.active
+        for loop in obj.data.loops:
+            uv.data[loop.index].uv = xyz[loop.vertex_index, :2] / 10 + 0.5
+        group = obj.vertex_groups.new(name="Known mask")
+        for i, point in enumerate(xyz):
+            group.add([i], float(point[0] / 10 + 0.5), "REPLACE")
+        obj["mw_masks"] = json.dumps(
+            {"known": {"group": group.name, "topology": s.topology(obj)}}
+        )
+        result = remesh.rebuild_patch(
+            obj,
+            g.selection(obj, "FACE"),
+            "Rebuilt patch",
+            1.2,
+            iterations=6,
+            max_error=0.001,
+        )
+        state = json.loads(result["mw_remesh"])
+        report = state["report"]
+        self.assertGreater(
+            report["patch_after"]["quality_p10"], report["patch_before"]["quality_p10"]
+        )
+        self.assertLess(
+            report["patch_after"]["edge_length_cv"],
+            report["patch_before"]["edge_length_cv"],
+        )
+        self.assertGreater(report["operations"]["relax"], 0)
+        self.assertEqual(report["pinned_error"], 0)
+        np.testing.assert_array_equal(s.coordinates(obj), before)
+        rx = s.coordinates(result)
+        for loop in result.data.loops:
+            np.testing.assert_allclose(
+                result.data.uv_layers[0].data[loop.index].uv,
+                rx[loop.vertex_index, :2] / 10 + 0.5,
+                atol=1e-5,
+            )
+        for v in result.data.vertices:
+            weight = next(
+                (
+                    g.weight
+                    for g in v.groups
+                    if g.group == result.vertex_groups["Known mask"].index
+                ),
+                0,
+            )
+            self.assertAlmostEqual(weight, rx[v.index, 0] / 10 + 0.5, places=5)
+
+    def test_surface_ribbons_grooves_attributes_and_rejection(self):
+        from mesh_workbench import surfacedetail, assembly
+        from mathutils import Vector
+
+        obj = m.primitive("cube", "Path input", scale=(4, 4, 1))
+        xyz = s.coordinates(obj)
+        before = xyz.copy()
+        uv = obj.data.uv_layers.new(name="PathXY")
+        for loop in obj.data.loops:
+            uv.data[loop.index].uv = xyz[loop.vertex_index, :2] / 8 + 0.5
+        group = obj.vertex_groups.new(name="Path mask")
+        for i, point in enumerate(xyz):
+            group.add([i], float(point[0] / 8 + 0.5), "REPLACE")
+        obj["mw_masks"] = json.dumps(
+            {"path": {"group": group.name, "topology": s.topology(obj)}}
+        )
+        query = {"normal": [0, 0, 1], "normal_min": 0.9, "components": 1}
+        paths = [{"points": [[-2, 0, 0], [2, 0, 0]]}]
+        rib = surfacedetail.paths(
+            obj,
+            "Raised",
+            query,
+            paths,
+            projection_axis=2,
+            side=1,
+            width=1,
+            height=0.4,
+            embed=0.1,
+        )
+        hit = assembly._tree(rib).ray_cast(Vector((0, 0, 5)), Vector((0, 0, -1)), 10)[0]
+        self.assertAlmostEqual(hit.z, 1.4, places=5)
+        rx = s.coordinates(rib)
+        for loop in rib.data.loops:
+            np.testing.assert_allclose(
+                rib.data.uv_layers["PathXY"].data[loop.index].uv,
+                rx[loop.vertex_index, :2] / 8 + 0.5,
+                atol=1e-5,
+            )
+        for v in rib.data.vertices:
+            self.assertAlmostEqual(
+                rib.vertex_groups["Path mask"].weight(v.index),
+                rx[v.index, 0] / 8 + 0.5,
+                places=5,
+            )
+        groove = surfacedetail.paths(
+            obj,
+            "Grooved",
+            query,
+            paths,
+            projection_axis=2,
+            side=1,
+            width=1,
+            height=0.2,
+            embed=0.3,
+            mode="groove",
+        )
+        hit = assembly._tree(groove).ray_cast(
+            Vector((0, 0, 5)), Vector((0, 0, -1)), 10
+        )[0]
+        self.assertAlmostEqual(hit.z, 0.7, places=5)
+        self.assertEqual(g.inspect(groove)["nonmanifold_edges"], 0)
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        for bad in [
+            {"side": -1},
+            {"side": 1, "paths": [{"points": [[20, 0, 0], [22, 0, 0]]}]},
+        ]:
+            kwargs = {"paths": paths, "projection_axis": 2, "side": 1}
+            kwargs.update(bad)
+            with self.assertRaises(ValueError):
+                surfacedetail.paths(obj, "Rejected path", query, **kwargs)
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        np.testing.assert_array_equal(s.coordinates(obj), before)
+
+    def test_profiled_ring_real_flutes_and_cleanup(self):
+        from mesh_workbench import detail
+
+        profile = [[0, 9, 5, 0], [1, 10, 5, 1], [9, 8, 5, 1], [10, 7, 5, 0]]
+        obj = detail.profiled_ring(
+            "Profiled", [0, 0, 0], profile, flutes=12, depth=0.6, segments=96
+        )
+        xyz = s.coordinates(obj)
+        section = xyz[np.abs(xyz[:, 0] - 1) < 1e-5]
+        radii = np.linalg.norm(section[:, 1:], axis=1)
+        outer = radii[radii > 6]
+        self.assertAlmostEqual(float(outer.max()), 10, places=5)
+        self.assertAlmostEqual(float(outer.min()), 9.4, places=5)
+        self.assertEqual(g.inspect(obj)["nonmanifold_edges"], 0)
+        self.assertIsNotNone(obj.data.uv_layers.get("AxialSurface"))
+        ticked = detail.profiled_ring(
+            "Ticked",
+            [0, 0, 0],
+            profile,
+            flutes=12,
+            depth=0.6,
+            segments=96,
+            ticks=4,
+            tick_depth=0.2,
+            tick_range=[0, 2],
+        )
+        tx = s.coordinates(ticked)
+        self.assertTrue(
+            np.any(np.linalg.norm(tx - np.array([1, 9.8, 0]), axis=1) < 1e-5)
+        )
+        cover = detail.edge_box(
+            "Cover", [12, 3, 6], [0, 0, 0], upper=0.6, lower=0.2, vertical=0.4
+        )
+        self.assertEqual(g.inspect(cover)["nonmanifold_edges"], 0)
+        self.assertEqual(json.loads(cover["mw_edge_box"])["lower"], 0.2)
+
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        for kwargs in [{"depth": 6, "segments": 96}, {"depth": 0.6, "segments": 95}]:
+            with self.assertRaises(ValueError):
+                detail.profiled_ring("Bad", [0, 0, 0], profile, flutes=12, **kwargs)
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+
+    def test_variable_bevel_geometry_attributes_and_rollback(self):
+        from mesh_workbench import detail, enclosure
+        from unittest.mock import patch
+
+        obj = m.primitive("cube", "Bevel input")
+        xyz = s.coordinates(obj)
+        before = xyz.copy()
+        uv = obj.data.uv_layers.new(name="LinearUV")
+        for loop in obj.data.loops:
+            x, y, z = xyz[loop.vertex_index]
+            uv.data[loop.index].uv = ((x + 1) / 2, (y + 1) / 2)
+        group = obj.vertex_groups.new(name="LinearMask")
+        for i, point in enumerate(xyz):
+            group.add([i], float((point[2] + 1) / 2), "REPLACE")
+        obj["mw_masks"] = json.dumps(
+            {"linear": {"group": group.name, "topology": s.topology(obj)}}
+        )
+        ids = [
+            e.index
+            for e in obj.data.edges
+            if abs(xyz[e.vertices[0], 2] - xyz[e.vertices[1], 2]) > 1
+        ]
+        sel = g.selection(obj, "EDGE", ids)
+        result = detail.variable_bevel(obj, sel, "Beveled", [0.1, 0.2, 0.3, 0.4])
+        self.assertGreater(len(result.data.vertices), len(obj.data.vertices))
+        self.assertEqual(g.inspect(result)["nonmanifold_edges"], 0)
+        np.testing.assert_array_equal(s.coordinates(obj), before)
+        rx = s.coordinates(result)
+        self.assertEqual(
+            json.loads(result["mw_masks"])["linear"]["topology"], s.topology(result)
+        )
+        for v in result.data.vertices:
+            self.assertAlmostEqual(
+                {item.group: item.weight for item in v.groups}.get(
+                    result.vertex_groups["LinearMask"].index, 0
+                ),
+                (rx[v.index, 2] + 1) / 2,
+                places=5,
+            )
+        for loop in result.data.loops:
+            expected = (rx[loop.vertex_index, :2] + 1) / 2
+            np.testing.assert_allclose(
+                result.data.uv_layers["LinearUV"].data[loop.index].uv,
+                expected,
+                atol=1e-5,
+            )
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        with patch.object(
+            enclosure, "_valid", side_effect=ValueError("Injected bevel rejection")
+        ):
+            with self.assertRaises(ValueError):
+                detail.variable_bevel(obj, sel, "Rejected bevel", [0.1] * 4)
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+        np.testing.assert_array_equal(s.coordinates(obj), before)
+
+    def test_section_width_field_pins_and_rejection(self):
+        from mesh_workbench import sectionshape
+
+        outline = [[-10, 0], [10, 0], [10, 20], [-10, 20]]
+        points = np.array(
+            [[0, -5, 10], [0, 5, 10], [0, 0, 10], [-8, 5, 10]], dtype=float
+        )
+        controls = {
+            "rows": [[0, 0, 0, 0], [10, 0, 0, 2], [20, 0, 0, 0]],
+            "pins": [[-8, 10, 1, 3]],
+            "maximum_displacement": 3,
+        }
+        before = points.copy()
+        result, report = sectionshape.apply(points, outline, np.full(4, 5.0), controls)
+        np.testing.assert_array_equal(points, before)
+        np.testing.assert_allclose(result[:3], [[0, -7, 10], [0, 7, 10], [0, 0, 10]])
+        np.testing.assert_array_equal(result[3], points[3])
+        self.assertEqual(report["fixed_error"], 0)
+        self.assertEqual(report["fixed_vertices"], 1)
+        for bad in [
+            {**controls, "rows": [[10, 0, 0, 1], [10, 0, 0, 1]]},
+            {**controls, "maximum_displacement": 1},
+            {**controls, "rows": [[0, -6, -6, 0], [20, -6, -6, 0]]},
+            {**controls, "pins": [[0, 0, 3, 2]]},
+        ]:
+            with self.assertRaises(ValueError):
+                sectionshape.apply(points, outline, np.full(4, 5.0), bad)
+        np.testing.assert_array_equal(points, before)
+
+    def test_section_shaped_enclosure_attributes_and_cleanup(self):
+        from mesh_workbench import enclosure
+
+        args = {
+            "profile_xz": [[-12, 0], [12, 0], [12, 30], [-12, 30]],
+            "corner_trim": 5,
+            "rim_radius": 3,
+            "rim_steps": 12,
+            "head_half_width": 7,
+            "grip_half_width": 7,
+        }
+        controls = {
+            "rows": [[0, 0, 0, 0], [15, 0, 0, 1], [30, 0, 0, 0]],
+            "maximum_displacement": 2,
+        }
+        obj = enclosure.create("Shaped", **args, section_controls=controls)
+        self.assertEqual(g.inspect(obj)["nonmanifold_edges"], 0)
+        self.assertGreater(json.loads(obj["mw_section_shape"])["changed"], 0)
+        self.assertIsNotNone(obj.data.uv_layers.get("DesignXZ"))
+        skin = enclosure.hollow(obj, "Shaped skin", thickness=1)
+        report = enclosure.gauge(skin, minimum=0.8, maximum=1.4)
+        self.assertTrue(report["passed"], report)
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        with self.assertRaises(ValueError):
+            enclosure.create(
+                "Rejected",
+                **args,
+                section_controls={**controls, "maximum_displacement": 0.01},
+            )
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
+
     def test_nested_thin_wall_rejection_restores_scene(self):
         from mesh_workbench import nested, assembly
 

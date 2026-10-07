@@ -17,6 +17,7 @@ Start with [current status](STATUS.md), then [milestone contract](ROADMAP.md). S
 
 | Study | Evidence |
 | --- | --- |
+| [Drill surface refinement (in progress)](studies/DRILL_SURFACE_STUDY.md) | [Frozen brief](audits/DRILL_SURFACE_BRIEF.json) |
 | [Editable drill assembly](studies/DRILL_ASSEMBLY_STUDY.md) | [Audit](audits/DRILL_ASSEMBLY_AUDIT.json), [frozen brief](audits/DRILL_ASSEMBLY_BRIEF.json) |
 | [Cordless drill and local remeshing](studies/DRILL_STUDY.md) | [Audit](audits/DRILL_AUDIT.json) |
 | [Folding headphones](studies/HEADPHONE_STUDY.md) | [Audit](audits/HEADPHONE_AUDIT.json) |

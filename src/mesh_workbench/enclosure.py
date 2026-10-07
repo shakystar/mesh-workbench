@@ -11,7 +11,7 @@ import numpy as np
 from mathutils import Vector
 from mathutils.geometry import delaunay_2d_cdt
 from mathutils.bvhtree import BVHTree
-from . import geometry, sculpt, models, fairing
+from . import geometry, sculpt, models, fairing, sectionshape
 
 
 def smooth(t):
@@ -108,6 +108,7 @@ def create(
     transition_z=(100, 140),
     grip_width=0,
     grip_length=0,
+    section_controls=None,
 ):
     for key, value in [
         ("corner trim", corner_trim),
@@ -226,7 +227,21 @@ def create(
                 mapping.append(len(xyz))
                 xyz.append([p.x, side * width(p.y), p.y])
         faces.extend([[mapping[i] for i in f] for f in triangles])
+    shape_report = None
+    if section_controls is not None:
+        import copy
+
+        controls = copy.deepcopy(section_controls)
+        for row in controls["rows"]:
+            row[0] -= grip_length * float(smooth((140 - row[0]) / 40))
+        for pin in controls.get("pins", []):
+            pin[1] -= grip_length * float(smooth((140 - pin[1]) / 40))
+        xyz, shape_report = sectionshape.apply(
+            xyz, curve, width(np.asarray(xyz)[:, 2]), controls
+        )
     obj = _mesh(name, xyz, faces)
+    if shape_report is not None:
+        obj["mw_section_shape"] = json.dumps(shape_report)
     obj["mw_enclosure"] = json.dumps(
         {
             "version": 1,

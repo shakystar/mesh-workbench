@@ -255,3 +255,16 @@ JSON operations: `nested_initialize`, `nested_status`, `nested_update`, `nested_
 Reports combine triangle-overlap candidates and bidirectional vertex/edge/centroid distances. Bounding boxes provide conservative lower bounds for distant probes. Containment uses three ray-parity directions, with float64 solid-angle classification when votes disagree. Remaining ambiguity fails. Distances and penetration are sampled, not continuous collision or global separation proofs. Geometry changes invalidate an actuator registration; register again after rebuilding a graph.
 
 JSON operations: `actuators_register`, `actuators_sweep`. A failed sweep raises a structured rejection in the CLI audit. See the [completed drill evidence](../studies/DRILL_ASSEMBLY_STUDY.md) for current validation status.
+
+
+## Surface refinement (active validation)
+
+`enclosure.create(..., section_controls={rows, pins, maximum_displacement})` accepts `[z,rear,front,crown]` rows and `[x,z,fixed_radius,release_radius]` pins. Width fields preserve XZ coordinates, fade toward the split plane and reject folds/excess displacement. Nested `enclosure` nodes accept these arguments.
+
+JSON operations `profiled_ring`, `surface_paths`, `variable_bevel`, and `rebuild_patch` call the matching `detail`, `surfacedetail` and `remesh` APIs. The first accepts `name, options`; path operations accept `object, name, options`; bevel/rebuild accept `object, selection, name, options`. Selections must match current source topology. `profiled_ring` uses `[axial,outer_radius,inner_radius,flute_amplitude]` rows; index ticks are optional. `surface_paths` accepts explicit XYZ paths, a semantic `query`, projection axis/side and `raised` or `groove` mode; arbitrary UV/material seam crossing is rejected.
+
+`variable_bevel` requires static unit-scale geometry and one width per selected edge. Existing bindings require explicit regeneration. Masks must be current. Affine coordinate fields proven by source samples are transferred exactly; other UV/deform fields use native interpolation, with the method recorded on the output.
+
+`rebuild_patch` requires both improved selected p10 triangle quality and reduced edge-length coefficient of variation. It preserves unselected source polygons, their corner UVs and boundary coordinates. Legacy `remesh` can opt into `preserve_polygons=True` and `relaxation` without the additional quality acceptance gate. Outputs can contain both original polygons and rebuilt triangles; this is not general quad retopology. Nested `remesh_request` accepts `method: "rebuild"` for the same staged propagation and rollback path.
+
+See the [active surface study](../studies/DRILL_SURFACE_STUDY.md) for actual evidence and remaining acceptance work.

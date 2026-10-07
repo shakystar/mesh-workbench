@@ -144,14 +144,84 @@ def _snapshot(source, selection, sharp_angle):
     return x, faces, parents, uvs, active, charts, pinned
 
 
+def _patch_stats(x, faces, active):
+    selected = [f for f, a in zip(faces, active) if a]
+    quality = np.array([_quality(x, f) for f in selected])
+    lengths = np.array([np.linalg.norm(x[a] - x[b]) for a, b in _edges(selected)])
+    return {
+        "triangles": len(selected),
+        "quality_p10": float(np.percentile(quality, 10)),
+        "quality_mean": float(quality.mean()),
+        "edge_length_cv": float(lengths.std() / lengths.mean()),
+    }
+
+
+def rebuild_patch(
+    source,
+    selection,
+    name,
+    target_length,
+    iterations=6,
+    max_error=0.09,
+    sharp_angle=40,
+    relaxation=0.5,
+):
+    """Reconstruct a bounded triangle patch and require measurable quality gain.
+
+    Split/collapse/flip plus chart-projected relaxation. Boundaries and seams
+    remain fixed; this is not general quad or seam-crossing retopology.
+    """
+    obj = remesh(
+        source,
+        selection,
+        name,
+        target_length,
+        iterations,
+        max_error,
+        sharp_angle,
+        relaxation,
+        preserve_polygons=True,
+    )
+    report = json.loads(obj["mw_remesh"])["report"]
+    before = report["patch_before"]
+    after = report["patch_after"]
+    if (
+        after["quality_p10"] <= before["quality_p10"] + 1e-5
+        or after["edge_length_cv"] >= before["edge_length_cv"] - 1e-5
+    ):
+        mesh = obj.data
+        bpy.data.objects.remove(obj, do_unlink=True)
+        if not mesh.users:
+            bpy.data.meshes.remove(mesh)
+        error = ValueError(
+            "Patch did not improve lower-tail quality and edge-length spread: "
+            + json.dumps(
+                {"before": before, "after": after, "operations": report["operations"]}
+            )
+        )
+        error.report = report
+        raise error
+    obj["mw_patch_rebuild"] = json.dumps({"passed": True, "report": report})
+    return obj
+
+
 def remesh(
-    source, selection, name, target_length, iterations=3, max_error=0.1, sharp_angle=40
+    source,
+    selection,
+    name,
+    target_length,
+    iterations=3,
+    max_error=0.1,
+    sharp_angle=40,
+    relaxation=0,
+    preserve_polygons=False,
 ):
     target_length = sculpt.number(target_length, 1e-5, 1e5, "target edge length")
     max_error = sculpt.number(max_error, 1e-7, 1e4, "surface error")
     sharp_angle = sculpt.number(sharp_angle, 1, 89, "feature angle")
     if type(iterations) != int or not 1 <= iterations <= 12 or name in bpy.data.objects:
         raise ValueError("Expected 1..12 passes and unused output name")
+    relaxation = sculpt.number(relaxation, 0, 0.8, "patch relaxation")
     original, initial, parents, uvs, active, charts, pinned = _snapshot(
         source, selection, sharp_angle
     )
@@ -166,7 +236,7 @@ def remesh(
 
     def project(p, c):
         hit, n, index, d = trees[c].find_nearest(Vector(p))
-        if hit is None or d > max_error:
+        if hit is None or d > max_error * (0.5 if relaxation else 1):
             return None
         return np.asarray(hit, dtype=float)
 
@@ -289,6 +359,57 @@ def remesh(
             enabled = [a for _, _, a in records]
             if len(faces) > 200000:
                 raise ValueError("Remesh triangle budget exceeded")
+    relaxed = 0
+    if relaxation:
+        incident = {v: set() for f in faces for v in f}
+        for i, face in enumerate(faces):
+            for v in face:
+                incident[v].add(i)
+        for _ in range(iterations):
+            touched = set()
+            for v, fs in incident.items():
+                if v in pinned or fs & touched or not all(enabled[i] for i in fs):
+                    continue
+                chart = {labels[i] for i in fs}
+                if len(chart) != 1:
+                    continue
+                neighbors = sorted({n for i in fs for n in faces[i]} - {v})
+                old = x[v].copy()
+                target = np.mean([x[n] for n in neighbors], axis=0)
+                before_quality = min(_quality(x, faces[i]) for i in fs)
+                old_normals = {i: _normal(x, faces[i]) for i in fs}
+                accepted = False
+                for amount in [relaxation, relaxation / 2, relaxation / 4]:
+                    point = project(old + (target - old) * amount, next(iter(chart)))
+                    if point is None:
+                        continue
+                    x[v] = point
+                    if min(_quality(x, faces[i]) for i in fs) <= before_quality + 1e-5:
+                        x[v] = old
+                        continue
+                    valid = True
+                    for i in fs:
+                        if np.dot(_normal(x, faces[i]), old_normals[i]) <= 0:
+                            valid = False
+                            break
+                        for p in [np.mean([x[n] for n in faces[i]], axis=0)] + [
+                            (x[a] + x[b]) / 2
+                            for a, b in zip(faces[i], faces[i][1:] + faces[i][:1])
+                        ]:
+                            if project(p, labels[i]) is None:
+                                valid = False
+                                break
+                        if not valid:
+                            break
+                    if valid:
+                        accepted = True
+                        break
+                    x[v] = old
+                if accepted:
+                    relaxed += 1
+                    touched.update(fs)
+                else:
+                    x[v] = old
     used = sorted({v for f in faces for v in f})
     index = {v: i for i, v in enumerate(used)}
     x = np.asarray([x[i] for i in used])
@@ -309,8 +430,50 @@ def remesh(
         {tuple(sorted(f)) for f in faces}
     ) != len(faces):
         raise ValueError("Invalid remesh connectivity")
+    output_faces = faces
+    output_labels = labels
+    preserved_parents = [None] * len(faces)
+    preserved_count = 0
+    if preserve_polygons:
+        selected_parents = set(
+            geometry.validate_selection(source, selection)["indices"]
+        )
+        reusable = {}
+        parent_charts = {}
+        for p, c in zip(parents, charts):
+            parent_charts.setdefault(p, set()).add(c)
+        for polygon in source.data.polygons:
+            if (
+                polygon.index not in selected_parents
+                and len(parent_charts[polygon.index]) == 1
+            ):
+                reusable[polygon.index] = [index[v] for v in polygon.vertices]
+        reusable_triangles = {
+            tuple(sorted(initial[i])): parents[i]
+            for i in range(len(initial))
+            if parents[i] in reusable
+        }
+        output_faces = []
+        output_labels = []
+        preserved_parents = []
+        done = set()
+        for f, c in zip(faces, labels):
+            old_ids = tuple(sorted(used[v] for v in f))
+            parent = reusable_triangles.get(old_ids)
+            if parent is not None:
+                if parent in done:
+                    continue
+                done.add(parent)
+                output_faces.append(reusable[parent])
+                output_labels.append(c)
+                preserved_parents.append(parent)
+            else:
+                output_faces.append(f)
+                output_labels.append(c)
+                preserved_parents.append(None)
+        preserved_count = len(done)
     mesh = bpy.data.meshes.new(name)
-    mesh.from_pydata(x.tolist(), [], faces)
+    mesh.from_pydata(x.tolist(), [], output_faces)
     mesh.update()
     obj = bpy.data.objects.new(name, mesh)
     bpy.context.collection.objects.link(obj)
@@ -341,8 +504,10 @@ def remesh(
             mesh.materials.append(mat)
         face_parents = []
         for i, f in enumerate(mesh.polygons):
-            t, w = correspondence(x[list(f.vertices)].mean(axis=0), labels[i])
-            parent = parents[t]
+            t, w = correspondence(x[list(f.vertices)].mean(axis=0), output_labels[i])
+            parent = (
+                preserved_parents[i] if preserved_parents[i] is not None else parents[t]
+            )
             face_parents.append(parent)
             f.material_index = source.data.polygons[parent].material_index
             f.use_smooth = source.data.polygons[parent].use_smooth
@@ -351,8 +516,19 @@ def remesh(
             for i, f in enumerate(mesh.polygons):
                 for loop in f.loop_indices:
                     v = mesh.loops[loop].vertex_index
-                    t, w = correspondence(x[v], labels[i])
-                    layer.data[loop].uv = np.asarray(values[t]).T @ w
+                    if preserved_parents[i] is not None:
+                        original_face = source.data.polygons[preserved_parents[i]]
+                        original_loop = next(
+                            l
+                            for l in original_face.loop_indices
+                            if source.data.loops[l].vertex_index == used[v]
+                        )
+                        layer.data[loop].uv = (
+                            source.data.uv_layers[uv_name].data[original_loop].uv
+                        )
+                    else:
+                        t, w = correspondence(x[v], output_labels[i])
+                        layer.data[loop].uv = np.asarray(values[t]).T @ w
         for group in source.vertex_groups:
             output = obj.vertex_groups.new(name=group.name)
             values = np.zeros(len(original))
@@ -375,7 +551,11 @@ def remesh(
         if masks:
             obj["mw_masks"] = json.dumps(masks)
         report = {
-            "operations": counts,
+            "operations": {**counts, "relax": relaxed},
+            "preserved_polygons": preserved_count,
+            "output_polygons": len(output_faces),
+            "patch_before": _patch_stats(original, initial, active),
+            "patch_after": _patch_stats(x, faces, enabled),
             "selected_triangles_before": sum(active),
             "selected_triangles_after": sum(enabled),
             "vertices_before": len(original),
@@ -406,7 +586,7 @@ def remesh(
                 "target_revision": attachments.revision(obj),
                 "mapping": mapping,
                 "parents": face_parents,
-                "charts": labels,
+                "charts": output_labels,
                 "source_charts": charts,
                 "source_triangles": initial,
                 "pinned_pairs": [[v, index[v]] for v in sorted(pinned)],
@@ -466,7 +646,11 @@ def transfer_binding(source, target, binding, max_distance=None):
     )
     hits = attachments.resolve(source, binding)
     x = sculpt.coordinates(target)
-    faces = [list(f.vertices) for f in target.data.polygons]
+    target.data.calc_loop_triangles()
+    faces = [list(t.vertices) for t in target.data.loop_triangles]
+    target_charts = [
+        state["charts"][t.polygon_index] for t in target.data.loop_triangles
+    ]
     lookup = {
         tuple(sorted(t)): c
         for t, c in zip(state["source_triangles"], state["source_charts"])
@@ -475,7 +659,7 @@ def transfer_binding(source, target, binding, max_distance=None):
     errors = []
     for anchor, hit in zip(binding["anchors"], hits):
         chart = lookup.get(tuple(sorted(anchor["vertices"])))
-        ids = [i for i, c in enumerate(state["charts"]) if c == chart]
+        ids = [i for i, c in enumerate(target_charts) if c == chart]
         if not ids:
             raise ValueError("Anchor chart unavailable")
         tree = _tree(x, [faces[i] for i in ids])

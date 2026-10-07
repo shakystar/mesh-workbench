@@ -21,6 +21,8 @@ from . import (
     semantic,
     construction,
     relief,
+    detail,
+    surfacedetail,
 )
 
 KEY = "mw_nested_assembly"
@@ -92,6 +94,7 @@ def _order(nodes):
             "cut_cylinder": 1,
             "insert": 1,
             "relief": 1,
+            "surface_paths": 1,
             "union": 2,
         }
         if kind in consuming and (
@@ -147,6 +150,10 @@ def _build(node, args, deps, name):
         return mechanical.cut_box(source, name, **args)
     if kind == "box":
         return mechanical.box(name, **args)
+    if kind == "edge_box":
+        return detail.edge_box(name, **args)
+    if kind == "profiled_ring":
+        return detail.profiled_ring(name, **args)
     if kind == "annulus":
         return mechanical.annulus(name, **args)
     if kind == "cylinder":
@@ -173,6 +180,8 @@ def _build(node, args, deps, name):
             return enclosure.boolean(source, cutter, "DIFFERENCE", name)
         finally:
             mechanical.remove(cutter)
+    if kind == "surface_paths":
+        return surfacedetail.paths(source, name, **args)
     if kind == "relief":
         query = args.pop("query")
         region = semantic.resolve(source, query)
@@ -358,7 +367,11 @@ def _transaction(state, changes, remesh_request, initial=False):
                 if key not in originals:
                     raise ValueError("Remesh requires an existing output")
                 selection = semantic.resolve(originals[key], remesh_request["query"])
-                obj = remesh.remesh(
+                method = remesh_request.get("method", "remesh")
+                if method not in ("remesh", "rebuild"):
+                    raise ValueError("Unknown patch method")
+                builder = remesh.rebuild_patch if method == "rebuild" else remesh.remesh
+                obj = builder(
                     originals[key], selection, token + key, **remesh_request["options"]
                 )
             else:

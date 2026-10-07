@@ -28,6 +28,7 @@ def register():
         ]
         if k in parts
     ]
+    battery.extend(k for k in parts if k.startswith("battery_cover_"))
     channels = {
         "trigger": {
             "limits": [0, 3],

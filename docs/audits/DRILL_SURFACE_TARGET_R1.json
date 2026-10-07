@@ -1,0 +1,2105 @@
+{
+  "version": 1,
+  "status": "M6 frozen exterior design brief; implementation pending",
+  "units": "mm",
+  "provenance": {
+    "kind": "original authored refinement; no manufacturer likeness claim",
+    "baseline": "runs/drill-assembly-r4/baseline/drill.blend",
+    "baseline_sha256": "5d9b2eb2677abf619fd0b37bf0b28a84e2615986ce4759ed24bb4f8b5bbc5751",
+    "previous_specification": "examples/drill-assembly-target.json",
+    "previous_specification_sha256": "72943ad3fd4dadc9eb07a68352ef4f51ba76a4e7128cf4e0c9f6ff5b84740c18"
+  },
+  "parameters": {
+    "grip_width": 0,
+    "grip_length": 0,
+    "split_shift": 0
+  },
+  "parameter_ranges": {
+    "grip_width": [
+      -1,
+      4
+    ],
+    "grip_length": [
+      0,
+      8
+    ],
+    "split_shift": [
+      -1,
+      1
+    ]
+  },
+  "envelope": {
+    "profile_xz": [
+      [
+        -60,
+        147
+      ],
+      [
+        -62,
+        179
+      ],
+      [
+        -49,
+        192
+      ],
+      [
+        35,
+        181
+      ],
+      [
+        46,
+        175
+      ],
+      [
+        47,
+        143
+      ],
+      [
+        28,
+        136
+      ],
+      [
+        5,
+        135
+      ],
+      [
+        -4,
+        119
+      ],
+      [
+        -16,
+        49
+      ],
+      [
+        -43,
+        43
+      ],
+      [
+        -48,
+        51
+      ],
+      [
+        -30,
+        127
+      ],
+      [
+        -42,
+        139
+      ]
+    ],
+    "corner_trim": 6,
+    "rim_radius": 5,
+    "rim_steps": 20,
+    "edge_spacing": 2.5,
+    "cap_spacing": 3,
+    "head_half_width": 26,
+    "grip_half_width": 14,
+    "transition_z": [
+      100,
+      140
+    ],
+    "section_controls": {
+      "rows": [
+        [
+          40,
+          0,
+          0,
+          0
+        ],
+        [
+          60,
+          0,
+          0,
+          0
+        ],
+        [
+          85,
+          2,
+          -1,
+          1
+        ],
+        [
+          110,
+          1,
+          -1,
+          1
+        ],
+        [
+          130,
+          -0.7,
+          0.5,
+          1.5
+        ],
+        [
+          145,
+          -0.5,
+          -1,
+          2
+        ],
+        [
+          165,
+          -1.5,
+          -3,
+          3
+        ],
+        [
+          180,
+          -1,
+          -2,
+          1
+        ],
+        [
+          195,
+          0,
+          0,
+          0
+        ]
+      ],
+      "pins": [
+        [
+          24,
+          160,
+          6,
+          12
+        ],
+        [
+          -50,
+          178,
+          6,
+          12
+        ],
+        [
+          -39,
+          62,
+          6,
+          12
+        ]
+      ],
+      "maximum_displacement": 6
+    }
+  },
+  "parts": {
+    "master": {
+      "parent": null,
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "construction envelope",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "shell_left": {
+      "parent": "master",
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "closed 2mm wall",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "housing_left": {
+      "parent": "shell_left",
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "vented and trigger-cut housing",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "grip_left": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          -30,
+          0,
+          90
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "conforming rubber insert",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "texture_left": {
+      "parent": "grip_left",
+      "frame": {
+        "origin": [
+          -30,
+          0,
+          90
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "bound tactile relief",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "shell_right": {
+      "parent": "master",
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "closed 2mm wall",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "housing_right": {
+      "parent": "shell_right",
+      "frame": {
+        "origin": [
+          0,
+          0,
+          0
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "vented and trigger-cut housing",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "grip_right": {
+      "parent": "housing_right",
+      "frame": {
+        "origin": [
+          -30,
+          0,
+          90
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "conforming rubber insert",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "texture_right": {
+      "parent": "grip_right",
+      "frame": {
+        "origin": [
+          -30,
+          0,
+          90
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "bound tactile relief",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "boss_0": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          24,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "fastener boss and bore",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "boss_1": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          -50,
+          0,
+          178
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "fastener boss and bore",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "boss_2": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          -39,
+          0,
+          62
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "fastener boss and bore",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "rear_cover": {
+      "parent": "master",
+      "frame": {
+        "origin": [
+          -62,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "seated closure",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "torque_ring": {
+      "parent": "master",
+      "frame": {
+        "origin": [
+          47,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "annular torque collar",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "chuck_body": {
+      "parent": "torque_ring",
+      "frame": {
+        "origin": [
+          62,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "hollow chuck",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "jaw_cage": {
+      "parent": "chuck_body",
+      "frame": {
+        "origin": [
+          77,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "slotted radial jaw guide",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "jaw_0": {
+      "parent": "jaw_cage",
+      "frame": {
+        "origin": [
+          77,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "radial sliding jaw",
+      "travel": {
+        "kind": "radial",
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "phase_degrees": 0,
+        "bit_diameter": [
+          2,
+          10
+        ]
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "jaw_1": {
+      "parent": "jaw_cage",
+      "frame": {
+        "origin": [
+          77,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "radial sliding jaw",
+      "travel": {
+        "kind": "radial",
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "phase_degrees": 120,
+        "bit_diameter": [
+          2,
+          10
+        ]
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "jaw_2": {
+      "parent": "jaw_cage",
+      "frame": {
+        "origin": [
+          77,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "radial sliding jaw",
+      "travel": {
+        "kind": "radial",
+        "axis": [
+          1,
+          0,
+          0
+        ],
+        "phase_degrees": 240,
+        "bit_diameter": [
+          2,
+          10
+        ]
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "bit": {
+      "parent": "chuck_body",
+      "frame": {
+        "origin": [
+          105,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "replaceable cylindrical test shank",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "trigger_guide": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          0,
+          0,
+          125
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "prismatic guide",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "trigger_stop": {
+      "parent": "trigger_guide",
+      "frame": {
+        "origin": [
+          -3.5,
+          0,
+          125
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "declared end contact",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "trigger": {
+      "parent": "trigger_guide",
+      "frame": {
+        "origin": [
+          6,
+          0,
+          125
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "moving trigger",
+      "travel": {
+        "kind": "prismatic",
+        "axis": [
+          -1,
+          0,
+          0
+        ],
+        "range": [
+          0,
+          3
+        ]
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "foot": {
+      "parent": "master",
+      "frame": {
+        "origin": [
+          -32,
+          0,
+          44
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "battery mating plate",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "rail_left": {
+      "parent": "foot",
+      "frame": {
+        "origin": [
+          -32,
+          -11,
+          38
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "male T rail",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "channel_left": {
+      "parent": "battery",
+      "frame": {
+        "origin": [
+          -32,
+          -11,
+          38
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "female slide channel",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "rail_right": {
+      "parent": "foot",
+      "frame": {
+        "origin": [
+          -32,
+          11,
+          38
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "male T rail",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "channel_right": {
+      "parent": "battery",
+      "frame": {
+        "origin": [
+          -32,
+          11,
+          38
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "female slide channel",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "battery": {
+      "parent": "foot",
+      "frame": {
+        "origin": [
+          -32,
+          0,
+          20
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "moving battery body",
+      "travel": {
+        "kind": "prismatic",
+        "axis": [
+          -1,
+          0,
+          0
+        ],
+        "range": [
+          0,
+          40
+        ]
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "battery_latch": {
+      "parent": "battery",
+      "frame": {
+        "origin": [
+          -46,
+          0,
+          40
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "retractable latch",
+      "travel": {
+        "kind": "prismatic",
+        "axis": [
+          0,
+          0,
+          -1
+        ],
+        "range": [
+          0,
+          2
+        ]
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "receiver_0": {
+      "parent": "housing_right",
+      "frame": {
+        "origin": [
+          24,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "opposed hollow receiver",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "fastener_0": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          24,
+          0,
+          160
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "slotted housing screw",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "receiver_1": {
+      "parent": "housing_right",
+      "frame": {
+        "origin": [
+          -50,
+          0,
+          178
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "opposed hollow receiver",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "fastener_1": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          -50,
+          0,
+          178
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "slotted housing screw",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "receiver_2": {
+      "parent": "housing_right",
+      "frame": {
+        "origin": [
+          -39,
+          0,
+          62
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "opposed hollow receiver",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "fastener_2": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          -39,
+          0,
+          62
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "slotted housing screw",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "latch_guide": {
+      "parent": "battery",
+      "frame": {
+        "origin": [
+          -46,
+          0,
+          36
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "captive sliding latch sleeve",
+      "travel": {
+        "kind": "fixed to battery"
+      },
+      "minimum_noncontact_clearance": 0.2
+    },
+    "trigger_guide_right": {
+      "parent": "housing_left",
+      "frame": {
+        "origin": [
+          -1,
+          10.3,
+          125
+        ],
+        "x": [
+          1,
+          0,
+          0
+        ],
+        "y": [
+          0,
+          1,
+          0
+        ],
+        "z": [
+          0,
+          0,
+          1
+        ]
+      },
+      "role": "opposed trigger guide rail",
+      "travel": {
+        "kind": "fixed"
+      },
+      "minimum_noncontact_clearance": 0.2
+    }
+  },
+  "interfaces": [
+    {
+      "id": "housing_seam",
+      "parts": [
+        "housing_left",
+        "housing_right"
+      ],
+      "kind": "gap",
+      "nominal": 0.8
+    },
+    {
+      "id": "trigger_end_stop",
+      "parts": [
+        "trigger",
+        "trigger_stop"
+      ],
+      "kind": "end_contact",
+      "at": 3,
+      "max_penetration": 0.01
+    },
+    {
+      "id": "battery_rails",
+      "parts": [
+        "rail_left",
+        "rail_right",
+        "channel_left",
+        "channel_right"
+      ],
+      "kind": "sliding",
+      "nominal_clearance": 0.3
+    },
+    {
+      "id": "latch_seat",
+      "parts": [
+        "battery_latch",
+        "foot"
+      ],
+      "kind": "release_then_slide",
+      "release": 2
+    },
+    {
+      "id": "jaw_bit",
+      "parts": [
+        "jaw_0",
+        "jaw_1",
+        "jaw_2",
+        "bit"
+      ],
+      "kind": "radial_contact",
+      "diameters": [
+        2,
+        6,
+        10
+      ],
+      "max_penetration": 0.01
+    }
+  ],
+  "gates": {
+    "wall_nominal": 2,
+    "wall_min": 1.6,
+    "wall_max": 2.6,
+    "gap_nominal": 0.8,
+    "gap_range": [
+      0.5,
+      1.1
+    ],
+    "remesh_error": 0.09,
+    "pinned_error": 1e-05,
+    "junction_position": 0.05,
+    "junction_normal_degrees": 5,
+    "frame_position": 0.05,
+    "frame_angle_degrees": 0.5,
+    "moving_clearance": 0.2,
+    "trigger_step": 0.25,
+    "battery_step": 1,
+    "latch_step": 0.25,
+    "jaw_diameter_step": 0.5,
+    "mask_error": 1e-05,
+    "uv_error": 0.0001,
+    "side_silhouette_iou": 0.985,
+    "section_error": 0.1
+  },
+  "variants": {
+    "baseline": {},
+    "grip-width": {
+      "grip_width": 2
+    },
+    "grip-length": {
+      "grip_length": 5
+    },
+    "split-shift": {
+      "split_shift": 1
+    }
+  },
+  "motion_ranges": {
+    "trigger": [
+      0,
+      3
+    ],
+    "battery": [
+      0,
+      40
+    ],
+    "latch": [
+      0,
+      2
+    ],
+    "jaw_diameter": [
+      2,
+      10
+    ]
+  },
+  "revision": 1,
+  "construction": {
+    "rear_cover": {
+      "dimensions": [
+        3,
+        44,
+        28
+      ],
+      "center": [
+        -62,
+        0,
+        162
+      ]
+    },
+    "front_bore": {
+      "radius": 15,
+      "axis": [
+        1,
+        0,
+        0
+      ],
+      "start": [
+        38,
+        0,
+        160
+      ],
+      "end": [
+        58,
+        0,
+        160
+      ]
+    },
+    "vents": {
+      "x": [
+        -49,
+        -43.6,
+        -38.2,
+        -32.8,
+        -27.4,
+        -22
+      ],
+      "z": 162,
+      "width": 3.2,
+      "height": 14,
+      "depth": 24,
+      "center_abs_y": 25,
+      "corner_radius": 1.4
+    },
+    "trigger_opening": {
+      "dimensions": [
+        24,
+        21,
+        20
+      ],
+      "center": [
+        2,
+        0,
+        124
+      ],
+      "radius": 1.5
+    },
+    "trigger": {
+      "dimensions": [
+        10,
+        18,
+        12
+      ],
+      "center": [
+        6,
+        0,
+        125
+      ],
+      "radius": 1
+    },
+    "trigger_stop": {
+      "dimensions": [
+        3,
+        18,
+        10
+      ],
+      "center": [
+        -3.5,
+        0,
+        125
+      ],
+      "radius": 0.4
+    },
+    "trigger_guide": {
+      "rail_dimensions": [
+        16,
+        2,
+        14
+      ],
+      "centers": [
+        [
+          -1,
+          -10.3,
+          125
+        ],
+        [
+          -1,
+          10.3,
+          125
+        ]
+      ],
+      "radius": 0.4
+    },
+    "torque_ring": {
+      "outer_radius": 24,
+      "inner_radius": 14,
+      "start": [
+        45,
+        0,
+        160
+      ],
+      "length": 15
+    },
+    "chuck_body": {
+      "outer_radius": 21,
+      "inner_radius": 12,
+      "start": [
+        60,
+        0,
+        160
+      ],
+      "length": 33
+    },
+    "jaw_cage": {
+      "outer_radius": 13,
+      "inner_radius": 6,
+      "start": [
+        76,
+        0,
+        160
+      ],
+      "length": 5,
+      "slot_width": 3,
+      "slot_radius": 14
+    },
+    "jaw": {
+      "origin": [
+        77,
+        0,
+        160
+      ],
+      "length": 25,
+      "rear_width": 2.4,
+      "tip_width": 1.4,
+      "rear_depth": 6,
+      "tip_depth": 4
+    },
+    "bit": {
+      "origin": [
+        83,
+        0,
+        160
+      ],
+      "length": 34,
+      "diameter": 2
+    },
+    "bosses": {
+      "outer_radius": 5,
+      "inner_radius": 2,
+      "end_y": -0.7,
+      "embed": 0.3
+    },
+    "foot": {
+      "dimensions": [
+        48,
+        38,
+        6
+      ],
+      "center": [
+        -32,
+        0,
+        44
+      ],
+      "radius": 1.5
+    },
+    "rail": {
+      "length": 28,
+      "origins": [
+        [
+          -46,
+          -11,
+          35
+        ],
+        [
+          -46,
+          11,
+          35
+        ]
+      ],
+      "section_yz": [
+        [
+          -3.5,
+          0
+        ],
+        [
+          3.5,
+          0
+        ],
+        [
+          3.5,
+          2
+        ],
+        [
+          1.5,
+          2
+        ],
+        [
+          1.5,
+          6
+        ],
+        [
+          -1.5,
+          6
+        ],
+        [
+          -1.5,
+          2
+        ],
+        [
+          -3.5,
+          2
+        ]
+      ]
+    },
+    "channel": {
+      "length": 30,
+      "origins": [
+        [
+          -47,
+          -11,
+          33
+        ],
+        [
+          -47,
+          11,
+          33
+        ]
+      ],
+      "section_yz": [
+        [
+          -5.5,
+          0
+        ],
+        [
+          5.5,
+          0
+        ],
+        [
+          5.5,
+          7
+        ],
+        [
+          1.8,
+          7
+        ],
+        [
+          1.8,
+          4.3
+        ],
+        [
+          3.8,
+          4.3
+        ],
+        [
+          3.8,
+          1.7
+        ],
+        [
+          -3.8,
+          1.7
+        ],
+        [
+          -3.8,
+          4.3
+        ],
+        [
+          -1.8,
+          4.3
+        ],
+        [
+          -1.8,
+          7
+        ],
+        [
+          -5.5,
+          7
+        ]
+      ]
+    },
+    "battery": {
+      "dimensions": [
+        76,
+        53,
+        29
+      ],
+      "center": [
+        -32,
+        0,
+        18.5
+      ],
+      "radius": 4
+    },
+    "latch": {
+      "dimensions": [
+        4,
+        6,
+        4
+      ],
+      "center": [
+        -46,
+        0,
+        40
+      ],
+      "radius": 0.4,
+      "seat_dimensions": [
+        4.6,
+        6.6,
+        12
+      ]
+    },
+    "grip": {
+      "z_range": [
+        60,
+        115
+      ],
+      "outer_offset": 0.6,
+      "thickness": 0.8,
+      "trim": 0.6,
+      "pattern_radius": 1,
+      "pattern_height": 0.4,
+      "pattern_embed": 0.15,
+      "pattern_clearance": 0.07,
+      "guide": {
+        "center": [
+          -27,
+          0,
+          87.5
+        ],
+        "radii": [
+          7,
+          27.5
+        ],
+        "shear": 0.2,
+        "rings": 12,
+        "segments": 64,
+        "pattern_z": [
+          68,
+          108,
+          5
+        ],
+        "pattern_x": [
+          -3,
+          0,
+          3
+        ]
+      }
+    },
+    "latch_guide": {
+      "dimensions": [
+        6,
+        8,
+        6
+      ],
+      "center": [
+        -46,
+        0,
+        36
+      ],
+      "radius": 0.3,
+      "bore_dimensions": [
+        4.6,
+        6.6,
+        10
+      ]
+    },
+    "fastener": {
+      "clearance_radius": 2,
+      "shaft_radius": 1.7,
+      "head_radius": 3.2,
+      "head_thickness": 1.4,
+      "slot_width": 0.7,
+      "slot_length": 4,
+      "slot_depth": 0.7
+    }
+  },
+  "frame_convention": "Baseline world coordinates; parent IDs are dependency relations. Moving interfaces use explicit motion axes. Foot/battery descendants move down by grip_length; chuck frame remains fixed.",
+  "frame_z_parameter_rules": {
+    "grip_left": {
+      "grip_length": -0.5
+    },
+    "grip_right": {
+      "grip_length": -0.5
+    },
+    "texture_left": {
+      "grip_length": -0.5
+    },
+    "texture_right": {
+      "grip_length": -0.5
+    },
+    "boss_2": {
+      "grip_length": -1
+    },
+    "receiver_2": {
+      "grip_length": -1
+    },
+    "fastener_2": {
+      "grip_length": -1
+    },
+    "foot": {
+      "grip_length": -1
+    },
+    "battery": {
+      "grip_length": -1
+    },
+    "battery_latch": {
+      "grip_length": -1
+    },
+    "latch_guide": {
+      "grip_length": -1
+    },
+    "rail_left": {
+      "grip_length": -1
+    },
+    "rail_right": {
+      "grip_length": -1
+    },
+    "channel_left": {
+      "grip_length": -1
+    },
+    "channel_right": {
+      "grip_length": -1
+    }
+  },
+  "surface_phase": {
+    "schema": 1,
+    "row_fields": [
+      "z",
+      "rear_width_delta",
+      "front_width_delta",
+      "crown"
+    ],
+    "interpolation": "piecewise quintic smoothstep; zero endpoint derivatives",
+    "pin_fields": [
+      "x",
+      "z",
+      "fixed_radius",
+      "release_radius"
+    ],
+    "pin_rule": "zero correction inside fixed_radius; quintic release to full correction",
+    "coordinate_rule": "XZ outline preserved by width fields; Y correction scales quadratically from split plane to outer side",
+    "design_intent": [
+      "sloped upper housing and relieved grip outline",
+      "independently crowned head and palm sections",
+      "preserve declared fastener neighborhoods and mechanism interfaces"
+    ],
+    "cameras": {
+      "left": {
+        "position": [
+          0,
+          -400,
+          100
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ],
+        "scale": 250
+      },
+      "right": {
+        "position": [
+          0,
+          400,
+          100
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ],
+        "scale": 250
+      },
+      "front": {
+        "position": [
+          400,
+          0,
+          100
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ],
+        "scale": 250
+      },
+      "rear": {
+        "position": [
+          -400,
+          0,
+          100
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ],
+        "scale": 250
+      },
+      "top": {
+        "position": [
+          0,
+          0,
+          500
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ],
+        "scale": 250
+      },
+      "bottom": {
+        "position": [
+          0,
+          0,
+          -300
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ],
+        "scale": 250
+      },
+      "hero": {
+        "position": [
+          270,
+          -370,
+          250
+        ],
+        "target": [
+          0,
+          0,
+          100
+        ],
+        "scale": 250
+      }
+    },
+    "image_size": [
+      1000,
+      1000
+    ],
+    "detail_design": {
+      "chuck": {
+        "axial_range": [
+          60,
+          93
+        ],
+        "inner_radius_min": 12,
+        "outer_radius_max": 21,
+        "grip_flutes": 24,
+        "flute_depth": 0.7,
+        "end_chamfer": 1.2
+      },
+      "torque_ring": {
+        "axial_range": [
+          45,
+          60
+        ],
+        "inner_radius_min": 14,
+        "outer_radius_max": 24,
+        "grip_flutes": 18,
+        "flute_depth": 0.8,
+        "index_ticks": 12
+      },
+      "rubber": {
+        "construction": "broaden projected footprint; replace isolated dots with bounded ribs and perimeter seam",
+        "edge_width": 0.6,
+        "rib_height": 0.4
+      },
+      "battery_shroud": {
+        "construction": "battery-fixed side covers around channels; retain rear exit and latch opening",
+        "minimum_moving_clearance": 0.2
+      },
+      "trigger": {
+        "construction": "rounded fingertip face with shallow transverse grooves; preserve stop face and travel",
+        "groove_depth_max": 0.3
+      }
+    },
+    "acceptance": {
+      "outline_iou_min": 0.985,
+      "section_surface_error_max_mm": 0.15,
+      "fixed_neighborhood_displacement_max_mm": 1e-05,
+      "surface_displacement_max_mm": 6,
+      "normal_step_max_degrees": 5,
+      "patch_drift_max_mm": 0.09,
+      "patch_quality_requirement": "improve selected patch lower-tail triangle quality and reduce edge-length spread; preserve boundary and chart/material constraints",
+      "reflection_review": "same light/camera before-after six views and close-ups; inspect stripes for pinching; report defects rather than using global curvature reduction as acceptance",
+      "shape_review": "visible head crown and palm shaping; distinguish mechanical contact seams from unintended gaps",
+      "regression": "retain prior wall/gap/contact/travel gates; actual CLI, fresh-process follow-up edits, Windows/Linux suites"
+    },
+    "milestones": {
+      "M6": "frozen target guides and gates",
+      "M7": "section-shaped housing and grip with diagnostic evidence",
+      "M8": "detailed parts and interface-preserving motion",
+      "M9": "bounded local patch reconstruction, variable bevel and surface grooves/borders",
+      "M10": "native before-after evidence, tests, docs and public commit"
+    }
+  }
+}
