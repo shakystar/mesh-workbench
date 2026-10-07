@@ -1,4 +1,4 @@
-# Mesh Workbench ? Blender modeling tools for AI agents
+# Mesh Workbench - Blender modeling tools for AI agents
 
 Coordinate-driven modeling tools that operate **inside Blender**. Inspect render pixels and mesh data, edit vertices and polygons, combine models, and place patterns on surfaces through reproducible JSON recipes or a Python API. No simulated mouse input or external generation service.
 

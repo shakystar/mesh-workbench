@@ -1,6 +1,6 @@
 # Search and agent discovery
 
-Mesh Workbench publishes a crawlable documentation site at https://shakystar.github.io/mesh-workbench/ and an indexed source repository at https://github.com/shakystar/mesh-workbench . Search engines decide whether and when to index or rank these pages; deployment is not an indexing confirmation.
+Mesh Workbench publishes a crawlable documentation site at https://shakystar.github.io/mesh-workbench/ and a public source repository at https://github.com/shakystar/mesh-workbench . Search engines decide whether and when to index or rank these pages; deployment is not an indexing confirmation.
 
 ## Implemented
 
