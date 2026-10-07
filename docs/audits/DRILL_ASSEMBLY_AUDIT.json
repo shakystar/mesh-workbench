@@ -1,0 +1,2747 @@
+{
+  "status": "complete",
+  "specification_revision": 4,
+  "specification_sha256": "72943ad3fd4dadc9eb07a68352ef4f51ba76a4e7128cf4e0c9f6ff5b84740c18",
+  "guide_sha256": "37f6d5935a0f127363a2d1a68910611268899b1170029dacbc3dc297c061d008",
+  "milestones": {
+    "M0": {
+      "passed": true,
+      "evidence": "Frozen brief, guide, 38 declared part frames and native mm units"
+    },
+    "M1": {
+      "passed": true,
+      "evidence": "All native and follow-up silhouette, section, junction and mesh measurements"
+    },
+    "M2": {
+      "passed": true,
+      "evidence": "Native separate solids, actual frame/axis checks, rail sections, physical latch blocking and disengagement"
+    },
+    "M3": {
+      "passed": true,
+      "evidence": "Four selective change scenarios, source-preserving frame migration, attribute bindings, staged recovery fixtures"
+    },
+    "M4": {
+      "passed": true,
+      "evidence": "All native and follow-up constrained sweeps; 2/6/10 mm bit cases; planted collision, travel and lock failures"
+    },
+    "M5": {
+      "passed": true,
+      "evidence": "All files reopened and edited in new processes; actual CLI success/rejection; Windows/Linux regression; native renders and public evidence"
+    }
+  },
+  "variants": {
+    "baseline": {
+      "native": {
+        "file": "runs/drill-assembly-r4/baseline/drill.blend",
+        "sha256": "5d9b2eb2677abf619fd0b37bf0b28a84e2615986ce4759ed24bb4f8b5bbc5751",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 0,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.031171798706054688,
+        "junction_normal_max": 0.03366329718593998,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "6ef4e8284387d3ba897e03ce70f24dcc9a9bf1a95f9d93ed445d7abb5cdd9af0",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "ba2df4a854902b3ef6ccf5af0cbbe261d1b61d4cdc989883294b795da2a9754e",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "f3ced447c4d60f8c82e46a787ae2c34d7177f8a17b1ccdc09d2766f245a0cdbd",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "de9258857bc2b8e7c349483791d55102adf77707fd557c22ddf8c3400cf7ebdd",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup": {
+        "file": "runs/drill-assembly-r4/reopen-baseline/followup.blend",
+        "sha256": "c5ae55386fa286fda975e3dfc41ee496c2b11eaf573a3ef23c2abdda8cef1075",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 0.25,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.030846595764160156,
+        "junction_normal_max": 0.03936320998521053,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "74a14bebbd042f1ff9a6809b8fd8c0ae2f5c9acfb23a8cda79961e168f4e47fe",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "20b14f14a42d89780ac495e8c2522e88e59ab4802d792fd4cd628f5ac983550a",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "a03d8ea23a375260ffbc564d2939e8151b5c2715dd8418b30f560c42c8625c89",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "ae3874a5ff3c8f4355009372a5f4874e633347cc238f0420f4129ba0d177db5e",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup_edit": {
+        "updated": [
+          "master",
+          "skin",
+          "shell_left",
+          "vent_left_0",
+          "vent_left_1",
+          "vent_left_2",
+          "vent_left_3",
+          "vent_left_4",
+          "vent_left_5",
+          "trigger_cut_left",
+          "front_bore_left",
+          "fastener_bore_left_0",
+          "fastener_bore_left_1",
+          "housing_left",
+          "boss_0",
+          "boss_1",
+          "boss_2",
+          "head_0",
+          "slotted_head_0",
+          "shaft_0",
+          "fastener_0",
+          "head_1",
+          "slotted_head_1",
+          "shaft_1",
+          "fastener_1",
+          "head_2",
+          "slotted_head_2",
+          "shaft_2",
+          "fastener_2",
+          "shell_right",
+          "vent_right_0",
+          "vent_right_1",
+          "vent_right_2",
+          "vent_right_3",
+          "vent_right_4",
+          "vent_right_5",
+          "trigger_cut_right",
+          "front_bore_right",
+          "fastener_bore_right_0",
+          "fastener_bore_right_1",
+          "grip_left",
+          "housing_right",
+          "grip_right",
+          "receiver_0",
+          "receiver_1",
+          "receiver_2",
+          "texture_left",
+          "texture_right"
+        ],
+        "unchanged": [
+          "foot_stock",
+          "foot",
+          "battery",
+          "battery_latch",
+          "torque_ring",
+          "chuck_body",
+          "bit",
+          "channel_left",
+          "channel_right",
+          "jaw_cage",
+          "jaw_0",
+          "jaw_1",
+          "jaw_2",
+          "latch_guide_stock",
+          "latch_guide",
+          "rail_left",
+          "rail_right",
+          "rear_cover",
+          "trigger_guide",
+          "trigger",
+          "trigger_guide_right",
+          "trigger_stop"
+        ],
+        "checks": [
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_left"
+            ],
+            "passed": true,
+            "samples": 115059,
+            "missing_or_invalid": 0,
+            "min": 1.9980653524398804,
+            "max": 2.14559268951416,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 115038,
+            "missing_or_invalid": 0,
+            "min": 1.9980673789978027,
+            "max": 2.14559268951416,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "gap",
+            "parts": [
+              "housing_left",
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 2190,
+            "min": 0.8000030517578125,
+            "max": 0.8000030517578125,
+            "violations": []
+          }
+        ]
+      },
+      "attributes": {
+        "attributes_before": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        },
+        "attributes_after": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        }
+      }
+    },
+    "grip-width": {
+      "native": {
+        "file": "runs/drill-assembly-r4/grip-width/drill.blend",
+        "sha256": "23803ca1ed8c57010b3df4632c0a7b3f0947354d97d10d7bda5d6f070f7faf07",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 2,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.028573989868164062,
+        "junction_normal_max": 0.030063163130849533,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "8d3e9e59664172be733230bd88ec8b9adb9f94ea77fdb0eede7fd2a2b02029ca",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "988dc630e9f1476fd4b9e200e5d2c7806f54d5c00ef41d862603bd20bdeeeda8",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "4c647a9e854f28a2bc4baea87c5f635f8fa5ef4573e0bfef611713f4cf6d6972",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "15435ce46a48d261c9ce7315cd64fa6d19691aa41ed18711b330d959ce1e6184",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup": {
+        "file": "runs/drill-assembly-r4/reopen-grip-width/followup.blend",
+        "sha256": "166db76a2ba9b08407431f1a4fedca69722668d37ad192604c988931af1c44de",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 2.25,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.02824878692626953,
+        "junction_normal_max": 0.028127936683882325,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "303a78d55697a2cfe2d77f34c8a7d2b5d88bb9ef6d2fdfbbd7ad1efa6f71a6a9",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "f1f1dc222484c59bb476506e9d1d758bf6bcde915c7cbd32a7004b0917a6e5de",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "2b6fb46c1bd3c49c9280326969aa0fbe113f6c6c6df22b7f2c7480233285886f",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "4c06079407d764f96b184e7788fa0d004e09c5dac53e9b2ac808356d465d2ede",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup_edit": {
+        "updated": [
+          "master",
+          "skin",
+          "shell_left",
+          "vent_left_0",
+          "vent_left_1",
+          "vent_left_2",
+          "vent_left_3",
+          "vent_left_4",
+          "vent_left_5",
+          "trigger_cut_left",
+          "front_bore_left",
+          "fastener_bore_left_0",
+          "fastener_bore_left_1",
+          "housing_left",
+          "boss_0",
+          "boss_1",
+          "boss_2",
+          "head_0",
+          "slotted_head_0",
+          "shaft_0",
+          "fastener_0",
+          "head_1",
+          "slotted_head_1",
+          "shaft_1",
+          "fastener_1",
+          "head_2",
+          "slotted_head_2",
+          "shaft_2",
+          "fastener_2",
+          "shell_right",
+          "vent_right_0",
+          "vent_right_1",
+          "vent_right_2",
+          "vent_right_3",
+          "vent_right_4",
+          "vent_right_5",
+          "trigger_cut_right",
+          "front_bore_right",
+          "fastener_bore_right_0",
+          "fastener_bore_right_1",
+          "grip_left",
+          "housing_right",
+          "grip_right",
+          "receiver_0",
+          "receiver_1",
+          "receiver_2",
+          "texture_left",
+          "texture_right"
+        ],
+        "unchanged": [
+          "foot_stock",
+          "foot",
+          "battery",
+          "battery_latch",
+          "torque_ring",
+          "chuck_body",
+          "bit",
+          "channel_left",
+          "channel_right",
+          "jaw_cage",
+          "jaw_0",
+          "jaw_1",
+          "jaw_2",
+          "latch_guide_stock",
+          "latch_guide",
+          "rail_left",
+          "rail_right",
+          "rear_cover",
+          "trigger_guide",
+          "trigger",
+          "trigger_guide_right",
+          "trigger_stop"
+        ],
+        "checks": [
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_left"
+            ],
+            "passed": true,
+            "samples": 115066,
+            "missing_or_invalid": 0,
+            "min": 1.9982726573944092,
+            "max": 2.14559268951416,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 115052,
+            "missing_or_invalid": 0,
+            "min": 1.998274564743042,
+            "max": 2.14559268951416,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "gap",
+            "parts": [
+              "housing_left",
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 2186,
+            "min": 0.8000030517578125,
+            "max": 0.8000030517578125,
+            "violations": []
+          }
+        ]
+      },
+      "attributes": {
+        "attributes_before": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        },
+        "attributes_after": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        }
+      }
+    },
+    "grip-length": {
+      "native": {
+        "file": "runs/drill-assembly-r4/grip-length/drill.blend",
+        "sha256": "71a1bcec9e066c0f3b72a295e0e9a7b03101810c070ef9c296ee4ba01d77ea6a",
+        "parameters": {
+          "grip_length": 5,
+          "grip_width": 0,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9999293441567617,
+          "different_pixels": 9,
+          "boundary_mean": 0.001286204268292683,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3526,
+          "passed": true
+        },
+        "section_error_max": 0.021735191345214844,
+        "junction_normal_max": 0.032805301619918265,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199885287479e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199885287479e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                36.0
+              ],
+              "objects": [
+                "DA 2ec06d89 battery_latch",
+                "DA 2ec06d89 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "52a0a66c0e052d97295de2a6a0a95dd32e41a9fe04942ee676d35abd78a89029",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "b8ddffcedc08866548035fa80ce76aa4eef7a4f48bc4a01753b5874cbc48c095",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "2bba359e6336767f9803ec707659e1002877e96b123f8995b5c5c29746c2d55b",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "fff300d47187ab8374578d2dda90b50fa314381b42d17c7866e6377f12cc0faa",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup": {
+        "file": "runs/drill-assembly-r4/reopen-grip-length/followup.blend",
+        "sha256": "ac88ab4219bb09862e1e2aebad3a0cd31a61e65d58941d3cda7556153ec6fc53",
+        "parameters": {
+          "grip_length": 5,
+          "grip_width": 0.25,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9999293441567617,
+          "different_pixels": 9,
+          "boundary_mean": 0.001286204268292683,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3526,
+          "passed": true
+        },
+        "section_error_max": 0.02151012420654297,
+        "junction_normal_max": 0.032051055913528075,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199885287479e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199885287479e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                36.0
+              ],
+              "objects": [
+                "DA 2ec06d89 battery_latch",
+                "DA 2ec06d89 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "1b382cb7c2bc7da8da0cb443bd7ddac64ad8d3c81ce1b2955caed665bd55a96d",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "83d5f13646ee3e45263afc4e92b6195c49bcbd8f1d5bd2c8d0a4655fae105e06",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "681e1e81a3a31aa748ef28e30f1ad9eff20dcfe51320ec695a640e6abd299e43",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "7fc5aa7e54831ffd73addbd8a5480a572dcde22acc3bcaa373cf37c1d33a379f",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup_edit": {
+        "updated": [
+          "master",
+          "skin",
+          "shell_left",
+          "vent_left_0",
+          "vent_left_1",
+          "vent_left_2",
+          "vent_left_3",
+          "vent_left_4",
+          "vent_left_5",
+          "trigger_cut_left",
+          "front_bore_left",
+          "fastener_bore_left_0",
+          "fastener_bore_left_1",
+          "housing_left",
+          "boss_0",
+          "boss_1",
+          "boss_2",
+          "head_0",
+          "slotted_head_0",
+          "shaft_0",
+          "fastener_0",
+          "head_1",
+          "slotted_head_1",
+          "shaft_1",
+          "fastener_1",
+          "head_2",
+          "slotted_head_2",
+          "shaft_2",
+          "fastener_2",
+          "shell_right",
+          "vent_right_0",
+          "vent_right_1",
+          "vent_right_2",
+          "vent_right_3",
+          "vent_right_4",
+          "vent_right_5",
+          "trigger_cut_right",
+          "front_bore_right",
+          "fastener_bore_right_0",
+          "fastener_bore_right_1",
+          "grip_left",
+          "housing_right",
+          "grip_right",
+          "receiver_0",
+          "receiver_1",
+          "receiver_2",
+          "texture_left",
+          "texture_right"
+        ],
+        "unchanged": [
+          "foot_stock",
+          "foot",
+          "battery",
+          "battery_latch",
+          "torque_ring",
+          "chuck_body",
+          "bit",
+          "channel_left",
+          "channel_right",
+          "jaw_cage",
+          "jaw_0",
+          "jaw_1",
+          "jaw_2",
+          "latch_guide_stock",
+          "latch_guide",
+          "rail_left",
+          "rail_right",
+          "rear_cover",
+          "trigger_guide",
+          "trigger",
+          "trigger_guide_right",
+          "trigger_stop"
+        ],
+        "checks": [
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_left"
+            ],
+            "passed": true,
+            "samples": 116613,
+            "missing_or_invalid": 0,
+            "min": 1.9976277351379395,
+            "max": 2.1433637142181396,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 116620,
+            "missing_or_invalid": 0,
+            "min": 1.9976277351379395,
+            "max": 2.1433637142181396,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "gap",
+            "parts": [
+              "housing_left",
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 2228,
+            "min": 0.8000030517578125,
+            "max": 0.8000030517578125,
+            "violations": []
+          }
+        ]
+      },
+      "attributes": {
+        "attributes_before": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.979206137343482e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        },
+        "attributes_after": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.979206137343482e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        }
+      }
+    },
+    "split-shift": {
+      "native": {
+        "file": "runs/drill-assembly-r4/split-shift/drill.blend",
+        "sha256": "f3d54b0e23431e83e59384f8a6dd28cfb65039f23c94c7d97b09e237ca59c55a",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 0,
+          "split_shift": 1
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.031171798706054688,
+        "junction_normal_max": 0.03366329718593998,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "ea564d22f8fd9f072613b06c40d700e18153942ef4ac35d8836488202f9e92e8",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "44061a93e9293fc93b59aceec2c1f7fd88e9f9db71d15c03779fa73c205d0da6",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "caa33a398ed3c8da1251aa56b05183bcca27f2ab6055f2dc284fda2e2d43c615",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "506eee073e75dfe244f58cb0913cebceb0f206db3ffd779388ca91e3022d3ba6",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup": {
+        "file": "runs/drill-assembly-r4/reopen-split-shift/followup.blend",
+        "sha256": "445a129d08559f361a70933dccdf320ce34179e93f92f9085a0a9428c2b747fd",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 0.25,
+          "split_shift": 1
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.030846595764160156,
+        "junction_normal_max": 0.03936320998521053,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "6795f34316cdfa71faeb728d5440c78d6066e39391f46236654b2bd0b2dfc120",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "65f2afa9cf1db6a1d9108712bc9b0414263ee0d99f325cdffcfa96ada24d23c8",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "3cb21953398b29c85c28cadabfc30a9dc868aa34510b1cad830481f8f22b38c8",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "e9342d809b4253a1c2d1146447a65cabf3c0cb5bb467ed873f9224bc2543d230",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup_edit": {
+        "updated": [
+          "master",
+          "skin",
+          "shell_left",
+          "vent_left_0",
+          "vent_left_1",
+          "vent_left_2",
+          "vent_left_3",
+          "vent_left_4",
+          "vent_left_5",
+          "trigger_cut_left",
+          "front_bore_left",
+          "fastener_bore_left_0",
+          "fastener_bore_left_1",
+          "housing_left",
+          "boss_0",
+          "boss_1",
+          "boss_2",
+          "head_0",
+          "slotted_head_0",
+          "shaft_0",
+          "fastener_0",
+          "head_1",
+          "slotted_head_1",
+          "shaft_1",
+          "fastener_1",
+          "head_2",
+          "slotted_head_2",
+          "shaft_2",
+          "fastener_2",
+          "shell_right",
+          "vent_right_0",
+          "vent_right_1",
+          "vent_right_2",
+          "vent_right_3",
+          "vent_right_4",
+          "vent_right_5",
+          "trigger_cut_right",
+          "front_bore_right",
+          "fastener_bore_right_0",
+          "fastener_bore_right_1",
+          "grip_left",
+          "housing_right",
+          "grip_right",
+          "receiver_0",
+          "receiver_1",
+          "receiver_2",
+          "texture_left",
+          "texture_right"
+        ],
+        "unchanged": [
+          "foot_stock",
+          "foot",
+          "battery",
+          "battery_latch",
+          "torque_ring",
+          "chuck_body",
+          "bit",
+          "channel_left",
+          "channel_right",
+          "jaw_cage",
+          "jaw_0",
+          "jaw_1",
+          "jaw_2",
+          "latch_guide_stock",
+          "latch_guide",
+          "rail_left",
+          "rail_right",
+          "rear_cover",
+          "trigger_guide",
+          "trigger",
+          "trigger_guide_right",
+          "trigger_stop"
+        ],
+        "checks": [
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_left"
+            ],
+            "passed": true,
+            "samples": 118839,
+            "missing_or_invalid": 0,
+            "min": 1.9980653524398804,
+            "max": 2.1491384506225586,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 115031,
+            "missing_or_invalid": 0,
+            "min": 1.9980673789978027,
+            "max": 2.1367383003234863,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "gap",
+            "parts": [
+              "housing_left",
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 2186,
+            "min": 0.8000030517578125,
+            "max": 0.8019294738769531,
+            "violations": []
+          }
+        ]
+      },
+      "attributes": {
+        "attributes_before": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        },
+        "attributes_after": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        }
+      }
+    },
+    "remesh": {
+      "native": {
+        "file": "runs/drill-assembly-r4/remesh/drill.blend",
+        "sha256": "fde85f1c8058d0e67ca9bb39e6f778bbb801f3973ae85fce4aacb65d708deef6",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 0,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.031171798706054688,
+        "junction_normal_max": 0.03366329718593998,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "e6f87c49b51a97064cf7c5bae74eaea0e73608b6b894c63ffb898e0b757787eb",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "e37772f3cbcae160eb4142d1275fba98784d14cc416b480a7dd55d836b159a11",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "44007e2d152a791858b9764fd22e1d961dec7f58899e3c98b300294ccb4e375a",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "7d5b07153061b8b11d7ed5c4b4994b1ea7c478ebd7341562aa9c7b36f80cfa44",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup": {
+        "file": "runs/drill-assembly-r4/reopen-remesh/followup.blend",
+        "sha256": "e5e4257e909b8af2e49275eb91f76950384e3b378a62b6e0c47d1bf47732aa51",
+        "parameters": {
+          "grip_length": 0,
+          "grip_width": 0.25,
+          "split_shift": 0
+        },
+        "solid_count": 35,
+        "declared_frame_count": 38,
+        "silhouette": {
+          "iou": 0.9998716107237143,
+          "different_pixels": 16,
+          "boundary_mean": 0.0023328993055555555,
+          "boundary_p95": 0.0,
+          "boundary_max": 0.251953125,
+          "sample_count": 3456,
+          "passed": true
+        },
+        "section_error_max": 0.030846595764160156,
+        "junction_normal_max": 0.03936320998521053,
+        "interfaces": {
+          "sections": [
+            {
+              "part": "rail_left",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "rail_right",
+              "section_vertex_error": 0.0,
+              "passed": true
+            },
+            {
+              "part": "channel_left",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            },
+            {
+              "part": "channel_right",
+              "section_vertex_error": 7.864199850821093e-07,
+              "passed": true
+            }
+          ],
+          "unreleased_slide_physically_blocked": {
+            "passed": true,
+            "measurement": {
+              "passed": false,
+              "category": "noncontact clearance",
+              "minimum_distance": 0.0,
+              "distance_kind": "measured or conservative AABB lower bound",
+              "maximum_sampled_penetration": 0.7000007629394531,
+              "triangle_pairs": 48,
+              "probes": 2380,
+              "missing": 0,
+              "ambiguous": 0,
+              "nearest_probe": [
+                -48.29999923706055,
+                -3.0,
+                41.0
+              ],
+              "objects": [
+                "DA e5b47b64 battery_latch",
+                "DA e5b47b64 foot"
+              ]
+            }
+          },
+          "fully_disengaged": [
+            {
+              "side": "left",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            },
+            {
+              "side": "right",
+              "axial_disengagement_gap": 11.0,
+              "passed": true
+            }
+          ],
+          "rest_restored": true,
+          "passed": true
+        },
+        "motion": {
+          "trigger": {
+            "sha256": "fa6e4168d215e77e306fe0d7059fcb142ca62267e82eab4194f6beb7e7cad391",
+            "poses": 13,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.25,
+            "contacts": 1,
+            "rest_restored": true
+          },
+          "latch": {
+            "sha256": "d943fe32ea7b8273ba8e97171acbe4af790f394adc7b7f343289e8c14d158c31",
+            "poses": 9,
+            "pairs_per_pose": 34,
+            "step": 0.25,
+            "minimum_noncontact_bound": 0.2036692301432268,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "battery": {
+            "sha256": "a40de899244d919d87f7c0c2ed2043c1cdf34ffd9398abc92fc5062732b5d42e",
+            "poses": 41,
+            "pairs_per_pose": 150,
+            "step": 1.0,
+            "minimum_noncontact_bound": 0.2999992370605469,
+            "contacts": 0,
+            "rest_restored": true
+          },
+          "jaw_diameter": {
+            "sha256": "569b4cab63296ae20a18dbbfb0452f64c4da9fb1d83369eba26519c364e84735",
+            "poses": 17,
+            "pairs_per_pose": 99,
+            "step": 0.5,
+            "minimum_noncontact_bound": 0.2004903157552178,
+            "contacts": 3,
+            "rest_restored": true
+          }
+        }
+      },
+      "followup_edit": {
+        "updated": [
+          "master",
+          "skin",
+          "shell_left",
+          "vent_left_0",
+          "vent_left_1",
+          "vent_left_2",
+          "vent_left_3",
+          "vent_left_4",
+          "vent_left_5",
+          "trigger_cut_left",
+          "front_bore_left",
+          "fastener_bore_left_0",
+          "fastener_bore_left_1",
+          "housing_left",
+          "boss_0",
+          "boss_1",
+          "boss_2",
+          "head_0",
+          "slotted_head_0",
+          "shaft_0",
+          "fastener_0",
+          "head_1",
+          "slotted_head_1",
+          "shaft_1",
+          "fastener_1",
+          "head_2",
+          "slotted_head_2",
+          "shaft_2",
+          "fastener_2",
+          "shell_right",
+          "vent_right_0",
+          "vent_right_1",
+          "vent_right_2",
+          "vent_right_3",
+          "vent_right_4",
+          "vent_right_5",
+          "trigger_cut_right",
+          "front_bore_right",
+          "fastener_bore_right_0",
+          "fastener_bore_right_1",
+          "grip_left",
+          "housing_right",
+          "grip_right",
+          "receiver_0",
+          "receiver_1",
+          "receiver_2",
+          "texture_left",
+          "texture_right"
+        ],
+        "unchanged": [
+          "foot_stock",
+          "foot",
+          "battery",
+          "battery_latch",
+          "torque_ring",
+          "chuck_body",
+          "bit",
+          "channel_left",
+          "channel_right",
+          "jaw_cage",
+          "jaw_0",
+          "jaw_1",
+          "jaw_2",
+          "latch_guide_stock",
+          "latch_guide",
+          "rail_left",
+          "rail_right",
+          "rear_cover",
+          "trigger_guide",
+          "trigger",
+          "trigger_guide_right",
+          "trigger_stop"
+        ],
+        "checks": [
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_left"
+            ],
+            "passed": true,
+            "samples": 115059,
+            "missing_or_invalid": 0,
+            "min": 1.9980653524398804,
+            "max": 2.14559268951416,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "wall",
+            "parts": [
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 115038,
+            "missing_or_invalid": 0,
+            "min": 1.9980673789978027,
+            "max": 2.14559268951416,
+            "violations": [],
+            "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+          },
+          {
+            "kind": "gap",
+            "parts": [
+              "housing_left",
+              "housing_right"
+            ],
+            "passed": true,
+            "samples": 2190,
+            "min": 0.8000030517578125,
+            "max": 0.8000030517578125,
+            "violations": []
+          }
+        ]
+      },
+      "attributes": {
+        "attributes_before": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        },
+        "attributes_after": {
+          "passed": true,
+          "master_uv_error": 2.8610229518832853e-08,
+          "master_mask_error": 2.9665666034794924e-08,
+          "current_bindings": {
+            "grip_left": true,
+            "texture_left": true,
+            "grip_right": true,
+            "texture_right": true
+          }
+        }
+      }
+    }
+  },
+  "scenarios": {
+    "grip-width": {
+      "updated": [
+        "master",
+        "skin",
+        "shell_left",
+        "vent_left_0",
+        "vent_left_1",
+        "vent_left_2",
+        "vent_left_3",
+        "vent_left_4",
+        "vent_left_5",
+        "trigger_cut_left",
+        "front_bore_left",
+        "fastener_bore_left_0",
+        "fastener_bore_left_1",
+        "housing_left",
+        "boss_0",
+        "boss_1",
+        "boss_2",
+        "head_2",
+        "slotted_head_2",
+        "shaft_2",
+        "fastener_2",
+        "shell_right",
+        "vent_right_0",
+        "vent_right_1",
+        "vent_right_2",
+        "vent_right_3",
+        "vent_right_4",
+        "vent_right_5",
+        "trigger_cut_right",
+        "front_bore_right",
+        "fastener_bore_right_0",
+        "fastener_bore_right_1",
+        "grip_left",
+        "housing_right",
+        "grip_right",
+        "receiver_0",
+        "receiver_1",
+        "receiver_2",
+        "texture_left",
+        "texture_right"
+      ],
+      "unchanged": [
+        "foot_stock",
+        "foot",
+        "battery",
+        "battery_latch",
+        "torque_ring",
+        "chuck_body",
+        "bit",
+        "channel_left",
+        "channel_right",
+        "head_0",
+        "slotted_head_0",
+        "shaft_0",
+        "fastener_0",
+        "head_1",
+        "slotted_head_1",
+        "shaft_1",
+        "fastener_1",
+        "jaw_cage",
+        "jaw_0",
+        "jaw_1",
+        "jaw_2",
+        "latch_guide_stock",
+        "latch_guide",
+        "rail_left",
+        "rail_right",
+        "rear_cover",
+        "trigger_guide",
+        "trigger",
+        "trigger_guide_right",
+        "trigger_stop"
+      ],
+      "checks": [
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_left"
+          ],
+          "passed": true,
+          "samples": 115073,
+          "missing_or_invalid": 0,
+          "min": 1.9982489347457886,
+          "max": 2.14559268951416,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 115052,
+          "missing_or_invalid": 0,
+          "min": 1.9982516765594482,
+          "max": 2.14559268951416,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "gap",
+          "parts": [
+            "housing_left",
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 2190,
+          "min": 0.8000030517578125,
+          "max": 0.8000030517578125,
+          "violations": []
+        }
+      ],
+      "independent_parts_unchanged": {
+        "chuck_body": true,
+        "torque_ring": true,
+        "jaw_cage": true,
+        "jaw_0": true,
+        "jaw_1": true,
+        "jaw_2": true,
+        "bit": true,
+        "battery": true,
+        "rail_left": true,
+        "rail_right": true,
+        "channel_left": true,
+        "channel_right": true
+      }
+    },
+    "grip-length": {
+      "updated": [
+        "master",
+        "foot_stock",
+        "foot",
+        "battery",
+        "battery_latch",
+        "skin",
+        "shell_left",
+        "vent_left_0",
+        "vent_left_1",
+        "vent_left_2",
+        "vent_left_3",
+        "vent_left_4",
+        "vent_left_5",
+        "trigger_cut_left",
+        "front_bore_left",
+        "fastener_bore_left_0",
+        "fastener_bore_left_1",
+        "housing_left",
+        "boss_0",
+        "boss_1",
+        "boss_2",
+        "channel_left",
+        "channel_right",
+        "head_2",
+        "slotted_head_2",
+        "shaft_2",
+        "fastener_2",
+        "shell_right",
+        "vent_right_0",
+        "vent_right_1",
+        "vent_right_2",
+        "vent_right_3",
+        "vent_right_4",
+        "vent_right_5",
+        "trigger_cut_right",
+        "front_bore_right",
+        "fastener_bore_right_0",
+        "fastener_bore_right_1",
+        "grip_left",
+        "housing_right",
+        "grip_right",
+        "latch_guide_stock",
+        "latch_guide",
+        "rail_left",
+        "rail_right",
+        "receiver_0",
+        "receiver_1",
+        "receiver_2",
+        "texture_left",
+        "texture_right"
+      ],
+      "unchanged": [
+        "torque_ring",
+        "chuck_body",
+        "bit",
+        "head_0",
+        "slotted_head_0",
+        "shaft_0",
+        "fastener_0",
+        "head_1",
+        "slotted_head_1",
+        "shaft_1",
+        "fastener_1",
+        "jaw_cage",
+        "jaw_0",
+        "jaw_1",
+        "jaw_2",
+        "rear_cover",
+        "trigger_guide",
+        "trigger",
+        "trigger_guide_right",
+        "trigger_stop"
+      ],
+      "checks": [
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_left"
+          ],
+          "passed": true,
+          "samples": 116599,
+          "missing_or_invalid": 0,
+          "min": 1.9975898265838623,
+          "max": 2.1433637142181396,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 116606,
+          "missing_or_invalid": 0,
+          "min": 1.9975918531417847,
+          "max": 2.1433637142181396,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "gap",
+          "parts": [
+            "housing_left",
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 2228,
+          "min": 0.8000030517578125,
+          "max": 0.8000030517578125,
+          "violations": []
+        }
+      ],
+      "independent_parts_unchanged": {
+        "chuck_body": true,
+        "torque_ring": true,
+        "jaw_cage": true,
+        "jaw_0": true,
+        "jaw_1": true,
+        "jaw_2": true,
+        "bit": true
+      }
+    },
+    "split-shift": {
+      "updated": [
+        "shell_left",
+        "vent_left_0",
+        "vent_left_1",
+        "vent_left_2",
+        "vent_left_3",
+        "vent_left_4",
+        "vent_left_5",
+        "trigger_cut_left",
+        "front_bore_left",
+        "fastener_bore_left_0",
+        "fastener_bore_left_1",
+        "housing_left",
+        "boss_0",
+        "boss_1",
+        "boss_2",
+        "shell_right",
+        "vent_right_0",
+        "vent_right_1",
+        "vent_right_2",
+        "vent_right_3",
+        "vent_right_4",
+        "vent_right_5",
+        "trigger_cut_right",
+        "front_bore_right",
+        "fastener_bore_right_0",
+        "fastener_bore_right_1",
+        "grip_left",
+        "housing_right",
+        "grip_right",
+        "receiver_0",
+        "receiver_1",
+        "receiver_2",
+        "texture_left",
+        "texture_right"
+      ],
+      "unchanged": [
+        "master",
+        "foot_stock",
+        "foot",
+        "battery",
+        "battery_latch",
+        "torque_ring",
+        "chuck_body",
+        "bit",
+        "skin",
+        "channel_left",
+        "channel_right",
+        "head_0",
+        "slotted_head_0",
+        "shaft_0",
+        "fastener_0",
+        "head_1",
+        "slotted_head_1",
+        "shaft_1",
+        "fastener_1",
+        "head_2",
+        "slotted_head_2",
+        "shaft_2",
+        "fastener_2",
+        "jaw_cage",
+        "jaw_0",
+        "jaw_1",
+        "jaw_2",
+        "latch_guide_stock",
+        "latch_guide",
+        "rail_left",
+        "rail_right",
+        "rear_cover",
+        "trigger_guide",
+        "trigger",
+        "trigger_guide_right",
+        "trigger_stop"
+      ],
+      "checks": [
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_left"
+          ],
+          "passed": true,
+          "samples": 118839,
+          "missing_or_invalid": 0,
+          "min": 1.9980348348617554,
+          "max": 2.1491384506225586,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 115031,
+          "missing_or_invalid": 0,
+          "min": 1.9980394840240479,
+          "max": 2.1367383003234863,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "gap",
+          "parts": [
+            "housing_left",
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 2186,
+          "min": 0.8000030517578125,
+          "max": 0.8019294738769531,
+          "violations": []
+        }
+      ],
+      "independent_parts_unchanged": {
+        "chuck_body": true,
+        "torque_ring": true,
+        "jaw_cage": true,
+        "jaw_0": true,
+        "jaw_1": true,
+        "jaw_2": true,
+        "bit": true,
+        "battery": true,
+        "rail_left": true,
+        "rail_right": true,
+        "channel_left": true,
+        "channel_right": true
+      }
+    },
+    "remesh": {
+      "updated": [
+        "master",
+        "skin",
+        "shell_left",
+        "vent_left_0",
+        "vent_left_1",
+        "vent_left_2",
+        "vent_left_3",
+        "vent_left_4",
+        "vent_left_5",
+        "trigger_cut_left",
+        "front_bore_left",
+        "fastener_bore_left_0",
+        "fastener_bore_left_1",
+        "housing_left",
+        "boss_0",
+        "boss_1",
+        "boss_2",
+        "shell_right",
+        "vent_right_0",
+        "vent_right_1",
+        "vent_right_2",
+        "vent_right_3",
+        "vent_right_4",
+        "vent_right_5",
+        "trigger_cut_right",
+        "front_bore_right",
+        "fastener_bore_right_0",
+        "fastener_bore_right_1",
+        "grip_left",
+        "housing_right",
+        "grip_right",
+        "receiver_0",
+        "receiver_1",
+        "receiver_2",
+        "texture_left",
+        "texture_right"
+      ],
+      "unchanged": [
+        "foot_stock",
+        "foot",
+        "battery",
+        "battery_latch",
+        "torque_ring",
+        "chuck_body",
+        "bit",
+        "channel_left",
+        "channel_right",
+        "head_0",
+        "slotted_head_0",
+        "shaft_0",
+        "fastener_0",
+        "head_1",
+        "slotted_head_1",
+        "shaft_1",
+        "fastener_1",
+        "head_2",
+        "slotted_head_2",
+        "shaft_2",
+        "fastener_2",
+        "jaw_cage",
+        "jaw_0",
+        "jaw_1",
+        "jaw_2",
+        "latch_guide_stock",
+        "latch_guide",
+        "rail_left",
+        "rail_right",
+        "rear_cover",
+        "trigger_guide",
+        "trigger",
+        "trigger_guide_right",
+        "trigger_stop"
+      ],
+      "checks": [
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_left"
+          ],
+          "passed": true,
+          "samples": 116914,
+          "missing_or_invalid": 0,
+          "min": 1.9981685876846313,
+          "max": 2.14559268951416,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 116942,
+          "missing_or_invalid": 0,
+          "min": 1.9982573986053467,
+          "max": 2.145596742630005,
+          "violations": [],
+          "method": "all outer triangle vertices, midpoints, centroids to opposite material-role skin; normal gate"
+        },
+        {
+          "kind": "gap",
+          "parts": [
+            "housing_left",
+            "housing_right"
+          ],
+          "passed": true,
+          "samples": 4352,
+          "min": 0.8000030517578125,
+          "max": 0.8000030517578125,
+          "violations": []
+        }
+      ],
+      "independent_parts_unchanged": {
+        "chuck_body": true,
+        "torque_ring": true,
+        "jaw_cage": true,
+        "jaw_0": true,
+        "jaw_1": true,
+        "jaw_2": true,
+        "bit": true,
+        "battery": true,
+        "rail_left": true,
+        "rail_right": true,
+        "channel_left": true,
+        "channel_right": true
+      },
+      "remesh": {
+        "operations": {
+          "split": 0,
+          "collapse": 1,
+          "flip": 1
+        },
+        "selected_triangles_before": 80,
+        "selected_triangles_after": 78,
+        "vertices_before": 16091,
+        "vertices_after": 16090,
+        "triangles_before": 32178,
+        "triangles_after": 32176,
+        "pinned_vertices": 16069,
+        "pinned_error": 0.0,
+        "sampled_error_max": 0.010274308733642101,
+        "forward_samples": 96530,
+        "reverse_samples": 96536,
+        "quality_mean_before": 0.5349958151593134,
+        "quality_mean_after": 0.5350240170954882,
+        "max_error": 0.09
+      }
+    }
+  },
+  "alternate_bits": {
+    "6": {
+      "sha256": "0642b4eff8f34596d791facdc1a6843f3490eb3d5195364d66d232610fb6b992",
+      "poses": 9,
+      "pairs_per_pose": 99,
+      "step": 0.5,
+      "minimum_noncontact_bound": 0.2043406168619697,
+      "contacts": 3,
+      "rest_restored": true
+    },
+    "10": {
+      "sha256": "ed17c606e84ceb738b506b64a4492017073a694e0526ccb4e7ab07881d2a5f90",
+      "poses": 2,
+      "pairs_per_pose": 99,
+      "step": 0.0,
+      "minimum_noncontact_bound": 0.2390492757161553,
+      "contacts": 6,
+      "rest_restored": true
+    }
+  },
+  "negative_cases": {
+    "overtravel": {
+      "rejected": true,
+      "unchanged": true
+    },
+    "locked_battery": {
+      "rejected": true,
+      "unchanged": true
+    },
+    "jaw_overtravel": {
+      "rejected": true,
+      "unchanged": true
+    },
+    "planted_collision": {
+      "rejected": true,
+      "unchanged": true
+    }
+  },
+  "windows": {
+    "blender": "5.2.2 LTS",
+    "tests": {
+      "tests": 37,
+      "failures": 0,
+      "errors": 0
+    },
+    "log_sha256": "2655e8f70e12ba0933285baf497608ded4423e3efa9ec01497179f25f77acdce"
+  },
+  "host": {
+    "tests": 3,
+    "log_sha256": "ef143ac8bdc28b22a0862524393c318b446a54993988beb187950228106dbf0e"
+  },
+  "linux_ci": {
+    "conclusion": "success",
+    "headSha": "ba465916831c1d4889c6f09c027803e732ab1ebc",
+    "jobs": [
+      {
+        "completedAt": "2026-10-07T03:53:48Z",
+        "conclusion": "success",
+        "databaseId": 112622713553,
+        "name": "python",
+        "startedAt": "2026-10-07T03:53:38Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-07T03:53:39Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-07T03:53:38Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:43Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-10-07T03:53:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:43Z",
+            "conclusion": "success",
+            "name": "Run actions/setup-python@v5",
+            "number": 3,
+            "startedAt": "2026-10-07T03:53:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:45Z",
+            "conclusion": "success",
+            "name": "Run python -m pip install -e .",
+            "number": 4,
+            "startedAt": "2026-10-07T03:53:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:46Z",
+            "conclusion": "success",
+            "name": "Run python -m unittest discover -s tests -p 'test_*.py'",
+            "number": 5,
+            "startedAt": "2026-10-07T03:53:45Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:46Z",
+            "conclusion": "success",
+            "name": "Post Run actions/setup-python@v5",
+            "number": 9,
+            "startedAt": "2026-10-07T03:53:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:46Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 10,
+            "startedAt": "2026-10-07T03:53:46Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:46Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-07T03:53:46Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/shakystar/mesh-workbench/actions/runs/37568855075/job/112622713553"
+      },
+      {
+        "completedAt": "2026-10-07T03:54:49Z",
+        "conclusion": "success",
+        "databaseId": 112622713660,
+        "name": "blender",
+        "startedAt": "2026-10-07T03:53:38Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-07T03:53:39Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-07T03:53:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:53:43Z",
+            "conclusion": "success",
+            "name": "Run actions/checkout@v4",
+            "number": 2,
+            "startedAt": "2026-10-07T03:53:39Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:54:13Z",
+            "conclusion": "success",
+            "name": "Run sudo apt-get update && sudo apt-get install -y blender python3-numpy",
+            "number": 3,
+            "startedAt": "2026-10-07T03:53:43Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:54:14Z",
+            "conclusion": "success",
+            "name": "Run blender --version",
+            "number": 4,
+            "startedAt": "2026-10-07T03:54:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:54:47Z",
+            "conclusion": "success",
+            "name": "Run blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python tests/blender_tests.py",
+            "number": 5,
+            "startedAt": "2026-10-07T03:54:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:54:48Z",
+            "conclusion": "success",
+            "name": "Post Run actions/checkout@v4",
+            "number": 10,
+            "startedAt": "2026-10-07T03:54:47Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-07T03:54:48Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 11,
+            "startedAt": "2026-10-07T03:54:48Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/shakystar/mesh-workbench/actions/runs/37568855075/job/112622713660"
+      }
+    ],
+    "status": "completed",
+    "url": "https://github.com/shakystar/mesh-workbench/actions/runs/37568855075",
+    "blender_versions": [
+      "4.0.2"
+    ],
+    "integration_results": [
+      {
+        "tests": 37,
+        "failures": 0,
+        "errors": 0
+      }
+    ]
+  },
+  "cli": {
+    "success": {
+      "units": "METRIC",
+      "scale_length": 0.0010000000474974513,
+      "parameters": {
+        "grip_length": 0,
+        "grip_width": 2,
+        "split_shift": 0
+      },
+      "parts": 70,
+      "revision": 1,
+      "passed": true
+    },
+    "rejection": {
+      "exit_code": 1,
+      "status": "failed",
+      "failed_operation": {
+        "index": 0,
+        "op": "nested_update"
+      },
+      "source_preserved": true,
+      "no_result_saved": true
+    },
+    "recipe_sha256": "d0dd998515dd1347624a256859e2b28a0bf79a02139fa8a0a19b6c23a350132a"
+  },
+  "assets": {
+    "drill-assembly-clearance.png": "307061cc8fb744956378755d82b58d7ce1565c3a5e8b56fbe87527e67836f7e4",
+    "drill-assembly-exploded.png": "4fb0e2e552ce7d52b85ee15b6a4c2e884ab49e96377c9a7f7f17826ba785552a",
+    "drill-assembly-grip-length.png": "8add8c6dd5c2ceb6eafcaf7b6304983a3c17f2af50141ccf405128a2f2cd7014",
+    "drill-assembly-grip-width.png": "e0aa12ad3e851509a73a047bca80d5965fcb6ebc00fb35125f46a10574b845d8",
+    "drill-assembly-hero.png": "7745b57e10df1cdb79024b81ab248b1d967e7edde204cf712bc05122b4983727",
+    "drill-assembly-section-165.png": "be811a204cae8817d758e3c1e11c399c6e55756236624cec4bd47792971821df",
+    "drill-assembly-section-85.png": "738bbc99b7ca62c078380723c6bd8cb0a369cd89e2c11153ea6f2716916c1795",
+    "drill-assembly-side.png": "fe72b9d84c75805698d2fe8c9599ca8ccf8301decded0c6a3be3345751049706",
+    "drill-assembly-split-shift.png": "e5cb8571b1f276dd2716959e310dcffc0c50ed675b6f09dcb61136045197bbcc",
+    "drill-assembly-topology-after.png": "c74f9a91d81335d3302e4b851fe4c5bfbee7fde1d6f30f81289c7ce12aaee244",
+    "drill-assembly-topology-before.png": "608776aac79ae2db254168aa78462023b743660668515e4d571ca35bb7f0c754"
+  },
+  "limits": [
+    "Original authored design, not a manufacturer replica or production tolerance certificate.",
+    "Discrete collision and sampled distance/penetration bounds; no continuous collision or strength proof.",
+    "Local remeshing bakes the whole source to triangles; the demonstrated patch changes 80 to 78 triangles.",
+    "Projected inserts reject UV/material discontinuities; arbitrary seam-aware patch retopology is not implemented."
+  ]
+}

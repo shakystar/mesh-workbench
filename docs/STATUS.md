@@ -1,31 +1,23 @@
 # Current development status
 
-Updated 2026-10-07. Mesh Workbench is an early Python/JSON toolkit running inside Blender. The completed implementation is `a03b8fab4928116f8fc5406cfc0643023de171ed`; completion records were published in `0e1fd2d4efcea45f43f4cdf4f4f9241d1df9120d`. The precision drill assembly phase is **in progress**; its acceptance gates are not yet complete.
+Updated 2026-10-07. The editable drill assembly M0-M5 is complete. Runtime implementation: `ba465916831c1d4889c6f09c027803e732ab1ebc`. Final evidence is in the [study](studies/DRILL_ASSEMBLY_STUDY.md) and [completion audit](audits/DRILL_ASSEMBLY_AUDIT.json).
 
 ## Latest verified result
 
-The [cordless drill study](studies/DRILL_STUDY.md) demonstrates feature-pinned triangle remeshing, UV/material/mask/binding transfer, direct-detail assembly migration and failure rollback. Local artifact: `runs/drill-study-09/drill.blend`; hashes and detailed results are in the [audit](audits/DRILL_AUDIT.json).
+- Continuous hollow housing/grip, functional three-jaw geometry, fastening receivers, trigger guides and captured battery rails/latch.
+- 70 dependency nodes, 38 declared IDs/frames and 35 visible mesh objects; persisted native millimetre units.
+- Width +2 mm, length +5 mm, split +1 mm and local remesh all regenerate affected descendants while preserving independent parts.
+- Five native files and five fresh-process follow-up edits pass geometry, frame and interface checks. Forty motion sweeps pass and restore rest transforms.
+- Baseline outline IoU 0.99987161, maximum section error 0.031172 mm; local remesh sampled drift 0.0102743 mm with zero pinned movement.
+- Stale attributes, unknown IDs, injected build/transfer/validation/commit failures, collisions and travel limits are tested. Actual CLI success and rejection preserve source files.
+- Windows Blender 5.2.2 LTS and [Linux Blender 4.0.2](https://github.com/shakystar/mesh-workbench/actions/runs/37568855075): 37 integration tests each; 3 host tests pass.
 
-- Selected patch: 1,290 to 1,078 triangles; 106 collapses and 60 flips.
-- Maximum bidirectional sampled surface error: 0.0847725 mm against a 0.09 mm limit; 2,603 pinned vertices unchanged.
-- Six through-vents; 51 modeled parts checked for nonmanifold edges and overlap candidates.
-- Fresh-process reopen verifies UVs, masks, bindings, rollback and subsequent assembly editing.
-- Windows Blender 5.2.2 and [Linux Blender 4.0.2 CI](https://github.com/shakystar/mesh-workbench/actions/runs/37398919639): 31 integration and 3 host tests pass. Actual host CLI also passes. These are implementation checks, not tests rerun for the documentation reorganization.
+Native baseline: `runs/drill-assembly-r4/baseline/drill.blend`. Variant and follow-up locations, hashes, reproduction and eleven previews are recorded in the study/audit. The previous `runs/drill-study-09/drill.blend` remains unchanged.
 
-## Current boundaries
+## Boundaries and next work
 
-Remeshing produces baked triangles with sampled distance checks; it is not automatic quad retopology. The completed baseline supports directly bound topology migration. Nested shell/detail regeneration is now implemented in the active phase and still awaits its full variant/reopen acceptance matrix. Face IDs are not stable semantic identities. Continuous collision guarantees, complete mechanical internals, manufacturing tolerances and production-ready rigs remain unverified. The drill is an exterior assembly study; functional chuck, latch and trigger geometry is under active validation.
+The [roadmap](ROADMAP.md) retains the completed acceptance contract. No subsequent implementation milestone is active. Future scope must define its own reference and acceptance gates.
 
-## Next work
+The model is an original authored assembly, not a manufacturer replica. Collision/distance checks are sampled; no continuous collision, strength or manufacturing claim is made. Local remeshing bakes triangles; general quad retopology and seam-aware projected patch reconstruction are unsupported. This remains an early Blender Python/JSON toolkit.
 
-[Drill assembly roadmap](ROADMAP.md): freeze dimensions/interfaces, reshape connected housing/grip surfaces, implement functional part geometry, propagate nested topology changes, verify constrained motions, and deliver reopenable variant evidence. The M0 dimension brief and guides are recorded in `audits/DRILL_ASSEMBLY_BRIEF.json`. Continuous enclosure and split-shell prototypes pass sampled wall checks; nested regeneration and functional parts are under validation; see the [active implementation record](studies/DRILL_ASSEMBLY_STUDY.md). These preliminary checks do not replace the M1-M5 acceptance evidence.
-
-Use the [documentation index](README.md) for all studies and APIs. Earlier results and then-active goals are retained in [development history](archive/DEVELOPMENT_HISTORY.md).
-
-## Active assembly checkpoint
-
-The version-2 nested graph, continuous housing, functional part geometry and prismatic/radial checks are implemented. Windows Blender 5.2.2 passes 35 integration tests; all 3 host tests and scoped Ruff checks pass. These are the current local checks; Linux and real CLI verification are pending.
-
-Baseline `runs/drill-assembly-05/drill.blend` passes outline IoU 0.9998716, maximum section error 0.031172 mm and sampled junction normal mismatch 0.033664 degrees. Its trigger, latch, battery and three-jaw sweeps pass; 6 mm and 10 mm bit cases also pass. Width +2, length +5, split +1 and local root remesh variants pass their nested wall/gap gates. The remesh changes 80 selected triangles to 78 with sampled drift 0.0102743 mm and zero pinned displacement.
-
-Fresh-process baseline reopening, stale-attribute detection, actual late-commit rollback and a further width +0.25 mm edit pass. Remaining variant reopen checks, full variant motion evidence, final renders, CLI/CI and the completion audit remain open. See the [implementation record](studies/DRILL_ASSEMBLY_STUDY.md).
+Use the [documentation index](README.md) for APIs and earlier studies; historical checkpoints remain in [development history](archive/DEVELOPMENT_HISTORY.md).

@@ -1,12 +1,12 @@
-# Next milestones: editable drill assembly
+# Completed milestones: editable drill assembly
 
-Status: **in progress**. An implementation goal is active. The frozen brief is recorded in `audits/DRILL_ASSEMBLY_BRIEF.json`; all M0-M5 acceptance evidence is still required before completion.
+Status: **complete**, 2026-10-07. All M0-M5 gates have recorded evidence in the [completion audit](audits/DRILL_ASSEMBLY_AUDIT.json) and [modeling study](studies/DRILL_ASSEMBLY_STUDY.md). The frozen brief is recorded in [DRILL_ASSEMBLY_BRIEF.json](audits/DRILL_ASSEMBLY_BRIEF.json). No subsequent implementation milestone is active.
 
 ## Objective and baseline
 
 Evolve the current exterior drill into a dimensioned, editable assembly: changes to its housing and grip regenerate dependent shells, cutouts, fittings and surface details, while declared clearances and motions remain valid. Preserve the [completed drill](studies/DRILL_STUDY.md) as the comparison baseline (`runs/drill-study-09/drill.blend`, hash in the [audit](audits/DRILL_AUDIT.json)).
 
-The model remains an original authored design. Planned engineering values below are prototype acceptance targets, not manufacturer specifications or validated production tolerances. Freeze them in M0 before implementation; record any later change and its reason before evaluating a new candidate.
+The model remains an original authored design. Engineering values below are prototype acceptance targets, not manufacturer specifications or validated production tolerances. M0 froze these values; subsequent design revisions and reasons are recorded in the brief.
 
 ## Milestone sequence
 
@@ -21,9 +21,9 @@ The model remains an original authored design. Planned engineering values below 
 
 Implementation order is M0 -> M1 -> M2 -> M3 -> M4 -> M5. Build tools from the actual part/model failures at each stage; do not defer geometric validation until the final render.
 
-## Proposed numerical gates to freeze in M0
+## Frozen numerical gates
 
-| Item | Proposed gate | Measurement |
+| Item | Gate | Measurement |
 | --- | --- | --- |
 | Model units | Millimetres, fixed world/part frames | Bounds, transforms and saved specification |
 | Housing | Nominal 2.0 mm; sampled wall >= 1.6 mm | Opposite inner/outer surface probes, including near vents, openings and transitions; missed/ambiguous probes fail instead of disappearing |
@@ -49,15 +49,15 @@ These are sampled geometric gates, not continuous collision or strength proofs. 
 - Reject unknown part IDs, dependency cycles, empty/ambiguous semantic regions, stale topology, wrong-side transfer, thin walls, excessive travel and unintended collision.
 - Include disconnected nearby surfaces and UV/material boundaries in fixtures. Zero nonmanifold edges alone does not satisfy surface quality, thickness or assembly checks.
 
-## Planned artifacts
+## Delivered artifacts
 
-Names below are deliverables to create during implementation, not existing links:
+The study links the final scripts, previews and machine-readable evidence:
 
 - `examples/drill-assembly-target.json`: frozen dimensions, reference provenance, part IDs, interfaces and acceptance gates.
 - `examples/drill_assembly.py`: reproducible construction, variants, nested regeneration and motion inspection.
 - `examples/verify_drill_assembly.py`: fresh-process migration, follow-up edit, motion and rollback audit.
 - `examples/drill-assembly.json`: public host-CLI exercise including one successful nested edit and a separately recorded rejected edit.
-- `runs/drill-assembly-*/{baseline,grip-width,grip-length,split-shift}/drill.blend`: preserved source and native variants, with renders and per-variant measurements; a remesh trial is recorded separately.
+- `runs/drill-assembly-r4/{baseline,grip-width,grip-length,split-shift,remesh}/drill.blend`: preserved source and native variants, with renders and per-variant measurements; a remesh trial is recorded separately.
 - `docs/studies/DRILL_ASSEMBLY_STUDY.md`, `docs/audits/DRILL_ASSEMBLY_AUDIT.json`, `docs/assets/drill-assembly-*.png`: public before/after evidence and completion matrix.
 
 Extend the existing assembly, shell, attachment and motion APIs where possible. Decide new module boundaries after M0 identifies the missing operations; the tool/API names are not frozen in this plan.

@@ -4,7 +4,7 @@ Coordinate-driven modeling tools that operate **inside Blender**. Inspect render
 
 Early **0.1.0** implementation. Built for iterative work by people and coding agents, with explicit failure checks and source-preserving operations.
 
-[Documentation index](docs/README.md) ? [Current status](docs/STATUS.md) ? [Next milestones](docs/ROADMAP.md)
+[Documentation index](docs/README.md) | [Current status](docs/STATUS.md) | [Milestones](docs/ROADMAP.md)
 
 ## Modeled designs
 
@@ -20,11 +20,13 @@ Actual Blender renders created with this toolkit.
 | Folding headphones | Folded configuration |
 | ![Headphones](docs/assets/headphone-standard-open.png) | ![Folded headphones](docs/assets/headphone-standard-folded.png) |
 | Cordless drill | Separated drill housing |
-| ![Drill](docs/assets/drill-hero.png) | ![Housing](docs/assets/drill-exploded.png) |
+| ![Drill](docs/assets/drill-assembly-hero.png) | ![Housing](docs/assets/drill-assembly-exploded.png) |
 
 See the [four-design portfolio and completion audit](docs/studies/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/studies/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
 
-Latest: [local remeshing and cordless drill](docs/studies/DRILL_STUDY.md): feature-pinned edge operations, UV/mask/binding transfer, atomic assembly migration and saved-file follow-up editing.
+Latest: [editable drill assembly](docs/studies/DRILL_ASSEMBLY_STUDY.md): continuous housing, nested regeneration, constrained jaws/trigger/battery, ten verified native files and Windows/Linux regression evidence.
+
+Previous: [local remeshing and cordless drill](docs/studies/DRILL_STUDY.md): feature-pinned edge operations, UV/mask/binding transfer, atomic assembly migration and saved-file follow-up editing.
 
 Previous: [folding headphones](docs/studies/HEADPHONE_STUDY.md): measured surface repair, explicit subdivision correspondence, section-preserving paths and constrained group hinges across three sizes.
 

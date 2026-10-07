@@ -254,4 +254,4 @@ JSON operations: `nested_initialize`, `nested_status`, `nested_update`, `nested_
 
 Reports combine triangle-overlap candidates and bidirectional vertex/edge/centroid distances. Bounding boxes provide conservative lower bounds for distant probes. Containment uses three ray-parity directions, with float64 solid-angle classification when votes disagree. Remaining ambiguity fails. Distances and penetration are sampled, not continuous collision or global separation proofs. Geometry changes invalidate an actuator registration; register again after rebuilding a graph.
 
-JSON operations: `actuators_register`, `actuators_sweep`. A failed sweep raises a structured rejection in the CLI audit. See the [active drill evidence](../studies/DRILL_ASSEMBLY_STUDY.md) for current validation status.
+JSON operations: `actuators_register`, `actuators_sweep`. A failed sweep raises a structured rejection in the CLI audit. See the [completed drill evidence](../studies/DRILL_ASSEMBLY_STUDY.md) for current validation status.

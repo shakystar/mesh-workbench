@@ -1,11 +1,11 @@
 # Documentation
 
-Start with [current status](STATUS.md), then [next milestones](ROADMAP.md). Study reports are dated evidence; the status page owns current capability and validation statements.
+Start with [current status](STATUS.md), then [milestone contract](ROADMAP.md). Study reports are dated evidence; the status page owns current capability and validation statements.
 
 | Location | Purpose |
 | --- | --- |
 | [STATUS.md](STATUS.md) | Current verified implementation, limits and next work |
-| [ROADMAP.md](ROADMAP.md) | Active drill assembly milestones and acceptance gates |
+| [ROADMAP.md](ROADMAP.md) | Completed drill assembly milestones and acceptance gates |
 | [reference/OPERATIONS.md](reference/OPERATIONS.md) | Python and JSON operation reference |
 | [reference/DESIGN.md](reference/DESIGN.md) | Architecture and modeling boundaries |
 | `studies/` | Reproducible modeling studies and comparison findings |
@@ -17,7 +17,7 @@ Start with [current status](STATUS.md), then [next milestones](ROADMAP.md). Stud
 
 | Study | Evidence |
 | --- | --- |
-| [Editable drill assembly (in progress)](studies/DRILL_ASSEMBLY_STUDY.md) | [Frozen brief](audits/DRILL_ASSEMBLY_BRIEF.json) |
+| [Editable drill assembly](studies/DRILL_ASSEMBLY_STUDY.md) | [Audit](audits/DRILL_ASSEMBLY_AUDIT.json), [frozen brief](audits/DRILL_ASSEMBLY_BRIEF.json) |
 | [Cordless drill and local remeshing](studies/DRILL_STUDY.md) | [Audit](audits/DRILL_AUDIT.json) |
 | [Folding headphones](studies/HEADPHONE_STUDY.md) | [Audit](audits/HEADPHONE_AUDIT.json) |
 | [Regenerating mouse assembly](studies/ASSEMBLY_STUDY.md) | [Audit](audits/ASSEMBLY_AUDIT.json) |
