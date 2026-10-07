@@ -40,7 +40,7 @@ def render(source, out, views):
         lamp.rotation_euler = (
             (Vector([0, 0, 100]) - lamp.location).to_track_quat("-Z", "Y").to_euler()
         )
-    scene.cycles.samples = 32
+    scene.cycles.samples = 12
     saved = {
         o: ([m for m in o.data.materials], [f.material_index for f in o.data.polygons])
         for o in objects.values()
@@ -48,8 +48,9 @@ def render(source, out, views):
     records = []
     try:
         for name in views:
+            curvature = name.startswith("curvature-")
             stripes = name.startswith("stripes-")
-            view = name.removeprefix("stripes-")
+            view = name.removeprefix("stripes-").removeprefix("curvature-")
             if view not in spec["cameras"]:
                 raise ValueError("Unknown frozen camera")
             for o, (mats, indices) in saved.items():
@@ -61,6 +62,9 @@ def render(source, out, views):
             if stripes:
                 for key in ["housing_left", "housing_right"]:
                     quality.reflection_bands(objects[key], frequency=16)
+            if curvature:
+                for key in ["housing_left", "housing_right"]:
+                    quality.curvature_material(objects[key], maximum=0.15)
             camera(**spec["cameras"][view], size=spec["image_size"])
             scene.camera.data.clip_end = 10000
             scene.render.filepath = str(out / (name + ".png"))

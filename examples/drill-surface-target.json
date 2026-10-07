@@ -1567,7 +1567,7 @@
       10
     ]
   },
-  "revision": 5,
+  "revision": 8,
   "construction": {
     "rear_cover": {
       "dimensions": [
@@ -2123,6 +2123,58 @@
           100
         ],
         "scale": 250
+      },
+      "chuck-detail": {
+        "position": [
+          270,
+          -320,
+          235
+        ],
+        "target": [
+          78,
+          0,
+          160
+        ],
+        "scale": 90
+      },
+      "grip-detail": {
+        "position": [
+          100,
+          -300,
+          120
+        ],
+        "target": [
+          -25,
+          0,
+          89
+        ],
+        "scale": 90
+      },
+      "trigger-detail": {
+        "position": [
+          140,
+          -240,
+          150
+        ],
+        "target": [
+          2,
+          0,
+          125
+        ],
+        "scale": 48
+      },
+      "battery-detail": {
+        "position": [
+          120,
+          -270,
+          120
+        ],
+        "target": [
+          -32,
+          0,
+          34
+        ],
+        "scale": 110
       }
     },
     "image_size": [
@@ -2325,6 +2377,12 @@
       "M8": "detailed parts and interface-preserving motion",
       "M9": "bounded local patch reconstruction, variable bevel and surface grooves/borders",
       "M10": "native before-after evidence, tests, docs and public commit"
+    },
+    "sharp_cut_roles": true,
+    "grip_component_selection": {
+      "seed": "grip guide center, side Y +/-16 mm",
+      "maximum_distance": 5,
+      "rule": "select uniquely nearest connected candidate component; all projected samples must still belong to it"
     }
   },
   "design_revisions": [
@@ -2355,6 +2413,27 @@
       "to": 5,
       "previous_sha256": "e3f7dd97ba396a39422b2825e55db2ab2113dfab187ad4d7a0279332af04b894",
       "reason": "Freeze index tick depth/span and top/bottom/vertical cover offsets; declare the two cover frames and shared battery travel before evaluating the finished surfaces.",
+      "gates_changed": false
+    },
+    {
+      "from": 5,
+      "to": 6,
+      "previous_sha256": "cadc31678f298e09343684bc9754de499f53f5b667d59b3aec98c2f18809a5be",
+      "reason": "Freeze close-up review cameras before comparison rendering; no geometry or acceptance threshold changes.",
+      "gates_changed": false
+    },
+    {
+      "from": 6,
+      "to": 7,
+      "previous_sha256": "80994962a85575c90154ebf0a1593a7d95363ab1647421fdede9feae120d4ff8",
+      "reason": "Reflection review identifies interpolated normals across intentionally sharp vent/bore rims. Split shading by shell material-role boundaries while preserving coordinates and all physical gates.",
+      "gates_changed": false
+    },
+    {
+      "from": 7,
+      "to": 8,
+      "previous_sha256": "d217cff54489fefe39af77a89cce62761409608d8b37e3c5bf95a3ef1de14e41",
+      "reason": "The +0.25 mm edit exposes an unrelated disconnected normal-filter island in the broad grip query. Declare a grip-centered component seed; retain single-component projection, wrong-side, chart and wall gates. Equal-distance components remain ambiguous and rejected.",
       "gates_changed": false
     }
   ]

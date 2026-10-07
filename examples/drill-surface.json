@@ -1,0 +1,6010 @@
+{
+  "version": 1,
+  "units": "mm",
+  "operations": [
+    {
+      "op": "nested_initialize",
+      "name": "Detailed cordless drill",
+      "nodes": {
+        "master": {
+          "kind": "enclosure",
+          "args": {
+            "profile_xz": [
+              [
+                -60,
+                147
+              ],
+              [
+                -62,
+                179
+              ],
+              [
+                -49,
+                192
+              ],
+              [
+                35,
+                186
+              ],
+              [
+                47,
+                179
+              ],
+              [
+                47,
+                143
+              ],
+              [
+                28,
+                136
+              ],
+              [
+                5,
+                135
+              ],
+              [
+                -4,
+                119
+              ],
+              [
+                -16,
+                49
+              ],
+              [
+                -43,
+                43
+              ],
+              [
+                -48,
+                51
+              ],
+              [
+                -30,
+                127
+              ],
+              [
+                -42,
+                139
+              ]
+            ],
+            "corner_trim": 6,
+            "rim_radius": 5,
+            "rim_steps": 20,
+            "edge_spacing": 2.5,
+            "cap_spacing": 3,
+            "head_half_width": 26,
+            "grip_half_width": 14,
+            "transition_z": [
+              100,
+              140
+            ],
+            "section_controls": {
+              "rows": [
+                [
+                  40,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  60,
+                  0,
+                  0,
+                  0
+                ],
+                [
+                  85,
+                  2,
+                  -1,
+                  1
+                ],
+                [
+                  110,
+                  1,
+                  -1,
+                  1
+                ],
+                [
+                  130,
+                  -0.7,
+                  0.5,
+                  1.5
+                ],
+                [
+                  145,
+                  -0.5,
+                  -1,
+                  2
+                ],
+                [
+                  165,
+                  -1.5,
+                  -3,
+                  3
+                ],
+                [
+                  180,
+                  -1,
+                  -2,
+                  1
+                ],
+                [
+                  195,
+                  0,
+                  0,
+                  0
+                ]
+              ],
+              "pins": [
+                [
+                  24,
+                  160,
+                  6,
+                  12
+                ],
+                [
+                  -50,
+                  178,
+                  6,
+                  12
+                ],
+                [
+                  -39,
+                  62,
+                  6,
+                  12
+                ]
+              ],
+              "maximum_displacement": 6
+            },
+            "grip_width": {
+              "param": "grip_width",
+              "offset": 0,
+              "scale": 1
+            },
+            "grip_length": {
+              "param": "grip_length",
+              "offset": 0,
+              "scale": 1
+            }
+          },
+          "visible": false,
+          "frame": {
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "skin": {
+          "kind": "hollow",
+          "args": {
+            "thickness": 2
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "master",
+              "use": "geometry"
+            }
+          ]
+        },
+        "shell_left": {
+          "kind": "partition",
+          "args": {
+            "side": "left",
+            "offset": {
+              "param": "split_shift",
+              "offset": 0,
+              "scale": 1
+            },
+            "gap": 0.8
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "skin",
+              "use": "geometry"
+            }
+          ],
+          "frame": {
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "vent_left_0": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -49,
+              -25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "shell_left",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_left_1": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -43.6,
+              -25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_left_0",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_left_2": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -38.2,
+              -25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_left_1",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_left_3": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -32.8,
+              -25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_left_2",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_left_4": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -27.4,
+              -25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_left_3",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_left_5": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -22,
+              -25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_left_4",
+              "use": "geometry"
+            }
+          ]
+        },
+        "trigger_cut_left": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              24,
+              21,
+              20
+            ],
+            "center": [
+              2,
+              0,
+              124
+            ],
+            "radius": 1.5
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_left_5",
+              "use": "geometry"
+            }
+          ]
+        },
+        "front_bore_left": {
+          "kind": "cut_cylinder",
+          "args": {
+            "radius": 15,
+            "axis": [
+              1,
+              0,
+              0
+            ],
+            "start": [
+              38,
+              0,
+              160
+            ],
+            "end": [
+              58,
+              0,
+              160
+            ]
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "trigger_cut_left",
+              "use": "geometry"
+            }
+          ]
+        },
+        "fastener_bore_left_0": {
+          "kind": "cut_cylinder",
+          "args": {
+            "start": [
+              24,
+              -40,
+              160
+            ],
+            "end": [
+              24,
+              40,
+              160
+            ],
+            "radius": 2
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "front_bore_left",
+              "use": "geometry"
+            }
+          ]
+        },
+        "fastener_bore_left_1": {
+          "kind": "cut_cylinder",
+          "args": {
+            "start": [
+              -50,
+              -40,
+              178
+            ],
+            "end": [
+              -50,
+              40,
+              178
+            ],
+            "radius": 2
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "fastener_bore_left_0",
+              "use": "geometry"
+            }
+          ]
+        },
+        "housing_left": {
+          "kind": "cut_cylinder",
+          "args": {
+            "start": [
+              -39,
+              -40,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "end": [
+              -39,
+              40,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "radius": 2,
+            "sharp_roles": true
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "fastener_bore_left_1",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "grip_left": {
+          "kind": "insert",
+          "args": {
+            "query": {
+              "box": [
+                [
+                  -55,
+                  -40,
+                  {
+                    "param": "grip_length",
+                    "offset": 53,
+                    "scale": -1
+                  }
+                ],
+                [
+                  5,
+                  0,
+                  120
+                ]
+              ],
+              "normal": [
+                0,
+                -1,
+                0
+              ],
+              "normal_min": 0.7,
+              "materials": [
+                0
+              ],
+              "components": 1,
+              "seed": [
+                -27,
+                -16,
+                {
+                  "param": "grip_length",
+                  "offset": 87.5,
+                  "scale": -0.5
+                }
+              ],
+              "seed_distance": 5
+            },
+            "center": [
+              -27,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 87.5,
+                "scale": -0.5
+              }
+            ],
+            "radii": [
+              9.2,
+              {
+                "param": "grip_length",
+                "offset": 27.5,
+                "scale": 0.5
+              }
+            ],
+            "shear": 0.2,
+            "side": -1,
+            "rings": 12,
+            "segments": 64,
+            "offset": 0.6,
+            "thickness": 0.8
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_left",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              -30,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 90,
+                "scale": -0.5
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "texture_left": {
+          "kind": "surface_paths",
+          "args": {
+            "query": {
+              "normal": [
+                0,
+                -1,
+                0
+              ],
+              "normal_min": 0.7,
+              "components": 1
+            },
+            "paths": [
+              {
+                "points": [
+                  [
+                    -18.7,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 87.5,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.381598852876653,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 89.18086042121467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.100103022586307,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 90.85452314005532,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.85671791749029,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 92.5138212758145,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.652485749973778,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 94.15164945913479,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.48828107353237,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 95.76099425829125,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.364807037799757,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 97.3349642117828,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.28259237755302,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98.86681933862833,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.24198914858916,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 100.35,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.24317122016812,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 101.77815498860377,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.286133530477922,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103.14516872552412,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.37069210831013,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 104.44518744807178,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.496484860852803,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 105.67264427649427,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.662973124227484,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 106.82228305220971,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.86944397013067,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 107.88918084548474,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.11501325870222,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108.86876903617541,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.398629424547984,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 109.75685287726007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.71907797970427,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 110.5496294573901,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.07498671426174,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.24370398554007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.464831572378916,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.83610432802422,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.886943178523268,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.32429373562906,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.33951398599353,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.70618170636303,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.820606017112187,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.98013293730693,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.32815916194339,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 113.1449743272321,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.86,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 113.2,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.413851107163765,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 113.1449743272321,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.987340807965044,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.98013293730693,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -23.57801333146126,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.70618170636303,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.183339327225113,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.32429373562906,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.8007266964114,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.83610432802422,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -25.427531691522226,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.24370398554007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.061070237339692,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 110.5496294573901,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.698629424547985,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 109.75685287726007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.337479126827617,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108.86876903617541,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.974883691675437,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 107.88918084548474,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -28.60811365488863,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 106.82228305220971,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.23445742854949,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 105.67264427649427,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.851232912461157,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 104.44518744807178,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -30.455798979312426,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103.14516872552413,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.045566784390367,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 101.77815498860379,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.618010851410844,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 100.35,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.17067988699564,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98.86681933862835,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.70120727748712,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 97.3349642117828,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.207321223151126,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 95.76099425829126,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.68685446637231,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 94.15164945913479,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.13775357218391,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 92.5138212758145,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.558087721391566,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 90.85452314005533,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.94605697863747,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 89.18086042121467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.3,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 87.5,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.61840114712334,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 85.81913957878533,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.8998969774137,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 84.14547685994467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.14328208250971,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 82.4861787241855,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.34751425002622,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 80.84835054086521,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.51171892646763,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 79.23900574170875,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.63519296220024,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 77.6650357882172,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.717407622446984,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 76.13318066137167,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.758010851410845,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 74.65,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.75682877983188,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73.22184501139623,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.71386646952208,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 71.85483127447588,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.62930789168986,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 70.55481255192822,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.503515139147204,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 69.32735572350575,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.337026875772516,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68.17771694779029,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.13055602986933,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 67.11081915451527,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.88498674129778,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 66.13123096382459,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.60137057545202,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 65.24314712273993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.28092202029573,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 64.45037054260992,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.92501328573826,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.75629601445993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.53516842762109,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.16389567197579,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.11305682147673,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.675706264370945,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.66048601400647,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.29381829363698,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.17939398288782,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.01986706269307,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.67184083805661,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 61.855025672767894,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.14,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 61.8,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.586148892836242,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 61.85502567276789,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.01265919203496,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.019867062693066,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -30.42198666853874,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.293818293636974,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.816660672774894,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.675706264370945,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.1992733035886,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.16389567197578,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -28.572468308477774,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.75629601445993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.938929762660308,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 64.4503705426099,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.30137057545201,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 65.24314712273993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.66252087317239,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 66.13123096382458,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.025116308324574,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 67.11081915451524,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -25.391886345111367,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68.17771694779029,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.76554257145051,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 69.32735572350572,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.14876708753884,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 70.55481255192824,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -23.544201020687577,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 71.85483127447587,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.954433215609637,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73.2218450113962,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.381989148589163,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 74.64999999999999,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.829320113004353,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 76.13318066137167,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.29879272251288,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 77.6650357882172,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.792678776848874,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 79.23900574170874,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.313145533627694,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 80.8483505408652,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.86224642781609,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 82.48617872418549,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.441912278608438,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 84.14547685994467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.053943021362524,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 85.81913957878533,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "closed": true,
+                "width": 0.6,
+                "height": 0.18
+              },
+              {
+                "points": [
+                  [
+                    -35.10642311439953,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.693576885600464,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -35.552783429849725,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.24721657015027,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -35.412120524188275,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 78,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.387879475811722,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 78,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -34.87177444753971,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 83,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.928225552460294,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 83,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -33.99842904783751,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 88,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.801570952162486,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 88,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -32.80770523028542,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 93,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.992294769714576,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 93,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -31.275669999351578,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.52433000064842,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -29.320543797576388,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.47945620242361,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -26.705732395049953,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.094267604950044,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              }
+            ],
+            "projection_axis": 1,
+            "side": -1,
+            "width": 0.6,
+            "height": 0.4,
+            "embed": 0.12,
+            "spacing": 0.7,
+            "cross_samples": 6
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "grip_left",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              -30,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 90,
+                "scale": -0.5
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "shell_right": {
+          "kind": "partition",
+          "args": {
+            "side": "right",
+            "offset": {
+              "param": "split_shift",
+              "offset": 0,
+              "scale": 1
+            },
+            "gap": 0.8
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "skin",
+              "use": "geometry"
+            }
+          ],
+          "frame": {
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "vent_right_0": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -49,
+              25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "shell_right",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_right_1": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -43.6,
+              25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_right_0",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_right_2": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -38.2,
+              25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_right_1",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_right_3": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -32.8,
+              25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_right_2",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_right_4": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -27.4,
+              25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_right_3",
+              "use": "geometry"
+            }
+          ]
+        },
+        "vent_right_5": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              3.2,
+              24,
+              14
+            ],
+            "center": [
+              -22,
+              25,
+              162
+            ],
+            "radius": 1.4
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_right_4",
+              "use": "geometry"
+            }
+          ]
+        },
+        "trigger_cut_right": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              24,
+              21,
+              20
+            ],
+            "center": [
+              2,
+              0,
+              124
+            ],
+            "radius": 1.5
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "vent_right_5",
+              "use": "geometry"
+            }
+          ]
+        },
+        "front_bore_right": {
+          "kind": "cut_cylinder",
+          "args": {
+            "radius": 15,
+            "axis": [
+              1,
+              0,
+              0
+            ],
+            "start": [
+              38,
+              0,
+              160
+            ],
+            "end": [
+              58,
+              0,
+              160
+            ]
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "trigger_cut_right",
+              "use": "geometry"
+            }
+          ]
+        },
+        "fastener_bore_right_0": {
+          "kind": "cut_cylinder",
+          "args": {
+            "start": [
+              24,
+              -40,
+              160
+            ],
+            "end": [
+              24,
+              40,
+              160
+            ],
+            "radius": 2
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "front_bore_right",
+              "use": "geometry"
+            }
+          ]
+        },
+        "fastener_bore_right_1": {
+          "kind": "cut_cylinder",
+          "args": {
+            "start": [
+              -50,
+              -40,
+              178
+            ],
+            "end": [
+              -50,
+              40,
+              178
+            ],
+            "radius": 2
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "fastener_bore_right_0",
+              "use": "geometry"
+            }
+          ]
+        },
+        "housing_right": {
+          "kind": "cut_cylinder",
+          "args": {
+            "start": [
+              -39,
+              -40,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "end": [
+              -39,
+              40,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "radius": 2,
+            "sharp_roles": true
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "fastener_bore_right_1",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              0,
+              0,
+              0
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "grip_right": {
+          "kind": "insert",
+          "args": {
+            "query": {
+              "box": [
+                [
+                  -55,
+                  0,
+                  {
+                    "param": "grip_length",
+                    "offset": 53,
+                    "scale": -1
+                  }
+                ],
+                [
+                  5,
+                  40,
+                  120
+                ]
+              ],
+              "normal": [
+                0,
+                1,
+                0
+              ],
+              "normal_min": 0.7,
+              "materials": [
+                0
+              ],
+              "components": 1,
+              "seed": [
+                -27,
+                16,
+                {
+                  "param": "grip_length",
+                  "offset": 87.5,
+                  "scale": -0.5
+                }
+              ],
+              "seed_distance": 5
+            },
+            "center": [
+              -27,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 87.5,
+                "scale": -0.5
+              }
+            ],
+            "radii": [
+              9.2,
+              {
+                "param": "grip_length",
+                "offset": 27.5,
+                "scale": 0.5
+              }
+            ],
+            "shear": 0.2,
+            "side": 1,
+            "rings": 12,
+            "segments": 64,
+            "offset": 0.6,
+            "thickness": 0.8
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_right",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              -30,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 90,
+                "scale": -0.5
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "texture_right": {
+          "kind": "surface_paths",
+          "args": {
+            "query": {
+              "normal": [
+                0,
+                1,
+                0
+              ],
+              "normal_min": 0.7,
+              "components": 1
+            },
+            "paths": [
+              {
+                "points": [
+                  [
+                    -18.7,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 87.5,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.381598852876653,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 89.18086042121467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.100103022586307,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 90.85452314005532,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.85671791749029,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 92.5138212758145,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.652485749973778,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 94.15164945913479,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.48828107353237,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 95.76099425829125,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.364807037799757,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 97.3349642117828,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.28259237755302,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98.86681933862833,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.24198914858916,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 100.35,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.24317122016812,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 101.77815498860377,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.286133530477922,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103.14516872552412,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.37069210831013,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 104.44518744807178,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.496484860852803,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 105.67264427649427,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.662973124227484,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 106.82228305220971,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -17.86944397013067,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 107.88918084548474,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.11501325870222,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108.86876903617541,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.398629424547984,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 109.75685287726007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.71907797970427,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 110.5496294573901,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.07498671426174,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.24370398554007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.464831572378916,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.83610432802422,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.886943178523268,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.32429373562906,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.33951398599353,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.70618170636303,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.820606017112187,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.98013293730693,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.32815916194339,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 113.1449743272321,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.86,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 113.2,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.413851107163765,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 113.1449743272321,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.987340807965044,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.98013293730693,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -23.57801333146126,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.70618170636303,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.183339327225113,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 112.32429373562906,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.8007266964114,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.83610432802422,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -25.427531691522226,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 111.24370398554007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.061070237339692,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 110.5496294573901,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.698629424547985,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 109.75685287726007,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.337479126827617,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108.86876903617541,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.974883691675437,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 107.88918084548474,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -28.60811365488863,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 106.82228305220971,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.23445742854949,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 105.67264427649427,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.851232912461157,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 104.44518744807178,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -30.455798979312426,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103.14516872552413,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.045566784390367,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 101.77815498860379,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.618010851410844,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 100.35,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.17067988699564,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98.86681933862835,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.70120727748712,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 97.3349642117828,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.207321223151126,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 95.76099425829126,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.68685446637231,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 94.15164945913479,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.13775357218391,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 92.5138212758145,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.558087721391566,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 90.85452314005533,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.94605697863747,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 89.18086042121467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.3,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 87.5,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.61840114712334,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 85.81913957878533,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.8998969774137,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 84.14547685994467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.14328208250971,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 82.4861787241855,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.34751425002622,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 80.84835054086521,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.51171892646763,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 79.23900574170875,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.63519296220024,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 77.6650357882172,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.717407622446984,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 76.13318066137167,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.758010851410845,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 74.65,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.75682877983188,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73.22184501139623,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.71386646952208,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 71.85483127447588,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.62930789168986,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 70.55481255192822,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.503515139147204,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 69.32735572350575,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.337026875772516,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68.17771694779029,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -36.13055602986933,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 67.11081915451527,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.88498674129778,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 66.13123096382459,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.60137057545202,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 65.24314712273993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -35.28092202029573,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 64.45037054260992,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.92501328573826,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.75629601445993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.53516842762109,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.16389567197579,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -34.11305682147673,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.675706264370945,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.66048601400647,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.29381829363698,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -33.17939398288782,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.01986706269307,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.67184083805661,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 61.855025672767894,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -32.14,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 61.8,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.586148892836242,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 61.85502567276789,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -31.01265919203496,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.019867062693066,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -30.42198666853874,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.293818293636974,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.816660672774894,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 62.675706264370945,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -29.1992733035886,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.16389567197578,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -28.572468308477774,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 63.75629601445993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.938929762660308,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 64.4503705426099,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -27.30137057545201,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 65.24314712273993,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.66252087317239,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 66.13123096382458,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.025116308324574,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 67.11081915451524,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -25.391886345111367,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68.17771694779029,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.76554257145051,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 69.32735572350572,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.14876708753884,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 70.55481255192824,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -23.544201020687577,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 71.85483127447587,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.954433215609637,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73.2218450113962,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.381989148589163,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 74.64999999999999,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.829320113004353,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 76.13318066137167,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -21.29879272251288,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 77.6650357882172,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.792678776848874,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 79.23900574170874,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.313145533627694,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 80.8483505408652,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.86224642781609,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 82.48617872418549,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.441912278608438,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 84.14547685994467,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.053943021362524,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 85.81913957878533,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "closed": true,
+                "width": 0.6,
+                "height": 0.18
+              },
+              {
+                "points": [
+                  [
+                    -35.10642311439953,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -26.693576885600464,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 68,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -35.552783429849725,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -24.24721657015027,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 73,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -35.412120524188275,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 78,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -22.387879475811722,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 78,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -34.87177444753971,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 83,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -20.928225552460294,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 83,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -33.99842904783751,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 88,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.801570952162486,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 88,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -32.80770523028542,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 93,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.992294769714576,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 93,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -31.275669999351578,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.52433000064842,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 98,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -29.320543797576388,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -18.47945620242361,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 103,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              },
+              {
+                "points": [
+                  [
+                    -26.705732395049953,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108,
+                      "scale": -0.5
+                    }
+                  ],
+                  [
+                    -19.094267604950044,
+                    0,
+                    {
+                      "param": "grip_length",
+                      "offset": 108,
+                      "scale": -0.5
+                    }
+                  ]
+                ],
+                "width": 0.9,
+                "height": 0.4
+              }
+            ],
+            "projection_axis": 1,
+            "side": 1,
+            "width": 0.6,
+            "height": 0.4,
+            "embed": 0.12,
+            "spacing": 0.7,
+            "cross_samples": 6
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "grip_right",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              -30,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 90,
+                "scale": -0.5
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "rear_cover": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              3,
+              44,
+              28
+            ],
+            "center": [
+              -62,
+              0,
+              162
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "master",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              -62,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "torque_ring": {
+          "kind": "profiled_ring",
+          "args": {
+            "start": [
+              45,
+              0,
+              160
+            ],
+            "profile": [
+              [
+                0,
+                22.8,
+                14.5,
+                0
+              ],
+              [
+                1.2,
+                24,
+                14,
+                0
+              ],
+              [
+                3,
+                24,
+                14,
+                1
+              ],
+              [
+                12,
+                24,
+                14,
+                1
+              ],
+              [
+                13.8,
+                24,
+                14,
+                0
+              ],
+              [
+                15,
+                22.8,
+                14.5,
+                0
+              ]
+            ],
+            "flutes": 18,
+            "depth": 0.8,
+            "segments": 216,
+            "ticks": 12,
+            "tick_depth": 0.2,
+            "tick_range": [
+              0,
+              3
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "master",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              47,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "chuck_body": {
+          "kind": "profiled_ring",
+          "args": {
+            "start": [
+              60,
+              0,
+              160
+            ],
+            "profile": [
+              [
+                0,
+                19.8,
+                12.5,
+                0
+              ],
+              [
+                1.2,
+                21,
+                12,
+                0
+              ],
+              [
+                3,
+                21,
+                12,
+                1
+              ],
+              [
+                24,
+                19,
+                12,
+                1
+              ],
+              [
+                29,
+                17,
+                12,
+                0
+              ],
+              [
+                31.8,
+                17,
+                12,
+                0
+              ],
+              [
+                33,
+                15.8,
+                12.5,
+                0
+              ]
+            ],
+            "flutes": 24,
+            "depth": 0.7,
+            "segments": 288,
+            "ticks": 0,
+            "tick_depth": 0,
+            "tick_range": null
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "torque_ring",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              62,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "jaw_cage": {
+          "kind": "cage",
+          "args": {
+            "outer_radius": 13,
+            "inner_radius": 6,
+            "start": [
+              76,
+              0,
+              160
+            ],
+            "length": 5,
+            "slot_width": 3,
+            "slot_radius": 14
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "chuck_body",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              77,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "jaw_0": {
+          "kind": "jaw",
+          "args": {
+            "origin": [
+              77,
+              0,
+              160
+            ],
+            "length": 25,
+            "rear_width": 2.4,
+            "tip_width": 1.4,
+            "rear_depth": 6,
+            "tip_depth": 4,
+            "angle": 0,
+            "diameter": 2
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "jaw_cage",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              77,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "jaw_1": {
+          "kind": "jaw",
+          "args": {
+            "origin": [
+              77,
+              0,
+              160
+            ],
+            "length": 25,
+            "rear_width": 2.4,
+            "tip_width": 1.4,
+            "rear_depth": 6,
+            "tip_depth": 4,
+            "angle": 120,
+            "diameter": 2
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "jaw_cage",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              77,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "jaw_2": {
+          "kind": "jaw",
+          "args": {
+            "origin": [
+              77,
+              0,
+              160
+            ],
+            "length": 25,
+            "rear_width": 2.4,
+            "tip_width": 1.4,
+            "rear_depth": 6,
+            "tip_depth": 4,
+            "angle": 240,
+            "diameter": 2
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "jaw_cage",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              77,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "bit": {
+          "kind": "cylinder",
+          "args": {
+            "start": [
+              83,
+              0,
+              160
+            ],
+            "end": [
+              117,
+              0,
+              160
+            ],
+            "radius": 1.0,
+            "segments": 96
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "chuck_body",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              105,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "boss_0": {
+          "kind": "annulus",
+          "args": {
+            "outer_radius": 5,
+            "inner_radius": 2,
+            "start": [
+              24,
+              {
+                "param": "grip_width",
+                "offset": -24.3,
+                "scale": 0
+              },
+              160
+            ],
+            "length": {
+              "param": "grip_width",
+              "offset": 23.6,
+              "scale": 0
+            },
+            "axis": [
+              0,
+              1,
+              0
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_left",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              24,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "receiver_0": {
+          "kind": "annulus",
+          "args": {
+            "outer_radius": 5,
+            "inner_radius": 2,
+            "start": [
+              24,
+              0.7,
+              160
+            ],
+            "length": {
+              "param": "grip_width",
+              "offset": 23.6,
+              "scale": 0
+            },
+            "axis": [
+              0,
+              1,
+              0
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_right",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              24,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "shaft_0": {
+          "kind": "cylinder",
+          "args": {
+            "start": [
+              24,
+              {
+                "param": "grip_width",
+                "offset": -26.6,
+                "scale": 0
+              },
+              160
+            ],
+            "end": [
+              24,
+              {
+                "param": "grip_width",
+                "offset": 25,
+                "scale": 0
+              },
+              160
+            ],
+            "radius": 1.7,
+            "segments": 48
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "boss_0",
+              "use": "frame"
+            }
+          ]
+        },
+        "head_0": {
+          "kind": "cylinder",
+          "args": {
+            "start": [
+              24,
+              {
+                "param": "grip_width",
+                "offset": -27.4,
+                "scale": 0
+              },
+              160
+            ],
+            "end": [
+              24,
+              {
+                "param": "grip_width",
+                "offset": -26,
+                "scale": 0
+              },
+              160
+            ],
+            "radius": 3.2,
+            "segments": 48
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "boss_0",
+              "use": "frame"
+            }
+          ]
+        },
+        "slotted_head_0": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              4,
+              0.7,
+              0.7
+            ],
+            "center": [
+              24,
+              {
+                "param": "grip_width",
+                "offset": -27.25,
+                "scale": 0
+              },
+              160
+            ],
+            "radius": 0.1
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "head_0",
+              "use": "geometry"
+            }
+          ]
+        },
+        "fastener_0": {
+          "kind": "union",
+          "args": {},
+          "visible": true,
+          "deps": [
+            {
+              "id": "slotted_head_0",
+              "use": "geometry"
+            },
+            {
+              "id": "shaft_0",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              24,
+              0,
+              160
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "boss_1": {
+          "kind": "annulus",
+          "args": {
+            "outer_radius": 5,
+            "inner_radius": 2,
+            "start": [
+              -50,
+              {
+                "param": "grip_width",
+                "offset": -24.3,
+                "scale": 0
+              },
+              178
+            ],
+            "length": {
+              "param": "grip_width",
+              "offset": 23.6,
+              "scale": 0
+            },
+            "axis": [
+              0,
+              1,
+              0
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_left",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              -50,
+              0,
+              178
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "receiver_1": {
+          "kind": "annulus",
+          "args": {
+            "outer_radius": 5,
+            "inner_radius": 2,
+            "start": [
+              -50,
+              0.7,
+              178
+            ],
+            "length": {
+              "param": "grip_width",
+              "offset": 23.6,
+              "scale": 0
+            },
+            "axis": [
+              0,
+              1,
+              0
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_right",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              -50,
+              0,
+              178
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "shaft_1": {
+          "kind": "cylinder",
+          "args": {
+            "start": [
+              -50,
+              {
+                "param": "grip_width",
+                "offset": -26.6,
+                "scale": 0
+              },
+              178
+            ],
+            "end": [
+              -50,
+              {
+                "param": "grip_width",
+                "offset": 25,
+                "scale": 0
+              },
+              178
+            ],
+            "radius": 1.7,
+            "segments": 48
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "boss_1",
+              "use": "frame"
+            }
+          ]
+        },
+        "head_1": {
+          "kind": "cylinder",
+          "args": {
+            "start": [
+              -50,
+              {
+                "param": "grip_width",
+                "offset": -27.4,
+                "scale": 0
+              },
+              178
+            ],
+            "end": [
+              -50,
+              {
+                "param": "grip_width",
+                "offset": -26,
+                "scale": 0
+              },
+              178
+            ],
+            "radius": 3.2,
+            "segments": 48
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "boss_1",
+              "use": "frame"
+            }
+          ]
+        },
+        "slotted_head_1": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              4,
+              0.7,
+              0.7
+            ],
+            "center": [
+              -50,
+              {
+                "param": "grip_width",
+                "offset": -27.25,
+                "scale": 0
+              },
+              178
+            ],
+            "radius": 0.1
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "head_1",
+              "use": "geometry"
+            }
+          ]
+        },
+        "fastener_1": {
+          "kind": "union",
+          "args": {},
+          "visible": true,
+          "deps": [
+            {
+              "id": "slotted_head_1",
+              "use": "geometry"
+            },
+            {
+              "id": "shaft_1",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -50,
+              0,
+              178
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "boss_2": {
+          "kind": "annulus",
+          "args": {
+            "outer_radius": 5,
+            "inner_radius": 2,
+            "start": [
+              -39,
+              {
+                "param": "grip_width",
+                "offset": -12.3,
+                "scale": -0.5
+              },
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "length": {
+              "param": "grip_width",
+              "offset": 11.600000000000001,
+              "scale": 0.5
+            },
+            "axis": [
+              0,
+              1,
+              0
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_left",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              -39,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "receiver_2": {
+          "kind": "annulus",
+          "args": {
+            "outer_radius": 5,
+            "inner_radius": 2,
+            "start": [
+              -39,
+              0.7,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "length": {
+              "param": "grip_width",
+              "offset": 11.600000000000001,
+              "scale": 0.5
+            },
+            "axis": [
+              0,
+              1,
+              0
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_right",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              -39,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "shaft_2": {
+          "kind": "cylinder",
+          "args": {
+            "start": [
+              -39,
+              {
+                "param": "grip_width",
+                "offset": -14.6,
+                "scale": -0.5
+              },
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "end": [
+              -39,
+              {
+                "param": "grip_width",
+                "offset": 13,
+                "scale": 0.5
+              },
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "radius": 1.7,
+            "segments": 48
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "boss_2",
+              "use": "frame"
+            }
+          ]
+        },
+        "head_2": {
+          "kind": "cylinder",
+          "args": {
+            "start": [
+              -39,
+              {
+                "param": "grip_width",
+                "offset": -15.4,
+                "scale": -0.5
+              },
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "end": [
+              -39,
+              {
+                "param": "grip_width",
+                "offset": -14,
+                "scale": -0.5
+              },
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "radius": 3.2,
+            "segments": 48
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "boss_2",
+              "use": "frame"
+            }
+          ]
+        },
+        "slotted_head_2": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              4,
+              0.7,
+              0.7
+            ],
+            "center": [
+              -39,
+              {
+                "param": "grip_width",
+                "offset": -15.25,
+                "scale": -0.5
+              },
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "radius": 0.1
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "head_2",
+              "use": "geometry"
+            }
+          ]
+        },
+        "fastener_2": {
+          "kind": "union",
+          "args": {},
+          "visible": true,
+          "deps": [
+            {
+              "id": "slotted_head_2",
+              "use": "geometry"
+            },
+            {
+              "id": "shaft_2",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -39,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 62,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "trigger_guide": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              16,
+              2,
+              14
+            ],
+            "center": [
+              -1,
+              -10.3,
+              125
+            ],
+            "radius": 0.4
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_left",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              0,
+              0,
+              125
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "trigger_guide_right": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              16,
+              2,
+              14
+            ],
+            "center": [
+              -1,
+              10.3,
+              125
+            ],
+            "radius": 0.4
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "housing_left",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -1,
+              10.3,
+              125
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "trigger_stop": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              3,
+              18,
+              10
+            ],
+            "center": [
+              -3.5,
+              0,
+              125
+            ],
+            "radius": 0.4
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "trigger_guide",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -3.5,
+              0,
+              125
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "trigger": {
+          "kind": "surface_paths",
+          "args": {
+            "query": {
+              "normal": [
+                1,
+                0,
+                0
+              ],
+              "normal_min": 0.8,
+              "components": 1
+            },
+            "paths": [
+              {
+                "points": [
+                  [
+                    0,
+                    -6,
+                    121.5
+                  ],
+                  [
+                    0,
+                    6,
+                    121.5
+                  ]
+                ]
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    -6,
+                    124.5
+                  ],
+                  [
+                    0,
+                    6,
+                    124.5
+                  ]
+                ]
+              },
+              {
+                "points": [
+                  [
+                    0,
+                    -6,
+                    127.5
+                  ],
+                  [
+                    0,
+                    6,
+                    127.5
+                  ]
+                ]
+              }
+            ],
+            "projection_axis": 0,
+            "side": 1,
+            "width": 0.8,
+            "height": 0.2,
+            "embed": 0.25,
+            "mode": "groove",
+            "spacing": 1,
+            "cross_samples": 4
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "trigger_stock",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA warm indicator",
+            "color": [
+              0.9,
+              0.055,
+              0.012
+            ],
+            "roughness": 0.35
+          },
+          "frame": {
+            "origin": [
+              6,
+              0,
+              125
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "foot_stock": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              48,
+              38,
+              6
+            ],
+            "center": [
+              -32,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 44,
+                "scale": -1
+              }
+            ],
+            "radius": 1.5
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "master",
+              "use": "frame"
+            }
+          ]
+        },
+        "foot": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              4.6,
+              6.6,
+              12
+            ],
+            "center": [
+              -46,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 40,
+                "scale": -1
+              }
+            ],
+            "radius": 0.3
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "foot_stock",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA ochre polymer",
+            "color": [
+              0.82,
+              0.37,
+              0.025
+            ],
+            "roughness": 0.32
+          },
+          "frame": {
+            "origin": [
+              -32,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 44,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "battery": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              76,
+              53,
+              29
+            ],
+            "center": [
+              -32,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 18.5,
+                "scale": -1
+              }
+            ],
+            "radius": 4
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "foot",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          },
+          "frame": {
+            "origin": [
+              -32,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 20,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "battery_latch": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              4,
+              6,
+              4
+            ],
+            "center": [
+              -46,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 40,
+                "scale": -1
+              }
+            ],
+            "radius": 0.4
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "battery",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA warm indicator",
+            "color": [
+              0.9,
+              0.055,
+              0.012
+            ],
+            "roughness": 0.35
+          },
+          "frame": {
+            "origin": [
+              -46,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 40,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "latch_guide_stock": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              6,
+              8,
+              6
+            ],
+            "center": [
+              -46,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 36,
+                "scale": -1
+              }
+            ],
+            "radius": 0.3
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "battery",
+              "use": "frame"
+            }
+          ]
+        },
+        "latch_guide": {
+          "kind": "cut_box",
+          "args": {
+            "dimensions": [
+              4.6,
+              6.6,
+              10
+            ],
+            "center": [
+              -46,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 36,
+                "scale": -1
+              }
+            ],
+            "radius": 0.15
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "latch_guide_stock",
+              "use": "geometry"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -46,
+              0,
+              {
+                "param": "grip_length",
+                "offset": 36,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "rail_left": {
+          "kind": "prism",
+          "args": {
+            "origin": [
+              -46,
+              -11,
+              {
+                "param": "grip_length",
+                "offset": 35,
+                "scale": -1
+              }
+            ],
+            "length": 28,
+            "section_yz": [
+              [
+                -3.5,
+                0
+              ],
+              [
+                3.5,
+                0
+              ],
+              [
+                3.5,
+                2
+              ],
+              [
+                1.5,
+                2
+              ],
+              [
+                1.5,
+                6
+              ],
+              [
+                -1.5,
+                6
+              ],
+              [
+                -1.5,
+                2
+              ],
+              [
+                -3.5,
+                2
+              ]
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "foot",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -32,
+              -11,
+              {
+                "param": "grip_length",
+                "offset": 38,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "rail_right": {
+          "kind": "prism",
+          "args": {
+            "origin": [
+              -46,
+              11,
+              {
+                "param": "grip_length",
+                "offset": 35,
+                "scale": -1
+              }
+            ],
+            "length": 28,
+            "section_yz": [
+              [
+                -3.5,
+                0
+              ],
+              [
+                3.5,
+                0
+              ],
+              [
+                3.5,
+                2
+              ],
+              [
+                1.5,
+                2
+              ],
+              [
+                1.5,
+                6
+              ],
+              [
+                -1.5,
+                6
+              ],
+              [
+                -1.5,
+                2
+              ],
+              [
+                -3.5,
+                2
+              ]
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "foot",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -32,
+              11,
+              {
+                "param": "grip_length",
+                "offset": 38,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "channel_left": {
+          "kind": "prism",
+          "args": {
+            "origin": [
+              -47,
+              -11,
+              {
+                "param": "grip_length",
+                "offset": 33,
+                "scale": -1
+              }
+            ],
+            "length": 30,
+            "section_yz": [
+              [
+                -5.5,
+                0
+              ],
+              [
+                5.5,
+                0
+              ],
+              [
+                5.5,
+                7
+              ],
+              [
+                1.8,
+                7
+              ],
+              [
+                1.8,
+                4.3
+              ],
+              [
+                3.8,
+                4.3
+              ],
+              [
+                3.8,
+                1.7
+              ],
+              [
+                -3.8,
+                1.7
+              ],
+              [
+                -3.8,
+                4.3
+              ],
+              [
+                -1.8,
+                4.3
+              ],
+              [
+                -1.8,
+                7
+              ],
+              [
+                -5.5,
+                7
+              ]
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "battery",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -32,
+              -11,
+              {
+                "param": "grip_length",
+                "offset": 38,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "channel_right": {
+          "kind": "prism",
+          "args": {
+            "origin": [
+              -47,
+              11,
+              {
+                "param": "grip_length",
+                "offset": 33,
+                "scale": -1
+              }
+            ],
+            "length": 30,
+            "section_yz": [
+              [
+                -5.5,
+                0
+              ],
+              [
+                5.5,
+                0
+              ],
+              [
+                5.5,
+                7
+              ],
+              [
+                1.8,
+                7
+              ],
+              [
+                1.8,
+                4.3
+              ],
+              [
+                3.8,
+                4.3
+              ],
+              [
+                3.8,
+                1.7
+              ],
+              [
+                -3.8,
+                1.7
+              ],
+              [
+                -3.8,
+                4.3
+              ],
+              [
+                -1.8,
+                4.3
+              ],
+              [
+                -1.8,
+                7
+              ],
+              [
+                -5.5,
+                7
+              ]
+            ]
+          },
+          "visible": true,
+          "deps": [
+            {
+              "id": "battery",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA machined steel",
+            "color": [
+              0.38,
+              0.43,
+              0.48
+            ],
+            "metallic": 0.85,
+            "roughness": 0.23
+          },
+          "frame": {
+            "origin": [
+              -32,
+              11,
+              {
+                "param": "grip_length",
+                "offset": 38,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "trigger_stock": {
+          "kind": "box",
+          "args": {
+            "dimensions": [
+              10,
+              18,
+              12
+            ],
+            "center": [
+              6,
+              0,
+              125
+            ],
+            "radius": 1
+          },
+          "visible": false,
+          "deps": [
+            {
+              "id": "trigger_guide",
+              "use": "frame"
+            }
+          ],
+          "material": {
+            "name": "DA warm indicator",
+            "color": [
+              0.9,
+              0.055,
+              0.012
+            ],
+            "roughness": 0.35
+          },
+          "frame": {
+            "origin": [
+              6,
+              0,
+              125
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          }
+        },
+        "battery_cover_0": {
+          "kind": "edge_box",
+          "args": {
+            "dimensions": [
+              40,
+              2.2,
+              7.6
+            ],
+            "center": [
+              -32,
+              -18.2,
+              {
+                "param": "grip_length",
+                "offset": 36.6,
+                "scale": -1
+              }
+            ],
+            "upper": 0.6,
+            "lower": 0.2,
+            "vertical": 0.4,
+            "segments": 4
+          },
+          "frame": {
+            "origin": [
+              -32,
+              -18.2,
+              {
+                "param": "grip_length",
+                "offset": 36.6,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          },
+          "deps": [
+            {
+              "id": "battery",
+              "use": "frame"
+            }
+          ],
+          "visible": true,
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          }
+        },
+        "battery_cover_1": {
+          "kind": "edge_box",
+          "args": {
+            "dimensions": [
+              40,
+              2.2,
+              7.6
+            ],
+            "center": [
+              -32,
+              18.2,
+              {
+                "param": "grip_length",
+                "offset": 36.6,
+                "scale": -1
+              }
+            ],
+            "upper": 0.6,
+            "lower": 0.2,
+            "vertical": 0.4,
+            "segments": 4
+          },
+          "frame": {
+            "origin": [
+              -32,
+              18.2,
+              {
+                "param": "grip_length",
+                "offset": 36.6,
+                "scale": -1
+              }
+            ],
+            "x": [
+              1,
+              0,
+              0
+            ],
+            "y": [
+              0,
+              1,
+              0
+            ],
+            "z": [
+              0,
+              0,
+              1
+            ]
+          },
+          "deps": [
+            {
+              "id": "battery",
+              "use": "frame"
+            }
+          ],
+          "visible": true,
+          "material": {
+            "name": "DA graphite rubber",
+            "color": [
+              0.022,
+              0.029,
+              0.034
+            ],
+            "roughness": 0.66
+          }
+        }
+      },
+      "parameters": {
+        "grip_width": 0,
+        "grip_length": 0,
+        "split_shift": 0
+      },
+      "ranges": {
+        "grip_width": [
+          -1,
+          4
+        ],
+        "grip_length": [
+          0,
+          8
+        ],
+        "split_shift": [
+          -1,
+          1
+        ]
+      },
+      "checks": [
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_left"
+          ],
+          "options": {
+            "minimum": 1.6,
+            "maximum": 2.6
+          }
+        },
+        {
+          "kind": "wall",
+          "parts": [
+            "housing_right"
+          ],
+          "options": {
+            "minimum": 1.6,
+            "maximum": 2.6
+          }
+        },
+        {
+          "kind": "gap",
+          "parts": [
+            "housing_left",
+            "housing_right"
+          ],
+          "options": {
+            "minimum": 0.5,
+            "maximum": 1.1
+          }
+        }
+      ]
+    },
+    {
+      "op": "nested_update",
+      "parameters": {
+        "grip_width": 0.25
+      }
+    },
+    {
+      "op": "nested_update",
+      "remesh_request": {
+        "part": "master",
+        "method": "rebuild",
+        "query": {
+          "box": [
+            [
+              -43,
+              -40,
+              72
+            ],
+            [
+              -12,
+              -5,
+              109
+            ]
+          ],
+          "normal": [
+            0,
+            -1,
+            0
+          ],
+          "normal_min": 0.8,
+          "components": 1
+        },
+        "options": {
+          "target_length": 2,
+          "iterations": 6,
+          "relaxation": 0.5,
+          "max_error": 0.09
+        }
+      }
+    },
+    {
+      "op": "nested_status"
+    }
+  ]
+}

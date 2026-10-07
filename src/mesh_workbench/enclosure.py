@@ -565,3 +565,30 @@ def _valid(obj):
             + ", overlap candidates="
             + str(overlaps)
         )
+
+
+def sharp_role_edges(obj):
+    """Split shading at physical outer/inner/cut role boundaries, no vertex edits."""
+    if "mw_skin_roles" not in obj:
+        raise ValueError("Explicit shell material roles required")
+    adjacent = {}
+    for face in obj.data.polygons:
+        ids = list(face.vertices)
+        for a, b in zip(ids, ids[1:] + ids[:1]):
+            adjacent.setdefault(tuple(sorted((a, b))), set()).add(face.material_index)
+    marked = 0
+    for edge in obj.data.edges:
+        if len(adjacent.get(tuple(sorted(edge.vertices)), set())) > 1:
+            edge.use_edge_sharp = True
+            marked += 1
+    if hasattr(obj.data, "use_auto_smooth"):
+        obj.data.use_auto_smooth = True
+        obj.data.auto_smooth_angle = math.pi
+    obj.data.update()
+    obj["mw_role_shading"] = json.dumps(
+        {
+            "marked_edges": marked,
+            "rule": "split normals at physical material-role junctions; retain smooth surfaces within each role",
+        }
+    )
+    return obj

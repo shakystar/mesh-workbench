@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "source": "../runs/drill-surface-cli-08/result.blend",
+  "operations": [
+    {
+      "op": "nested_update",
+      "parameters": {
+        "grip_width": 100
+      }
+    }
+  ]
+}

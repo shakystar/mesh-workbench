@@ -6,7 +6,16 @@ from . import geometry, sculpt
 
 def resolve(obj, query):
     sculpt.editable(obj)
-    allowed = {"box", "normal", "normal_min", "materials", "components", "min_faces"}
+    allowed = {
+        "box",
+        "normal",
+        "normal_min",
+        "materials",
+        "components",
+        "min_faces",
+        "seed",
+        "seed_distance",
+    }
     if set(query) - allowed:
         raise ValueError("Unknown semantic query fields")
     selection = geometry.selection(obj, "FACE", box=query.get("box"))
@@ -60,6 +69,33 @@ def resolve(obj, query):
                 remaining.remove(b)
                 stack.append(b)
         groups.append(group)
+    if "seed_distance" in query and "seed" not in query:
+        raise ValueError("Component distance requires an explicit seed")
+    if "seed" in query:
+        from mathutils.bvhtree import BVHTree
+
+        seed = geometry.vector(query["seed"])
+        limit = sculpt.number(
+            query.get("seed_distance", 1), 1e-6, 1e6, "component seed distance"
+        )
+        coords = sculpt.coordinates(obj)
+        candidates = []
+        for group in groups:
+            tree = BVHTree.FromPolygons(
+                coords.tolist(), [list(obj.data.polygons[i].vertices) for i in group]
+            )
+            hit = tree.find_nearest(seed)
+            if hit[0] is not None:
+                candidates.append((float(hit[3]), group))
+        candidates.sort(key=lambda value: value[0])
+        if not candidates or candidates[0][0] > limit:
+            raise ValueError("No semantic component near the declared seed")
+        if len(candidates) > 1 and abs(candidates[1][0] - candidates[0][0]) <= 1e-6:
+            raise ValueError("Ambiguous semantic component seed")
+        groups = [candidates[0][1]]
+        ids = groups[0]
+        if len(ids) < query.get("min_faces", 1):
+            raise ValueError("Seeded component has insufficient faces")
     expected = query.get("components", 1)
     if type(expected) != int or expected < 1 or len(groups) != expected:
         raise ValueError(

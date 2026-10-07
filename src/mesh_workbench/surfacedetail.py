@@ -40,6 +40,7 @@ def paths(
     height = sculpt.number(height, 0.001, 100, "path height")
     embed = sculpt.number(embed, 0.001, 100, "path embed")
     spacing = sculpt.number(spacing, 0.01, 100, "path spacing")
+    max_distance = sculpt.number(max_distance, 0.001, 1e6, "projection distance")
     selected = set(semantic.resolve(source, query)["indices"])
     coords = sculpt.coordinates(source)
     source.data.calc_loop_triangles()

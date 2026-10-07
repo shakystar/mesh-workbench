@@ -27,6 +27,50 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_shell_role_normals_preserve_geometry(self):
+        from mesh_workbench import enclosure
+
+        obj = m.primitive("cube", "Role shading")
+        for label in ["Outer", "Cut"]:
+            obj.data.materials.append(bpy.data.materials.new(label))
+        obj.data.polygons[0].material_index = 1
+        obj["mw_skin_roles"] = json.dumps({"outer": 0, "cut": 1})
+        before = s.coordinates(obj).copy()
+        enclosure.sharp_role_edges(obj)
+        self.assertEqual(json.loads(obj["mw_role_shading"])["marked_edges"], 4)
+        self.assertEqual(sum(e.use_edge_sharp for e in obj.data.edges), 4)
+        np.testing.assert_array_equal(s.coordinates(obj), before)
+
+    def test_semantic_seed_selects_unique_component_and_rejects_ties(self):
+        from mesh_workbench import enclosure, semantic
+
+        obj = enclosure._mesh(
+            "Two patches",
+            [
+                [-4, -1, 0],
+                [-2, -1, 0],
+                [-2, 1, 0],
+                [-4, 1, 0],
+                [2, -1, 0],
+                [4, -1, 0],
+                [4, 1, 0],
+                [2, 1, 0],
+            ],
+            [[0, 1, 2, 3], [4, 5, 6, 7]],
+        )
+        query = {"normal": [0, 0, 1], "normal_min": 0.9, "components": 1}
+        with self.assertRaises(ValueError):
+            semantic.resolve(obj, query)
+        selected = semantic.resolve(
+            obj, {**query, "seed": [-3, 0, 0], "seed_distance": 0.1}
+        )
+        self.assertEqual(selected["indices"], [0])
+        for seed, distance in [([0, 0, 0], 3), ([100, 0, 0], 0.1)]:
+            with self.assertRaises(ValueError):
+                semantic.resolve(
+                    obj, {**query, "seed": seed, "seed_distance": distance}
+                )
+
     def test_patch_preserves_unedited_polygons_and_quad_binding(self):
         from mesh_workbench import remesh, attachments
 
@@ -74,6 +118,17 @@ class Modeling(unittest.TestCase):
             [-2, 0.2, 0],
             atol=1e-5,
         )
+
+        # A fully pinned single face cannot improve; reject without leaking output.
+        plane = m.primitive("plane", "Pinned patch")
+        objects = set(bpy.data.objects)
+        meshes = set(bpy.data.meshes)
+        with self.assertRaises(ValueError):
+            remesh.rebuild_patch(
+                plane, g.selection(plane, "FACE"), "No gain", 1, iterations=1
+            )
+        self.assertEqual(objects, set(bpy.data.objects))
+        self.assertEqual(meshes, set(bpy.data.meshes))
 
     def test_patch_rebuild_quality_boundary_and_attributes(self):
         from mesh_workbench import remesh

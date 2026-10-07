@@ -177,7 +177,10 @@ def _build(node, args, deps, name):
         if len(source.data.materials) > 2:
             cutter.data.materials.append(source.data.materials[2])
         try:
-            return enclosure.boolean(source, cutter, "DIFFERENCE", name)
+            result = enclosure.boolean(source, cutter, "DIFFERENCE", name)
+            if args.get("sharp_roles", False):
+                enclosure.sharp_role_edges(result)
+            return result
         finally:
             mechanical.remove(cutter)
     if kind == "surface_paths":

@@ -24,7 +24,7 @@ from mesh_workbench import (
     enclosure,
     mechanical,
 )
-from drill_assembly_geometry import drawing, x_limits
+from drill_assembly_geometry import drawing, x_limits, mechanical_frames
 
 
 def verify(source, out):
@@ -165,9 +165,44 @@ def verify(source, out):
             }
     curvature = quality.curvature(master)
     curvature.pop("values", None)
+    frames = mechanical_frames(objects, spec, state)
+    for key, part in spec["parts"].items():
+        expected = json.loads(json.dumps(part["frame"]))
+        for parameter, scale in spec["frame_z_parameter_rules"].get(key, {}).items():
+            expected["origin"][2] += state["parameters"][parameter] * scale
+        actual = state["outputs"][key]["frame"]
+        frames.append(
+            {
+                "part": key,
+                "declared_frame_matches": actual == expected,
+                "passed": actual == expected,
+            }
+        )
+    for key in ["battery_cover_0", "battery_cover_1"]:
+        x = sculpt.coordinates(objects[key])
+        center = (x.min(axis=0) + x.max(axis=0)) / 2
+        error = float(
+            np.linalg.norm(center - np.array(state["outputs"][key]["frame"]["origin"]))
+        )
+        frames.append(
+            {
+                "part": key,
+                "actual_center_error": error,
+                "passed": error <= spec["gates"]["frame_position"],
+            }
+        )
+    units = {
+        "system": bpy.context.scene.unit_settings.system,
+        "scale_length": bpy.context.scene.unit_settings.scale_length,
+    }
+    units["passed"] = (
+        units["system"] == "METRIC" and abs(units["scale_length"] - 0.001) < 1e-9
+    )
     report = {
         "specification_revision": spec["revision"],
         "source_sha256": before,
+        "frames": frames,
+        "units": units,
         "silhouette": sil,
         "sections": rays,
         "junctions": joins,
@@ -176,7 +211,9 @@ def verify(source, out):
         "source_preserved": before == hashlib.sha256(source.read_bytes()).hexdigest(),
     }
     report["passed"] = (
-        sil["passed"]
+        units["passed"]
+        and all(f["passed"] for f in frames)
+        and sil["passed"]
         and bool(rays)
         and all(v["passed"] for v in rays + joins + list(solids.values()))
         and report["source_preserved"]

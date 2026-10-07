@@ -38,12 +38,21 @@ def surface_blueprint(spec):
                 "tick_range": design.get("tick_range"),
             }
 
+    if spec["surface_phase"].get("sharp_cut_roles", False):
+        for side in ["left", "right"]:
+            nodes["housing_" + side]["args"]["sharp_roles"] = True
     rubber = spec["surface_phase"]["detail_design"]["rubber"]
     guide = spec["construction"]["grip"]["guide"]
     from drill_assembly import parameter
 
     for side, sign in [("left", -1), ("right", 1)]:
         cx, _, cz = guide["center"]
+        nodes["grip_" + side]["args"]["query"].update(
+            {
+                "seed": [cx, sign * 16, parameter("grip_length", cz, -0.5)],
+                "seed_distance": 5,
+            }
+        )
         rx, rz = rubber["perimeter_radii"]
         border = []
         for i in range(96):
@@ -177,7 +186,7 @@ def build(out, previous=None):
         {
             "stage": "M7 candidate; visual and motion acceptance pending",
             "specification_sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
-            "section_shape": json.loads(master["mw_section_shape"]),
+            "section_shape": json.loads(master.get("mw_section_shape", "null")),
             "baseline_preserved": hashlib.sha256(source.read_bytes()).hexdigest()
             == before,
         }
