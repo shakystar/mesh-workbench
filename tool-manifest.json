@@ -1,0 +1,44 @@
+{
+  "manifest_version": 1,
+  "kind": "descriptive-local-cli",
+  "name": "mesh-workbench",
+  "license": "MIT",
+  "description": "Coordinate-driven Blender modeling tools for coding agents and people.",
+  "repository": "https://github.com/shakystar/mesh-workbench",
+  "documentation": "https://shakystar.github.io/mesh-workbench/",
+  "agent_guide": "https://shakystar.github.io/mesh-workbench/docs/AGENT_QUICKSTART.md",
+  "operations": "https://shakystar.github.io/mesh-workbench/docs/reference/OPERATIONS.md",
+  "runtime": {
+    "python": ">=3.11",
+    "blender": "separately installed; tested 4.0.2 Linux and 5.2.2 LTS Windows"
+  },
+  "install": "python -m pip install -e .",
+  "example_command": "mesh-workbench run examples/polygon-edit.json --output runs/first-model",
+  "success": {
+    "exit_code": 0,
+    "audit_status": "complete",
+    "files": [
+      "result.blend",
+      "recipe.json",
+      "audit.json"
+    ]
+  },
+  "failure": {
+    "exit_code": "nonzero",
+    "details": "Inspect audit.json when present and the adjacent run log."
+  },
+  "capabilities": [
+    "mesh-coordinate-inspection",
+    "polygon-editing",
+    "multi-model-assembly",
+    "surface-patterns",
+    "variable-bevel",
+    "local-patch-reconstruction"
+  ],
+  "limitations": [
+    "Not an MCP server or hosted API",
+    "No general quad retopology",
+    "Collision and error checks are sampled",
+    "Blender retains its own license"
+  ]
+}

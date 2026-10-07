@@ -13,6 +13,12 @@ Start with [current status](STATUS.md), then [milestone contract](ROADMAP.md). S
 | `assets/` | Native Blender previews and authored dimension sheets |
 | [archive/DEVELOPMENT_HISTORY.md](archive/DEVELOPMENT_HISTORY.md) | Preserved chronological development snapshots |
 
+## Agent use and discovery
+
+- [Agent quickstart](AGENT_QUICKSTART.md): local install, commands, outputs and limits.
+- [Search and agent discovery](DISCOVERY.md): public metadata, documentation deployment and indexing boundaries.
+- [Contributing](../CONTRIBUTING.md) and [MIT license](../LICENSE).
+
 ## Study index
 
 | Study | Evidence |

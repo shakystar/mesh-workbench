@@ -1,0 +1,16 @@
+# Mesh Workbench
+
+> MIT-licensed Blender Python and JSON CLI for coordinate-driven 3D modeling, polygon editing, procedural assemblies, surface patterns and measured local patch reconstruction.
+
+Runs locally inside separately installed Blender. This is not an MCP server or hosted inference service. Source and contributions: https://github.com/shakystar/mesh-workbench
+
+## Start here
+
+- [Agent quickstart](https://shakystar.github.io/mesh-workbench/docs/AGENT_QUICKSTART.md): prerequisites, CLI commands, outputs and failure handling.
+- [Operations](https://shakystar.github.io/mesh-workbench/docs/reference/OPERATIONS.md): Python and JSON operation definitions.
+- [Status](https://shakystar.github.io/mesh-workbench/docs/STATUS.md): tested versions and current limits.
+- [Tool manifest](https://shakystar.github.io/mesh-workbench/tool-manifest.json): descriptive CLI metadata, not an installation protocol.
+- [Examples](https://github.com/shakystar/mesh-workbench/tree/main/examples): self-contained procedural recipes.
+- [Drill study](https://shakystar.github.io/mesh-workbench/docs/studies/DRILL_SURFACE_STUDY.md): native before/after images and measured evidence.
+- [Contributing](https://shakystar.github.io/mesh-workbench/CONTRIBUTING.md): development and pull request workflow.
+- [Licensing scope](https://shakystar.github.io/mesh-workbench/THIRD_PARTY_NOTICES.md): original MIT code and separately licensed Blender dependencies.

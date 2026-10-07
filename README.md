@@ -1,10 +1,10 @@
-# Mesh Workbench
+# Mesh Workbench ? Blender modeling tools for AI agents
 
 Coordinate-driven modeling tools that operate **inside Blender**. Inspect render pixels and mesh data, edit vertices and polygons, combine models, and place patterns on surfaces through reproducible JSON recipes or a Python API. No simulated mouse input or external generation service.
 
 Early **0.1.0** implementation. Built for iterative work by people and coding agents, with explicit failure checks and source-preserving operations.
 
-[Documentation index](docs/README.md) | [Current status](docs/STATUS.md) | [Milestones](docs/ROADMAP.md)
+[Documentation website](https://shakystar.github.io/mesh-workbench/) | [Agent quickstart](docs/AGENT_QUICKSTART.md) | [Documentation index](docs/README.md) | [Current status](docs/STATUS.md) | [Milestones](docs/ROADMAP.md)
 
 ## Modeled designs
 
@@ -35,6 +35,10 @@ Previous: [folding headphones](docs/studies/HEADPHONE_STUDY.md): measured surfac
 Previous: [regenerating mouse assembly](docs/studies/ASSEMBLY_STUDY.md): persisted dependencies, selective updates, atomic rollback and sampled motion checks, demonstrated on three native variants.
 
 Previous: [asymmetric mouse and measured shell study](docs/studies/MOUSE_STUDY.md), including guide lofts, independent local edits, real wall thickness, panel gaps and deformation-following details. Earlier: [reference-driven speaker refinement](docs/studies/PRECISION_STUDY.md).
+
+## Use with a coding agent
+
+Start with the [agent quickstart](docs/AGENT_QUICKSTART.md), [llms.txt](llms.txt), and [tool manifest](tool-manifest.json). The manifest describes this local CLI; it is not an MCP server or an automatic agent installation protocol. Forks, commercial use, bug reports and pull requests are welcome under MIT. See [Contributing](CONTRIBUTING.md).
 
 ## Features
 
@@ -99,4 +103,4 @@ python -m unittest discover -s tests -p "test_*.py"
 
 ## License
 
-GPL-3.0-or-later; see [LICENSE](LICENSE). No third-party character models, contest references, textures or proprietary assets are bundled. Included examples are generated procedurally by this repository. Blender is a separate dependency; this is an independent project, not an official Blender product.
+MIT for the original project code, documentation and procedural examples; see [LICENSE](LICENSE) and [dependency licensing](THIRD_PARTY_NOTICES.md). No third-party character models, contest references, textures or proprietary assets are bundled. Included examples are generated procedurally by this repository. Blender is a separate dependency; this is an independent project, not an official Blender product.

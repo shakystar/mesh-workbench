@@ -18,3 +18,7 @@ Native candidate: `runs/drill-surface-06/drill.blend`. Follow-up: `runs/drill-su
 The authored design is not a manufacturer replica. Visible fixed-land curvature, shell-split light leaks and faceted groove highlights remain. Collision/error measurements are sampled; no continuous collision, strength or manufacturing claim is made. Patch rebuilding preserves unselected polygons but does not generate a general quad cage or cross arbitrary UV/material seams. Later parameter changes regenerate the procedural root, not arbitrary manual edits.
 
 The preceding [M0-M5 assembly study](studies/DRILL_ASSEMBLY_STUDY.md), [audit](audits/DRILL_ASSEMBLY_AUDIT.json) and original native models remain preserved. Earlier model and tool studies are indexed in [documentation](README.md); historical development records remain in [archive](archive/DEVELOPMENT_HISTORY.md).
+
+## Open-source access and discovery
+
+Original project code/documentation now use MIT. The public repository includes contribution instructions, an agent quickstart, llms.txt and a descriptive CLI manifest. A GitHub Pages workflow publishes static HTML, raw Markdown and a sitemap; see [discovery operations](DISCOVERY.md). Search indexing and external agent adoption are separate from deployment and have not been claimed.
