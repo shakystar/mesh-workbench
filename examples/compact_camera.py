@@ -39,6 +39,7 @@ def build(output):
 
     silver = material('Satin aluminium', (.46,.49,.51), .85,.3)
     black = material('Black anodised metal', (.018,.022,.026), .7,.28)
+    panel_finish = material('Satin control panel', (.022,.027,.031), .35,.48)
     rubber = material('Charcoal leather', (.025,.03,.033), 0,.7)
     brass = material('Warm index accent', (.66,.31,.08), .8,.27)
     glass = material('Coated optical glass', (.025,.105,.13), .32,.09,.35)
@@ -166,14 +167,15 @@ def build(output):
     label('FRAME',(-7,-18.6,74),4,black)
     label('35 / 2',(33,-18.7,58),2.3,white)
     # Rear display and a small control cluster.
-    box('Rear display surround',(81,3.5,52),(-10,19,38),black,2.3)
-    box('Rear display glass',(74,1,45),(-10,21,38),screen,1.5)
+    box('Rear display surround',(81,1.8,52),(-10,18.5,38),black,.65)
+    box('Rear display glass',(74,.5,45),(-10,19.5,38),screen,.2)
     for x in (-39,19):
         for z in (23,53):
-            box('Display frame horizontal %s %s'%(x,z),(5,.2,.4),(x,21.6,z),white,.08)
-            box('Display frame vertical %s %s'%(x,z),(.4,.2,4),(x+(2.4 if x<0 else -2.4),21.6,z),white,.08)
-    label('1/125   F2.8   ISO 200',(22,21.7,20),2,white,rear=True)
-    panel=box('Rear service panel',(24,1.2,49),(43,18.1,43),black,.5)
+            box('Display frame horizontal %s %s'%(x,z),(5,.2,.4),(x,19.85,z),white,.08)
+            box('Display frame vertical %s %s'%(x,z),(.4,.2,4),(x+(2.4 if x<0 else -2.4),19.85,z),white,.08)
+    label('1/125   F2.8   ISO 200',(22,19.9,20),2,white,rear=True)
+    panel=box('Rear service panel',(24,.7,49),(43,17.85,43),panel_finish,.18)
+    controls_before=set(bpy.data.objects)
     ring('Navigation seated bezel',(43,18.7,35),.45,8.8,8.35,silver,(0,1,0))
     ring('Rear navigation wheel',(43,18.8,35),1.15,8.1,3.7,black,(0,1,0))
     cylinder('Select button',(43,18.8,35),(43,20.15,35),3.35,silver)
@@ -184,18 +186,20 @@ def build(output):
         ring('Button bezel '+text,(43,18.7,z),.5,3.8,3.25,silver,(0,1,0))
         cylinder('Rear function '+text,(43,18.7,z),(43,19.8,z),3.05,black)
         label(text,(48,19, z-5),1.6,white,rear=True)
-    box('Rear viewfinder eyecup',(25,2,12),(-35,18.7,75),black,.85)
-    box('Rear viewfinder glass',(17,.4,6),(-35,19.8,75),glass,.15)
+    for obj in set(bpy.data.objects)-controls_before:
+        obj.location.y-=.5
+    box('Rear viewfinder eyecup',(25,1.2,12),(-35,18.3,75),black,.4)
+    box('Rear viewfinder glass',(17,.4,6),(-35,19.0,75),glass,.15)
 
     def screw(name, x, y, z, rear=True):
         direction=1 if rear else -1
-        stock=cylinder(name+' stock',(x,y,z),(x,y+direction*.6,z),1.1,silver)
-        result=mechanical.cut_box(stock,name,(1.55,.45,.28),(x,y+direction*.6,z),.06)
+        stock=cylinder(name+' stock',(x,y,z),(x,y+direction*.35,z),.85,silver)
+        result=mechanical.cut_box(stock,name,(1.2,.3,.22),(x,y+direction*.35,z),.06)
         stock.hide_render=True;stock.hide_set(True)
         parts.append(result)
         return result
     for x,z in ((33,21),(53,21),(33,65),(53,65),(-51,65),(-51,12)):
-        screw('Rear panel screw %s %s'%(x,z),x,18.7 if x>0 else 17.8,z)
+        screw('Rear panel screw %s %s'%(x,z),x,18.2 if x>0 else 17.8,z)
     for x in (-60,60):
         box('Strap mounting plate '+str(x),(1.5,9,12),(x,0,64),black,.5)
         sign=1 if x>0 else -1
@@ -221,8 +225,11 @@ def build(output):
         mechanical.remove(bore)
         panel.hide_render=True;panel.hide_set(True);parts.append(drilled);panel=drilled
         ring('Panel mounting boss '+str(i),(x,17.2,z),.3,1.5,.65,black,(0,1,0))
-        cylinder('Panel screw shaft '+str(i),(x,17.2,z),(x,18.75,z),.5,silver)
-    bottom=mechanical.cut_box(lower,'Lower cover hatch opening',(32,22,8),(-33,0,4),1.2)
+        cylinder('Panel screw shaft '+str(i),(x,17.2,z),(x,18.25,z),.5,silver)
+    # Flat faces keep planar highlights after drilling; bevels remain smooth.
+    for face in panel.data.polygons:
+        if abs(face.normal.y)>.999:face.use_smooth=False
+    bottom=mechanical.cut_box(lower,'Lower cover hatch opening',(32,22,8),(-33,0,4),.35)
     lower.hide_render=True;lower.hide_set(True);parts.append(bottom)
     old_gasket=bpy.data.objects['Lower recessed gasket']
     gasket=mechanical.cut_box(old_gasket,'Lower gasket hatch opening',(32,22,3),(-33,0,7),1.2)
@@ -231,6 +238,8 @@ def build(output):
     socket_cover=enclosure.boolean(bottom,cutter,'DIFFERENCE','Lower cover with tripod bore')
     mechanical.remove(cutter)
     bottom.hide_render=True;bottom.hide_set(True);parts.append(socket_cover)
+    for face in socket_cover.data.polygons:
+        if abs(face.normal.z)>.999:face.use_smooth=False
     # Fixed rebate and pocket liner; the door gasket lands on this frame.
     rim_stock=box('Hatch seat stock',(33.2,23.2,.55),(-33,0,4.525),black,.2)
     hatch_seat=mechanical.cut_box(rim_stock,'Hatch seat rebate',(29.8,19.8,2),(-33,0,4.525),.7)
@@ -238,21 +247,23 @@ def build(output):
     liner_stock=box('Pocket liner stock',(31.8,21.8,17),(-33,0,15),black,1)
     liner=mechanical.cut_box(liner_stock,'Pocket liner',(30.8,20.8,17),(-33,0,14.5),.8)
     liner_stock.hide_render=True;liner_stock.hide_set(True);parts.append(liner)
-    battery=box('Removable battery',(18,16,17),(-38,0,14),black,1)
+    battery=box('Removable battery',(17,15,15),(-38,0,15.5),black,1)
     box('Battery release catch',(2.5,5,2),(-26.7,0,6),red,.5)
+    box('Battery card divider',(.65,19,14),(-26.8,0,15),panel_finish,.2)
     box('Card socket',(2.8,16,15),(-21.5,0,14.5),black,.4)
     box('Memory card edge',(1.2,13,1.2),(-21.5,0,6.5),brass,.2)
     for y in (-5,0,5):box('Battery contact '+str(y),(1.5,2,.3),(-38,y,22.6),brass,.1)
     door_root=bpy.data.objects.new('Battery hatch hinge',None)
     scene.collection.objects.link(door_root);door_root.location=(-49,0,3.25)
     hatch_parts=[]
-    hatch_parts.append(box('Battery and card hatch',(31.4,21.4,1.4),(-33,0,3.25),silver,.5))
+    hatch_parts.append(box('Battery and card hatch',(31.4,21.4,1.4),(-33,0,3.25),silver,.18))
     door_seal_stock=box('Door seal stock',(31,21,.3),(-33,0,4.1),rubber,.1)
     door_seal=mechanical.cut_box(door_seal_stock,'Door perimeter seal',(28.8,18.8,1),(-33,0,4.1),.4)
     door_seal_stock.hide_render=True;door_seal_stock.hide_set(True);parts.append(door_seal)
     hatch_parts.append(door_seal)
     hatch_parts.append(box('Hatch latch recess',(5,8,.4),(-21,0,2.45),black,.15))
     hatch_parts.append(box('Hatch lock slider',(3.5,4,.55),(-21,-1.5,2.25),black,.2))
+    hatch_parts.append(box('Hatch inner face',(27,17,.35),(-33,0,4.12),panel_finish,.12))
     for y in (-6,6):hatch_parts.append(box('Hatch inner rib '+str(y),(24,1,.7),(-33,y,4.55),black,.2))
     # Alternating fixed and moving knuckles share the parent's true pivot axis.
     cylinder('Hatch hinge pin',(-49,-9.3,3.25),(-49,9.3,3.25),.45,silver)
@@ -345,11 +356,13 @@ def build(output):
     scene.view_settings.view_transform='AgX'
     bpy.ops.wm.save_as_mainfile(filepath=str((output/'camera.blend').resolve()))
     for view,pos,target,scale in [('rear-controls',(-125,240,155),(0,4,48),160),
-                                ('hatch-open',(-155,-210,-150),(-24,0,12),125)]:
+                                ('hatch-open',(70,-170,-240),(-33,0,-1),82)]:
         if view=='hatch-open':
             floor.hide_render=True
             latch_root.location.x-=2
             door_root.rotation_euler[1]=math.radians(105)
+            fill=bpy.data.objects['Fill'];fill.location=(-110,70,-100)
+            fill.rotation_euler=(Vector((-35,0,0))-fill.location).to_track_quat('-Z','Y').to_euler()
             light=bpy.data.objects['Key'];light.location=(-60,-100,-130)
             light.rotation_euler=(Vector((-25,0,10))-light.location).to_track_quat('-Z','Y').to_euler()
             bpy.context.view_layer.update()

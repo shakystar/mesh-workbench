@@ -2,6 +2,26 @@
 
 ## Compact camera exterior — 2026-10-23
 
+Visual finishing revision: the service panel is reduced from 1.2 to 0.7 mm,
+with a satin finish and flat shading on its planar drilled faces. Buttons move
+with the lowered panel; screw heads, display surround and eyecup protrude less.
+The hatch opening has a tighter corner radius and flat underside shading.
+A recessed, smaller battery exposes more of the pocket wall; a divider separates
+the card area. The door has an inner face insert and a smaller edge bevel.
+The underside view now looks toward the inner door and hinge connection.
+
+Native result: `runs/compact-camera-finish-final/camera.blend`. Focused checks
+cover the existing panel bores, gasket contacts, latch release and two hatch
+poses; they do not establish continuous collision-free travel. Blender 5.2.2 LTS
+produced both images and the completion report; both images were inspected and
+Blender exited. The hatch view shows the inner ribs, seal, hinge and pocket
+divider. The rear panel's strong reflection is reduced, but faint edge shading
+variation remains. One process and two CPU threads were used; an initial render
+was stopped to correct button seating and the underside viewing angle. The shell
+reported a nonzero status with redirected Blender warnings; the log contains
+both saved images and CAMERA_COMPLETE, with no Python traceback. Previous
+revisions follow.
+
 Assembly revision: the rear service panel now seats in a supported body recess
 with a perimeter gasket, four screw bores, mounting bosses and separate shafts.
 The battery/card pocket has a liner and a rebate contacting the door's perimeter
