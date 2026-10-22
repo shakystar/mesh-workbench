@@ -2,6 +2,24 @@
 
 ## Compact camera exterior — 2026-10-23
 
+Assembly revision: the rear service panel now seats in a supported body recess
+with a perimeter gasket, four screw bores, mounting bosses and separate shafts.
+The battery/card pocket has a liner and a rebate contacting the door's perimeter
+seal. Alternating fixed/moving hinge knuckles share the door pivot and pin axis.
+A separate latch tongue fits a receiver slot and retracts 2 mm before opening.
+The native model remains closed with the latch engaged; the hatch, slider and
+individual components remain separately editable.
+
+Focused Blender 5.2.2 LTS checks pass panel bore rays, gasket/panel and seal/seat
+contact bounds, latch surface non-overlap and release clearance, battery access,
+and closed/open hatch coverage. These are static geometry checks, not a continuous
+motion or manufacturing validation. Native result:
+`runs/compact-camera-assembly/camera.blend`. Only rear-controls and open-hatch
+views are rendered with one Blender process and two CPU threads. Earlier native
+models are preserved. Both renders were visually inspected and Blender exited.
+Updated previews: [rear panel](assets/compact-camera-controls.png) and
+[open hatch](assets/compact-camera-hatch.png). Previous revisions follow.
+
 Controls and access revision: seated button bezels and separate caps, menu/play/OK
 labels, dial mode markings, a rear service panel with slotted screws, lower-profile
 viewfinder windows and strap mounting feet/studs replace the first-pass controls.

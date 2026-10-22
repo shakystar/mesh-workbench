@@ -14,7 +14,9 @@ Latest: an original fixed-lens compact camera with a satin metal top, textured
 grip, concentric lens barrel, clear front element, nine-leaf aperture, top dials
 and rear controls. Matching cover outlines replace the earlier protruding seams.
 Seated buttons, marked dials and panel screws define the controls. The bottom
-battery/card hatch has an actual opening, hinge and lock-slider geometry.
+battery/card hatch has an actual opening, liner, gasket seat and retracting latch.
+The rear panel seats in a body recess with a perimeter gasket and through-holes
+for separate screws. Fixed and moving hinge knuckles share one pin axis.
 [Generator](examples/compact_camera.py) · [Scope and checks](docs/STATUS.md)
 
 | Refined front | Lens and aperture |

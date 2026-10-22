@@ -173,7 +173,7 @@ def build(output):
             box('Display frame horizontal %s %s'%(x,z),(5,.2,.4),(x,21.6,z),white,.08)
             box('Display frame vertical %s %s'%(x,z),(.4,.2,4),(x+(2.4 if x<0 else -2.4),21.6,z),white,.08)
     label('1/125   F2.8   ISO 200',(22,21.7,20),2,white,rear=True)
-    box('Rear service panel',(24,1.2,49),(43,18.25,43),black,.5)
+    panel=box('Rear service panel',(24,1.2,49),(43,18.1,43),black,.5)
     ring('Navigation seated bezel',(43,18.7,35),.45,8.8,8.35,silver,(0,1,0))
     ring('Rear navigation wheel',(43,18.8,35),1.15,8.1,3.7,black,(0,1,0))
     cylinder('Select button',(43,18.8,35),(43,20.15,35),3.35,silver)
@@ -206,6 +206,22 @@ def build(output):
     # uncut construction objects hidden; the first native model stays untouched.
     pocket=mechanical.cut_box(body,'Body battery pocket',(32,22,18),(-33,0,15),1.2)
     body.hide_render=True;body.hide_set(True);parts.append(pocket)
+    flange=box('Panel seat flange',(24.9,2,49.9),(43,16.6,43),black,.8)
+    supported_body=enclosure.boolean(pocket,flange,'UNION','Body panel support')
+    pocket.hide_render=True;pocket.hide_set(True)
+    flange.hide_render=True;flange.hide_set(True);parts.append(supported_body)
+    seated_body=mechanical.cut_box(supported_body,'Body with panel seat',(24.5,2,49.5),(43,18.2,43),.55)
+    supported_body.hide_render=True;supported_body.hide_set(True);parts.append(seated_body)
+    panel_gasket_stock=box('Panel gasket stock',(24,.3,49),(43,17.35,43),rubber,.1)
+    panel_gasket=mechanical.cut_box(panel_gasket_stock,'Panel perimeter gasket',(21.6,1,46.6),(43,17.35,43),.4)
+    panel_gasket_stock.hide_render=True;panel_gasket_stock.hide_set(True);parts.append(panel_gasket)
+    for i,(x,z) in enumerate(((33,21),(53,21),(33,65),(53,65))):
+        bore=construction.strut('Panel fastener cutter',(x,16.8,z),(x,20,z),.65,48)
+        drilled=enclosure.boolean(panel,bore,'DIFFERENCE','Drilled service panel '+str(i))
+        mechanical.remove(bore)
+        panel.hide_render=True;panel.hide_set(True);parts.append(drilled);panel=drilled
+        ring('Panel mounting boss '+str(i),(x,17.2,z),.3,1.5,.65,black,(0,1,0))
+        cylinder('Panel screw shaft '+str(i),(x,17.2,z),(x,18.75,z),.5,silver)
     bottom=mechanical.cut_box(lower,'Lower cover hatch opening',(32,22,8),(-33,0,4),1.2)
     lower.hide_render=True;lower.hide_set(True);parts.append(bottom)
     old_gasket=bpy.data.objects['Lower recessed gasket']
@@ -215,6 +231,13 @@ def build(output):
     socket_cover=enclosure.boolean(bottom,cutter,'DIFFERENCE','Lower cover with tripod bore')
     mechanical.remove(cutter)
     bottom.hide_render=True;bottom.hide_set(True);parts.append(socket_cover)
+    # Fixed rebate and pocket liner; the door gasket lands on this frame.
+    rim_stock=box('Hatch seat stock',(33.2,23.2,.55),(-33,0,4.525),black,.2)
+    hatch_seat=mechanical.cut_box(rim_stock,'Hatch seat rebate',(29.8,19.8,2),(-33,0,4.525),.7)
+    rim_stock.hide_render=True;rim_stock.hide_set(True);parts.append(hatch_seat)
+    liner_stock=box('Pocket liner stock',(31.8,21.8,17),(-33,0,15),black,1)
+    liner=mechanical.cut_box(liner_stock,'Pocket liner',(30.8,20.8,17),(-33,0,14.5),.8)
+    liner_stock.hide_render=True;liner_stock.hide_set(True);parts.append(liner)
     battery=box('Removable battery',(18,16,17),(-38,0,14),black,1)
     box('Battery release catch',(2.5,5,2),(-26.7,0,6),red,.5)
     box('Card socket',(2.8,16,15),(-21.5,0,14.5),black,.4)
@@ -224,15 +247,35 @@ def build(output):
     scene.collection.objects.link(door_root);door_root.location=(-49,0,3.25)
     hatch_parts=[]
     hatch_parts.append(box('Battery and card hatch',(31.4,21.4,1.4),(-33,0,3.25),silver,.5))
-    hatch_parts.append(box('Hatch inner gasket',(29.8,19.8,.3),(-33,0,4.1),black,.1))
+    door_seal_stock=box('Door seal stock',(31,21,.3),(-33,0,4.1),rubber,.1)
+    door_seal=mechanical.cut_box(door_seal_stock,'Door perimeter seal',(28.8,18.8,1),(-33,0,4.1),.4)
+    door_seal_stock.hide_render=True;door_seal_stock.hide_set(True);parts.append(door_seal)
+    hatch_parts.append(door_seal)
     hatch_parts.append(box('Hatch latch recess',(5,8,.4),(-21,0,2.45),black,.15))
     hatch_parts.append(box('Hatch lock slider',(3.5,4,.55),(-21,-1.5,2.25),black,.2))
     for y in (-6,6):hatch_parts.append(box('Hatch inner rib '+str(y),(24,1,.7),(-33,y,4.55),black,.2))
+    # Alternating fixed and moving knuckles share the parent's true pivot axis.
+    cylinder('Hatch hinge pin',(-49,-9.3,3.25),(-49,9.3,3.25),.45,silver)
+    for i in range(5):
+        knuckle=ring('Hatch hinge knuckle '+str(i),(-49,-9+i*3.6,3.25),3.2,.95,.5,silver,(0,1,0))
+        if i%2:
+            hatch_parts.append(knuckle)
+            hatch_parts.append(box('Hatch hinge leaf '+str(i),(2.2,2.8,.6),(-48.2,-7.4+i*3.6,3.55),silver,.2))
+        else:
+            box('Fixed hinge leaf '+str(i),(2.2,2.8,.6),(-49.8,-7.4+i*3.6,3.55),silver,.2)
+    latch_root=bpy.data.objects.new('Hatch latch slider',None)
+    scene.collection.objects.link(latch_root);latch_root.location=(-21,-1.5,2.25)
+    latch_tongue=box('Latch tongue',(2.6,3,1),(-18.1,0,4.85),silver,.2)
+    receiver_stock=box('Latch receiver stock',(2.3,5,2.2),(-16.7,0,5),black,.3)
+    receiver=mechanical.cut_box(receiver_stock,'Latch receiver slot',(3.5,3.4,1.3),(-17.5,0,4.85),.2)
+    receiver_stock.hide_render=True;receiver_stock.hide_set(True);parts.append(receiver)
     bpy.context.view_layer.update()
+    for obj in (bpy.data.objects['Hatch lock slider'],latch_tongue):
+        world=obj.matrix_world.copy();obj.parent=latch_root;obj.matrix_world=world
+        if obj in hatch_parts:hatch_parts.remove(obj)
+    world=latch_root.matrix_world.copy();latch_root.parent=door_root;latch_root.matrix_world=world
     for obj in hatch_parts:
         world=obj.matrix_world.copy();obj.parent=door_root;obj.matrix_world=world
-    for i in range(5):
-        cylinder('Hatch hinge knuckle '+str(i),(-49,-9+i*3.6,3.7),(-49,-5.8+i*3.6,3.7),1.1,silver)
     # Bottom tripod socket is separate from the hatch.
     ring('Tripod socket',(4,0,2.45),1.3,4,2.5,silver,(0,0,1))
     # Focused static geometry check only, before adding the presentation floor.
@@ -250,23 +293,41 @@ def build(output):
         return BVHTree.FromPolygons([ob.matrix_world@v.co for v in ob.data.vertices],
                                    [list(f.vertices) for f in ob.data.polygons])
     opening_clear=all(tree(ob).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is None
-                      for ob in (pocket,socket_cover,gasket))
+                      for ob in (seated_body,socket_cover,gasket,hatch_seat,liner))
     battery_access=tree(battery).ray_cast(Vector((-38,0,0)),Vector((0,0,1)),10)[0] is not None
     hatch_closed=tree(hatch_parts[0]).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is not None
+    panel_bores=all(tree(panel).ray_cast(Vector((x,16,z)),Vector((0,1,0)),5)[0] is None
+                    for x,z in ((33,21),(53,21),(33,65),(53,65)))
+    latch_fits=not tree(latch_tongue).overlap(tree(receiver))
+    def bounds(ob,axis):
+        values=[(ob.matrix_world@v.co)[axis] for v in ob.data.vertices]
+        return min(values),max(values)
+    seal_contact=abs(bounds(door_seal,2)[1]-bounds(hatch_seat,2)[0])<1e-4
+    panel_contact=abs(bounds(panel_gasket,1)[1]-bounds(panel,1)[0])<1e-4
+    latch_root.location.x-=2
+    bpy.context.view_layer.update()
+    latch_released=bounds(latch_tongue,0)[1]<bounds(receiver,0)[0]
     door_root.rotation_euler[1]=math.radians(105)
     bpy.context.view_layer.update()
     hatch_open=tree(hatch_parts[0]).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is None
     door_root.rotation_euler[1]=0
+    latch_root.location.x+=2
     bpy.context.view_layer.update()
-    if not all((opening_clear,battery_access,hatch_closed,hatch_open)):
-        raise ValueError('Hatch opening or battery access failed')
+    if not all((opening_clear,battery_access,hatch_closed,hatch_open,panel_bores,
+                latch_fits,latch_released,seal_contact,panel_contact)):
+        raise ValueError('Panel seat, latch fit, seal contact or hatch opening failed: '+
+                         str((opening_clear,battery_access,hatch_closed,hatch_open,panel_bores,
+                              latch_fits,latch_released,seal_contact,panel_contact)))
     output.mkdir(parents=True)
     report={'blender':bpy.app.version_string,'mesh_parts':len(parts),'finite_geometry':not errors,
             'scope':'Camera exterior, controls and battery/card hatch; two static hatch poses, not a motion sweep.',
-            'threads':2,'renders':['front','rear-controls','hatch-open'],
+            'threads':2,'renders':['rear-controls','hatch-open'],
             'opening_clear':opening_clear,'battery_access':battery_access,
             'closed_hatch_covers_opening':hatch_closed,'open_hatch_clears_opening':hatch_open,
-            'hatch_angle_degrees':105,'button_radial_clearance_mm':.2}
+            'hatch_angle_degrees':105,'button_radial_clearance_mm':.2,
+            'panel_bores_open':panel_bores,'panel_gasket_contact':panel_contact,
+            'door_seal_seat_contact':seal_contact,'latch_fits_receiver':latch_fits,
+            'latch_releases_before_opening':latch_released}
     (output/'verification.json').write_text(json.dumps(report,indent=2))
     floor=box('Presentation floor',(1000,1000,2),(0,0,.5),material('Backdrop',(.055,.065,.07),0,.75),.5)
     scene.world=bpy.data.worlds.new('Camera studio')
@@ -283,11 +344,11 @@ def build(output):
     scene.render.threads_mode='FIXED';scene.render.threads=2
     scene.view_settings.view_transform='AgX'
     bpy.ops.wm.save_as_mainfile(filepath=str((output/'camera.blend').resolve()))
-    for view,pos,target,scale in [('front',(175,-260,155),(0,-8,42),185),
-                                ('rear-controls',(-125,240,155),(0,4,48),160),
+    for view,pos,target,scale in [('rear-controls',(-125,240,155),(0,4,48),160),
                                 ('hatch-open',(-155,-210,-150),(-24,0,12),125)]:
         if view=='hatch-open':
             floor.hide_render=True
+            latch_root.location.x-=2
             door_root.rotation_euler[1]=math.radians(105)
             light=bpy.data.objects['Key'];light.location=(-60,-100,-130)
             light.rotation_euler=(Vector((-25,0,10))-light.location).to_track_quat('-Z','Y').to_euler()
@@ -297,6 +358,7 @@ def build(output):
         scene.render.filepath=str((output/(view+'.png')).resolve())
         bpy.ops.render.render(write_still=True)
     door_root.rotation_euler[1]=0
+    latch_root.location.x+=2
     print('CAMERA_COMPLETE',json.dumps(report),flush=True)
 
 
