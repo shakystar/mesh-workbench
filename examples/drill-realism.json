@@ -3827,7 +3827,7 @@
             "rear_depth": 6,
             "tip_depth": 4,
             "angle": 0,
-            "diameter": 2
+            "diameter": 6
           },
           "visible": true,
           "deps": [
@@ -3890,7 +3890,7 @@
             "rear_depth": 6,
             "tip_depth": 4,
             "angle": 120,
-            "diameter": 2
+            "diameter": 6
           },
           "visible": true,
           "deps": [
@@ -3953,7 +3953,7 @@
             "rear_depth": 6,
             "tip_depth": 4,
             "angle": 240,
-            "diameter": 2
+            "diameter": 6
           },
           "visible": true,
           "deps": [
@@ -4003,43 +4003,26 @@
           }
         },
         "bit": {
-          "kind": "cut_box",
+          "kind": "twist_bit",
           "visible": true,
           "deps": [
             {
-              "id": "bit_top_flat",
-              "use": "geometry"
+              "id": "chuck_body",
+              "use": "frame"
             }
           ],
           "args": {
-            "dimensions": [
-              5,
-              4,
-              2
-            ],
-            "center": [
-              116,
+            "start": [
+              83,
               0,
-              158.7
+              160
             ],
-            "radius": 0.1
-          },
-          "material": {
-            "name": "Original machined metal",
-            "color": [
-              0.38,
-              0.43,
-              0.48
-            ],
-            "metallic": 0.85,
-            "roughness": 0.26,
-            "finish": {
-              "role": "metal",
-              "grain_mm": 0.06,
-              "bump_mm": 0.002,
-              "variation": 0.035,
-              "seed": 29
-            }
+            "radius": 3,
+            "shank": 22,
+            "cutting": 38,
+            "pitch": 32,
+            "segments": 96,
+            "steps": 160
           },
           "frame": {
             "origin": [
@@ -16068,131 +16051,6 @@
           "frame": {
             "origin": [
               96,
-              0,
-              160
-            ],
-            "x": [
-              1,
-              0,
-              0
-            ],
-            "y": [
-              0,
-              1,
-              0
-            ],
-            "z": [
-              0,
-              0,
-              1
-            ]
-          }
-        },
-        "bit_stock": {
-          "kind": "cylinder",
-          "args": {
-            "start": [
-              83,
-              0,
-              160
-            ],
-            "end": [
-              117,
-              0,
-              160
-            ],
-            "radius": 1.0,
-            "segments": 96
-          },
-          "visible": false,
-          "deps": [
-            {
-              "id": "chuck_body",
-              "use": "frame"
-            }
-          ],
-          "material": {
-            "name": "Original machined metal",
-            "color": [
-              0.38,
-              0.43,
-              0.48
-            ],
-            "metallic": 0.85,
-            "roughness": 0.26,
-            "finish": {
-              "role": "metal",
-              "grain_mm": 0.06,
-              "bump_mm": 0.002,
-              "variation": 0.035,
-              "seed": 29
-            }
-          },
-          "frame": {
-            "origin": [
-              105,
-              0,
-              160
-            ],
-            "x": [
-              1,
-              0,
-              0
-            ],
-            "y": [
-              0,
-              1,
-              0
-            ],
-            "z": [
-              0,
-              0,
-              1
-            ]
-          }
-        },
-        "bit_top_flat": {
-          "kind": "cut_box",
-          "visible": false,
-          "deps": [
-            {
-              "id": "bit_stock",
-              "use": "geometry"
-            }
-          ],
-          "args": {
-            "dimensions": [
-              5,
-              4,
-              2
-            ],
-            "center": [
-              116,
-              0,
-              161.3
-            ],
-            "radius": 0.1
-          },
-          "material": {
-            "name": "Original machined metal",
-            "color": [
-              0.38,
-              0.43,
-              0.48
-            ],
-            "metallic": 0.85,
-            "roughness": 0.26,
-            "finish": {
-              "role": "metal",
-              "grain_mm": 0.06,
-              "bump_mm": 0.002,
-              "variation": 0.035,
-              "seed": 29
-            }
-          },
-          "frame": {
-            "origin": [
-              105,
               0,
               160
             ],

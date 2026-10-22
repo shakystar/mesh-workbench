@@ -140,6 +140,9 @@ def _checkpoint(phase):
 def _build(node, args, deps, name):
     kind = node["kind"]
     source = deps[0] if deps else None
+    if kind == "twist_bit":
+        from . import drillbit
+        return drillbit.create(name, **args)
     if kind in ("seam_lip", "recess_seat"):
         from . import seams
 

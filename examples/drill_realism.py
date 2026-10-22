@@ -15,7 +15,7 @@ from mesh_workbench import nested
 from drill_surface import surface_blueprint
 from drill_realism_seams import definitions as seam_definitions
 from drill_realism_controls import add_direction_switch
-from drill_realism_chuck import add_nose_support, add_driver_tip
+from drill_realism_chuck import add_nose_support, add_drill_bit
 from drill_realism_finishes import apply_finishes
 from drill_realism_markings import add_torque_markings, add_control_markings, add_torque_pointer
 from drill_realism_vents import add_vent_baffles
@@ -137,7 +137,7 @@ def build(output, frozen):
     add_front_seat(nodes)
     add_supported_seats(nodes)
     add_nose_support(nodes)
-    add_driver_tip(nodes)
+    add_drill_bit(nodes)
     add_grip_wrap(nodes)
     add_trigger_grooves(nodes)
     apply_finishes(nodes)

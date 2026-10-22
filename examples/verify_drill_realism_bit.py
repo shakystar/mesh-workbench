@@ -15,6 +15,9 @@ def verify(source,output):
     bpy.ops.wm.open_mainfile(filepath=str(source.resolve()),load_ui=False,use_scripts=False)
     state=nested.load()
     obj=bpy.data.objects[state['outputs']['bit']['object']]
+    if obj.get('mw_twist_bit'):
+        from verify_drill_twist_bit import verify as verify_twist
+        return verify_twist(source,output)
     points=[obj.matrix_world @ v.co for v in obj.data.vertices]
     tips=[p for p in points if abs(p.x-117)<1e-4]
     shank=[p for p in points if p.x<110]

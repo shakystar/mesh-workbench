@@ -1,4 +1,4 @@
-"""Procedural chuck nose support and original 2 mm slotted-driver bit."""
+"""Procedural chuck support and six-millimetre two-flute drill bit."""
 import copy
 
 
@@ -11,21 +11,15 @@ def add_nose_support(nodes):
     nodes['chuck_nose_support'] = nose
 
 
-def add_driver_tip(nodes):
-    # Preserve the round 2 mm shank and jaw contact zone X83..102.
-    # Two opposed flats create a 0.6 mm blade beyond X113.5; rounded cutter
-    # edges transition into the shaft. The existing bit frame stays fixed.
-    stock = copy.deepcopy(nodes['bit'])
-    stock['visible'] = False
-    nodes['bit_stock'] = stock
-    for name, dependency, z, visible in (
-        ('bit_top_flat', 'bit_stock', 161.3, False),
-        ('bit', 'bit_top_flat', 158.7, True),
-    ):
-        nodes[name] = {
-            'kind':'cut_box', 'visible':visible,
-            'deps':[{'id':dependency,'use':'geometry'}],
-            'args':{'dimensions':[5,4,2], 'center':[116,0,z], 'radius':.1},
-            'material':copy.deepcopy(stock['material']),
-            'frame':copy.deepcopy(stock['frame']),
-        }
+def add_drill_bit(nodes):
+    frame = copy.deepcopy(nodes['bit']['frame'])
+    nodes.pop('bit_stock', None)
+    nodes.pop('bit_top_flat', None)
+    nodes['bit'] = {
+        'kind':'twist_bit', 'visible':True,
+        'deps':[{'id':'chuck_body','use':'frame'}],
+        'args':{'start':[83,0,160], 'radius':3, 'shank':22,
+                'cutting':38, 'pitch':32, 'segments':96, 'steps':160},
+        'frame':frame}
+    for index in range(3):
+        nodes['jaw_'+str(index)]['args']['diameter'] = 6

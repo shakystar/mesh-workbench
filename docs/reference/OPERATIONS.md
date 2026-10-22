@@ -277,6 +277,15 @@ JSON operations: `actuators_register`, `actuators_sweep`. A failed sweep raises 
 
 ## Surface refinement
 
+`drillbit.create(name, start, radius=3, shank=22, cutting=38, pitch=32,
+segments=96, steps=160)` creates a closed, two-flute visual bit along +X.
+The straight shank transitions into two helical recesses, solid lands and a
+faceted tapered point. Lands and flute interiors have separate metal roughness.
+Nested recipes use `kind: "twist_bit"` with the same arguments; omit a node-level
+material override to retain the two finishes. Invalid dimensions and sampling
+reject before mesh creation. This is visual geometry, not a manufacturing cutter
+definition or a strength/continuous-interference guarantee.
+
 `enclosure.create(..., section_controls={rows, pins, maximum_displacement})` accepts `[z,rear,front,crown]` rows and `[x,z,fixed_radius,release_radius]` pins. Width fields preserve XZ coordinates, fade toward the split plane and reject folds/excess displacement. Nested `enclosure` nodes accept these arguments.
 
 Enclosure cap faces are filtered against their authored boundary after constrained triangulation. Every boundary edge must belong to exactly one cap face and every interior edge to two; missing or ambiguous boundary vertices and incomplete caps reject before creating an object. This also handles Blender 4.0 CDT results containing faces outside concave constraints. `mw_enclosure.cap_exterior_triangles_removed` records the excluded face count; geometric/manifold and overlap validation remains required.

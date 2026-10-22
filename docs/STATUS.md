@@ -1,5 +1,29 @@
 # Current development status
 
+## Two-flute drill bit — 2026-10-23
+
+The current example replaces the 2 mm slotted driver with a 6 mm two-flute drill
+bit: 22 mm straight shank, 38 mm fluted portion, 32 mm helix pitch and a 1.8 mm
+tapered point. Flutes start beyond the jaw tips. All three jaw openings now match
+the 6 mm shank. Metal roughness is 0.22 on the lands and 0.38 inside the flutes.
+The body remains unchanged from the previous scoped result below.
+
+Blender 5.2.2 LTS: closed finite mesh, two recessed channels per inspected section,
+shank radius error below 0.00001 mm, all three jaw contact radii 3 mm, and no
+triangle overlaps with the chuck body, cage or nose support. Three invalid-input
+cases reject while preserving the scene. An initial channel counter included
+float32 jitter on circular lands; its 0.0001 mm prominence threshold fixes that
+measurement issue without rebuilding or altering the mesh.
+
+Native result: `runs/drill-twist-bit/drill.blend`. The public JSON recipe is the
+recipe used for this build. Verification is limited to the bit and stationary
+chuck interface; no OS matrix, full regression or motion sweep was run. The
+faceted point is a visual approximation, not a manufacturing cutter definition.
+The single 1000px/32-sample [detail image](assets/drill-twist-bit-detail.png) was
+inspected. Both helical channels and the pointed end are visible. Blender exited;
+the run used at most one process, two threads and two logical CPUs. The old
+overall preview below depicts the earlier slotted bit; the detail image is current.
+
 ## Scoped resumption — 2026-10-23
 
 The active goal is limited to remaining visible drill defects and integration into

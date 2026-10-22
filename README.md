@@ -10,7 +10,13 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-Latest drill refinement: connected rubber grip with tapered edges, rounded trigger
+Latest: a 6 mm two-flute drill bit with a round shank, helical chip channels and
+a tapered cutting point. Three chuck jaws contact the shank; the flute interiors
+use a rougher metal finish than the lands. This is an original visual model.
+
+![Two-flute drill bit and chuck](docs/assets/drill-twist-bit-detail.png)
+
+Previous housing refinement: connected rubber grip with tapered edges, rounded trigger
 grooves and reduced housing distortion around the rear screw. The
 [self-contained recipe](examples/drill-realism.json) and
 [generator](examples/drill_realism.py) are included. The preview below is an
