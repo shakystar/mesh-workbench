@@ -13,11 +13,17 @@ Actual Blender renders created with this toolkit.
 Latest: an original fixed-lens compact camera with a satin metal top, textured
 grip, concentric lens barrel, clear front element, nine-leaf aperture, top dials
 and rear controls. Matching cover outlines replace the earlier protruding seams.
+Seated buttons, marked dials and panel screws define the controls. The bottom
+battery/card hatch has an actual opening, hinge and lock-slider geometry.
 [Generator](examples/compact_camera.py) · [Scope and checks](docs/STATUS.md)
 
 | Refined front | Lens and aperture |
 | --- | --- |
 | ![Compact camera front](docs/assets/compact-camera-front.png) | ![Lens and aperture](docs/assets/compact-camera-lens.png) |
+
+| Rear controls | Open battery/card hatch |
+| --- | --- |
+| ![Rear controls](docs/assets/compact-camera-controls.png) | ![Battery/card hatch](docs/assets/compact-camera-hatch.png) |
 
 Previous: a 6 mm two-flute drill bit with a round shank, helical chip channels and
 a tapered cutting point. Three chuck jaws contact the shank; the flute interiors

@@ -140,6 +140,7 @@ def build(output):
     box('Lens alignment marker',(1.1,2,.25),(10,-25,69),red,.1)
     # Top dials and the inset shutter button.
     for name,x,r in [('Shutter dial',-39,10),('Exposure dial',43,9)]:
+        ring(name+' seated bezel',(x,2,82.9),.6,r+.6,r-.2,black,(0,0,1))
         knob=detail.profiled_ring(name,[x,2,82],
             [[0,r,.5,0],[.5,r,.5,1],[4,r,.5,1],[4.5,r-.4,.5,0]],
             flutes=48,depth=.3,segments=384,axis=(0,0,1))
@@ -150,14 +151,17 @@ def build(output):
             mark=box(name+' index '+str(i),(.35,1.3,.12),
                      (x+(r-2)*math.sin(a),2+(r-2)*math.cos(a),86.6),white,.04)
             mark.rotation_euler[2]=-a
+        for i,text in enumerate(('M','A','S','P') if x<0 else ('-2','-1','0','+1')):
+            a=math.tau*i/4
+            label(text,(x+5*math.sin(a)-.7,2+5*math.cos(a)-.7,86.65),1.7,white,top=True)
     ring('Shutter surround',(-40,-9,83),1.2,5.5,3.9,black,(0,0,1))
     cylinder('Shutter release',(-40,-9,83.2),(-40,-9,85),3.8,red)
     box('Hot shoe base',(18,14,1.5),(5,3,83.5),black,.5)
     for x in (-3.5,13.5):box('Hot shoe rail '+str(x),(1.4,14,2.2),(x,3,85),silver,.3)
     cylinder('Hot shoe contact',(5,3,84),(5,3,84.5),1.1,brass)
     # Front window and autofocus lamp.
-    box('Viewfinder surround',(21,2,10),(-35,-18.8,75),black,1.2)
-    box('Viewfinder window',(16,1,6),(-35,-20,75),glass,.7)
+    box('Viewfinder surround',(21,1.1,10),(-35,-18.1,75),black,.5)
+    box('Viewfinder window',(16,.3,6),(-35,-18.7,75),glass,.12)
     cylinder('Autofocus lamp',(45,-18,61),(45,-19.2,61),2.3,glass)
     label('FRAME',(-7,-18.6,74),4,black)
     label('35 / 2',(33,-18.7,58),2.3,white)
@@ -169,13 +173,68 @@ def build(output):
             box('Display frame horizontal %s %s'%(x,z),(5,.2,.4),(x,21.6,z),white,.08)
             box('Display frame vertical %s %s'%(x,z),(.4,.2,4),(x+(2.4 if x<0 else -2.4),21.6,z),white,.08)
     label('1/125   F2.8   ISO 200',(22,21.7,20),2,white,rear=True)
-    ring('Rear navigation wheel',(44,18.5,36),2.3,8.5,3.6,black,(0,1,0))
-    cylinder('Select button',(44,18,36),(44,21,36),3.4,silver)
-    for z in (54,65):cylinder('Rear function '+str(z),(44,18,z),(44,20,z),3,black)
-    box('Rear viewfinder eyecup',(25,4,12),(-35,19,75),black,2)
-    box('Rear viewfinder glass',(17,1,6),(-35,21.3,75),glass,.8)
-    for x in (-61,61):
-        ring('Strap eye '+str(x),(x,-1,65),3,4.5,2.5,silver,(1 if x>0 else -1,0,0))
+    box('Rear service panel',(24,1.2,49),(43,18.25,43),black,.5)
+    ring('Navigation seated bezel',(43,18.7,35),.45,8.8,8.35,silver,(0,1,0))
+    ring('Rear navigation wheel',(43,18.8,35),1.15,8.1,3.7,black,(0,1,0))
+    cylinder('Select button',(43,18.8,35),(43,20.15,35),3.35,silver)
+    label('OK',(44.5,20.2,34.3),1.7,black,rear=True)
+    for dx,dz in ((0,6),(0,-6),(6,0),(-6,0)):
+        box('Direction mark %s %s'%(dx,dz),(1.3,.15,.4),(43+dx,20,35+dz),white,.05)
+    for z,text in ((52,'MENU'),(62,'PLAY')):
+        ring('Button bezel '+text,(43,18.7,z),.5,3.8,3.25,silver,(0,1,0))
+        cylinder('Rear function '+text,(43,18.7,z),(43,19.8,z),3.05,black)
+        label(text,(48,19, z-5),1.6,white,rear=True)
+    box('Rear viewfinder eyecup',(25,2,12),(-35,18.7,75),black,.85)
+    box('Rear viewfinder glass',(17,.4,6),(-35,19.8,75),glass,.15)
+
+    def screw(name, x, y, z, rear=True):
+        direction=1 if rear else -1
+        stock=cylinder(name+' stock',(x,y,z),(x,y+direction*.6,z),1.1,silver)
+        result=mechanical.cut_box(stock,name,(1.55,.45,.28),(x,y+direction*.6,z),.06)
+        stock.hide_render=True;stock.hide_set(True)
+        parts.append(result)
+        return result
+    for x,z in ((33,21),(53,21),(33,65),(53,65),(-51,65),(-51,12)):
+        screw('Rear panel screw %s %s'%(x,z),x,18.7 if x>0 else 17.8,z)
+    for x in (-60,60):
+        box('Strap mounting plate '+str(x),(1.5,9,12),(x,0,64),black,.5)
+        sign=1 if x>0 else -1
+        cylinder('Strap stud '+str(x),(x,0,64),(x+sign*4,0,64),2.5,silver)
+        ring('Strap eye '+str(x),(x+sign*4,-1,64),2,4.5,2.5,silver,(0,1,0))
+
+    # A real bottom opening, not a hatch drawn over a solid body. Retain the
+    # uncut construction objects hidden; the first native model stays untouched.
+    pocket=mechanical.cut_box(body,'Body battery pocket',(32,22,18),(-33,0,15),1.2)
+    body.hide_render=True;body.hide_set(True);parts.append(pocket)
+    bottom=mechanical.cut_box(lower,'Lower cover hatch opening',(32,22,8),(-33,0,4),1.2)
+    lower.hide_render=True;lower.hide_set(True);parts.append(bottom)
+    old_gasket=bpy.data.objects['Lower recessed gasket']
+    gasket=mechanical.cut_box(old_gasket,'Lower gasket hatch opening',(32,22,3),(-33,0,7),1.2)
+    old_gasket.hide_render=True;old_gasket.hide_set(True);parts.append(gasket)
+    cutter=construction.strut('Tripod bore tool',(4,0,0),(4,0,5.9),2.5,64)
+    socket_cover=enclosure.boolean(bottom,cutter,'DIFFERENCE','Lower cover with tripod bore')
+    mechanical.remove(cutter)
+    bottom.hide_render=True;bottom.hide_set(True);parts.append(socket_cover)
+    battery=box('Removable battery',(18,16,17),(-38,0,14),black,1)
+    box('Battery release catch',(2.5,5,2),(-26.7,0,6),red,.5)
+    box('Card socket',(2.8,16,15),(-21.5,0,14.5),black,.4)
+    box('Memory card edge',(1.2,13,1.2),(-21.5,0,6.5),brass,.2)
+    for y in (-5,0,5):box('Battery contact '+str(y),(1.5,2,.3),(-38,y,22.6),brass,.1)
+    door_root=bpy.data.objects.new('Battery hatch hinge',None)
+    scene.collection.objects.link(door_root);door_root.location=(-49,0,3.25)
+    hatch_parts=[]
+    hatch_parts.append(box('Battery and card hatch',(31.4,21.4,1.4),(-33,0,3.25),silver,.5))
+    hatch_parts.append(box('Hatch inner gasket',(29.8,19.8,.3),(-33,0,4.1),black,.1))
+    hatch_parts.append(box('Hatch latch recess',(5,8,.4),(-21,0,2.45),black,.15))
+    hatch_parts.append(box('Hatch lock slider',(3.5,4,.55),(-21,-1.5,2.25),black,.2))
+    for y in (-6,6):hatch_parts.append(box('Hatch inner rib '+str(y),(24,1,.7),(-33,y,4.55),black,.2))
+    bpy.context.view_layer.update()
+    for obj in hatch_parts:
+        world=obj.matrix_world.copy();obj.parent=door_root;obj.matrix_world=world
+    for i in range(5):
+        cylinder('Hatch hinge knuckle '+str(i),(-49,-9+i*3.6,3.7),(-49,-5.8+i*3.6,3.7),1.1,silver)
+    # Bottom tripod socket is separate from the hatch.
+    ring('Tripod socket',(4,0,2.45),1.3,4,2.5,silver,(0,0,1))
     # Focused static geometry check only, before adding the presentation floor.
     evaluated=bpy.context.evaluated_depsgraph_get()
     errors=[]
@@ -185,26 +244,29 @@ def build(output):
             errors.append(obj.name)
         obj.evaluated_get(evaluated).to_mesh_clear()
     if errors:raise ValueError('Invalid camera parts: '+str(errors))
-    # Check only the changed cover joints and aperture geometry.
+    # Check the new opening and hatch in its two explicitly shown poses.
     from mathutils.bvhtree import BVHTree
-    def band(obj,z):
-        return sorted((round(v.co.x,5),round(v.co.y,5)) for v in obj.data.vertices if abs(v.co.z-z)<1e-4)
-    joints_match=(band(body,69)==band(upper,69.25) and band(body,7)==band(lower,6.75))
-    blade_trees=[BVHTree.FromPolygons([v.co[:] for v in ob.data.vertices],
-                  [list(f.vertices) for f in ob.data.polygons]) for ob in blades]
-    def iris_hit(x,z):
-        return any(t.ray_cast(Vector((10+x,-42,40+z)),Vector((0,1,0)),10)[0] is not None for t in blade_trees)
-    aperture_clear=not any(iris_hit(4*math.cos(a),4*math.sin(a)) for a in [math.tau*i/18 for i in range(18)])
-    blade_coverage=all(iris_hit(10*math.cos(a),10*math.sin(a)) for a in [math.tau*(i+.5)/18 for i in range(18)])
-    if not (joints_match and aperture_clear and blade_coverage):
-        raise ValueError('Cover correspondence or iris opening check failed')
+    def tree(ob):
+        return BVHTree.FromPolygons([ob.matrix_world@v.co for v in ob.data.vertices],
+                                   [list(f.vertices) for f in ob.data.polygons])
+    opening_clear=all(tree(ob).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is None
+                      for ob in (pocket,socket_cover,gasket))
+    battery_access=tree(battery).ray_cast(Vector((-38,0,0)),Vector((0,0,1)),10)[0] is not None
+    hatch_closed=tree(hatch_parts[0]).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is not None
+    door_root.rotation_euler[1]=math.radians(105)
+    bpy.context.view_layer.update()
+    hatch_open=tree(hatch_parts[0]).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is None
+    door_root.rotation_euler[1]=0
+    bpy.context.view_layer.update()
+    if not all((opening_clear,battery_access,hatch_closed,hatch_open)):
+        raise ValueError('Hatch opening or battery access failed')
     output.mkdir(parents=True)
     report={'blender':bpy.app.version_string,'mesh_parts':len(parts),'finite_geometry':not errors,
-            'scope':'Original fixed-lens camera exterior and lens assembly; no optical-performance simulation or articulation.',
-            'threads':2,'renders':['front','lens-detail'],
-            'matching_cover_outlines':joints_match,'cover_gap_mm':.25,
-            'clear_aperture_radius_mm':4,'iris_opening_clear':aperture_clear,
-            'iris_blade_coverage':blade_coverage,'iris_leaves':len(blades)}
+            'scope':'Camera exterior, controls and battery/card hatch; two static hatch poses, not a motion sweep.',
+            'threads':2,'renders':['front','rear-controls','hatch-open'],
+            'opening_clear':opening_clear,'battery_access':battery_access,
+            'closed_hatch_covers_opening':hatch_closed,'open_hatch_clears_opening':hatch_open,
+            'hatch_angle_degrees':105,'button_radial_clearance_mm':.2}
     (output/'verification.json').write_text(json.dumps(report,indent=2))
     floor=box('Presentation floor',(1000,1000,2),(0,0,.5),material('Backdrop',(.055,.065,.07),0,.75),.5)
     scene.world=bpy.data.worlds.new('Camera studio')
@@ -222,11 +284,19 @@ def build(output):
     scene.view_settings.view_transform='AgX'
     bpy.ops.wm.save_as_mainfile(filepath=str((output/'camera.blend').resolve()))
     for view,pos,target,scale in [('front',(175,-260,155),(0,-8,42),185),
-                                ('lens-detail',(45,-240,83),(10,-34,40),78)]:
+                                ('rear-controls',(-125,240,155),(0,4,48),160),
+                                ('hatch-open',(-155,-210,-150),(-24,0,12),125)]:
+        if view=='hatch-open':
+            floor.hide_render=True
+            door_root.rotation_euler[1]=math.radians(105)
+            light=bpy.data.objects['Key'];light.location=(-60,-100,-130)
+            light.rotation_euler=(Vector((-25,0,10))-light.location).to_track_quat('-Z','Y').to_euler()
+            bpy.context.view_layer.update()
         camera(position=pos,target=target,scale=scale,size=(1000,800))
         scene.cycles.samples=32;scene.cycles.use_denoising=True
         scene.render.filepath=str((output/(view+'.png')).resolve())
         bpy.ops.render.render(write_still=True)
+    door_root.rotation_euler[1]=0
     print('CAMERA_COMPLETE',json.dumps(report),flush=True)
 
 

@@ -2,6 +2,29 @@
 
 ## Compact camera exterior — 2026-10-23
 
+Controls and access revision: seated button bezels and separate caps, menu/play/OK
+labels, dial mode markings, a rear service panel with slotted screws, lower-profile
+viewfinder windows and strap mounting feet/studs replace the first-pass controls.
+A cut-through lower cover and gasket expose a real body pocket containing a
+separate battery and card edge/socket. The hatch has ribs, a gasket, hinge barrels
+and a lock slider; a tripod socket has a blind bore. The saved native model is
+closed; the named `Battery hatch hinge` object provides the demonstrated 105-degree
+open pose. This is not a continuous interference or mechanical-function guarantee.
+
+The focused Blender 5.2.2 LTS check passes the opening rays through body/cover/
+gasket, access to the battery, and hatch coverage in the closed/open poses. Mesh
+parts have finite geometry. Native result: `runs/compact-camera-controls/camera.blend`.
+Only front, rear-controls and open-hatch views are rendered, with one Blender
+process and two CPU threads. Previous native inputs are preserved. Lens optics
+and unrelated tool/OS tests are not rerun. Earlier revision details follow.
+
+All three views were inspected and Blender exited. The rear controls show the
+separate bezels, labels and panel screws; the underside image shows the opened
+door, exposed battery, release catch and card socket. Public previews:
+[controls](assets/compact-camera-controls.png),
+[open hatch](assets/compact-camera-hatch.png). Only the two static door poses
+were verified; no collision-free travel or manufacturing claim is made.
+
 Refinement: the body and alloy covers now share sampled superellipse outlines.
 The two 0.25 mm joints use recessed gaskets instead of protruding rectangular
 seam plates. The lens has a nonmetallic clear front element recessed inside the
