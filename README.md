@@ -10,7 +10,15 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-Latest: a 6 mm two-flute drill bit with a round shank, helical chip channels and
+Latest: an original fixed-lens compact camera with a satin metal top, textured
+grip, concentric lens barrel, coated front element, top dials and rear controls.
+[Generator](examples/compact_camera.py) · [Scope and checks](docs/STATUS.md)
+
+| Front | Rear |
+| --- | --- |
+| ![Compact camera front](docs/assets/compact-camera-front.png) | ![Compact camera rear](docs/assets/compact-camera-rear.png) |
+
+Previous: a 6 mm two-flute drill bit with a round shank, helical chip channels and
 a tapered cutting point. Three chuck jaws contact the shank; the flute interiors
 use a rougher metal finish than the lands. This is an original visual model.
 

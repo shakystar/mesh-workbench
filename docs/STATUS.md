@@ -1,5 +1,29 @@
 # Current development status
 
+## Compact camera exterior — 2026-10-23
+
+`examples/compact_camera.py` creates an original 120 mm-wide fixed-lens camera
+using existing rounded-box, annular, profiled-ring and lathed-surface tools.
+The exterior includes a textured body/grip, satin metal covers, concentric lens
+rings, convex coated glass, two knurled top dials, shutter, hot shoe, viewfinder,
+rear display and controls. It uses Blender's bundled font; no reference assets
+or host fonts are required. No new core modeling operation was added.
+
+Scope: static exterior only. The optics, internal mechanisms and articulation
+are not simulated. Blender 5.2.2 LTS checked 88 mesh parts for finite, nonempty
+geometry. The one native model is `runs/compact-camera/camera.blend`.
+Both front/rear 1000x800, 32-sample views were rendered and visually inspected.
+The exterior pass is complete; the glass is stylized and shallow cover seams
+remain visible. No OS/version matrix or
+full regression is part of this work. Runs are limited to one Blender process,
+two threads and two logical CPUs. The script rejects an existing output directory.
+Blender has exited. Public previews are
+[front](assets/compact-camera-front.png) and [rear](assets/compact-camera-rear.png).
+
+The user's longer-term target is human-body design. After this camera, the next
+appropriate scope is a simplified static full-body figure; hands/face and joint
+deformation are separate later steps, not additional requirements for this model.
+
 ## Two-flute drill bit — 2026-10-23
 
 The current example replaces the 2 mm slotted driver with a 6 mm two-flute drill
