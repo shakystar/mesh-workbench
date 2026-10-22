@@ -2,6 +2,23 @@
 
 ## Compact camera exterior — 2026-10-23
 
+Button seating revision: MENU, PLAY and navigation controls now use real panel
+apertures. Separate button shafts run through guide sleeves into a body cavity;
+retaining flanges and a navigation carrier complete the static assembly.
+The guide sleeves and rear navigation guide attach to the cavity floor.
+Shaft/sleeve radial clearance is 0.2 mm. Native result:
+`runs/compact-camera-buttons/camera.blend`.
+
+Blender 5.2.2 LTS checks aperture rays, shaft clearance from panel/body and guide
+attachment. An oversized shaft must intersect the panel as a negative fit check.
+Explicit per-face corner normals remove the triangular panel shading seen in
+the first render; the corrected rear image was visually inspected. The internal
+guide depth was finalized in the saved native file and checked without rendering.
+Blender exited. Runs used one process and two CPU threads at a time.
+Only the rear view is rendered; the hatch preview remains from the previous
+revision. Button travel, switches and spring forces are not simulated. Earlier
+revisions follow.
+
 Visual finishing revision: the service panel is reduced from 1.2 to 0.7 mm,
 with a satin finish and flat shading on its planar drilled faces. Buttons move
 with the lowered panel; screw heads, display surround and eyecup protrude less.

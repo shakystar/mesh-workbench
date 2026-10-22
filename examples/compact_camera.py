@@ -226,9 +226,29 @@ def build(output):
         panel.hide_render=True;panel.hide_set(True);parts.append(drilled);panel=drilled
         ring('Panel mounting boss '+str(i),(x,17.2,z),.3,1.5,.65,black,(0,1,0))
         cylinder('Panel screw shaft '+str(i),(x,17.2,z),(x,18.25,z),.5,silver)
-    # Flat faces keep planar highlights after drilling; bevels remain smooth.
+    # Through apertures, guide sleeves and shafts replace surface-only caps.
+    button_specs=((52,3.25,'MENU'),(62,3.25,'PLAY'),(35,8.35,'Navigation'))
+    for z,r,name in button_specs:
+        cutter=construction.strut('Control aperture cutter',(43,16,z),(43,20,z),r,96)
+        drilled=enclosure.boolean(panel,cutter,'DIFFERENCE','Panel aperture '+name)
+        mechanical.remove(cutter)
+        panel.hide_render=True;panel.hide_set(True);parts.append(drilled);panel=drilled
+    recessed=mechanical.cut_box(seated_body,'Body control cavity',(20,3.2,44),(43,16.1,44),.5)
+    seated_body.hide_render=True;seated_body.hide_set(True);parts.append(recessed);seated_body=recessed
+    shafts=[]
+    for z,name in ((52,'MENU'),(62,'PLAY'),(35,'Select')):
+        shafts.append(cylinder(name+' button shaft',(43,14.8,z),(43,18.4,z),1.5,black))
+        ring(name+' guide sleeve',(43,14.4,z),1.0,2.3,1.7,panel_finish,(0,1,0))
+        cylinder(name+' retaining flange',(43,15.55,z),(43,15.8,z),2.6,black)
+    ring('Navigation carrier',(43,17.6,35),.8,7.9,3.7,black,(0,1,0))
+    ring('Navigation rear guide',(43,14.4,35),3.2,8.2,8.0,panel_finish,(0,1,0))
+    # Discard inherited custom normals from the baked bevel/boolean chain.
+    # Flat shading prevents interpolation across coplanar drilled face triangles.
+    panel_normals=[(0,0,0)]*len(panel.data.loops)
     for face in panel.data.polygons:
-        if abs(face.normal.y)>.999:face.use_smooth=False
+        face.use_smooth=False
+        for index in face.loop_indices:panel_normals[index]=tuple(face.normal)
+    panel.data.normals_split_custom_set(panel_normals)
     bottom=mechanical.cut_box(lower,'Lower cover hatch opening',(32,22,8),(-33,0,4),.35)
     lower.hide_render=True;lower.hide_set(True);parts.append(bottom)
     old_gasket=bpy.data.objects['Lower recessed gasket']
@@ -309,6 +329,19 @@ def build(output):
     hatch_closed=tree(hatch_parts[0]).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is not None
     panel_bores=all(tree(panel).ray_cast(Vector((x,16,z)),Vector((0,1,0)),5)[0] is None
                     for x,z in ((33,21),(53,21),(33,65),(53,65)))
+    control_apertures=all(tree(panel).ray_cast(Vector((43,16,z)),Vector((0,1,0)),5)[0] is None
+                          for z,_,_ in button_specs)
+    shafts_clear=all(not tree(shaft).overlap(tree(panel)) and
+                     not tree(shaft).overlap(tree(seated_body)) for shaft in shafts)
+    guides_attached=all(tree(bpy.data.objects[name]).overlap(tree(seated_body))
+                        for name in ('MENU guide sleeve','PLAY guide sleeve','Select guide sleeve',
+                                     'Navigation rear guide'))
+    # Negative check: an oversized shaft must intersect a real aperture wall.
+    probe=construction.strut('Oversized button probe',(43,17,52),(43,19,52),3.5,96)
+    oversized_rejected=bool(tree(probe).overlap(tree(panel)))
+    mechanical.remove(probe)
+    if not all((control_apertures,shafts_clear,oversized_rejected,guides_attached)):
+        raise ValueError('Button aperture/shaft clearance or negative fit check failed')
     latch_fits=not tree(latch_tongue).overlap(tree(receiver))
     def bounds(ob,axis):
         values=[(ob.matrix_world@v.co)[axis] for v in ob.data.vertices]
@@ -332,10 +365,13 @@ def build(output):
     output.mkdir(parents=True)
     report={'blender':bpy.app.version_string,'mesh_parts':len(parts),'finite_geometry':not errors,
             'scope':'Camera exterior, controls and battery/card hatch; two static hatch poses, not a motion sweep.',
-            'threads':2,'renders':['rear-controls','hatch-open'],
+            'threads':2,'renders':['rear-controls'],
             'opening_clear':opening_clear,'battery_access':battery_access,
             'closed_hatch_covers_opening':hatch_closed,'open_hatch_clears_opening':hatch_open,
             'hatch_angle_degrees':105,'button_radial_clearance_mm':.2,
+            'control_apertures_open':control_apertures,'button_shafts_clear':shafts_clear,
+            'guide_supports_attached':bool(guides_attached),
+            'oversized_shaft_rejected':oversized_rejected,'shaft_radial_clearance_mm':.2,
             'panel_bores_open':panel_bores,'panel_gasket_contact':panel_contact,
             'door_seal_seat_contact':seal_contact,'latch_fits_receiver':latch_fits,
             'latch_releases_before_opening':latch_released}
@@ -355,8 +391,7 @@ def build(output):
     scene.render.threads_mode='FIXED';scene.render.threads=2
     scene.view_settings.view_transform='AgX'
     bpy.ops.wm.save_as_mainfile(filepath=str((output/'camera.blend').resolve()))
-    for view,pos,target,scale in [('rear-controls',(-125,240,155),(0,4,48),160),
-                                ('hatch-open',(70,-170,-240),(-33,0,-1),82)]:
+    for view,pos,target,scale in [('rear-controls',(-125,240,155),(0,4,48),160)]:
         if view=='hatch-open':
             floor.hide_render=True
             latch_root.location.x-=2
@@ -371,7 +406,7 @@ def build(output):
         scene.render.filepath=str((output/(view+'.png')).resolve())
         bpy.ops.render.render(write_still=True)
     door_root.rotation_euler[1]=0
-    latch_root.location.x+=2
+    if view=='hatch-open':latch_root.location.x+=2
     print('CAMERA_COMPLETE',json.dumps(report),flush=True)
 
 
