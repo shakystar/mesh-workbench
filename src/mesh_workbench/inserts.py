@@ -21,13 +21,23 @@ def create(
     rings=10,
     segments=64,
     max_distance=100,
+    projection_axis=1,
+    rim_offset=None,
+    rim_fraction=0.2,
 ):
-    """Project an elliptical XZ patch onto one semantic side, then make a solid.
+    """Project an elliptical patch onto one semantic side, then make a solid.
 
     Patch samples are regenerated from geometric guides after parent topology
     changes. All hits must belong to the declared connected region and face the
     requested side; holes and missing support reject the operation.
     """
+    if type(projection_axis) is not int or projection_axis not in (0, 1, 2):
+        raise ValueError("Insert projection axis must be 0, 1 or 2")
+    rim_fraction = sculpt.number(rim_fraction, 0.01, 1, "insert rim fraction")
+    if rim_offset is not None:
+        offset = sculpt.number(offset, 0, 100, "insert offset")
+        rim_offset = sculpt.number(rim_offset, 0, offset, "insert rim offset")
+    plane = [i for i in range(3) if i != projection_axis]
     region = semantic.resolve(source, query)
     if (
         side not in (-1, 1)
@@ -67,20 +77,33 @@ def create(
             seeds.append((radii[0] * i / rings * math.cos(angle) + shear * z, z))
     points = []
     for dx, dz in seeds:
-        ray = Vector(
-            [center[0] + dx, center[1] + side * max_distance / 2, center[2] + dz]
-        )
-        direction = Vector((0, -side, 0))
+        ray = Vector(center)
+        ray[plane[0]] += dx
+        ray[plane[1]] += dz
+        ray[projection_axis] += side * max_distance / 2
+        direction = Vector((0, 0, 0))
+        direction[projection_axis] = -side
         p, n, index, d = tree.ray_cast(ray, direction, max_distance)
-        if p is None or n.y * side < 0.5:
-            raise ValueError("Insert projection missed or changed surface side")
+        if p is None or n[projection_axis] * side < 0.5:
+            raise ValueError(
+                "Insert projection missed or changed surface side "
+                f"at axes {plane}=({ray[plane[0]]:.6f}, {ray[plane[1]]:.6f}); "
+                f"side={side}; hit={p is not None}; "
+                f"normal_alignment={None if n is None else round(n[projection_axis] * side, 6)}"
+            )
         points.append(list(p))
     binding = attachments.bind(source, points, max_distance=0.01)
     hits = attachments.resolve(source, binding)
     xyz = []
-    for distance in (offset, offset - thickness):
+    distances = np.full(len(hits), offset, dtype=float)
+    if rim_offset is not None:
+        radii_fraction = np.concatenate(([0.0], np.repeat(np.arange(1, rings + 1) / rings, segments)))
+        t = np.clip((radii_fraction - (1 - rim_fraction)) / rim_fraction, 0, 1)
+        distances += (rim_offset - offset) * t * t * (3 - 2 * t)
+    for layer in (0, -thickness):
         xyz.extend(
-            [list(Vector(h["position"]) + Vector(h["normal"]) * distance) for h in hits]
+            [list(Vector(h["position"]) + Vector(h["normal"]) * float(distance + layer))
+             for h, distance in zip(hits, distances)]
         )
     count = len(hits)
     outer = []
@@ -158,9 +181,12 @@ def create(
                     "radii": radii,
                     "shear": shear,
                     "side": side,
+                    "projection_axis": projection_axis,
                 },
                 "offset": offset,
                 "thickness": thickness,
+                "rim_offset": rim_offset,
+                "rim_fraction": rim_fraction,
                 "source_binding": binding,
                 "source_revision": attachments.revision(source),
                 "topology": geometry.signature(obj),

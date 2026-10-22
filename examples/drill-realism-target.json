@@ -1,0 +1,810 @@
+{
+  "schema": 1,
+  "status": "Authored M11 evaluation specification fixed; commercial photographs visual-only; native candidate acceptance pending",
+  "units": "mm",
+  "baseline_recipe": "drill-surface-target.json",
+  "baseline_sha256": "494c2f6894115f9a94935c90d71e7ac5ad7be29405b834a02fd603bee66921f6",
+  "design_intent": [
+    "Original ochre/graphite compact driver; no copied branding",
+    "Rounded rear motor shell with sloped roof and progressive neck",
+    "Longer wrapped grip and integrated battery receiver",
+    "Stepped metal chuck nose with protected jaw cage"
+  ],
+  "reference_limits": [
+    "Commercial photos have unknown camera and 3D landmarks",
+    "Reference photos are qualitative; all numeric geometry gates concern this authored target",
+    "Published height for a different battery is not used to scale the chosen gallery"
+  ],
+  "overrides": {
+    "parameters": {
+      "grip_width": 1,
+      "grip_length": 28,
+      "split_shift": 0
+    },
+    "parameter_ranges": {
+      "grip_width": [
+        -1,
+        4
+      ],
+      "grip_length": [
+        28,
+        36
+      ],
+      "split_shift": [
+        -1,
+        1
+      ]
+    },
+    "envelope": {
+      "profile_xz": [
+        [
+          -63,
+          149
+        ],
+        [
+          -65,
+          170
+        ],
+        [
+          -60,
+          183
+        ],
+        [
+          -44,
+          190
+        ],
+        [
+          -21,
+          190
+        ],
+        [
+          10,
+          184
+        ],
+        [
+          36,
+          182
+        ],
+        [
+          47,
+          172
+        ],
+        [
+          47,
+          147
+        ],
+        [
+          25,
+          139
+        ],
+        [
+          5,
+          137
+        ],
+        [
+          -2,
+          123
+        ],
+        [
+          -17,
+          49
+        ],
+        [
+          -33,
+          43
+        ],
+        [
+          -47,
+          49
+        ],
+        [
+          -30,
+          118
+        ],
+        [
+          -29,
+          132
+        ],
+        [
+          -43,
+          140
+        ]
+      ],
+      "corner_trim": 9,
+      "rim_radius": 6,
+      "head_half_width": 27,
+      "grip_half_width": 15
+    }
+  },
+  "comparison": {
+    "primary_views": [
+      "left",
+      "right",
+      "front",
+      "rear",
+      "hero"
+    ],
+    "camera_policy": "Freeze authored cameras before candidates; commercial photos are not scored as calibrated views",
+    "silhouette_iou_min": 0.97,
+    "part_iou_min": 0.94,
+    "landmark_rms_diagonal_max": 0.01,
+    "boundary_p95_diagonal_max": 0.015,
+    "metric_camera_registration": "Commercial-photo calibration remains open; no scored commercial views are claimed. Orthographic authored guides use explicitly prescribed camera transforms.",
+    "guide_status": "Authored geometry/cameras/scoring rules fixed before first candidate. Freeze tool must hash inputs and derive ray landmarks before generation.",
+    "scoring_policy": {
+      "reference_claim": "Commercial photos remain visual-only. No camera was calibrated from those photographs; their 1-percent reprojection criterion cannot be claimed.",
+      "authored_camera": "Prescribed orthographic transforms; native camera verification replaces photo calibration only for original-design measurements.",
+      "assembly_silhouette": "Use all exterior parts and fill enclosed background components. Compare external silhouette; do not fill background connected to image boundary.",
+      "per_part_silhouette": "Isolated amodal envelope masks for housing, structural grip, chuck and battery; fill enclosed image holes identically. All image pixels are scored; no ROI excluded.",
+      "body_partition": "World Z=108 mm splits structural grip from housing. Candidate shell/overmold geometry is clipped to this plane before projection; this is a measurement partition, not a physical seam.",
+      "landmark_correspondence": "First positive ray intersection with the named isolated part. Origins/directions are frozen; never replace missing hits with nearest points. Expected XYZ is sampled from independent authored guides before candidate generation.",
+      "landmark_visibility": "For each view, score only target landmarks whose ray to camera has no nearer guide surface. Record visible/occluded IDs and the exact RMS denominator. A candidate missing an included ray hit fails.",
+      "interior_openings": "External silhouette scoring does not certify vents, screw holes, seam leaks or jaw openings. These remain mandatory M13 geometry, visibility-ray and image gates.",
+      "fine_details": "Bit, trigger and direction switch are included in the full guide silhouette; added parts are included in candidate silhouette, with no automatic exclusions.",
+      "thresholds": "Existing M12 IoU, contour and landmark thresholds unchanged."
+    }
+  },
+  "preserved_gates": {
+    "wall_mm": [
+      1.6,
+      2.6
+    ],
+    "split_gap_mm": [
+      0.5,
+      1.1
+    ],
+    "pin_error_mm": 1e-05,
+    "moving_clearance_mm": 0.2
+  },
+  "detail_priorities": [
+    "body",
+    "neck",
+    "chuck",
+    "grip",
+    "seam",
+    "trigger",
+    "battery"
+  ],
+  "capture": {
+    "views": {
+      "left": {
+        "position": [
+          0,
+          -400,
+          90
+        ],
+        "target": [
+          0,
+          0,
+          90
+        ],
+        "scale": 270
+      },
+      "right": {
+        "position": [
+          0,
+          400,
+          90
+        ],
+        "target": [
+          0,
+          0,
+          90
+        ],
+        "scale": 270
+      },
+      "front": {
+        "position": [
+          400,
+          0,
+          90
+        ],
+        "target": [
+          0,
+          0,
+          90
+        ],
+        "scale": 270
+      },
+      "rear": {
+        "position": [
+          -400,
+          0,
+          90
+        ],
+        "target": [
+          0,
+          0,
+          90
+        ],
+        "scale": 270
+      },
+      "top": {
+        "position": [
+          0,
+          0,
+          490
+        ],
+        "target": [
+          0,
+          0,
+          90
+        ],
+        "scale": 270
+      },
+      "bottom": {
+        "position": [
+          0,
+          0,
+          -310
+        ],
+        "target": [
+          0,
+          0,
+          90
+        ],
+        "scale": 270
+      },
+      "hero": {
+        "position": [
+          270,
+          -370,
+          240
+        ],
+        "target": [
+          0,
+          0,
+          90
+        ],
+        "scale": 270
+      },
+      "chuck-detail": {
+        "position": [
+          270,
+          -320,
+          235
+        ],
+        "target": [
+          78,
+          0,
+          160
+        ],
+        "scale": 90
+      },
+      "grip-detail": {
+        "position": [
+          100,
+          -300,
+          120
+        ],
+        "target": [
+          -25,
+          0,
+          89
+        ],
+        "scale": 90
+      },
+      "trigger-detail": {
+        "position": [
+          140,
+          -240,
+          150
+        ],
+        "target": [
+          2,
+          0,
+          125
+        ],
+        "scale": 48
+      },
+      "battery-detail": {
+        "position": [
+          120,
+          -270,
+          120
+        ],
+        "target": [
+          -32,
+          0,
+          34
+        ],
+        "scale": 110
+      }
+    },
+    "review_size": [
+      1000,
+      1000
+    ],
+    "final_size": [
+      2000,
+      2000
+    ],
+    "samples": 128,
+    "noise_comparison_samples": 256
+  },
+  "landmark_policy": "Authored design landmarks, not independently measured points on commercial photographs. Visible/hidden point selections must be explicit in each measurement report.",
+  "authored_landmarks": {
+    "rear_roof": [
+      -44,
+      0,
+      190
+    ],
+    "rear_axis": [
+      -64,
+      0,
+      160
+    ],
+    "roof_front": [
+      36,
+      0,
+      182
+    ],
+    "front_lower": [
+      47,
+      0,
+      147
+    ],
+    "neck_front": [
+      -2,
+      0,
+      123
+    ],
+    "grip_front_foot": [
+      -17,
+      0,
+      21
+    ],
+    "grip_rear_foot": [
+      -47,
+      0,
+      21
+    ],
+    "battery_center": [
+      -32,
+      0,
+      -9.5
+    ],
+    "chuck_rear": [
+      60,
+      0,
+      160
+    ],
+    "chuck_nose": [
+      99,
+      0,
+      160
+    ],
+    "head_left": [
+      0,
+      -27,
+      160
+    ],
+    "head_right": [
+      0,
+      27,
+      160
+    ],
+    "battery_left": [
+      -32,
+      -26.5,
+      -9.5
+    ],
+    "battery_right": [
+      -32,
+      26.5,
+      -9.5
+    ]
+  },
+  "authored_side_polygon": [
+    [
+      -63,
+      149
+    ],
+    [
+      -65,
+      170
+    ],
+    [
+      -60,
+      183
+    ],
+    [
+      -44,
+      190
+    ],
+    [
+      -21,
+      190
+    ],
+    [
+      10,
+      184
+    ],
+    [
+      36,
+      182
+    ],
+    [
+      47,
+      172
+    ],
+    [
+      47,
+      147
+    ],
+    [
+      25,
+      139
+    ],
+    [
+      5,
+      137
+    ],
+    [
+      -2,
+      123
+    ],
+    [
+      -17,
+      49
+    ],
+    [
+      -33,
+      43
+    ],
+    [
+      -47,
+      49
+    ],
+    [
+      -30,
+      118
+    ],
+    [
+      -29,
+      132
+    ],
+    [
+      -43,
+      140
+    ]
+  ],
+  "landmark_queries": [
+    {
+      "id": "housing_z160_0_-1",
+      "part": "housing",
+      "origin": [
+        -200,
+        0,
+        160
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "housing_z160_0_1",
+      "part": "housing",
+      "origin": [
+        200,
+        0,
+        160
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "housing_z160_1_-1",
+      "part": "housing",
+      "origin": [
+        -10,
+        -200,
+        160
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "housing_z160_1_1",
+      "part": "housing",
+      "origin": [
+        -10,
+        200,
+        160
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "id": "housing_z180_0_-1",
+      "part": "housing",
+      "origin": [
+        -200,
+        0,
+        180
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "housing_z180_0_1",
+      "part": "housing",
+      "origin": [
+        200,
+        0,
+        180
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "housing_z180_1_-1",
+      "part": "housing",
+      "origin": [
+        -25,
+        -200,
+        180
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "housing_z180_1_1",
+      "part": "housing",
+      "origin": [
+        -25,
+        200,
+        180
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "id": "grip_z60_0_-1",
+      "part": "grip",
+      "origin": [
+        -200,
+        0,
+        60
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grip_z60_0_1",
+      "part": "grip",
+      "origin": [
+        200,
+        0,
+        60
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grip_z60_1_-1",
+      "part": "grip",
+      "origin": [
+        -24,
+        -200,
+        60
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "grip_z60_1_1",
+      "part": "grip",
+      "origin": [
+        -24,
+        200,
+        60
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "id": "grip_z90_0_-1",
+      "part": "grip",
+      "origin": [
+        -200,
+        0,
+        90
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grip_z90_0_1",
+      "part": "grip",
+      "origin": [
+        200,
+        0,
+        90
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "grip_z90_1_-1",
+      "part": "grip",
+      "origin": [
+        -20,
+        -200,
+        90
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "grip_z90_1_1",
+      "part": "grip",
+      "origin": [
+        -20,
+        200,
+        90
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "id": "battery_z-10_0_-1",
+      "part": "battery",
+      "origin": [
+        -200,
+        0,
+        -10
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "battery_z-10_0_1",
+      "part": "battery",
+      "origin": [
+        200,
+        0,
+        -10
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "battery_z-10_1_-1",
+      "part": "battery",
+      "origin": [
+        -32,
+        -200,
+        -10
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "battery_z-10_1_1",
+      "part": "battery",
+      "origin": [
+        -32,
+        200,
+        -10
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "id": "chuck_x75_1_-1",
+      "part": "chuck",
+      "origin": [
+        75,
+        -200,
+        160
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ]
+    },
+    {
+      "id": "chuck_x75_1_1",
+      "part": "chuck",
+      "origin": [
+        75,
+        200,
+        160
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ]
+    },
+    {
+      "id": "chuck_x75_2_-1",
+      "part": "chuck",
+      "origin": [
+        75,
+        0,
+        -40
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ]
+    },
+    {
+      "id": "chuck_x75_2_1",
+      "part": "chuck",
+      "origin": [
+        75,
+        0,
+        360
+      ],
+      "direction": [
+        0,
+        0,
+        -1
+      ]
+    }
+  ]
+}

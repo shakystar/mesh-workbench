@@ -10,6 +10,17 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
+Latest drill refinement: connected rubber grip with tapered edges, rounded trigger
+grooves and reduced housing distortion around the rear screw. The
+[self-contained recipe](examples/drill-realism.json) and
+[generator](examples/drill_realism.py) are included. The preview below is an
+800px, 32-sample local check; a faint roof highlight transition remains.
+
+![Refined drill realism example](docs/assets/drill-realism-hero.png)
+
+[Rear screw detail](docs/assets/drill-realism-rear-screw.png) ·
+[Current scope and verification](docs/STATUS.md)
+
 | Field robot | Work lantern |
 | --- | --- |
 | ![Field robot](docs/assets/field-robot.png) | ![Work lantern](docs/assets/lantern-final.png) |

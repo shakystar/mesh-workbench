@@ -1,0 +1,20 @@
+{
+  "schema": 1,
+  "frozen_before_candidate": 18,
+  "units": "mm",
+  "scope": "Normal sightlines through functional vents must reach offset shields; finite sampled bent paths around the front edge must remain unobstructed. No airflow or thermal performance claim.",
+  "vent_centers_x": [-49, -43.6, -38.2, -32.8, -27.4, -22],
+  "center_z": 162,
+  "sightline_origin_abs_y": 35,
+  "x_offsets": [-0.8, -0.6, -0.4, -0.2, 0, 0.2, 0.4, 0.6, 0.8],
+  "z_offsets": [-5.5, -4.583333333333333, -3.666666666666667, -2.75, -1.8333333333333335, -0.9166666666666667, 0, 0.9166666666666667, 1.8333333333333335, 2.75, 3.666666666666667, 4.583333333333333, 5.5],
+  "shell_clearance_mm": 1,
+  "corridor_offsets_xz": [-0.2, 0, 0.2],
+  "corridor": {
+    "outside_abs_y": 35,
+    "gap_abs_y": 22,
+    "bypass_z": 164,
+    "front_edge_x": -16,
+    "inside_abs_y": 16
+  }
+}

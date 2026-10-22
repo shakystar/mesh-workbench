@@ -27,6 +27,705 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_insert_rim_profile_and_invalid_profile_preserve_source(self):
+        from mesh_workbench import inserts, nested
+
+        bpy.ops.mesh.primitive_cube_add(size=4)
+        source = bpy.context.object
+        before = s.coordinates(source).copy()
+        args = {"query":{"normal":[0,0,1],"normal_min":.99,"components":1},
+                "center":[0,0,0],"radii":[.8,.6],"projection_axis":2,"side":1,
+                "offset":.6,"thickness":.8,"rim_offset":.15,"rim_fraction":.4,
+                "rings":10,"segments":32}
+        obj = nested._build({"kind":"insert"},args,[source],"Tapered insert")
+        xyz = s.coordinates(obj);count=len(xyz)//2
+        self.assertAlmostEqual(xyz[0,2],2.6,places=5)
+        np.testing.assert_allclose(xyz[1+9*32:count,2],2.15,atol=1e-6)
+        np.testing.assert_allclose(xyz[1+7*32:1+8*32,2],2.375,atol=1e-6)
+        np.testing.assert_allclose(xyz[:count,2]-xyz[count:,2],.8,atol=1e-6)
+        self.assertEqual(g.inspect(obj)["nonmanifold_edges"],0)
+        self.assertTrue(obj.data.uv_layers)
+        self.assertEqual(json.loads(obj["mw_insert"])["rim_offset"],.15)
+        objects=set(bpy.data.objects)
+        for changes in ({"rim_offset":-.1},{"rim_offset":.7},{"rim_offset":float("nan")},
+                        {"rim_fraction":0},{"rim_fraction":1.1},{"rim_fraction":True}):
+            with self.assertRaisesRegex(ValueError,"insert rim"):
+                inserts.create(source,name="Invalid rim",**dict(args,**changes))
+        self.assertEqual(objects,set(bpy.data.objects))
+        np.testing.assert_array_equal(s.coordinates(source),before)
+
+    def test_boolean_invalidates_insert_binding_without_touching_inputs(self):
+        from mesh_workbench import inserts, enclosure, mechanical
+
+        bpy.ops.mesh.primitive_cube_add(size=4)
+        source=bpy.context.object
+        insert=inserts.create(source,{"normal":[0,0,1],"normal_min":.99,"components":1},
+                              "Bound insert",[0,0,0],[.8,.6],side=1,projection_axis=2,
+                              offset=.4,thickness=.6,rings=3,segments=16)
+        metadata=insert["mw_insert"]
+        points=s.coordinates(insert).copy()
+        cutter=mechanical.box("Trim cutter",[2,4,4],[1.5,0,2],radius=.1)
+        cutter_points=s.coordinates(cutter).copy()
+        result=enclosure.boolean(insert,cutter,"DIFFERENCE","Trimmed insert")
+        self.assertNotIn("mw_insert",result)
+        transfer=json.loads(result["mw_csg_transfer"])
+        self.assertIn("mw_insert",transfer["invalidated_indexed_state"])
+        self.assertEqual(transfer["source"],insert.name)
+        self.assertEqual(insert["mw_insert"],metadata)
+        np.testing.assert_array_equal(s.coordinates(insert),points)
+        np.testing.assert_array_equal(s.coordinates(cutter),cutter_points)
+        self.assertEqual(g.inspect(result)["nonmanifold_edges"],0)
+        self.assertTrue(result.data.uv_layers)
+
+    def test_insert_projection_axes_and_rejection_preserve_source(self):
+        from mesh_workbench import inserts, nested
+
+        bpy.ops.mesh.primitive_cube_add(size=4)
+        source = bpy.context.object
+        before = s.coordinates(source).copy()
+        uv_before = [tuple(loop.uv) for loop in source.data.uv_layers.active.data]
+        for axis in range(3):
+            for side in (-1, 1):
+                normal = [0, 0, 0]
+                normal[axis] = side
+                args = {"query":{"normal":normal,"normal_min":.99,"components":1},
+                        "center":[0,0,0],"radii":[.8,.6],"side":side,
+                        "projection_axis":axis,"offset":.4,"thickness":.6,
+                        "rings":3,"segments":16}
+                obj = nested._build({"kind":"insert"}, args, [source],
+                                    "Axis %s side %s" % (axis,side))
+                points = s.coordinates(obj)
+                count = len(points)//2
+                np.testing.assert_allclose(points[:count,axis],side*2.4,atol=1e-6)
+                np.testing.assert_allclose(points[count:,axis],side*1.8,atol=1e-6)
+                self.assertEqual(g.inspect(obj)["nonmanifold_edges"],0)
+                self.assertTrue(obj.data.uv_layers)
+                self.assertEqual(json.loads(obj["mw_insert"])["guide"]["projection_axis"],axis)
+        objects = set(bpy.data.objects)
+        for axis in (-1,3,True,1.5):
+            with self.assertRaisesRegex(ValueError,"projection axis"):
+                inserts.create(source,{},"Rejected axis",[0,0,0],[.8,.6],projection_axis=axis)
+        with self.assertRaisesRegex(ValueError,"surface side"):
+            inserts.create(source,{"normal":[1,0,0],"normal_min":.99,"components":1},
+                           "Rejected side",[0,0,0],[.8,.6],projection_axis=0,side=-1)
+        self.assertEqual(objects,set(bpy.data.objects))
+        np.testing.assert_array_equal(s.coordinates(source),before)
+        self.assertEqual(uv_before,[tuple(loop.uv) for loop in source.data.uv_layers.active.data])
+
+    def test_nested_revolved_cutter_preserves_inputs(self):
+        from mathutils import Vector
+        from mesh_workbench import nested, mechanical, attachments, assembly
+
+        stock = mechanical.box("stock", [10, 6, 10], center=[0, 0, 0])
+        cutter = nested._build({"kind":"revolve"},
+            {"profile":[[3,-4],[1,4]],"axis":[0,1,0],"segments":64}, [], "cutter")
+        before = [attachments.revision(o) for o in (stock,cutter)]
+        result = nested._build({"kind":"difference"}, {}, [stock,cutter], "cut")
+        hit = assembly._tree(result).ray_cast(Vector((0,-10,0)),Vector((0,1,0)),20)[0]
+        self.assertIsNone(hit)
+        hit = assembly._tree(result).ray_cast(Vector((4,-10,0)),Vector((0,1,0)),20)[0]
+        self.assertIsNotNone(hit)
+        self.assertAlmostEqual(hit.y,-3,places=4)
+        self.assertEqual(g.inspect(result)["nonmanifold_edges"],0)
+        objects = set(bpy.data.objects)
+        for args in ({"axis":[0,0,0]}, {"axis":[0,float("nan"),1]}):
+            with self.assertRaises(ValueError):
+                nested._build({"kind":"revolve"},args,[],"invalid")
+        with self.assertRaisesRegex(ValueError,"material index"):
+            nested._build({"kind":"difference"},{"cut_material_index":99},[stock,cutter],"invalid")
+        with self.assertRaisesRegex(ValueError,"dependencies"):
+            nested._build({"kind":"difference"},{},[stock],"invalid")
+        self.assertEqual(set(bpy.data.objects),objects)
+        self.assertEqual([attachments.revision(o) for o in (stock,cutter)],before)
+
+    def test_cap_exterior_faces_and_missing_boundary_rejection(self):
+        from unittest.mock import patch
+        from mathutils import Vector
+        from mesh_workbench import enclosure
+
+        polygon = [[0,0],[4,0],[4,4],[2,2],[0,4]]
+        interior = [[0,1,3],[1,2,3],[0,3,4]]
+        # Reproduce old CDT returning the convex-hull notch as an extra face.
+        result = ([Vector(p) for p in polygon], [], interior+[[2,4,3]],
+                  [[i] for i in range(5)], [], [])
+        objects = set(bpy.data.objects)
+        with patch.object(enclosure, "delaunay_2d_cdt", return_value=result):
+            coords, faces, _, removed = enclosure._cap_triangulation(polygon, 5)
+        self.assertEqual(faces, interior)
+        self.assertEqual(removed, 1)
+        area = sum(abs((coords[b].x-coords[a].x)*(coords[c].y-coords[a].y)
+                       -(coords[b].y-coords[a].y)*(coords[c].x-coords[a].x))/2
+                   for a,b,c in faces)
+        self.assertAlmostEqual(area, 12)
+        incomplete = (result[0], [], interior[:-1], result[3], [], [])
+        with patch.object(enclosure, "delaunay_2d_cdt", return_value=incomplete):
+            with self.assertRaisesRegex(ValueError, "does not close"):
+                enclosure._cap_triangulation(polygon, 5)
+        self.assertEqual(set(bpy.data.objects), objects)
+        self.assertEqual(polygon, [[0,0],[4,0],[4,4],[2,2],[0,4]])
+
+    def test_section_stock_geometry_and_atomic_rejection(self):
+        import math
+        import bmesh
+        from mesh_workbench import sectionstock
+
+        sections = [[0,0,0,3,2],[5,0,0,3,2],[10,0,0,3,2]]
+        obj = sectionstock.create("elliptic stock", sections, exponent=2,
+                                  origin=[2,-3,4])
+        xyz = s.coordinates(obj)
+        np.testing.assert_allclose(xyz.min(axis=0),[-1,-5,4],atol=1e-6)
+        np.testing.assert_allclose(xyz.max(axis=0),[5,-1,14],atol=1e-6)
+        bm = bmesh.new()
+        try:
+            bm.from_mesh(obj.data)
+            self.assertTrue(all(e.is_manifold for e in bm.edges))
+            self.assertAlmostEqual(bm.calc_volume(signed=True)/(60*math.pi),1,delta=.001)
+        finally:
+            bm.free()
+        box = sectionstock.create("rounded stock",sections,exponent=6)
+        xy = s.coordinates(box)[:128,:2]
+        np.testing.assert_allclose((np.abs(xy[:,0])/3)**6+(np.abs(xy[:,1])/2)**6,
+                                   1,atol=2e-6)
+        self.assertFalse(box.data.polygons[0].use_smooth)
+        self.assertFalse(box.data.polygons[-1].use_smooth)
+        prior = s.coordinates(obj).copy()
+        objects,meshes = set(bpy.data.objects),set(bpy.data.meshes)
+        invalid = [dict(sections=[[0,0,0,3,2],[0,0,0,3,2]]),
+                   dict(sections=[[0,0,0,-1,2],[2,0,0,3,2]]),
+                   dict(exponent=float("nan")),dict(exponent=9),
+                   dict(segments=18),dict(origin=[0,float("inf"),0])]
+        for change in invalid:
+            with self.assertRaises(ValueError):
+                sectionstock.create("rejected",**({"sections":sections}|change))
+            self.assertEqual(set(bpy.data.objects),objects)
+            self.assertEqual(set(bpy.data.meshes),meshes)
+            np.testing.assert_array_equal(s.coordinates(obj),prior)
+        from unittest import mock
+        with mock.patch.object(sectionstock.enclosure,"_valid",
+                               side_effect=ValueError("injected validation failure")):
+            with self.assertRaises(ValueError):
+                sectionstock.create("late rejection",sections)
+        self.assertEqual(set(bpy.data.objects),objects)
+        self.assertEqual(set(bpy.data.meshes),meshes)
+        np.testing.assert_array_equal(s.coordinates(obj),prior)
+
+    def test_section_stock_nested_edit_and_failed_rebuild(self):
+        from mesh_workbench import nested
+
+        args = {"sections":[[0,0,0,3,2],[10,0,0,3,2]],
+                "origin":[0,0,{"param":"height"}],"exponent":{"param":"roundness"}}
+        nodes = {"body":{"kind":"section_stock","args":args},
+                 "fixed":{"kind":"box","args":{"dimensions":[2,2,2],
+                                                    "center":[20,0,0]}}}
+        nested.initialize("section test",nodes,{"height":0,"roundness":6},
+                          {"height":[0,2],"roundness":[2,9]})
+        before = nested.load()
+        original = bpy.data.objects[before["outputs"]["body"]["object"]]
+        fixed = before["outputs"]["fixed"]["object"]
+        points = s.coordinates(original).copy()
+        self.assertTrue(nested.update({"height":1})["passed"])
+        state = nested.load()
+        current = bpy.data.objects[state["outputs"]["body"]["object"]]
+        np.testing.assert_allclose(s.coordinates(current),points+[0,0,1],atol=1e-6)
+        self.assertEqual(state["outputs"]["fixed"]["object"],fixed)
+        with self.assertRaises(ValueError):
+            nested.update({"height":3})
+        self.assertEqual(nested.load(),state)
+        with self.assertRaises(ValueError):
+            nested.update({"roundness":9})
+        self.assertEqual(nested.load(),state)
+        np.testing.assert_allclose(s.coordinates(current),points+[0,0,1],atol=1e-6)
+
+    def test_binding_thin_edge_rounding_preserves_distance_and_surface(self):
+        from mesh_workbench import attachments
+        from mathutils import Vector
+
+        mesh = bpy.data.meshes.new("Thin anchor triangle")
+        mesh.from_pydata([[0,0,80],[1,0,80],[1,.002,80.0001]], [], [[0,1,2]])
+        mesh.update()
+        obj = bpy.data.objects.new(mesh.name, mesh)
+        bpy.context.collection.objects.link(obj)
+        before = s.coordinates(obj)
+        exact = before[0]*.25 + before[2]*.75
+        query = np.array(Vector(exact))
+        # Float32 rounding puts this edge query outside the plane triangle.
+        a,b,c = before
+        normal = np.cross(b-a,c-a)
+        wb = np.cross(query-a,c-a).dot(normal)/normal.dot(normal)
+        self.assertLess(wb, -1e-5)
+        binding = attachments.bind(obj, [query], max_distance=.001)
+        weights = np.array(binding["anchors"][0]["weights"])
+        self.assertGreaterEqual(weights.min(), 0)
+        self.assertAlmostEqual(float(weights.sum()), 1)
+        point = np.array(attachments.resolve(obj,binding)[0]["position"])
+        self.assertLess(np.linalg.norm(point-exact), 1e-5)
+        self.assertLess(abs((point-a).dot(normal)), 1e-12)
+        np.testing.assert_array_equal(s.coordinates(obj),before)
+        with self.assertRaises(ValueError):
+            attachments.bind(obj, [query], max_distance=1e-7)
+        with self.assertRaises(ValueError):
+            attachments.bind(obj, [[3,3,80]], max_distance=.001)
+        for vertex in mesh.vertices:
+            vertex.co.z += 2
+        moved = np.array(attachments.resolve(obj,binding)[0]["position"])
+        np.testing.assert_allclose(moved,point+[0,0,2],atol=1e-6)
+        with self.assertRaises(ValueError):
+            attachments._closest_weights(np.zeros(3),np.zeros((3,3)))
+
+    def test_registered_silhouette_and_visibility_denominators(self):
+        from mesh_workbench import registration
+
+        obj = m.primitive("cube", "Silhouette cube")
+        camera = {
+            "projection": "orthographic",
+            "size": [80, 60],
+            "matrix": [[10, 0, 0, 40], [0, 10, 0, 30], [0, 0, 0, 1]],
+        }
+        actual = registration.silhouette([obj], camera)
+        expected = np.zeros((60, 80), dtype=bool)
+        expected[20:40, 30:50] = True
+        np.testing.assert_array_equal(actual, expected)
+        visible = np.ones_like(actual)
+        visible[:, :35] = False
+        result = registration.compare_masks(actual, expected, visible, [30, 20, 50, 40])
+        self.assertEqual(result["iou"], 1)
+        self.assertEqual(result["union_pixels"], 300)
+        self.assertEqual(result["excluded_pixels"], 2100)
+        shifted = np.roll(expected, 2, axis=1)
+        self.assertLess(
+            registration.compare_masks(shifted, expected, visible, [30, 20, 50, 40])[
+                "iou"
+            ],
+            1,
+        )
+        with self.assertRaises(ValueError):
+            registration.compare_masks(
+                actual, expected, np.zeros_like(visible), [30, 20, 50, 40]
+            )
+
+    def test_form_hollow_preserves_source_layers_and_named_masks(self):
+        from mesh_workbench import enclosure, form, nested
+
+        source = enclosure.create(
+            "Masked form stock",
+            [[-20, 0], [20, 0], [20, 60], [-20, 60]],
+            corner_trim=8,
+            rim_radius=5,
+            head_half_width=14,
+            grip_half_width=14,
+            transition_z=[10, 30],
+        )
+        before = s.coordinates(source)
+        controls = np.zeros((4, 4, 4, 3))
+        controls[:, :, :, 0] = 0.1
+        # Directly exercise the same form-node builder used by persisted graphs.
+        formed = nested._build(
+            {"kind": "form_cage"},
+            {"bounds": [[-40, -40, -20], [40, 40, 80]], "controls": controls.tolist()},
+            [source],
+            "Masked form",
+        )
+        masks = json.loads(formed["mw_masks"])
+        self.assertTrue(formed.vertex_groups.get(masks["grip"]["group"]))
+        ids = [v.index for v in source.data.vertices if v.groups]
+        self.assertGreater(len(ids), 0)
+        for i in ids[:: max(1, len(ids) // 20)]:
+            self.assertAlmostEqual(
+                formed.vertex_groups["Grip weight"].weight(i),
+                source.vertex_groups["Grip weight"].weight(i),
+                places=6,
+            )
+        shell = enclosure.hollow(formed, "Form shell", thickness=2)
+        self.assertTrue(enclosure.gauge(shell)["passed"])
+        self.assertIsNotNone(formed.data.shape_keys)
+        self.assertIsNone(shell.data.shape_keys)
+        self.assertNotIn("mw_layers", shell)
+        self.assertIn(
+            "mw_layers", json.loads(shell["mw_topology_transition"])["invalidated"]
+        )
+        np.testing.assert_array_equal(s.coordinates(source), before)
+
+    def test_visual_audit_rejects_missing_changed_and_unreviewed_evidence(self):
+        from mesh_workbench import visualaudit
+        import copy
+
+        evidence = self.root / "capture.bin"
+        evidence.write_bytes(b"Fixture only; native rendering is tested separately")
+        settings = {"required_captures": ["hero"], "samples": 128}
+        target = {"authored": True}
+        digest = visualaudit.fingerprint(settings)
+        manifest = {
+            "schema": 1,
+            "settings": settings,
+            "settings_sha256": digest,
+            "reference_sha256": visualaudit.fingerprint(target),
+            "source_sha256": "fixture",
+            "captures": [
+                {
+                    "id": "hero",
+                    "path": evidence.name,
+                    "sha256": visualaudit.file_hash(evidence),
+                    "settings_sha256": digest,
+                }
+            ],
+            "defects": [
+                {
+                    "id": "neck",
+                    "status": "open",
+                    "mandatory": True,
+                    "roi_normalized": [0, 0, 1, 1],
+                }
+            ],
+        }
+        self.assertTrue(
+            visualaudit.validate(manifest, self.root, target)["integrity_passed"]
+        )
+        with self.assertRaisesRegex(ValueError, "Unresolved"):
+            visualaudit.validate(manifest, self.root, target, require_closed=True)
+        changed = copy.deepcopy(manifest)
+        changed["settings"]["samples"] = 12
+        with self.assertRaisesRegex(ValueError, "settings changed"):
+            visualaudit.validate(changed, self.root, target)
+        changed = copy.deepcopy(manifest)
+        changed["defects"][0]["status"] = "resolved"
+        with self.assertRaisesRegex(ValueError, "review note"):
+            visualaudit.validate(changed, self.root, target)
+        evidence.write_bytes(b"changed")
+        with self.assertRaisesRegex(ValueError, "content changed"):
+            visualaudit.validate(manifest, self.root, target)
+
+    def test_seam_lip_attachment_clearance_and_rejection(self):
+        from mesh_workbench import mechanical, seams
+
+        left = mechanical.box("Seam left", [10, 2, 10], [0, -1, 0], radius=0.1)
+        right = mechanical.box("Seam right", [10, 2, 10], [0, 3, 0], radius=0.1)
+        points = [[-3, 0.1, -3], [3, 0.1, -3], [3, 0.1, 3], [-3, 0.1, 3]]
+        query = {"normal": [0, 1, 0], "normal_min": 0.99, "components": 1}
+        before = s.coordinates(left).copy()
+        rib = seams.seam_lip(
+            left,
+            right,
+            "Internal lip",
+            points,
+            [0, 1, 0],
+            query,
+            overlap=1.4,
+            thickness=0.6,
+        )
+        report = json.loads(rib["mw_seam_lip"])
+        self.assertGreater(report["source_contact_candidates"], 0)
+        self.assertGreaterEqual(report["minimum_sampled_clearance"], 1.1)
+        self.assertTrue(report["opposing_clearance"]["passed"])
+        self.assertEqual(g.inspect(rib)["nonmanifold_edges"], 0)
+        enclosing = mechanical.box("Enclosing opposing part", [20,20,20], [0,0,0], radius=.1)
+        objects = set(bpy.data.objects)
+        with self.assertRaisesRegex(ValueError, "clearance"):
+            seams.seam_lip(left,enclosing,"Contained lip",points,[0,1,0],query,
+                           overlap=1.4,thickness=.6)
+        with self.assertRaisesRegex(ValueError, "clearance"):
+            seams.seam_lip(
+                left,
+                right,
+                "Too deep",
+                points,
+                [0, 1, 0],
+                query,
+                overlap=5,
+                thickness=0.6,
+            )
+        with self.assertRaises(ValueError):
+            seams.seam_lip(
+                left,
+                right,
+                "Wrong chart",
+                points,
+                [0, 1, 0],
+                {"normal": [0, -1, 0], "normal_min": 0.99, "components": 1},
+            )
+        self.assertEqual(set(bpy.data.objects), objects)
+        np.testing.assert_array_equal(s.coordinates(left), before)
+
+    def test_recess_floor_wall_gate_and_rollback(self):
+        from mesh_workbench import enclosure, seams
+
+        envelope = enclosure.create(
+            "Seat envelope",
+            [[-20, 0], [20, 0], [20, 60], [-20, 60]],
+            corner_trim=8,
+            rim_radius=5,
+            head_half_width=14,
+            grip_half_width=14,
+            transition_z=[10, 30],
+            edge_spacing=2,
+            cap_spacing=2,
+        )
+        source = enclosure.hollow(envelope, "Seat shell", thickness=2)
+        query = {
+            "normal": [0, -1, 0],
+            "normal_min": 0.99,
+            "materials": [0],
+            "components": 1,
+        }
+        before = s.coordinates(source).copy()
+        seat = seams.recess_seat(
+            source, "Blind seat", [0, -14, 30], [0, -1, 0], query, radius=1.8, depth=0.2
+        )
+        report = json.loads(seat["mw_recess_seat"])
+        self.assertEqual(report["floor_samples"], 48)
+        self.assertAlmostEqual(report["floor_minimum"], 1.8, places=4)
+        objects = set(bpy.data.objects)
+        with self.assertRaisesRegex(ValueError, "wall"):
+            seams.recess_seat(
+                source,
+                "Thin seat",
+                [0, -14, 30],
+                [0, -1, 0],
+                query,
+                radius=1.8,
+                depth=1,
+            )
+        self.assertEqual(set(bpy.data.objects), objects)
+        np.testing.assert_array_equal(s.coordinates(source), before)
+
+    def test_physical_finish_slots_scale_and_marking_projection(self):
+        from mesh_workbench import materials, mechanical, markings
+
+        bpy.context.scene.unit_settings.system = "METRIC"
+        bpy.context.scene.unit_settings.scale_length = 0.001
+        obj = mechanical.box("Finish source", [20, 4, 12], [0, 0, 0], radius=0.2)
+        old0, old1 = (
+            bpy.data.materials.new("Slot zero"),
+            bpy.data.materials.new("Slot one"),
+        )
+        obj.data.materials.append(old0)
+        obj.data.materials.append(old1)
+        obj.data.polygons[0].material_index = 1
+        other = obj.copy()
+        bpy.context.collection.objects.link(other)
+        before = s.coordinates(obj)
+        report = materials.finish(
+            [obj],
+            "Rubber finish",
+            "rubber",
+            [0.03, 0.03, 0.03, 1],
+            roughness=0.7,
+            slot=0,
+            seed=37,
+        )
+        self.assertNotEqual(obj.data, other.data)
+        self.assertEqual(other.data.materials[0], old0)
+        self.assertEqual(obj.data.materials[1], old1)
+        self.assertEqual(obj.data.polygons[0].material_index, 1)
+        material = bpy.data.materials[report["material"]]
+        self.assertAlmostEqual(
+            json.loads(material["mw_finish"])["mm_per_unit"], 1, places=6
+        )
+        self.assertGreater(len(material.node_tree.links), 5)
+        np.testing.assert_array_equal(s.coordinates(obj), before)
+        mats = set(bpy.data.materials)
+        with self.assertRaises(ValueError):
+            materials.finish([obj], "Invalid grain", "rubber", [0, 0, 0, 1], grain_mm=0)
+        self.assertEqual(set(bpy.data.materials), mats)
+        query = {"normal": [0, -1, 0], "normal_min": 0.95, "components": 1}
+        # Use source with uniform material on the selected chart.
+        obj.data.polygons[0].material_index = 0
+        mark = markings.surface_marking(
+            obj,
+            "Index 12",
+            "12",
+            [-5, 0, -2],
+            [1, 0, 0],
+            [0, 0, 1],
+            query,
+            size=3,
+            projection_axis=1,
+            side=-1,
+        )
+        self.assertEqual(json.loads(mark["mw_marking"])["text"], "12")
+        self.assertGreater(len(mark.data.vertices), 50)
+        self.assertTrue(mark.get("mw_surface_paths"))
+        self.assertEqual(g.inspect(mark)["nonmanifold_edges"], 0)
+        original_objects = set(bpy.data.objects)
+        with self.assertRaises(ValueError):
+            markings.surface_marking(
+                obj, "Bad marking", "A", [-5, 0, -2], [1, 0, 0], [0, 0, 1], query
+            )
+        self.assertEqual(set(bpy.data.objects), original_objects)
+
+    def test_reference_registration_holdout_and_frozen_camera(self):
+        from mesh_workbench import registration
+        import copy
+
+        points = np.array(
+            [
+                [-2, -1, -1],
+                [2, -1, -1],
+                [-2, 1, -1],
+                [2, 1, -1],
+                [-2, -1, 1],
+                [2, -1, 1],
+                [-2, 1, 1],
+                [2, 1, 1],
+                [0, -1, 0],
+                [0, 1, 0],
+                [1, 0, 0],
+                [-1, 0, 0],
+            ],
+            dtype=float,
+        )
+        for kind, matrix in [
+            ("perspective", [[500, 0, 400, 3200], [0, 500, 300, 2400], [0, 0, 1, 8]]),
+            ("orthographic", [[70, 0, 0, 400], [0, 70, 0, 300], [0, 0, 0, 1]]),
+        ]:
+            pixels = registration.project({"matrix": matrix}, points)
+            spec = {
+                "projection": kind,
+                "size": [800, 600],
+                "bbox": [180, 180, 620, 420],
+                "distortion": "none",
+                "coordinate_provenance": "Independent procedural calibration fixture",
+                "metric": True,
+                "scale_evidence": {"length_mm": 4, "source": "Fixture dimensions"},
+                "landmarks": [
+                    {
+                        "id": str(i),
+                        "world": point.tolist(),
+                        "pixel": pixel.tolist(),
+                        "holdout": i >= 8,
+                    }
+                    for i, (point, pixel) in enumerate(zip(points, pixels))
+                ],
+            }
+            frozen = registration.register(spec)
+            self.assertEqual(frozen["fit_count"], 8)
+            self.assertEqual(frozen["holdout_count"], 4)
+            self.assertLess(frozen["holdout_rms_fraction"], 1e-10)
+            moved = {str(i): (p + [0.1, 0, 0]).tolist() for i, p in enumerate(points)}
+            report = registration.compare(frozen, moved)
+            self.assertGreater(report["rms_fraction"], 0.01)
+            bad = copy.deepcopy(spec)
+            bad["landmarks"][-1]["pixel"][0] += 40
+            with self.assertRaisesRegex(ValueError, "Held-out"):
+                registration.register(bad)
+            bad = copy.deepcopy(spec)
+            bad.pop("scale_evidence")
+            with self.assertRaisesRegex(ValueError, "scale evidence"):
+                registration.register(bad)
+            bad = copy.deepcopy(spec)
+            for row in bad["landmarks"]:
+                row["world"][2] = 0
+            with self.assertRaisesRegex(ValueError, "Noncoplanar"):
+                registration.register(bad)
+            bad = copy.deepcopy(frozen)
+            bad["camera"]["matrix"][0][3] += 1
+            with self.assertRaisesRegex(ValueError, "camera changed"):
+                registration.compare(bad, moved)
+
+    def test_form_node_selective_regeneration_and_rollback(self):
+        from mesh_workbench import nested, assembly
+        import copy
+
+        controls = np.zeros((4, 4, 4, 3)).tolist()
+        for plane in controls:
+            for row in plane:
+                for offset in row:
+                    offset[0] = {"param": "offset"}
+        nodes = {
+            "stock": {
+                "kind": "box",
+                "args": {"dimensions": [2, 2, 2], "center": [0, 0, 0], "radius": 0.2},
+                "visible": False,
+            },
+            "formed": {
+                "kind": "form_cage",
+                "deps": [{"id": "stock", "use": "geometry"}],
+                "args": {"bounds": [[-2, -2, -2], [2, 2, 2]], "controls": controls},
+            },
+            "independent": {
+                "kind": "box",
+                "args": {"dimensions": [1, 1, 1], "center": [10, 0, 0], "radius": 0.1},
+            },
+        }
+        first = nested.initialize(
+            "Cage assembly", nodes, {"offset": 0.1}, {"offset": [0.01, 0.3]}
+        )
+        source = bpy.data.objects[first["objects"]["stock"]]
+        before = s.coordinates(source)
+        change = nested.update({"offset": 0.2})
+        self.assertEqual(change["updated"], ["formed"])
+        self.assertEqual(change["objects"]["stock"], first["objects"]["stock"])
+        np.testing.assert_array_equal(s.coordinates(source), before)
+        state = copy.deepcopy(nested.load())
+        objects = set(bpy.data.objects)
+        old = nested._checkpoint
+
+        def fail(phase):
+            if phase == "after_commit":
+                raise RuntimeError("Injected cage commit failure")
+
+        nested._checkpoint = fail
+        try:
+            with self.assertRaises(assembly.Rejected):
+                nested.update({"offset": 0.25})
+        finally:
+            nested._checkpoint = old
+        self.assertEqual(nested.load(), state)
+        self.assertEqual(set(bpy.data.objects), objects)
+        self.assertEqual(nested.update({"offset": 0.25})["updated"], ["formed"])
+
+    def test_form_cage_geometry_restore_pins_and_failures(self):
+        from mesh_workbench import form
+        import copy
+
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=16, ring_count=8, radius=1)
+        obj = bpy.context.object
+        obj.name = "Cage fixture"
+        before = s.coordinates(obj)
+        selection = g.selection(obj)
+        controls = np.zeros((4, 4, 4, 3))
+        controls[:, :, :, 0] = 0.15
+        center = before[0].tolist()
+        options = {
+            "bounds": [[-2, -2, -2], [2, 2, 2]],
+            "controls": controls.tolist(),
+            "pins": [{"center": center, "fixed_radius": 0.15, "release_radius": 0.8}],
+        }
+        report = form.cage(obj, selection, **options)
+        after = s.coordinates(obj)
+        self.assertGreater(report["vertices"], 50)
+        self.assertGreater(report["minimum_sampled_jacobian"], 0.05)
+        np.testing.assert_allclose(after[0], before[0], atol=1e-7)
+        self.assertGreater(np.linalg.norm(after - before, axis=1).max(), 0.14)
+        self.assertEqual(g.signature(obj), selection["topology"])
+        s.set_layer(obj, report["layer"], 0)
+        np.testing.assert_allclose(s.coordinates(obj), before, atol=1e-7)
+        s.set_layer(obj, report["layer"], 1)
+        key_count = len(obj.data.shape_keys.key_blocks)
+        bad = copy.deepcopy(options)
+        bad["controls"][0][0][0][0] = float("nan")
+        with self.assertRaises(ValueError):
+            form.cage(obj, selection, **bad)
+        folded = np.zeros((4, 4, 4, 3))
+        for i in range(4):
+            folded[i, :, :, 0] = -6 * (i / 3 - 0.5)
+        with self.assertRaisesRegex(ValueError, "foldover"):
+            form.cage(
+                obj, selection, bounds=options["bounds"], controls=folded.tolist()
+            )
+        stale = copy.deepcopy(selection)
+        stale["topology"] = "invalid"
+        with self.assertRaisesRegex(ValueError, "Stale"):
+            form.cage(obj, stale, **options)
+        self.assertEqual(len(obj.data.shape_keys.key_blocks), key_count)
+        np.testing.assert_array_equal(s.coordinates(obj), after)
+        path = self.root / "cage.blend"
+        bpy.ops.wm.save_as_mainfile(filepath=str(path))
+        bpy.ops.wm.open_mainfile(filepath=str(path))
+        obj = bpy.data.objects["Cage fixture"]
+        np.testing.assert_allclose(s.coordinates(obj), after, atol=1e-7)
+        s.set_layer(obj, report["layer"], 0)
+        np.testing.assert_allclose(s.coordinates(obj), before, atol=1e-7)
+
     def test_shell_role_normals_preserve_geometry(self):
         from mesh_workbench import enclosure
 

@@ -5,6 +5,7 @@ All dimensions are world units. Geometry is created in new, static mesh objects.
 
 import json
 import math
+from collections import Counter
 import bpy
 import bmesh
 import numpy as np
@@ -75,6 +76,38 @@ def _distance(p, polygon):
     d = b - a
     t = np.clip(((p - a) * d).sum(axis=1) / (d * d).sum(axis=1), 0, 1)
     return float(np.linalg.norm(p - (a + d * t[:, None]), axis=1).min())
+
+
+def _cap_triangulation(samples, boundary_count):
+    """Keep the authored cap interior and require its entire boundary chain.
+
+    Blender 4.0 CDT can return exterior faces of a concave constraint despite
+    output type 1. Classify against the actual polygon, then prove edge closure;
+    silently accepting holes or removing boundary subdivisions is not allowed.
+    """
+    coords, _, triangles, orig, _, _ = delaunay_2d_cdt(
+        [Vector(p) for p in samples], [], [list(range(boundary_count))], 1, 1e-6, True
+    )
+    polygon = np.asarray(samples[:boundary_count], dtype=float)
+    kept = [f for f in triangles if _inside(
+        np.mean([coords[i][:] for i in f], axis=0), polygon)]
+    inverse = {}
+    for index, ids in enumerate(orig):
+        border = [i for i in ids if i < boundary_count]
+        if len(border) > 1 or any(i in inverse for i in border):
+            raise ValueError("Ambiguous enclosure cap boundary")
+        inverse.update({i: index for i in border})
+    if len(inverse) != boundary_count:
+        raise ValueError("Missing enclosure cap boundary vertex")
+    boundary = {tuple(sorted((inverse[i], inverse[(i+1) % boundary_count])))
+                for i in range(boundary_count)}
+    edges = Counter(tuple(sorted((f[i], f[(i+1) % len(f)])))
+                    for f in kept for i in range(len(f)))
+    if (not kept or any(edges[e] != 1 for e in boundary)
+            or any(count != (1 if edge in boundary else 2)
+                   for edge, count in edges.items())):
+        raise ValueError("Enclosure cap does not close the declared boundary")
+    return coords, kept, orig, len(triangles)-len(kept)
 
 
 def _mesh(name, xyz, faces):
@@ -212,9 +245,7 @@ def create(
             p = np.array([x, z])
             if _inside(p, inner) and _distance(p, inner) > cap_spacing * 0.35:
                 samples.append(p)
-    coords, _, triangles, orig, _, _ = delaunay_2d_cdt(
-        [Vector(p) for p in samples], [], [list(range(n))], 1, 1e-6, True
-    )
+    coords, triangles, orig, cap_exterior = _cap_triangulation(samples, n)
     for side, base in [(-1, 0), (1, (len(rings) - 1) * n)]:
         mapping = []
         for p, ids in zip(coords, orig):
@@ -251,6 +282,7 @@ def create(
             "ring_size": n,
             "ring_count": len(rings),
             "cap_spacing": cap_spacing,
+            "cap_exterior_triangles_removed": cap_exterior,
             "rim_radius_min": float(radii.min()),
             "rim_radius_max": float(radii.max()),
         }
@@ -291,7 +323,15 @@ def hollow(source, name, thickness=2):
     sculpt.editable(source)
     thickness = sculpt.number(thickness, 0.01, 100, "wall thickness")
     obj = source.copy()
-    obj.data = source.data.copy()
+    # A deformation layer remains on the source; topology-changing derivatives
+    # use its evaluated coordinates, since Blender cannot apply solidify to keys.
+    if source.data.shape_keys:
+        graph = bpy.context.evaluated_depsgraph_get()
+        obj.data = bpy.data.meshes.new_from_object(
+            source.evaluated_get(graph), depsgraph=graph
+        )
+    else:
+        obj.data = source.data.copy()
     obj.name = name
     bpy.context.collection.objects.link(obj)
     obj.hide_set(False)
@@ -313,8 +353,34 @@ def hollow(source, name, thickness=2):
         mod.material_offset = 1
         mod.material_offset_rim = 2
         bpy.ops.object.modifier_apply(modifier=mod.name)
-        obj["mw_masks"] = json.dumps(
-            {"grip": {"group": "Grip weight", "topology": sculpt.topology(obj)}}
+        masks = json.loads(source.get("mw_masks", "{}"))
+        for record in masks.values():
+            if (
+                record["topology"] != sculpt.topology(source)
+                or source.vertex_groups.get(record["group"]) is None
+            ):
+                raise ValueError("Stale source mask before hollowing")
+            record["topology"] = sculpt.topology(obj)
+        if masks:
+            obj["mw_masks"] = json.dumps(masks)
+        invalidated = []
+        for field in (
+            "mw_layers",
+            "mw_regions",
+            "mw_pending",
+            "mw_surface_binding",
+            "mw_surface_paths",
+        ):
+            if field in obj:
+                del obj[field]
+                invalidated.append(field)
+        obj["mw_topology_transition"] = json.dumps(
+            {
+                "operation": "hollow",
+                "source": source.name,
+                "invalidated": invalidated,
+                "selection_policy": "Fresh selections required on new topology",
+            }
         )
         obj["mw_skin_roles"] = json.dumps(
             {"outer": 0, "inner": 1, "cut": 2, "nominal": thickness}
@@ -520,6 +586,7 @@ def boolean(source, cutter, operation, name):
         if masks:
             obj["mw_masks"] = json.dumps(masks)
         # Old indexed state never survives as an apparently valid attachment.
+        invalidated = []
         for field in (
             "mw_layers",
             "mw_pending",
@@ -528,9 +595,13 @@ def boolean(source, cutter, operation, name):
             "mw_shell",
             "mw_regions",
             "mw_surface_binding",
+            "mw_insert",
+            "mw_surface_paths",
+            "mw_marking",
             "mw_attachment_revision",
         ):
             if field in obj:
+                invalidated.append(field)
                 del obj[field]
         obj["mw_csg_transfer"] = json.dumps(
             {
@@ -538,6 +609,7 @@ def boolean(source, cutter, operation, name):
                 "source": source.name,
                 "cutter": cutter.name,
                 "operation": operation,
+                "invalidated_indexed_state": invalidated,
                 "groups": names,
                 "uv_layers": [u.name for u in obj.data.uv_layers],
                 "topology": geometry.signature(obj),

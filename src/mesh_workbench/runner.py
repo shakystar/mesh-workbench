@@ -26,6 +26,10 @@ from mesh_workbench import (
     candidates,
     precision,
     reference,
+    registration,
+    form,
+    markings,
+    seams,
     regions,
     construction,
     fairing,
@@ -337,6 +341,57 @@ def run(recipe_path, output):
                 result = precision.refresh_seam(
                     obj(c["target"]), obj(c["object"]), c["name"]
                 )
+            elif op == "seam_lip":
+                result = seams.seam_lip(
+                    obj(c["object"]), obj(c["opposing"]), c["name"], **c["options"]
+                )
+            elif op == "recess_seat":
+                result = seams.recess_seat(obj(c["object"]), c["name"], **c["options"])
+            elif op == "material_finish":
+                result = materials.finish(
+                    [obj(name) for name in c["objects"]], c["name"], **c["options"]
+                )
+            elif op == "surface_marking":
+                result = markings.surface_marking(
+                    obj(c["object"]), c["name"], **c["options"]
+                )
+            elif op == "form_cage":
+                result = form.cage(
+                    obj(c["object"]), selections[c["selection"]], **c["options"]
+                )
+            elif op == "reference_register":
+                spec = c.get("spec")
+                if spec is None:
+                    spec = json.loads(source(c["path"]).read_text(encoding="utf-8"))
+                result = registration.register(spec)
+                if c.get("save"):
+                    destination = confined(output, c["save"])
+                    if destination.exists():
+                        raise ValueError("Registration output exists")
+                    destination.write_text(
+                        json.dumps(result, indent=2, allow_nan=False), encoding="utf-8"
+                    )
+            elif op == "reference_compare":
+                frozen = json.loads(source(c["path"]).read_text(encoding="utf-8"))
+                result = registration.compare(frozen, c["landmarks"])
+                if c.get("masks"):
+                    import numpy as np
+
+                    actual = registration.silhouette(
+                        [obj(n) for n in c["objects"]], frozen["camera"]
+                    )
+                    with np.load(source(c["masks"]), allow_pickle=False) as masks:
+                        expected, visible = masks["expected"], masks["visible"]
+                        result["silhouette"] = registration.compare_masks(
+                            actual, expected, visible, frozen["reference"]["bbox"]
+                        )
+                    if c.get("overlay"):
+                        destination = confined(output, c["overlay"])
+                        if destination.exists():
+                            raise ValueError("Overlay exists")
+                        reference.save_overlay(
+                            destination, actual & visible, expected & visible
+                        )
             elif op == "compare_reference":
                 spec = json.loads(source(c["path"]).read_text(encoding="utf-8"))
                 result, actual, expected = reference.evaluate(

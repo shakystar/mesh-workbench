@@ -1,0 +1,47 @@
+{
+  "schema": 1,
+  "scope": "Additional fixed diagnostic cameras only; existing evaluation cameras cannot be replaced.",
+  "views": {
+    "rear-screw-detail": {
+      "position": [-65, -150, 190],
+      "target": [-50, -24, 178],
+      "scale": 24
+    },
+    "grip-screw-detail": {
+      "position": [-55, -120, 45],
+      "target": [-39, -12, 34],
+      "scale": 24
+    },
+    "screw-detail": {
+      "position": [40, -140, 173],
+      "target": [24, -27, 160],
+      "scale": 18
+    },
+    "vent-detail": {
+      "position": [
+        -35.5,
+        -180,
+        162
+      ],
+      "target": [
+        -35.5,
+        0,
+        162
+      ],
+      "scale": 60
+    },
+    "seam-detail": {
+      "position": [
+        -150,
+        -160,
+        182
+      ],
+      "target": [
+        -45,
+        0,
+        172
+      ],
+      "scale": 60
+    }
+  }
+}

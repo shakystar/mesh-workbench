@@ -1,8 +1,57 @@
 # Current development status
 
-Updated 2026-10-07. **Drill surface refinement M6-M10 complete.** [Study and 28 native previews](studies/DRILL_SURFACE_STUDY.md) | [Completion audit](audits/DRILL_SURFACE_AUDIT.json) | [Contract](ROADMAP.md)
+## Scoped resumption — 2026-10-23
+
+The active goal is limited to remaining visible drill defects and integration into
+the example generator/recipe. The historical runtime matrices and broad acceptance
+tasks below are superseded by the user's narrower scope; they must not be resumed.
+Candidate 48 rear-screw and beauty images were inspected. The example generator and
+JSON recipe now integrate its connected/tapered grip, rounded trigger grooves and
+housing sections, with roof-cage compression halved around the fixed rear screw
+land. Only the master cage differs from the candidate-48 recipe. The public JSON is
+byte-identical to the recipe used by the local build.
+
+Blender 5.2.2 LTS build passes: shell walls 1.994–2.591 mm, split gap 0.800 mm.
+Reopened cage disable/re-enable and all 270 pinned vertices have zero measured
+error; original native inputs are preserved. Runs use one Blender process limited
+to two threads and two logical CPUs. Focused images use 800px/32 samples; they are
+local visual checks, not completion of the old seven-defect acceptance matrix.
+
+The scoped correction/integration is complete. Rear-screw clay and overall beauty
+images were inspected: the localized roof swell is reduced; the unchanged grip
+and trigger details retain their earlier inspected geometry. A faint roof highlight
+transition remains, so this is not a claim of perfect reflection continuity.
+Native result: `runs/drill-realism-final-local/drill.blend`; preview:
+`runs/drill-realism-final-local/overall-review/beauty-hero.png`. Both Blender jobs
+have exited. No further renders, runtime matrices or full regressions were run.
+Public copies of the existing renders are included at
+[`assets/drill-realism-hero.png`](assets/drill-realism-hero.png) and
+[`assets/drill-realism-rear-screw.png`](assets/drill-realism-rear-screw.png).
+
+The previous parallel jobs were stopped. User-approved cleanup removed 69 obsolete
+Blend files and the local Linux Blender distribution/archive, freeing 4.34 GiB.
+Historical logs remain, but paths to those deleted native artifacts are no longer
+reopenable. The original, candidates 40/42/45/48 and latest edit results were retained.
+
+## Historical broad-scope snapshot (superseded)
+
+Updated 2026-10-23. **Drill surface refinement M6-M10 complete; realism M11-M15 resumed, incomplete.** [Study and 28 native previews](studies/DRILL_SURFACE_STUDY.md) | [Completion audit](audits/DRILL_SURFACE_AUDIT.json) | [Next development contract](DRILL_REALISM_PLAN.md) | [Realism progress](studies/DRILL_REALISM_STUDY.md)
+
+## Next development phase
+
+The current public generator and self-contained recipe reproduce candidate 40 exactly (`runs/drill-realism-integrated-40-recipe-01/verification.json`). Frozen five-view silhouette, part and landmark gates pass: front/rear IoU 0.97648, hero 0.97449. Native build, cage restoration/pins, four seam grids, three seats, bit/nose checks, all four sampled motion channels, and independent width +0.25 / length +1 edits with reopened vents/seats/materials/eight markings pass. Original inputs remain preserved.
+
+Candidate 42 integrates connected side/rear grip patches and retains the original side chart as an explicit construction dependency for the ribs. Generation, fixed rear coverage rays, connectivity, rib support, all four motion channels and frozen silhouette/part/landmark checks pass. Both independent edits pass after reopening, including grip support and all 51 finished parts/eight markings. All twelve native rejection cases preserve state; successful recovery and reopened finish/marking checks pass. High-resolution clay/stripe inspection still finds fastener curvature, trigger-groove highlights and rear-grip edge quality unresolved. This experimental wrap has not replaced the public recipe.
+
+Core snapshot 05: Windows Blender 5.2.2 LTS and Linux Blender 4.0.2 each pass 62 tests. New insert rim-profile support passes 63 tests each on Windows and Linux against unchanged snapshot 06. This includes three-axis insert projection and explicit removal/reporting of stale CSG binding metadata. Candidate-40 native evidence predates those final core changes; current recipe CLI replay on both runtimes remains required. After an initial WSL startup timeout, candidate 42 Linux recipe replay and reopened grip/finish/seat checks pass (`runs/linux-runtime-01/recipes-05.json`); this is native runner evidence, not host CLI evidence.
+
+Candidate 44 replaces projected flat groove cutters with rounded cutters at unchanged 0.25 mm depth and 0.8 mm width. All 35 depth/land rays pass and the 2000px clay detail shows smoother groove highlights. Candidate 45 adds tapered rear-grip rim heights; build and unchanged coverage/connectivity/rib-support gates pass. Its clay grip/rear views were inspected and show reduced rear-edge protrusion; all four motion channels pass, with unchanged rest transforms. Finish/marking readback, frozen-view and alternate-bit checks pass. Candidate 46 reduces width differences around fixed screw lands; all pin/release/frame/cage definitions remain unchanged. Build and all frozen-view measurements pass; stripe inspection still finds local fastener disturbance. Candidate 47 reduces adjacent width correction further but is rejected by the blind-seat wall gauge; diagnosis found three neck samples above the 2.6 mm maximum (peak 2.602125 mm), not a screw-floor failure. Candidate 48 restores the previously passing Z145 row while retaining the zero corrections at Z165/Z180. It passes build, 1.980-2.591 mm wall / 0.800 mm gap checks and all frozen-view gates (hero IoU 0.972035). Stripe/clay hero views show reduced front-fastener disturbance; front screw detail and beauty hero are also inspected. Material creation-failure preservation/recovery passes. Rear detail review, chuck/battery beauty details, independent reopened edits and geometry/interface checks are running. Public recipe remains candidate 40.
+
+M11-M15 remain active and incomplete. Commercial-photo calibration is unavailable; the frozen authored evaluation basis is retained. Remaining acceptance includes grip wrap, neck/fastener reflection continuity, trigger groove quality, high-resolution/noise-comparison images, latest-asset editing/recovery, alternate bit cases and complete runtime replay. Historical candidate-26 cross-platform and candidate-20 recovery evidence is retained in the study; it does not certify the current candidate. No final visual acceptance, publication or deployment is claimed.
 
 ## Verified result
+
+Historical candidate-26 measurement: 1.970-2.594 mm shell walls and 0.800 mm split gap. Candidate 26 passes cage disabling/re-enabling and 270 pinned-vertex checks with zero measured error. This proves selected implementation checks, not final drill realism or complete editing/motion acceptance.
 
 - Section-shaped housing/grip, tapered/fluted chuck and torque ring, geometric index ticks, projected rubber ribs/perimeters, trigger grooves and beveled battery side covers.
 - 73 dependency nodes, 40 declared part frames, 37 visible mesh solids; native millimetre units.

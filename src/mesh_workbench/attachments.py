@@ -18,6 +18,31 @@ def revision(target):
     ).hexdigest()
 
 
+def _closest_weights(point, triangle):
+    """Closest point on a closed triangle, without float32 BVH hit rounding."""
+    a,b,c = triangle
+    u,v,w = b-a,c-a,point-a
+    normal = np.cross(u,v)
+    denominator = normal.dot(normal)
+    if denominator < 1e-20:
+        raise ValueError("Degenerate binding triangle")
+    wb = np.cross(w,v).dot(normal)/denominator
+    wc = np.cross(u,w).dot(normal)/denominator
+    weights = np.array([1-wb-wc,wb,wc])
+    if np.min(weights) >= 0:
+        return weights
+    # An outside plane projection has its nearest point on an edge. Compute
+    # those candidates geometrically; do not clamp/renormalize extrapolation.
+    candidates = []
+    for i,j in ((0,1),(1,2),(2,0)):
+        edge = triangle[j]-triangle[i]
+        t = float(np.clip((point-triangle[i]).dot(edge)/edge.dot(edge),0,1))
+        candidate = np.zeros(3)
+        candidate[i],candidate[j] = 1-t,t
+        candidates.append(candidate)
+    return min(candidates, key=lambda row: np.linalg.norm(row@triangle-point))
+
+
 def bind(target, points, max_distance=0.01):
     sculpt.editable(target)
     max_distance = sculpt.number(max_distance, 1e-7, 1e6, "binding distance")
@@ -43,20 +68,12 @@ def bind(target, points, max_distance=0.01):
         if hit is None:
             raise ValueError("Anchor outside binding distance")
         ids = triangles[index]
-        # Solve in float64. Vector dot products round slender triangles in
-        # millimetre-scale models enough to push valid edge anchors outside.
-        a, b, c = coords[list(ids)]
-        u, v, w = b - a, c - a, np.asarray(hit, dtype=np.float64) - a
-        aa, ab, bb = u.dot(u), u.dot(v), v.dot(v)
-        den = aa * bb - ab * ab
-        if abs(den) < 1e-20:
-            raise ValueError("Degenerate binding triangle")
-        wb = (bb * w.dot(u) - ab * w.dot(v)) / den
-        wc = (aa * w.dot(v) - ab * w.dot(u)) / den
-        weights = [float(1 - wb - wc), float(wb), float(wc)]
-        if min(weights) < -1e-5 or max(weights) > 1 + 1e-5:
-            raise ValueError("Unstable binding weights")
-        anchors.append({"vertices": ids, "weights": weights})
+        triangle = coords[list(ids)]
+        query = np.asarray(point, dtype=np.float64)
+        weights = _closest_weights(query, triangle)
+        if np.linalg.norm(weights@triangle-query) > max_distance:
+            raise ValueError("Anchor outside binding distance")
+        anchors.append({"vertices": ids, "weights": weights.tolist()})
     return {
         "version": 1,
         "target": target.name,

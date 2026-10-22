@@ -1,0 +1,277 @@
+{
+  "schema": 1,
+  "status": "Independent authored envelope proposal, before candidate generation",
+  "units": "mm",
+  "section_columns": [
+    "axis station",
+    "other-plane center",
+    "first half extent",
+    "second half extent"
+  ],
+  "limits": [
+    "No manufacturer geometry or traced photographs",
+    "Section interpolation defines design intent, not an evaluated candidate mesh",
+    "Housing includes neck; grip is the lower structural envelope, not only rubber inserts",
+    "Separate amodal and depth-tested visible masks; pixel-center sampling; equal-depth ties use declared part order",
+    "Bit and controls included; vents, screw recesses and seam openings remain unrepresented in interior masks"
+  ],
+  "parts": {
+    "housing": {
+      "axis": "z",
+      "exponent": 4,
+      "width_stations": [
+        [
+          102,
+          17
+        ],
+        [
+          118,
+          20
+        ],
+        [
+          132,
+          24
+        ],
+        [
+          140,
+          26
+        ],
+        [
+          149,
+          27
+        ],
+        [
+          160,
+          27
+        ],
+        [
+          172,
+          26
+        ],
+        [
+          182,
+          23
+        ],
+        [
+          187,
+          18
+        ],
+        [
+          190,
+          8
+        ]
+      ],
+      "outline_z_range": [
+        108,
+        200
+      ]
+    },
+    "grip": {
+      "axis": "z",
+      "exponent": 3,
+      "width_stations": [
+        [
+          16,
+          8
+        ],
+        [
+          21,
+          14
+        ],
+        [
+          35,
+          15.5
+        ],
+        [
+          58,
+          15.5
+        ],
+        [
+          80,
+          15.5
+        ],
+        [
+          100,
+          16
+        ],
+        [
+          108,
+          18
+        ]
+      ],
+      "outline_z_range": [
+        0,
+        108
+      ]
+    },
+    "chuck": {
+      "axis": "x",
+      "exponent": 2,
+      "sections": [
+        [
+          45,
+          160,
+          22,
+          22
+        ],
+        [
+          58,
+          160,
+          22,
+          22
+        ],
+        [
+          60,
+          160,
+          19,
+          19
+        ],
+        [
+          83,
+          160,
+          18,
+          18
+        ],
+        [
+          93,
+          160,
+          15,
+          15
+        ],
+        [
+          99,
+          160,
+          11,
+          11
+        ]
+      ]
+    },
+    "battery": {
+      "axis": "z",
+      "exponent": 6,
+      "sections": [
+        [
+          -25,
+          -32,
+          35,
+          23
+        ],
+        [
+          -22,
+          -32,
+          39,
+          26.5
+        ],
+        [
+          -1,
+          -32,
+          39,
+          26.5
+        ],
+        [
+          3,
+          -32,
+          35,
+          24
+        ],
+        [
+          4,
+          -32,
+          27,
+          20
+        ],
+        [
+          14,
+          -32,
+          27,
+          20
+        ],
+        [
+          18,
+          -32,
+          24,
+          17
+        ]
+      ]
+    },
+    "bit": {
+      "axis": "x",
+      "exponent": 2,
+      "sections": [
+        [
+          83,
+          160,
+          1,
+          1
+        ],
+        [
+          114,
+          160,
+          1,
+          1
+        ],
+        [
+          117,
+          160,
+          0.25,
+          0.25
+        ]
+      ]
+    },
+    "trigger": {
+      "axis": "z",
+      "exponent": 6,
+      "sections": [
+        [
+          119,
+          6,
+          4,
+          8
+        ],
+        [
+          120,
+          6,
+          5,
+          9
+        ],
+        [
+          130,
+          6,
+          5,
+          9
+        ],
+        [
+          131,
+          6,
+          4,
+          8
+        ]
+      ]
+    },
+    "direction_switch": {
+      "axis": "z",
+      "exponent": 8,
+      "sections": [
+        [
+          134,
+          5,
+          4,
+          26
+        ],
+        [
+          139,
+          5,
+          4,
+          26
+        ]
+      ]
+    }
+  },
+  "design_decisions": {
+    "bit": "Nominal 2 mm bit preserved from existing motion contract; separate 6/10 mm motion cases remain required",
+    "direction_switch": "Original cross-body control at X 1..9, Y -26..26, Z 134..139; exposed side ends, seating not yet modeled",
+    "trigger": "Existing 10 x 18 x 12 mm control envelope centered at (6,0,125)",
+    "camera": "Previous camera scale and positions unchanged",
+    "body_outline": "The existing rounded authored_side_polygon after the declared grip-length transform owns all body X/Z bounds. The earlier manually guessed section X/Z values are superseded before candidate generation. Width stations independently define transverse sections. Housing/grip ownership splits at Z=108 mm."
+  }
+}

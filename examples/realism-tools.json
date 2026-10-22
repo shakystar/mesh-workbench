@@ -1,0 +1,758 @@
+{
+  "version": 1,
+  "units": "mm",
+  "operations": [
+    {
+      "op": "reference_register",
+      "spec": {
+        "projection": "orthographic",
+        "size": [
+          800,
+          600
+        ],
+        "bbox": [
+          180,
+          180,
+          620,
+          420
+        ],
+        "distortion": "none",
+        "coordinate_provenance": "Independent procedural box fixture",
+        "metric": true,
+        "scale_evidence": {
+          "length_mm": 4,
+          "source": "Authored fixture dimensions"
+        },
+        "landmarks": [
+          {
+            "id": "0",
+            "world": [
+              -2,
+              -1,
+              -1
+            ],
+            "pixel": [
+              260,
+              230
+            ],
+            "holdout": false
+          },
+          {
+            "id": "1",
+            "world": [
+              2,
+              -1,
+              -1
+            ],
+            "pixel": [
+              540,
+              230
+            ],
+            "holdout": false
+          },
+          {
+            "id": "2",
+            "world": [
+              -2,
+              1,
+              -1
+            ],
+            "pixel": [
+              260,
+              370
+            ],
+            "holdout": false
+          },
+          {
+            "id": "3",
+            "world": [
+              2,
+              1,
+              -1
+            ],
+            "pixel": [
+              540,
+              370
+            ],
+            "holdout": false
+          },
+          {
+            "id": "4",
+            "world": [
+              -2,
+              -1,
+              1
+            ],
+            "pixel": [
+              260,
+              230
+            ],
+            "holdout": false
+          },
+          {
+            "id": "5",
+            "world": [
+              2,
+              -1,
+              1
+            ],
+            "pixel": [
+              540,
+              230
+            ],
+            "holdout": false
+          },
+          {
+            "id": "6",
+            "world": [
+              -2,
+              1,
+              1
+            ],
+            "pixel": [
+              260,
+              370
+            ],
+            "holdout": false
+          },
+          {
+            "id": "7",
+            "world": [
+              2,
+              1,
+              1
+            ],
+            "pixel": [
+              540,
+              370
+            ],
+            "holdout": false
+          },
+          {
+            "id": "8",
+            "world": [
+              0,
+              -1,
+              0
+            ],
+            "pixel": [
+              400,
+              230
+            ],
+            "holdout": true
+          },
+          {
+            "id": "9",
+            "world": [
+              0,
+              1,
+              0
+            ],
+            "pixel": [
+              400,
+              370
+            ],
+            "holdout": true
+          },
+          {
+            "id": "10",
+            "world": [
+              1,
+              0,
+              0
+            ],
+            "pixel": [
+              470,
+              300
+            ],
+            "holdout": true
+          },
+          {
+            "id": "11",
+            "world": [
+              -1,
+              0,
+              0
+            ],
+            "pixel": [
+              330,
+              300
+            ],
+            "holdout": true
+          }
+        ]
+      },
+      "save": "registration.json"
+    },
+    {
+      "op": "primitive",
+      "kind": "cube",
+      "name": "Form sample"
+    },
+    {
+      "op": "select",
+      "object": "Form sample",
+      "name": "Cage region"
+    },
+    {
+      "op": "form_cage",
+      "object": "Form sample",
+      "selection": "Cage region",
+      "options": {
+        "bounds": [
+          [
+            -2,
+            -2,
+            -2
+          ],
+          [
+            2,
+            2,
+            2
+          ]
+        ],
+        "controls": [
+          [
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ]
+          ],
+          [
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ],
+              [
+                0.15,
+                0,
+                0
+              ]
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "op": "material_finish",
+      "objects": [
+        "Form sample"
+      ],
+      "name": "Sample plastic",
+      "options": {
+        "role": "plastic",
+        "color": [
+          0.45,
+          0.15,
+          0.02,
+          1
+        ],
+        "seed": 19
+      }
+    },
+    {
+      "op": "inspect",
+      "object": "Form sample"
+    },
+    {
+      "op": "nested_initialize",
+      "name": "Realism fixture",
+      "nodes": {
+        "envelope": {
+          "kind": "enclosure",
+          "args": {
+            "profile_xz": [
+              [
+                -20,
+                0
+              ],
+              [
+                20,
+                0
+              ],
+              [
+                20,
+                60
+              ],
+              [
+                -20,
+                60
+              ]
+            ],
+            "corner_trim": 8,
+            "rim_radius": 5,
+            "head_half_width": 14,
+            "grip_half_width": 14,
+            "transition_z": [
+              10,
+              30
+            ]
+          },
+          "visible": false
+        },
+        "shell": {
+          "kind": "hollow",
+          "deps": [
+            {
+              "id": "envelope",
+              "use": "geometry"
+            }
+          ],
+          "args": {
+            "thickness": 2
+          },
+          "visible": false
+        },
+        "seat": {
+          "kind": "recess_seat",
+          "deps": [
+            {
+              "id": "shell",
+              "use": "geometry"
+            }
+          ],
+          "args": {
+            "point": [
+              0,
+              -14,
+              30
+            ],
+            "outward": [
+              0,
+              -1,
+              0
+            ],
+            "query": {
+              "normal": [
+                0,
+                -1,
+                0
+              ],
+              "normal_min": 0.99,
+              "materials": [
+                0
+              ],
+              "components": 1
+            },
+            "radius": 1.8,
+            "depth": {
+              "param": "depth"
+            }
+          },
+          "material": {
+            "name": "Fixture finish",
+            "color": [
+              0.3,
+              0.12,
+              0.02
+            ],
+            "roughness": 0.4,
+            "finish": {
+              "role": "plastic",
+              "seed": 3
+            }
+          }
+        },
+        "mark": {
+          "kind": "surface_marking",
+          "deps": [
+            {
+              "id": "shell",
+              "use": "geometry"
+            }
+          ],
+          "args": {
+            "text": "12",
+            "origin": [
+              -5,
+              0,
+              40
+            ],
+            "horizontal": [
+              1,
+              0,
+              0
+            ],
+            "vertical": [
+              0,
+              0,
+              1
+            ],
+            "query": {
+              "normal": [
+                0,
+                -1,
+                0
+              ],
+              "normal_min": 0.99,
+              "materials": [
+                0
+              ],
+              "components": 1
+            },
+            "size": 3,
+            "projection_axis": 1,
+            "side": -1
+          }
+        }
+      },
+      "parameters": {
+        "depth": 0.2
+      },
+      "ranges": {
+        "depth": [
+          0.1,
+          0.3
+        ]
+      }
+    },
+    {
+      "op": "nested_update",
+      "parameters": {
+        "depth": 0.25
+      }
+    }
+  ]
+}

@@ -1,4 +1,8 @@
-# Completed milestones: drill surface refinement
+# Development milestones
+
+Active phase: **M11-M15 reference-grounded drill realism**, planned 2026-10-09 and started. The [development contract](DRILL_REALISM_PLAN.md) fixes six tool workstreams, implementation order, acceptance gates and failure verification. The [progress record](studies/DRILL_REALISM_STUDY.md) records experimental tool implementation; no completed realism model is claimed.
+
+## Completed milestones: drill surface refinement
 
 Status: **complete**. [Measured audit](audits/DRILL_SURFACE_AUDIT.json) and [native comparisons](studies/DRILL_SURFACE_STUDY.md) record the result. The preceding M0-M5 assembly phase remains complete; its [contract](archive/DRILL_ASSEMBLY_ROADMAP.md) and [audit](audits/DRILL_ASSEMBLY_AUDIT.json) are preserved. This phase improves actual surface geometry and editability.
 

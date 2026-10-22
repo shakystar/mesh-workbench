@@ -1,0 +1,107 @@
+{
+  "schema": 1,
+  "date": "2026-10-09",
+  "baseline_sha256": "494c2f6894115f9a94935c90d71e7ac5ad7be29405b834a02fd603bee66921f6",
+  "reference_state": "Official multiview photographs visually inspected; metric camera registration unavailable; references and annotations remain local",
+  "baseline_view_settings_source": "examples/drill-surface-target.json surface_phase",
+  "defects": [
+    {
+      "id": "body",
+      "view": "hero",
+      "roi_normalized": [
+        0.23,
+        0.08,
+        0.65,
+        0.4
+      ],
+      "observation": "Box-like motor housing",
+      "acceptance": "Rounded rear motor volume, sloped roof and progressive neck transition",
+      "status": "open",
+      "mandatory": true
+    },
+    {
+      "id": "neck",
+      "view": "hero",
+      "roi_normalized": [
+        0.38,
+        0.31,
+        0.62,
+        0.48
+      ],
+      "observation": "Abrupt neck and fixed-land curvature",
+      "acceptance": "Uninterrupted reflection bands around intended smooth junctions",
+      "status": "open",
+      "mandatory": true
+    },
+    {
+      "id": "chuck",
+      "view": "chuck-detail",
+      "roi_normalized": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "observation": "Open large nose and exposed jaw cage",
+      "acceptance": "Stepped metal nose around close-fitting jaws",
+      "status": "open",
+      "mandatory": true
+    },
+    {
+      "id": "grip",
+      "view": "grip-detail",
+      "roi_normalized": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "observation": "Isolated oval rubber insert",
+      "acceptance": "Wraparound grip boundaries with plausible overmold seating",
+      "status": "open",
+      "mandatory": true
+    },
+    {
+      "id": "seam",
+      "view": "rear",
+      "roi_normalized": [
+        0.25,
+        0.1,
+        0.75,
+        0.8
+      ],
+      "observation": "Bright internal seam interruptions",
+      "acceptance": "Internal overlap blocks selected sight lines",
+      "status": "open",
+      "mandatory": true
+    },
+    {
+      "id": "trigger",
+      "view": "trigger-detail",
+      "roi_normalized": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "observation": "Faceted groove highlights",
+      "acceptance": "Smooth groove cross sections and seated trigger",
+      "status": "open",
+      "mandatory": true
+    },
+    {
+      "id": "battery",
+      "view": "battery-detail",
+      "roi_normalized": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "observation": "Simple block and exposed receiver",
+      "acceptance": "Closed shroud, release button and case split",
+      "status": "open",
+      "mandatory": true
+    }
+  ]
+}

@@ -140,6 +140,50 @@ def _checkpoint(phase):
 def _build(node, args, deps, name):
     kind = node["kind"]
     source = deps[0] if deps else None
+    if kind in ("seam_lip", "recess_seat"):
+        from . import seams
+
+        if kind == "seam_lip":
+            if len(deps) != 2:
+                raise ValueError("Lip node requires exactly two mating shells")
+            return seams.seam_lip(deps[0], deps[1], name, **args)
+        if len(deps) != 1:
+            raise ValueError("Seat node requires exactly one shell")
+        return seams.recess_seat(source, name, **args)
+    if kind == "surface_marking":
+        from . import markings
+
+        if len(deps) != 1:
+            raise ValueError("Marking node requires exactly one geometry source")
+        return markings.surface_marking(source, name, **args)
+    if kind == "form_cage":
+        from . import form, geometry
+
+        if len(deps) != 1:
+            raise ValueError("Form node requires exactly one geometry source")
+        sculpt.editable(source)
+        if source.get("mw_surface_binding") or source.get("mw_surface_paths"):
+            raise ValueError("Bound details must be rebuilt as downstream nodes")
+        result = geometry.fork(source, name)
+        try:
+            if geometry.signature(result) != geometry.signature(source):
+                raise ValueError("Form node requires preserved indexed topology")
+            for key in ("mw_masks", "mw_regions"):
+                if key in source:
+                    result[key] = source[key]
+            for group in source.vertex_groups:
+                target = result.vertex_groups.new(name=group.name)
+                for vertex in source.data.vertices:
+                    for member in vertex.groups:
+                        if member.group == group.index:
+                            target.add([vertex.index], member.weight, "REPLACE")
+            selection = geometry.selection(result, "VERT", **args.pop("selection", {}))
+            report = form.cage(result, selection, **args)
+            result["mw_form_report"] = _json(report)
+            return result
+        except Exception:
+            mechanical.remove(result)
+            raise
     if kind == "enclosure":
         return enclosure.create(name, **args)
     if kind == "hollow":
@@ -152,12 +196,28 @@ def _build(node, args, deps, name):
         return mechanical.box(name, **args)
     if kind == "edge_box":
         return detail.edge_box(name, **args)
+    if kind == "section_stock":
+        from . import sectionstock
+
+        return sectionstock.create(name, **args)
     if kind == "profiled_ring":
         return detail.profiled_ring(name, **args)
     if kind == "annulus":
         return mechanical.annulus(name, **args)
     if kind == "cylinder":
         return construction.strut(name, **args)
+    if kind == "revolve":
+        from mathutils import Vector
+        from . import geometry
+
+        axis = geometry.vector(args.pop("axis", [0, 0, 1]))
+        if axis.length < 1e-8:
+            raise ValueError("Revolve axis must be nonzero")
+        obj = construction.revolve(name, **args)
+        obj.rotation_mode = "QUATERNION"
+        obj.rotation_quaternion = Vector((0, 0, 1)).rotation_difference(axis.normalized())
+        bpy.context.view_layer.update()
+        return obj
     if kind == "prism":
         return mechanical.prism(name, **args)
     if kind == "jaw":
@@ -203,6 +263,25 @@ def _build(node, args, deps, name):
         return pattern
     if kind == "union":
         return enclosure.boolean(deps[0], deps[1], "UNION", name)
+    if kind == "difference":
+        if len(deps) != 2:
+            raise ValueError("Difference requires source and cutter dependencies")
+        index = args.get("cut_material_index")
+        if index is None:
+            return enclosure.boolean(deps[0], deps[1], "DIFFERENCE", name)
+        if type(index) is not int or not 0 <= index < len(source.data.materials):
+            raise ValueError("Invalid difference cut material index")
+        cutter = deps[1].copy()
+        cutter.data = deps[1].data.copy()
+        bpy.context.collection.objects.link(cutter)
+        try:
+            cutter.data.materials.clear()
+            cutter.data.materials.append(source.data.materials[index])
+            for face in cutter.data.polygons:
+                face.material_index = 0
+            return enclosure.boolean(source, cutter, "DIFFERENCE", name)
+        finally:
+            mechanical.remove(cutter)
     raise ValueError("Unknown nested builder: " + str(kind))
 
 
@@ -328,6 +407,7 @@ def _transaction(state, changes, remesh_request, initial=False):
         raise ValueError("Use distinct parameter and topology transactions")
     before_objects = set(bpy.data.objects)
     before_meshes = set(bpy.data.meshes)
+    before_materials = set(bpy.data.materials)
     visible = {
         o: (o.hide_get(), o.hide_render, o.hide_viewport, o.select_get())
         for o in before_objects
@@ -406,6 +486,28 @@ def _transaction(state, changes, remesh_request, initial=False):
                     obj.data.materials.append(role)
                 for f, i in zip(obj.data.polygons, indices):
                     f.material_index = i
+                if "finish" in style:
+                    from . import materials
+
+                    finish_args = copy.deepcopy(style["finish"])
+                    finish_args.setdefault("color", [*style["color"], 1])
+                    finish_args.setdefault("roughness", style.get("roughness", 0.4))
+                    finish_hash = hashlib.sha256(
+                        _json(
+                            [finish_args, bpy.context.scene.unit_settings.scale_length]
+                        ).encode()
+                    ).hexdigest()[:16]
+                    for slot in range(count):
+                        finish_name = "MW finish " + finish_hash + " role " + str(slot)
+                        existing = bpy.data.materials.get(finish_name)
+                        if existing is None:
+                            materials.finish(
+                                [obj], finish_name, slot=slot, **finish_args
+                            )
+                        else:
+                            if not existing.get("mw_finish"):
+                                raise ValueError("Finish material name conflict")
+                            obj.data.materials[slot] = existing
             # Explicit re-resolution after every topology operation, not index reuse.
             for region, query in _resolve(
                 node.get("regions", {}), state["parameters"]
@@ -468,6 +570,9 @@ def _transaction(state, changes, remesh_request, initial=False):
             obj.hide_render = values[1]
             obj.hide_viewport = values[2]
             obj.select_set(values[3])
+        for material in list(bpy.data.materials):
+            if material not in before_materials and material.users == 0:
+                bpy.data.materials.remove(material)
         bpy.context.view_layer.objects.active = active
         raise assembly.Rejected(
             {
