@@ -11,12 +11,13 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 Actual Blender renders created with this toolkit.
 
 Latest: an original fixed-lens compact camera with a satin metal top, textured
-grip, concentric lens barrel, coated front element, top dials and rear controls.
+grip, concentric lens barrel, clear front element, nine-leaf aperture, top dials
+and rear controls. Matching cover outlines replace the earlier protruding seams.
 [Generator](examples/compact_camera.py) · [Scope and checks](docs/STATUS.md)
 
-| Front | Rear |
+| Refined front | Lens and aperture |
 | --- | --- |
-| ![Compact camera front](docs/assets/compact-camera-front.png) | ![Compact camera rear](docs/assets/compact-camera-rear.png) |
+| ![Compact camera front](docs/assets/compact-camera-front.png) | ![Lens and aperture](docs/assets/compact-camera-lens.png) |
 
 Previous: a 6 mm two-flute drill bit with a round shank, helical chip channels and
 a tapered cutting point. Three chuck jaws contact the shank; the flute interiors

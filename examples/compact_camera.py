@@ -11,7 +11,7 @@ from mathutils import Vector
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'src'))
-from mesh_workbench import construction, mechanical, detail, sculpt, materials
+from mesh_workbench import construction, mechanical, detail, materials, sectionstock, enclosure
 from mesh_workbench.runner import camera
 
 
@@ -42,6 +42,10 @@ def build(output):
     rubber = material('Charcoal leather', (.025,.03,.033), 0,.7)
     brass = material('Warm index accent', (.66,.31,.08), .8,.27)
     glass = material('Coated optical glass', (.025,.105,.13), .32,.09,.35)
+    optical_glass = material('Clear lens coating', (.96,.985,1), 0,.025,1)
+    optical_glass.node_tree.nodes['Principled BSDF'].inputs['IOR'].default_value=1.46
+    iris_material = material('Aperture blade metal', (.12,.135,.15), .7,.38)
+    cavity_material = material('Optical cavity black', (.002,.003,.004), 0,.85)
     screen = material('Display glass', (.018,.035,.04), .3,.18)
     white = material('Off-white engraving', (.77,.79,.74), .1,.5)
     red = material('Shutter accent', (.5,.055,.025), .4,.32)
@@ -72,12 +76,22 @@ def build(output):
         obj.rotation_euler=(0,0,0) if top else ((math.pi/2,0,math.pi) if rear else (math.pi/2,0,0))
         obj.data.materials.append(mat)
 
-    body=box('Rounded main body',(120,36,72),(0,0,39),rubber,7)
+    def casing(name, rows, mat):
+        return assign(sectionstock.create(name,
+            [[z,0,0,hx,hy] for z,hx,hy in rows],exponent=8,segments=192),mat)
+
+    # Corresponding outlines keep cover corners flush with the body, with a
+    # recessed gasket in the 0.25 mm joint instead of a protruding flat plate.
+    body=casing('Rounded main body',[(7,59.7,17.7),(7.4,60,18),
+        (68.6,60,18),(69,59.7,17.7)],rubber)
     materials.finish([body], 'Body leather grain', role='rubber', color=(.025,.03,.033,1),
                      roughness=.7, variation=.04, grain_mm=.5, bump_mm=.035, seed=19)
-    box('Upper alloy cover',(120.4,36.4,14),(0,0,76),silver,3)
-    box('Lower alloy cover',(119,35.8,5),(0,0,5),silver,1.8)
-    box('Top cover seam',(119.5,36.1,.65),(0,0,68.8),black,.2)
+    upper=casing('Upper alloy cover',[(69.25,59.7,17.7),(69.65,60,18),
+        (81.8,60,18),(82.5,59.7,17.7),(83,59.2,17.2)],silver)
+    lower=casing('Lower alloy cover',[(2.5,59.2,17.2),(2.9,59.7,17.7),
+        (3.4,60,18),(6.35,60,18),(6.75,59.7,17.7)],silver)
+    casing('Upper recessed gasket',[(68.8,59.4,17.4),(69.5,59.4,17.4)],black)
+    casing('Lower recessed gasket',[(6.5,59.4,17.4),(7.2,59.4,17.4)],black)
     box('Sculpted front grip',(22,17,51),(-44,-19,35),rubber,7)
     box('Grip upper accent',(19,12,2),(-44,-22,61),black,.7)
     # Lens axis: -Y. Ring bores and the glass share the same centre.
@@ -92,15 +106,32 @@ def build(output):
     ring('Front silver bevel',(10,-45.5,40),.8,26.1,21.8,silver)
     ring('Front filter rim',(10,-46.3,40),2,25.8,21.4,black)
     ring('Optical well',(10,-38,40),8,22,18.5,black)
-    cylinder('Dark aperture backing',(10,-43,40),(10,-44,40),19,black)
-    # Convex coated front element; central closure uses a tiny positive radius.
+    cylinder('Dark optical backing',(10,-24,40),(10,-25,40),19,cavity_material)
+    ring('Inner lens seat',(10,-28,40),2,18.4,13.5,black)
+    cylinder('Inner lens element',(10,-29.5,40),(10,-30.3,40),13.4,optical_glass)
+    # Nine separate closed iris leaves surround an actual polygonal opening.
+    blades=[]
+    for i in range(9):
+        a=math.tau*i/9
+        b=math.tau*(i+1)/9
+        outline=[(6*math.cos(a),6*math.sin(a)),
+                 (19.2*math.cos(a+.22),19.2*math.sin(a+.22)),
+                 (19.2*math.cos(b+.22),19.2*math.sin(b+.22)),
+                 (6*math.cos(b),6*math.sin(b))]
+        front=-37.7-i*.012
+        vertices=[(10+x,y,40+z) for y in (front,front+.08) for x,z in outline]
+        faces=[[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]]
+        blade=assign(enclosure._mesh('Iris leaf %02d'%i,vertices,faces),iris_material)
+        for f in blade.data.polygons:f.use_smooth=False
+        blades.append(blade)
+    # The clear element is recessed behind the filter rim. No metallic opacity
+    # or coordinate mirroring: its closed profile retains outward normals.
     optic=construction.revolve('Convex front element',
-        [[.01,0],[8,-.05],[15,-.35],[20.9,-.95],[20.9,-1.6],[15,-2.25],[8,-2.6],[.01,-2.7]],
-        segments=128,closed=False,location=(10,-46,40))
+        [[.01,-.65],[8,-.62],[15,-.52],[20.9,-.35],
+         [20.9,0],[15,.55],[8,.92],[.01,1.05]],
+        segments=128,closed=False,location=(10,-46.5,40))
     optic.rotation_euler=(math.pi/2,0,0)
-    # Positive local Z points toward -Y; position the bulge toward the viewer.
-    for v in optic.data.vertices:v.co.z *= -1
-    assign(optic,glass)
+    assign(optic,optical_glass)
     for i in range(16):
         a=math.tau*i/16
         mark=box('Focus scale tick %02d'%i,(.35,3 if i%4==0 else 1.5,.15),
@@ -154,10 +185,26 @@ def build(output):
             errors.append(obj.name)
         obj.evaluated_get(evaluated).to_mesh_clear()
     if errors:raise ValueError('Invalid camera parts: '+str(errors))
+    # Check only the changed cover joints and aperture geometry.
+    from mathutils.bvhtree import BVHTree
+    def band(obj,z):
+        return sorted((round(v.co.x,5),round(v.co.y,5)) for v in obj.data.vertices if abs(v.co.z-z)<1e-4)
+    joints_match=(band(body,69)==band(upper,69.25) and band(body,7)==band(lower,6.75))
+    blade_trees=[BVHTree.FromPolygons([v.co[:] for v in ob.data.vertices],
+                  [list(f.vertices) for f in ob.data.polygons]) for ob in blades]
+    def iris_hit(x,z):
+        return any(t.ray_cast(Vector((10+x,-42,40+z)),Vector((0,1,0)),10)[0] is not None for t in blade_trees)
+    aperture_clear=not any(iris_hit(4*math.cos(a),4*math.sin(a)) for a in [math.tau*i/18 for i in range(18)])
+    blade_coverage=all(iris_hit(10*math.cos(a),10*math.sin(a)) for a in [math.tau*(i+.5)/18 for i in range(18)])
+    if not (joints_match and aperture_clear and blade_coverage):
+        raise ValueError('Cover correspondence or iris opening check failed')
     output.mkdir(parents=True)
     report={'blender':bpy.app.version_string,'mesh_parts':len(parts),'finite_geometry':not errors,
-            'scope':'Original fixed-lens camera exterior; no optical simulation, internals or articulation.',
-            'threads':2,'renders':['front','rear']}
+            'scope':'Original fixed-lens camera exterior and lens assembly; no optical-performance simulation or articulation.',
+            'threads':2,'renders':['front','lens-detail'],
+            'matching_cover_outlines':joints_match,'cover_gap_mm':.25,
+            'clear_aperture_radius_mm':4,'iris_opening_clear':aperture_clear,
+            'iris_blade_coverage':blade_coverage,'iris_leaves':len(blades)}
     (output/'verification.json').write_text(json.dumps(report,indent=2))
     floor=box('Presentation floor',(1000,1000,2),(0,0,.5),material('Backdrop',(.055,.065,.07),0,.75),.5)
     scene.world=bpy.data.worlds.new('Camera studio')
@@ -174,8 +221,9 @@ def build(output):
     scene.render.threads_mode='FIXED';scene.render.threads=2
     scene.view_settings.view_transform='AgX'
     bpy.ops.wm.save_as_mainfile(filepath=str((output/'camera.blend').resolve()))
-    for view,pos in [('front',(175,-260,155)),('rear',(-170,260,150))]:
-        camera(position=pos,target=(0,-8 if view=='front' else 4,42),scale=185,size=(1000,800))
+    for view,pos,target,scale in [('front',(175,-260,155),(0,-8,42),185),
+                                ('lens-detail',(45,-240,83),(10,-34,40),78)]:
+        camera(position=pos,target=target,scale=scale,size=(1000,800))
         scene.cycles.samples=32;scene.cycles.use_denoising=True
         scene.render.filepath=str((output/(view+'.png')).resolve())
         bpy.ops.render.render(write_still=True)

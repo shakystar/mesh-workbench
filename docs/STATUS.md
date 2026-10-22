@@ -2,6 +2,21 @@
 
 ## Compact camera exterior — 2026-10-23
 
+Refinement: the body and alloy covers now share sampled superellipse outlines.
+The two 0.25 mm joints use recessed gaskets instead of protruding rectangular
+seam plates. The lens has a nonmetallic clear front element recessed inside the
+filter rim, a separate inner element, nine closed iris leaves and a dark cavity.
+The original `runs/compact-camera/camera.blend` is preserved; the new native file
+is `runs/compact-camera-refined/camera.blend`.
+
+The focused Blender 5.2.2 LTS check passes matching cover outlines, a clear
+4 mm-radius ray bundle through the iris and blade coverage at 10 mm radius.
+All 100 mesh parts contain finite geometry. Front and lens-detail renders were
+visually inspected: the protruding corner seams are removed, and the aperture
+opening and inner glass are visible through the clear front element. Blender
+has exited. Only those two views were rendered; rear controls are unchanged. No core tools,
+OS matrix or full regression were added. The following describes the first pass.
+
 `examples/compact_camera.py` creates an original 120 mm-wide fixed-lens camera
 using existing rounded-box, annular, profiled-ring and lathed-surface tools.
 The exterior includes a textured body/grip, satin metal covers, concentric lens
