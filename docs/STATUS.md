@@ -1,5 +1,29 @@
 # Current development status
 
+## Registered knee transition sections - 2026-10-24
+
+`leg.compile_knee_transition` / `compile_controls(profile="knee_transition")`
+register five anterior longitudinal sections per knee. Each has nine skin exits
+with fixed endpoint samples. A 65 percent blend toward an endpoint-preserving
+cubic fit reduces abrupt depth changes. This is skin continuity fitting, not a
+reconstructed patella or anatomical outline inference. Existing bilateral
+transaction and reversible layers remain in use.
+
+Blender 5.2.2 LTS: 90 controls, max move 2.17455 mm, surface residual .07394 mm,
+minimum changed polygon area ratio .89373. 152,943 outside-box vertices exact.
+Original/topology/rollback/invalid axes/second-leg failure cleanup/thigh-gap/
+native readback/input hash pass. All ten actual surface sections reduce their
+maximum absolute second difference at 13.75 mm spacing; worst value across
+sections 4.70793 -> 3.16853 mm. This discrete metric is not physical curvature.
+
+Front and oblique saved-model comparisons show softer lower knee transitions.
+A rounded knee outline and faint band below it remain; no realistic knee claim.
+Next is shin/calf structure. Stage E and full goal remain active.
+Native: `runs/human/knee-transition/knee-transition.blend`, object
+`Knee transition study`. Example: `examples/human/legs/transition.py` takes the
+thigh-knee native and a fresh folder. One Blender process/two threads, exited.
+
+
 ## Registered thigh-knee controls - 2026-10-24
 
 `regions.leg.compile_controls(source, target)` accepts side and descending

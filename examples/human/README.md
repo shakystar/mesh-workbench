@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Current native: `runs/human/knee-transition/knee-transition.blend`.
+`legs/transition.py` fits 90 anterior knee controls on the thigh-knee source.
+
 Current native: `runs/human/thigh-knee/knee-relief.blend`.
 `legs/relief.py` applies 112 thigh/knee controls to the rounded-caps source.
 

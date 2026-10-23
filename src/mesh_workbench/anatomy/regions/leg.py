@@ -10,6 +10,7 @@ from .. import sculpt,curve_fit
 def compile_controls(source,target):
     sculpt.editable(source)
     profile=target.get('profile','leg')
+    if profile=='knee_transition':return compile_knee_transition(source,target)
     if profile not in ('leg',):raise ValueError('Unknown leg profile')
     side=target['side']
     if side not in (-1,1):raise ValueError('Side must be -1 or 1')
@@ -53,3 +54,37 @@ def apply_pair(source,targets,name='Leg relief study'):
     except Exception:
         for obj in reversed(created):remove(obj)
         raise
+
+
+def compile_knee_transition(source,target):
+    """Fit longitudinal anterior skin sections with fixed sample endpoints."""
+    sculpt.editable(source)
+    side=target['side']
+    if side not in (-1,1):raise ValueError('Side must be -1 or 1')
+    refs=np.asarray([target[n] for n in ('proximal','knee','shin')],float)
+    if refs.shape!=(3,3) or not np.isfinite(refs).all() or not refs[0,2]>refs[1,2]>refs[2,2]:
+        raise ValueError('Descending finite leg axes required')
+    if np.any(refs[:,0]*side<=0):raise ValueError('Leg axes cross body midline')
+    center=refs[1];p=sculpt.coordinates(source)
+    tree=BVHTree.FromPolygons(p.tolist(),[list(f.vertices) for f in source.data.polygons])
+    controls=[];sections=[];t=np.linspace(0,1,9)
+    basis=np.column_stack((t*(1-t),t*t*(1-t)))
+    for j,u in enumerate((-.025,-.0125,0,.0125,.025)):
+        points=[]
+        for z in np.linspace(center[2]-.05,center[2]+.06,9):
+            hit,normal,_,distance=tree.ray_cast(Vector((center[0]+side*u,center[1],z)),Vector((0,-1,0)))
+            if hit is None or normal.y>=0 or not .008<distance<.10:
+                raise ValueError('Knee section must exit anterior skin from inside')
+            points.append(np.asarray(hit))
+        a=np.asarray(points);chord=a[0,1]*(1-t)+a[-1,1]*t
+        fitted=chord+basis@np.linalg.lstsq(basis,a[:,1]-chord,rcond=None)[0]
+        y=a[:,1]+.65*(fitted-a[:,1])
+        if np.max(np.abs(y-a[:,1]))>.004:raise ValueError('Knee transition exceeds 4 mm local limit')
+        for i,point in enumerate(a):
+            end=point.copy();end[1]=y[i]
+            controls.append({'name':f'knee_section_{side}_{j}_{i}','source':point.tolist(),'target':end.tolist()})
+        sections.append({'source':a.tolist(),'target_y':y.tolist()})
+    return {'units':'m','label':'knee transition '+str(side),'surface_interpolation':True,
+        'radius_mm':22,'max_displacement_mm':5,'region':target['region'],'controls':controls,
+        'registration':target,'sections':sections,
+        'limits':'Endpoint-preserving skin continuity fit; not a reconstructed patella or inferred bone outline.'}

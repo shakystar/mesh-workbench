@@ -72,3 +72,10 @@ pelvis, lower legs and upper body. Stages E/F/G and the full goal remain active.
 Protected geometry, reversible layers, atomic failures and saved views verified.
 The spherical outline remains; next is kneecap border/transition, then shin/calf.
 Full goal remains active.
+
+### Knee transition sections - 2026-10-24
+
+90 controls soften anterior knee transitions; all ten sampled skin sections
+have reduced discrete depth bending. Protected geometry, rollback, atomic
+failure and saved views verified. Rounded outline/faint lower band remain.
+Next is shin/calf; stage E and full goal remain active.
