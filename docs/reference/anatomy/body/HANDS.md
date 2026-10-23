@@ -222,3 +222,32 @@ Flat palm areas, blunt fingertips and simplified joints remain. Stage D active.
 | --- | --- | --- |
 | Front | ![](../../../assets/human/hands/transitions/before-front.png) | ![](../../../assets/human/hands/transitions/after-front.png) |
 | Oblique | ![](../../../assets/human/hands/transitions/before-oblique.png) | ![](../../../assets/human/hands/transitions/after-oblique.png) |
+
+## Medial thumb section fitting
+
+`hand.compile_thumb_outline(source, side, center_x)` samples nine medial surface
+points at each of Y=-.012/0/.012 m, Z=.850.. .890 m. Endpoint-preserving cubic
+least squares replaces local step-like deviations. Interior-exit checks and a
+3 mm fit cap reject unsuitable data. `apply_palms(..., profile="thumb")` reuses
+the bilateral transaction and adds two reversible layers. This is measured skin
+continuity, not anatomical landmark recognition; the fixed frame remains limited.
+
+`examples/human/hands/thumb.py` takes hand-transitions native and a fresh folder.
+Current native: `runs/human/thumb-outline/thumb-outline.blend`, object
+`Thumb outline study`. Blender 5.2.2 LTS: 54 controls, max move 1.37255 mm,
+residual .00718 mm, minimum changed polygon area ratio .73547, 137,360 outside
+vertices exact. Source/topology, rollback, invalid side, second-side failure
+cleanup, six gap rays, saved readback and input hash pass.
+
+All six actual surface sections have a lower maximum absolute second difference
+at 5 mm sampling. Worst recorded section decreases from 4.53299 to 1.68166 mm;
+this is a discrete contour metric, not physical curvature or anatomy accuracy.
+Two matched views inspected. A small upper silhouette notch remains, especially
+in oblique view; no claim of complete step removal. Next: blunt fingertips and
+finger joint contours. Palm planar areas and residual thumb notch remain on the
+integrated review list. Stage D active; one process/two threads, exited.
+
+| View | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/hands/thumb/before-front.png) | ![](../../../assets/human/hands/thumb/after-front.png) |
+| Oblique | ![](../../../assets/human/hands/thumb/before-oblique.png) | ![](../../../assets/human/hands/thumb/after-oblique.png) |

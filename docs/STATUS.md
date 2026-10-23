@@ -1,5 +1,19 @@
 # Current development status
 
+## Medial thumb outline - 2026-10-24
+
+Added endpoint-preserving cubic fitting of three medial skin sections per hand,
+through `compile_thumb_outline` / `apply_palms(profile="thumb")`. Blender 5.2.2
+LTS: 54 controls, max move 1.37255 mm, residual .00718 mm, 137,360 protected
+vertices exact. Source/topology/rollback/invalid side/second-side cleanup/gap
+rays/native/hash pass. Actual discrete second differences improve in all six
+sections; worst 4.53299 -> 1.68166 mm. Two matched renders inspected; a small
+silhouette notch remains. Next fingertips/joint contours; residual notch and
+planar palm stay on review list. Stage D active. One process/two threads, exited.
+Current native: `runs/human/thumb-outline/thumb-outline.blend`.
+[API, metrics and actual views](reference/anatomy/body/HANDS.md#medial-thumb-section-fitting).
+
+
 ## Thumb/palm registered fairing - 2026-10-24
 
 Added `hand.compile_transitions` with eight front/back thumb/palm paths.

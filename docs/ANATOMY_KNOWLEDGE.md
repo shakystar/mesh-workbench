@@ -1,5 +1,9 @@
 # Proportional anatomy knowledge and registration
 
+`hand.compile_thumb_outline` / `apply_palms(profile="thumb")` fit measured skin
+sections with preserved endpoints. [Actual contour evidence](reference/anatomy/body/HANDS.md#medial-thumb-section-fitting).
+
+
 `hand.compile_transitions` registers eight thumb/palm fairing paths; front/back
 application leaves the medial outline step unresolved. [Evidence](reference/anatomy/body/HANDS.md#registered-thumbpalm-fairing-paths).
 

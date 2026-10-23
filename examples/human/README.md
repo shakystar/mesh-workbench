@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current native: `runs/human/thumb-outline/thumb-outline.blend`.
+`hands/thumb.py` takes hand-transitions native and a fresh folder; it checks
+actual section continuity in addition to preservation and failure paths.
+Images: `docs/assets/human/hands/thumb/`. A small silhouette notch remains.
+Earlier fairing pass:
+
+
 Current native: `runs/human/hand-transitions/hand-transitions.blend`.
 `hands/transitions.py` takes palm-shaped native and a fresh folder. The eight
 fairing paths preserve wrist/fingertip regions; medial thumb step remains.

@@ -79,11 +79,13 @@ def compile_palm(source,side,center_x):
         'limits':'Authored skin hollow and web arch; not measured joint or muscle positions.'}
 
 
-def apply_palms(source,centers,name='Palm shaped study'):
+def apply_palms(source,centers,name='Palm shaped study',profile='palm'):
     from .. import curve_fit
     if name in bpy.data.objects:raise ValueError('Output exists')
     if len(centers)!=2:raise ValueError('Two palm centers required')
-    diagrams=[compile_palm(source,side,center) for side,center in zip((-1,1),centers)]
+    if profile not in ('palm','thumb'):raise ValueError('Unknown hand profile')
+    compiler=compile_palm if profile=='palm' else compile_thumb_outline
+    diagrams=[compiler(source,side,center) for side,center in zip((-1,1),centers)]
     a,b=[d['region'] for d in diagrams]
     if a['max'][0]>=b['min'][0]:raise ValueError('Palm regions overlap')
     created=[];reports=[];current=source
@@ -127,3 +129,37 @@ def compile_transitions(source,centers):
                 commands.append({'mode':'relax_volume','label':name,'region':name,'anchors':keys,
                     'view_direction':[0,-view,0],'radius_mm':radius,'strength':.5,'iterations':10,'max_displacement_mm':3})
     return diagram,commands
+
+
+def compile_thumb_outline(source,side,center_x):
+    """Fit endpoint-preserving cubic medial skin sections, not bone landmarks."""
+    import numpy as np
+    from mathutils import Vector
+    from mathutils.bvhtree import BVHTree
+    sculpt.editable(source)
+    if side not in (-1,1):raise ValueError('Hand side must be -1 or 1')
+    center_x=sculpt.number(center_x,-2,2,'palm center')
+    if center_x*side<=0:raise ValueError('Palm center must match side')
+    p=sculpt.coordinates(source);tree=BVHTree.FromPolygons(p.tolist(),[list(f.vertices) for f in source.data.polygons])
+    controls=[];sections=[];t=np.linspace(0,1,9);basis=np.column_stack((t*(1-t),t*t*(1-t)))
+    for j,y in enumerate((-.012,0,.012)):
+        points=[]
+        for z in np.linspace(.850,.890,9):
+            direction=Vector((-side,0,0));hit,normal,_,distance=tree.ray_cast(Vector((center_x,y,z)),direction)
+            if hit is None or normal.dot(direction)<=0 or not .008<distance<.08:
+                raise ValueError('Thumb origin must exit the hand from inside')
+            points.append(np.asarray(hit))
+        a=np.asarray(points);chord=a[0,0]*(1-t)+a[-1,0]*t
+        coefficients=np.linalg.lstsq(basis,a[:,0]-chord,rcond=None)[0]
+        x=chord+basis@coefficients
+        if np.max(np.abs(x-a[:,0]))>.003:raise ValueError('Thumb fit exceeds 3 mm local limit')
+        for i,point in enumerate(a):
+            target=point.copy();target[0]=x[i]
+            controls.append({'name':f'thumb_{side}_{j}_{i}','source':point.tolist(),'target':target.tolist()})
+        sections.append({'y':y,'source':a.tolist(),'fitted_x':x.tolist()})
+    xs=sorted((center_x-side*.07,center_x+side*.02))
+    return {'units':'m','label':'thumb outline '+str(side),'surface_interpolation':True,
+        'radius_mm':18,'max_displacement_mm':3,'controls':controls,
+        'region':{'min':[xs[0],-.05,.840],'max':[xs[1],.05,.900],'feather_mm':6},
+        'registration':{'side':side,'center_x':center_x},'sections':sections,
+        'limits':'Upright skin continuity fit; endpoints fixed at control samples, not anatomical inference.'}
