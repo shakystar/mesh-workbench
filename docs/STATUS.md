@@ -6,6 +6,26 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Neck guide / unresolved underside projection - 2026-10-24
+
+Added `mesh_workbench.regions.neck.compile_paths` and sourced
+`neck-transition-v1`. Five authored submental/lower-neck/clavicle skin paths
+compile with visible-surface registration and a facial protection height.
+
+Blender 5.2.2 LTS: source/topology, 88,934 protected vertices, 29,478 unchanged
+face/ear vertices, all-layer rollback, two invalid inputs, late failure cleanup,
+saved-coordinate readback and input hash pass. Maximum movement 1.61868 mm.
+One process at a time, two CPU/numerical threads; all exited.
+
+Visual gate OPEN: both front-projected and inferior-oblique submental relaxation
+leave a thin lower-chin projection in the saved-model profile. The first pass
+had matched before/after renders; the changed projection used two new result
+views and hash-matched source views. A read-only visible-object audit rules out
+overlapping preserved heads. Next: directly inspect/reshape the local underside,
+not another repetition of the same smoothing. Stage B/full goal unfinished.
+Current trial native: `runs/human/neck-submental/neck-transitions.blend`.
+[Sources, API, actual views and unresolved gate](reference/anatomy/NECK_TRANSITIONS.md).
+
 ## Continuous auricle paths and local refinement - 2026-10-24
 
 `anatomy_ear.compile_surface_paths` converts the existing knowledge anchors to

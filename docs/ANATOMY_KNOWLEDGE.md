@@ -8,6 +8,13 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Neck transition registration
+
+`from mesh_workbench.regions import neck` exposes `knowledge()` and
+`compile_paths(source, registration)` for explicit front-visible skin paths,
+named regions and a protected facial height. Five authored paths are applied
+in the current example. [Sources, tests and unresolved under-chin defect](reference/anatomy/NECK_TRANSITIONS.md).
+
 ## Auricle relief trial
 
 `anatomy_ear.compile_relief` adds 21 sampled-surface controls per manually

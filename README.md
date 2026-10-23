@@ -15,7 +15,8 @@ sampled-surface fitting, preserved eyelid support, forward gaze and nasal work.
 Lip volume is more distinct and local philtrum/lower-fold transitions are
 softened with protected lips. Chin projection and the stepped lower surface are
 refined. Ear ridges now use continuous curves on a locally refined mesh;
-ear thickness is shallow and neck attachments remain pending.
+ear thickness is shallow. Neck path/protection tools are added, but a thin
+under-chin projection remains unresolved in the latest trial.
 This is not anatomical validation.
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
@@ -28,6 +29,8 @@ This is not anatomical validation.
 [Chin controls and static face-stage evidence](docs/reference/anatomy/CHIN_CONTOUR.md).
 
 [Current ear curves and remaining limits](docs/reference/anatomy/AURICLE_RELIEF.md#continuous-path-pass).
+
+[Current neck trial and unresolved underside defect](docs/reference/anatomy/NECK_TRANSITIONS.md).
 
 ![Current continuous ear ridges](docs/assets/human/ears/continuous-left.png)
 

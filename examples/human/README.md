@@ -1,7 +1,10 @@
 # Human modeling entry point
 
-Current native: `runs/human/continuous-ears-faired/continuous-ears.blend`.
-Current images: `docs/assets/human/ears/continuous-right.png` and `continuous-left.png`.
+Current trial native: `runs/human/neck-submental/neck-transitions.blend`.
+Current images: `docs/assets/human/neck/after-front.png` and `after-profile.png`.
+The under-chin projection remains unresolved. Run `neck/transitions.py` from
+`runs/human/continuous-ears-faired/continuous-ears.blend` into a fresh folder.
+Prior ear stage:
 Ear ridge continuity is reviewed; thickness remains shallow. Neck transition is next.
 Run `ears/continuous.py` from the preserved `runs/human/chin-contour/chin-contour.blend`
 input with a fresh output folder. It refines only ears on a new snapshot and

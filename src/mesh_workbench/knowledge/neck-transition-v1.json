@@ -1,0 +1,19 @@
+{
+  "id": "neck-transition-v1",
+  "schema_version": 1,
+  "scope": "Manually registered visible lower-neck and submental surface paths.",
+  "sources": {
+    "uams_topography": {
+      "url": "https://medicine.uams.edu/neuroscience/education/medical-school-courses/human-structure-module/anatomy-tables/topographical-anatomy-tables/topographical-anatomy-of-the-head-and-neck/",
+      "accessed": "2026-10-24",
+      "use": "Qualitative neck-triangle boundaries; no source illustrations or dimensions copied."
+    }
+  },
+  "relationships": [
+    {"region": "anterior cervical triangle", "boundaries": ["midline", "sternocleidomastoid anterior border", "lower mandible"], "source": "uams_topography"},
+    {"region": "posterior cervical triangle", "boundaries": ["sternocleidomastoid posterior border", "trapezius anterior border", "middle clavicle"], "source": "uams_topography"},
+    {"region": "submental", "boundaries": ["anterior digastric", "midline", "hyoid"], "source": "uams_topography"}
+  ],
+  "authored_policy": "Skin paths are registered manually, not inferred muscle or bone attachments. Fairing removes a model artifact; ridge dimensions are sculpting increments. Upper SCM insertion, posterior neck and internal anatomy are outside this pass.",
+  "limits": "Static surface guide, not a muscle model, anatomical validation or rig."
+}
