@@ -232,5 +232,24 @@
       "distance_half_width_ratio": 0.035,
       "max_displacement_half_width_ratio": 0.05
     }
-  ]
+  ],
+  "relief_features": {
+    "scapha": {
+      "description": "Groove between helix and antihelix.",
+      "source": "nih_ear",
+      "between": [
+        "helix_mid",
+        "anti_mid"
+      ]
+    },
+    "triangular_fossa": {
+      "description": "Concavity between antihelical branches and the ascending helix.",
+      "source": "nih_ear",
+      "between": [
+        "anti_upper",
+        "anti_front"
+      ]
+    }
+  },
+  "relief_note": "The optional sampled-surface relief compiler adds midpoint controls between the named anchors. These placements and depths are authored, not anatomy measurements."
 }

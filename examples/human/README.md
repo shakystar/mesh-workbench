@@ -1,7 +1,10 @@
 # Human modeling entry point
 
-Current native: `runs/human/chin-contour/chin-contour.blend`.
-Current images: `docs/assets/human/chin/front.png` and `profile.png`.
+Current trial native: `runs/human/auricle-relief/auricle-relief.blend`.
+Current trial images: `docs/assets/human/ears/after-right.png` and `after-left.png`.
+The ear visual gate is open: scalloped ridges need continuous shaping.
+Run `ears/relief.py` from the preserved `runs/human/chin-contour/chin-contour.blend`
+input with a fresh output folder. Prior face stage:
 Run `mouth/chin.py` with `runs/human/oral-transitions/oral-transitions.blend`
 and a fresh output directory. The static face-tool pass is reviewed; ears/neck
 are next. Prior oral transition stage:

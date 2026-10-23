@@ -5,6 +5,68 @@ from mathutils.bvhtree import BVHTree
 from . import sculpt
 
 
+def compile_relief(obj,target,*,rim_mm=1.4,inner_mm=1,concha_mm=1.6):
+    """Compile sampled-surface ear controls; authored relief, not cartilage inference."""
+    rim,inner,concha=[sculpt.number(v,0,2.5,'ear relief') for v in (rim_mm,inner_mm,concha_mm)]
+    guide=compile_ear(obj,target,tolerance_mm=.1)
+    sign=-1 if target['side']=='negative_x' else 1
+    half=guide['registration']['half_width_m'];p=guide['landmarks']
+    points=sculpt.coordinates(obj)
+    tree=BVHTree.FromPolygons(points.tolist(),[list(f.vertices) for f in obj.data.polygons])
+    # Add concavities between the named ridges. Locations and depth are authored.
+    from .anatomy_fit import knowledge
+    for name,feature in knowledge('auricle-v1')['relief_features'].items():
+        a,b=feature['between']
+        midpoint=(np.array(p[a])+p[b])/2
+        hit=tree.ray_cast(Vector((sign*(abs(points[:,0]).max()+1),midpoint[1],midpoint[2])),Vector((-sign,0,0)))[0]
+        if hit is None:raise ValueError('Ear concavity misses surface')
+        p[name]=list(hit)
+    controls=[]
+    for name,point in p.items():
+        if name.startswith('helix'):amount=rim
+        elif name.startswith('anti'):amount=inner
+        elif name.startswith('concha'):amount=-concha
+        elif name.startswith('tragus'):amount=inner
+        elif name.startswith('lobule'):amount=rim*.25
+        else:amount=-concha*.4
+        q=list(point);q[0]+=sign*amount/1000
+        controls.append({'name':name,'source':point,'target':q})
+    region=next(iter(guide['regions'].values()))
+    return {'units':'m','label':target['side']+' auricle relief','surface_interpolation':True,
+            'radius_mm':half*1000*.65,'max_displacement_mm':3,
+            'region':{'min':region['min'],'max':region['max'],'feather_mm':region['feather']*1000},
+            'controls':controls,'registration':guide['registration'],
+            'limits':'Static lateral relief; no open canal, free rolled rim or cartilage thickness.'}
+
+
+def apply_relief(source,targets,name='Auricle relief study',**options):
+    """Apply one or two disjoint ears atomically; retain both reversible layers."""
+    import bpy
+    from . import curve_fit
+    if not isinstance(targets,list) or not 1<=len(targets)<=2:
+        raise ValueError('Expected one or two ear targets')
+    if name in bpy.data.objects:raise ValueError('Output already exists')
+    diagrams=[compile_relief(source,t,**options) for t in targets]
+    if len(diagrams)==2:
+        a,b=[d['region'] for d in diagrams]
+        if np.all(np.maximum(a['min'],b['min'])<np.minimum(a['max'],b['max'])):
+            raise ValueError('Ear edit regions overlap')
+    made=[];reports=[];current=source
+    try:
+        for i,diagram in enumerate(diagrams):
+            current,report=curve_fit.apply(current,diagram,name if i==len(diagrams)-1 else name+' intermediate')
+            made.append(current);reports.append(report)
+        for obj in made[:-1]:
+            mesh=obj.data;bpy.data.objects.remove(obj,do_unlink=True)
+            if mesh.users==0:bpy.data.meshes.remove(mesh)
+        return current,diagrams,reports
+    except Exception:
+        for obj in reversed(made):
+            mesh=obj.data;bpy.data.objects.remove(obj,do_unlink=True)
+            if mesh.users==0:bpy.data.meshes.remove(mesh)
+        raise
+
+
 def compile_ear(obj,target,*,relief=1,tolerance_mm=5):
     from .anatomy_fit import knowledge
     sculpt.editable(obj)

@@ -6,8 +6,8 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/chin-contour/chin-contour.blend` |
-| Current human images | `docs/assets/human/chin/front.png`, `profile.png`; prior details in `mouth/`, `eyes/`, `nose/` |
+| Current human trial native | `runs/human/auricle-relief/auricle-relief.blend` (ear visual gate open); preserved face input in `runs/human/chin-contour/` |
+| Current human trial images | `docs/assets/human/ears/after-right.png`, `after-left.png`; prior face views in `chin/`, `mouth/`, `eyes/`, `nose/` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |
 | Other examples | `examples/{camera,mouse,headphones,speaker,organic,lantern,sculpture,general}/` |

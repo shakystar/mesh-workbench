@@ -14,7 +14,8 @@ Actual Blender renders created with this toolkit.
 sampled-surface fitting, preserved eyelid support, forward gaze and nasal work.
 Lip volume is more distinct and local philtrum/lower-fold transitions are
 softened with protected lips. Chin projection and the stepped lower surface are
-refined; ears and neck attachments are the next stage.
+refined. The current ear-relief trial exposes scalloped ridges that still need
+continuous shaping; neck attachments remain pending.
 This is not anatomical validation.
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
@@ -25,6 +26,10 @@ This is not anatomical validation.
 ![Current face and chin profile](docs/assets/human/chin/profile.png)
 
 [Chin controls and static face-stage evidence](docs/reference/anatomy/CHIN_CONTOUR.md).
+
+[Current ear trial and open visual issue](docs/reference/anatomy/AURICLE_RELIEF.md).
+
+![Current ear trial](docs/assets/human/ears/after-left.png)
 
 [Oral control implementation and actual before/after](docs/reference/anatomy/ORAL_RELIEF.md).
 

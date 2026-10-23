@@ -6,6 +6,26 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Stage B auricle relief trial / visual gate open - 2026-10-24
+
+Added `anatomy_ear.compile_relief` and atomic `apply_relief` for one/two ears.
+The existing auricle knowledge now includes sourced scapha/triangular-fossa
+relationships, separate from authored midpoint controls. Each ear has 21
+surface-fitted controls and its own reversible layer.
+
+Blender 5.2.2 LTS: 498 changed vertices per ear, 1.83345 mm maximum movement;
+82,041 protected vertices unchanged. Source/topology, paired rollback, two
+invalid registrations, injected second-ear failure cleanup, saved-coordinate
+readback and input hash pass. Maximum surface residual 0.03510 mm. Four matched
+640px/16-sample renders inspected, one process/two CPU/numerical threads; exited.
+
+Visual gate remains OPEN: deeper relief is visible, but the rim/inner ridges are
+scalloped around controls, especially in the left oblique view. Next is continuous
+ridge shaping and local mesh resolution, not neck work yet. Stage B and the full
+goal remain unfinished. Current trial native:
+`runs/human/auricle-relief/auricle-relief.blend`.
+[Actual views, API, sources and unresolved visual issue](reference/anatomy/AURICLE_RELIEF.md).
+
 ## Chin contour / static face-stage handoff - 2026-10-24
 
 Added sourced `chin-contour-v1` and `anatomy_fit.compile_chin_contour` with nine

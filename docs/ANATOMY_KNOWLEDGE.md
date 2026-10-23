@@ -8,6 +8,14 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Auricle relief trial
+
+`anatomy_ear.compile_relief` adds 21 sampled-surface controls per manually
+registered ear. `apply_relief` applies disjoint ears with paired rollback and
+atomic second-ear failure cleanup. `auricle-v1` now records optional scapha and
+triangular-fossa relief relationships without changing legacy path coordinates.
+[Actual trial views and unresolved ridge continuity](reference/anatomy/AURICLE_RELIEF.md).
+
 ## Chin contour controls
 
 `anatomy_fit.compile_chin_contour` uses `chin-contour-v1` with an explicit
