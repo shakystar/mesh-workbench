@@ -1,0 +1,155 @@
+{
+  "units": "m",
+  "note": "Artist-authored lower-face profile for the included adult, not anatomical ground truth.",
+  "landmarks": {
+    "nose_base": [
+      0,
+      -0.083,
+      1.603
+    ],
+    "philtrum": [
+      0,
+      -0.077,
+      1.594
+    ],
+    "upper_lip": [
+      0,
+      -0.08,
+      1.584
+    ],
+    "lower_lip": [
+      0,
+      -0.079,
+      1.573
+    ],
+    "chin": [
+      0,
+      -0.076,
+      1.548
+    ]
+  },
+  "regions": {
+    "lower_face": {
+      "min": [
+        -0.055,
+        -0.15,
+        1.515
+      ],
+      "max": [
+        0.055,
+        -0.025,
+        1.644
+      ],
+      "feather": 0.01
+    }
+  },
+  "profile_z_y_half_width": [
+    [
+      1.522,
+      -0.045,
+      0.03
+    ],
+    [
+      1.532,
+      -0.062,
+      0.031
+    ],
+    [
+      1.542,
+      -0.077,
+      0.032
+    ],
+    [
+      1.55,
+      -0.076,
+      0.032
+    ],
+    [
+      1.561,
+      -0.07,
+      0.03
+    ],
+    [
+      1.573,
+      -0.079,
+      0.027
+    ],
+    [
+      1.578,
+      -0.0778,
+      0.026
+    ],
+    [
+      1.584,
+      -0.08,
+      0.026
+    ],
+    [
+      1.594,
+      -0.077,
+      0.02
+    ],
+    [
+      1.603,
+      -0.083,
+      0.016
+    ],
+    [
+      1.612,
+      -0.095,
+      0.015
+    ],
+    [
+      1.621,
+      -0.101,
+      0.013
+    ],
+    [
+      1.631,
+      -0.096,
+      0.012
+    ],
+    [
+      1.646,
+      -0.085,
+      0.014
+    ],
+    [
+      1.658,
+      -0.079,
+      0.019
+    ],
+    [
+      1.665,
+      -0.077,
+      0.022
+    ]
+  ],
+  "max_displacement_mm": 22,
+  "strokes": [
+    {
+      "label": "Lower face transition smoothing",
+      "region": "lower_face",
+      "anchor": "philtrum",
+      "view": "front",
+      "radius_mm": 80,
+      "mode": "smooth",
+      "steps": 10,
+      "strength": 0.6,
+      "max_displacement_mm": 1.5,
+      "symmetry_x": true
+    },
+    {
+      "label": "Chin transition smoothing",
+      "region": "lower_face",
+      "anchor": "chin",
+      "view": "front",
+      "radius_mm": 35,
+      "mode": "smooth",
+      "steps": 12,
+      "strength": 0.65,
+      "max_displacement_mm": 1.5,
+      "symmetry_x": true
+    }
+  ]
+}

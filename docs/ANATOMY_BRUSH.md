@@ -59,3 +59,19 @@ invalid/missed/out-of-region/stale commands. The included skull run preserves
 both-layer rollback. Two strokes produce about 1.22 mm maximum total displacement.
 The underlying 6 mm fused head still limits visible fine detail. This tool places
 and bounds edits precisely; it does not supply anatomical ground truth.
+
+## Lower-face profile example
+
+`examples/human_lower_face.py` consumes the guided native file and applies
+`examples/human-lower-face.json`. A new mesh has only the lower-face patch
+subdivided. Authored sagittal Z/Y/half-width rows produce a reversible profile
+layer, followed by registered smoothing strokes. The measured nose-base,
+philtrum, lip and chin positions are recorded before and after editing.
+
+```text
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_lower_face.py -- runs/human-guided-cranium/human-guided.blend runs/human-lower-face
+```
+
+The source object's earlier keys remain intact. The new mesh gets a fresh diagram
+binding; prior topology-bound masks are not silently reused. This edits the broad
+profile, not nostril cavities or detailed lip topology.

@@ -2,6 +2,25 @@
 
 ## Human proportion base — 2026-10-23
 
+Lower-face profile revision: `examples/human_lower_face.py` takes the guided
+cranium native file, subdivides only lower-face topology into a new object, and
+applies an authored sagittal profile from `examples/human-lower-face.json`.
+Nose base, philtrum, upper/lower lip and chin anchors define forward support and
+chin setback. The profile is a reversible shape key followed by a bounded
+registered smoothing brush. The source and its cranium brush layers remain intact.
+Native result: `runs/human-lower-face-final/human-lower-face.blend`.
+
+Focused checks verify unchanged protected coordinates, full layer rollback,
+source preservation, manifold edges, and actual anterior lip support/chin setback
+by surface ray samples. Nostril cavities and detailed lip anatomy remain outside
+this pass. Blender 5.2.2 LTS: 65,004 protected vertices stayed unchanged;
+source preservation and full rollback passed, with zero nonmanifold edges.
+Upper/lower lip centerline samples moved forward 9.48/9.31 mm; the chin
+sample moved back 3.23 mm. Maximum total displacement was 13.59 mm.
+Final front/side previews were inspected. Lip definition and shallow chin
+surface irregularities remain unfinished. Blender exited; runs used one
+process with two CPU threads. Previous revisions follow.
+
 Registered anatomy brushing: `anatomy.bind` and `anatomy.stroke` project named
 landmarks from front/side diagrams to the current mesh surface. Regional bounds,
 feathering, optional protection masks, geodesic radius, X mirroring and per-stroke
