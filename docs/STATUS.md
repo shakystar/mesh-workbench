@@ -6,6 +6,26 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Registered lower-nose controls - 2026-10-24
+
+[Current mesh, controls and limits](reference/anatomy/LOWER_NOSE_CURVES.md).
+`curve_fit.apply` fits compact 3D control displacements on a copied mesh with
+a reversible layer. The 25-control nasal study adjusts tip/columella/ala/sill
+connections. It preserves the source, topology, existing keys, selections and
+vertex groups. This is authored surface registration, not cartilage geometry
+or a population anatomy model. Nostril rim and vestibule construction remain.
+
+Blender 5.2.2 LTS: maximum movement 2.02465 mm; 74,508 out-of-region vertices
+unchanged; rollback, two invalid inputs and injected late failure pass.
+Minimum changed polygon area ratio 0.85332, no reversed polygon area vectors.
+Saved-file readback: maximum target-to-surface distance 0.01389 mm.
+These checks do not guarantee absence of self-intersections.
+Front/profile/basal-oblique renders inspected; one Blender process at a time,
+two CPU/numerical threads, 640px/16 samples. All processes exited.
+Native: `runs/human/lower-nose-curves/lower-nose.blend`; diagram and reports beside it.
+The input SHA256 was unchanged. A thumbnail-cache write warning did not prevent
+native save, successful readback or the three render outputs.
+
 ## Nose anatomy audit - 2026-10-24
 
 [Source-based structural review and current three-view board](reference/anatomy/NOSE_AUDIT.md)

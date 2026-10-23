@@ -10,17 +10,17 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-**Current human model, actually rendered:** fitted eyes plus shaped nasal tip,
-alar volumes and paired nostril cavities. Ears remain shallow relief and the chin
-is uneven; this is still a rough study. [Files and folders](docs/WORKSPACE_LAYOUT.md).
-The current nasal detail tests surface-normal ridge/groove brushes and
-volume-preserving relaxation. It is not anatomical validation.
+**Current human model, actually rendered:** fitted eyes and a lower-nose study
+with 25 registered controls for tip support, columella, alar crests, attachment
+and sill. Ears remain shallow relief and the chin is uneven. The nostril rims
+and blind cavities remain unfinished; this is not anatomical validation.
+[Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 [Nose structural audit: actual three-view comparison and sourced relationship map](docs/reference/anatomy/NOSE_AUDIT.md).
 
-| Current front | Current nasal brush detail |
-| --- | --- |
-| ![Current human front](docs/assets/human/human-current-front.png) | ![Current human three-quarter](docs/assets/human/human-current-three-quarter.png) |
+![Current lower-nose front, profile and basal-oblique views](docs/assets/human/nose/lower-nose-current.png)
+
+[Registered surface controls and limits](docs/reference/anatomy/LOWER_NOSE_CURVES.md).
 
 [Human scripts and current native location](examples/human/README.md).
 [Earlier cavity-stage underside](docs/assets/human/nose/underside.png).

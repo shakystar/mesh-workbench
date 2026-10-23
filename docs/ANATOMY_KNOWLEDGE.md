@@ -8,6 +8,13 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Registered lower-nose surface controls
+
+`curve_fit.apply` adds compact 3D control fitting with a reversible layer on a
+copy of the existing mesh, retaining its keys and selection/group definitions.
+It does not infer anatomy or use those groups as automatic protection masks.
+[Current 25-control example, API and limitations](reference/anatomy/LOWER_NOSE_CURVES.md).
+
 ## Surface-following brush engine
 
 `surface_brush.apply(source, diagram, commands, name)` returns a new snapshot

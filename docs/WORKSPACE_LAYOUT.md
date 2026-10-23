@@ -6,8 +6,8 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/surface-brushed-nose/surface-brushed.blend` |
-| Current human images | `docs/assets/human/` |
+| Current human native | `runs/human/lower-nose-curves/lower-nose.blend` |
+| Current human images | `docs/assets/human/nose/lower-nose-current.png`, `lower-nose-controls.png` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |
 | Other examples | `examples/{camera,mouse,headphones,speaker,organic,lantern,sculpture,general}/` |
