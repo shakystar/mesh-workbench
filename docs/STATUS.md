@@ -6,6 +6,28 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Under-chin reconstruction / stage B handoff - 2026-10-24
+
+`mesh_workbench.regions.patch.rebuild` replaces a bounded projected patch on a
+new topology snapshot, preserving the exact boundary and all outside geometry.
+The old source, layers and topology-bound selections remain available; masks
+and selections are not transferred to the changed topology.
+
+Blender 5.2.2 LTS: 100 fixed boundary vertices, 91,081 retained/protected
+vertices, 345 removed faces -> 610 new triangles. All 12 defect sections now
+cross once. Source preservation, empty-input rejection, injected triangulation
+failure cleanup, oriented/closed seam, zero nonmanifold edges, native readback
+and input hash pass. Broader non-projectable boundaries were rejected; no guard
+was loosened. Two matched 640px/16-sample result views inspected, one process,
+two CPU/numerical threads; exited.
+
+The thin underside projection is removed, with a slight fixed-boundary contour
+change remaining. Local ear/neck tool application and review criteria now have
+evidence; this is not a fully anatomical neck or realistic character. Next is
+stage C torso/rib-cage/abdomen/pelvis. Full goal active.
+Current native: `runs/human/rebuilt-underside/rebuilt-underside.blend`.
+[Patch policy, comparison, limits and stage B evidence](reference/anatomy/NECK_TRANSITIONS.md#bounded-patch-reconstruction).
+
 ## Under-chin folded-surface diagnosis - 2026-10-24
 
 Read-only cross sections now identify the thin projection as a folded local

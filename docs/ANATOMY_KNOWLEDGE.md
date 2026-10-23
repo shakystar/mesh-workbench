@@ -13,7 +13,12 @@ Each stores source references separately from authored modeling proportions.
 `from mesh_workbench.regions import neck` exposes `knowledge()` and
 `compile_paths(source, registration)` for explicit front-visible skin paths,
 named regions and a protected facial height. Five authored paths are applied
-in the current example. [Sources, tests and unresolved under-chin defect](reference/anatomy/NECK_TRANSITIONS.md).
+in the current example. [Sources, tests and under-chin repair](reference/anatomy/NECK_TRANSITIONS.md).
+
+`mesh_workbench.regions.patch.rebuild` repairs a bounded folded patch on a new
+topology snapshot using an exact fixed boundary and single-sheet height field.
+It is geometric repair, not an anatomical prior. Existing source masks/layers
+remain on the source; no topology-bound selections are copied to the output.
 
 ## Auricle relief trial
 

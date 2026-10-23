@@ -1,8 +1,10 @@
 # Human modeling entry point
 
-Current trial native: `runs/human/neck-submental/neck-transitions.blend`.
-Current images: `docs/assets/human/neck/after-front.png` and `after-profile.png`.
-The under-chin projection remains unresolved. Run `neck/transitions.py` from
+Current native: `runs/human/rebuilt-underside/rebuilt-underside.blend`.
+Current images: `docs/assets/human/neck/rebuilt-front.png` and `rebuilt-profile.png`.
+The local under-chin fold is repaired. Run `neck/rebuild_underside.py` from
+`runs/human/neck-submental/neck-transitions.blend` into a fresh folder.
+The source and old topology remain preserved. Prior neck trial: `neck/transitions.py` from
 `runs/human/continuous-ears-faired/continuous-ears.blend` into a fresh folder.
 Prior ear stage:
 Ear ridge continuity is reviewed; thickness remains shallow. Neck transition is next.
