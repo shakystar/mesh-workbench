@@ -33,7 +33,8 @@ band remains. Registered shin/calf controls now distinguish shallow anterior
 and posterior volumes. Ankle/heel/instep/arch controls are applied; toes remain
 separated by bilateral forefoot grafts. The stock cap is tapered to reduce its root wall; a shallow ridge remains.
 The complete body and both eyes are copied and grounded together.
-[Whole-character views and remaining integration work](docs/reference/anatomy/body/INTEGRATION.md). [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
+A 40-point registered surface guide is saved with the assembly.
+[Whole-character views and registered guide](docs/reference/anatomy/body/INTEGRATION.md). [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).

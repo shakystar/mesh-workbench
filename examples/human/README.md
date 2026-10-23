@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Registered assembly guide: `integration/guides.py` takes integrated native and
+a fresh folder; `runs/human/guided-complete/` contains the 40-marker native/JSON.
+
 Current assembly: `runs/human/integrated/integrated.blend`.
 `integration/ground.py` copies body and eye globes and places their assembly on the floor.
 

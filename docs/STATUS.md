@@ -1,5 +1,33 @@
 # Current development status
 
+## Integrated registered surface guide - 2026-10-24
+
+`assembly.guides.register(body, rows)` projects explicit external rays onto the
+current skin, rejecting wrong-facing hits, misses, duplicate names and hits
+outside registered bounds. Returns `landmarks`, local `regions`/feather and
+named paths compatible with surface-brush inputs, plus source evidence and
+registration rays. It never mutates geometry. Names are manually assigned skin
+targets; they are not automatically detected or anatomically validated bones.
+
+Blender 5.2.2 LTS: 40 markers across 17 local protection regions cover midface,
+eyelid/cheek, ears/neck, front/back torso, arms/hands, legs/ankles and hallux.
+Maximum surface residual .000134 mm. Original coordinates/hash unchanged;
+injected final-ray miss leaves no scene mutation. Saved body and marker
+coordinates read back. Actual front/back colored overlays inspected. The initial
+white marker material was corrected and missing ear/toe entries added before
+final capture; no additional geometry deformation was performed.
+
+F's bounded saved-model/guide integration criteria are satisfied: the complete
+assembly and this registered guide share the same native file. This overview
+does not replace the detailed local oral/nasal/eyelid guides or validate anatomy.
+Next is stage G: a different face/body and reuse with separate registration.
+Full goal remains active. One Blender process/two threads, exited.
+
+Annotated native: `runs/human/guided-complete/guided.blend`; guide JSON and
+verification adjacent. Clean modeling source remains `runs/human/integrated/`.
+`examples/human/integration/guides.py` takes integrated native plus fresh folder.
+
+
 ## Grounded whole-character assembly - 2026-10-24
 
 Added `assembly.ground(body, attachments, floor_z, name)`: copies an explicit

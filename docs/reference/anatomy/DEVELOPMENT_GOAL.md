@@ -121,3 +121,10 @@ simple toes remain. Next is bounded E review, then F integration/ground contact.
 both eyes translated together onto the floor, originals and relative placement
 preserved. Full front/back views inspected. Assembly map is provenance/placement
 only; merged anatomical landmarks and stage-G reuse remain pending. Goal active.
+
+### Stage F registered guide - 2026-10-24
+
+40 visible-surface targets, 17 local regions and provenance saved with complete
+body/eye assembly. No geometry change; source, late-ray rejection and readback
+verified. F bounded model/guide criteria met. Anatomy accuracy is not claimed.
+Next is G: different face/body and separate registered reuse; full goal active.
