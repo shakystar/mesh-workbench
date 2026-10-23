@@ -79,3 +79,10 @@ Full goal remains active.
 have reduced discrete depth bending. Protected geometry, rollback, atomic
 failure and saved views verified. Rounded outline/faint lower band remain.
 Next is shin/calf; stage E and full goal remain active.
+
+### Shin/calf relief - 2026-10-24
+
+112 registered controls distinguish shallow anterior and posterior calf relief.
+An initial visible station-banding defect was corrected with a wider kernel;
+source/protection/rollback/failure/readback and final front/back views pass.
+Next is ankle/heel/instep, then toe divisions. Stage E and full goal remain active.

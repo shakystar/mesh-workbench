@@ -29,7 +29,8 @@ length; distal flaring and simplified palm/joint surfaces remain. [Hand prototyp
 [Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
 Registered thigh/knee controls reduce central knee projection; its round outline
 remains. Registered longitudinal sections soften its transitions; a faint lower
-band remains. [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
+band remains. Registered shin/calf controls now distinguish shallow anterior
+and posterior volumes. [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).

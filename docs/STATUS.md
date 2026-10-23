@@ -1,5 +1,31 @@
 # Current development status
 
+## Registered shin/calf relief - 2026-10-24
+
+`leg.compile_controls(profile="calf")` uses descending manual knee/calf/ankle
+interior axes, seven radial stations and eight directions per station. The
+knowledge file separates sourced anterior/posterior compartment relationships
+from authored skin depths. Same atomic bilateral API and reversible layers.
+The calf profile uses a 75 mm kernel; other profiles retain their prior radii.
+
+Blender 5.2.2 LTS: 112 controls, max move 3.03012 mm, surface residual .01321 mm,
+minimum polygon area ratio .96239. 149,224 outside-box vertices exact. Original,
+topology, rollback, invalid axes, second-leg cleanup, sampled thigh gap, native
+readback and source hash pass. Posterior calf probes expand by 1.99765/1.99759 mm.
+Region Z=.135.. .438 m protects the knee and distal ankle/foot beyond those bounds.
+
+The first 45 mm kernel produced visible station bands despite numeric checks;
+that candidate remains in ignored `runs/human/calf-relief/` and was not selected.
+The 75 mm correction was rechecked because of this concrete visual defect.
+Matched front/back views show smoother continuity. Relief is shallow and muscles
+remain simplified; this is not anatomical segmentation or a finished leg.
+Next: ankle prominences and heel/instep transitions. Stage E remains active.
+
+Current native: `runs/human/calf-continuous/calf-relief.blend`, object
+`Calf relief study`. `examples/human/legs/calf.py` takes knee-transition native
+and a fresh output folder. One Blender process/two threads at a time; exited.
+
+
 ## Registered knee transition sections - 2026-10-24
 
 `leg.compile_knee_transition` / `compile_controls(profile="knee_transition")`

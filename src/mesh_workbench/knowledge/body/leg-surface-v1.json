@@ -107,5 +107,111 @@
         0
       ]
     }
+  ],
+  "calf_source": "https://openstax.org/books/anatomy-and-physiology/pages/11-6-appendicular-muscles-of-the-pelvic-girdle-and-lower-limbs",
+  "calf_relationships": [
+    "Tibialis anterior is lateral to the tibia in the anterior compartment.",
+    "Gastrocnemius is superficial to soleus in the posterior compartment."
+  ],
+  "calf_policy": "Authored radial skin depths distinguish a shallow anterior crest and posterior calf mass; not segmented muscles. Manual knee/calf/ankle interior axes.",
+  "calf_stations": [
+    {
+      "segment": "upper",
+      "t": 0.15,
+      "depths_mm": [
+        0.5,
+        -0.5,
+        0,
+        1,
+        1,
+        1,
+        0,
+        -0.5
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.4,
+      "depths_mm": [
+        1,
+        -1,
+        0,
+        2,
+        2,
+        3,
+        1,
+        -1
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.7,
+      "depths_mm": [
+        1,
+        -1,
+        -0.5,
+        2,
+        2,
+        3,
+        1,
+        -1
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0,
+      "depths_mm": [
+        1,
+        -1,
+        -0.5,
+        1,
+        1,
+        2,
+        0,
+        -1
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.3,
+      "depths_mm": [
+        1,
+        -1,
+        -1,
+        0,
+        1,
+        1,
+        -1,
+        -1
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.6,
+      "depths_mm": [
+        0.5,
+        -0.5,
+        -1,
+        -1,
+        0,
+        -1,
+        -1,
+        -0.5
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.85,
+      "depths_mm": [
+        0,
+        0,
+        -0.5,
+        -0.5,
+        0.5,
+        -0.5,
+        -0.5,
+        0
+      ]
+    }
   ]
 }

@@ -11,10 +11,11 @@ def compile_controls(source,target):
     sculpt.editable(source)
     profile=target.get('profile','leg')
     if profile=='knee_transition':return compile_knee_transition(source,target)
-    if profile not in ('leg',):raise ValueError('Unknown leg profile')
+    if profile not in ('leg','calf'):raise ValueError('Unknown leg profile')
     side=target['side']
     if side not in (-1,1):raise ValueError('Side must be -1 or 1')
-    refs=np.asarray([target[n] for n in ('proximal','knee','shin')],float)
+    keys=('knee','calf','ankle') if profile=='calf' else ('proximal','knee','shin')
+    refs=np.asarray([target[n] for n in keys],float)
     if refs.shape!=(3,3) or not np.isfinite(refs).all() or not refs[0,2]>refs[1,2]>refs[2,2]:
         raise ValueError('Descending finite leg axes required')
     if np.any(refs[:,0]*side<=0):raise ValueError('Leg axes cross body midline')
@@ -22,7 +23,7 @@ def compile_controls(source,target):
     p=sculpt.coordinates(source);tree=BVHTree.FromPolygons(p.tolist(),[list(f.vertices) for f in source.data.polygons])
     controls=[]
     directions=tuple((side*np.sin(angle),-np.cos(angle),0) for angle in np.arange(8)*np.pi/4)
-    for i,row in enumerate(k['stations']):
+    for i,row in enumerate(k['calf_stations'] if profile=='calf' else k['stations']):
         a,b=refs[:2] if row['segment']=='upper' else refs[1:]
         center=a*(1-row['t'])+b*row['t']
         for j,direction in enumerate(directions):
@@ -31,7 +32,7 @@ def compile_controls(source,target):
                 raise ValueError('Leg axis must be inside the registered limb')
             q=np.asarray(hit);end=q+np.asarray(direction)*row['depths_mm'][j]/1000
             controls.append({'name':f'leg_{side}_{i}_{j}','source':q.tolist(),'target':end.tolist()})
-    return {'units':'m','label':profile+' '+str(side),'surface_interpolation':True,'radius_mm':45,
+    return {'units':'m','label':profile+' '+str(side),'surface_interpolation':True,'radius_mm':75 if profile=='calf' else 45,
         'max_displacement_mm':5,'region':target['region'],'controls':controls,'registration':target,'knowledge':k}
 
 def apply_pair(source,targets,name='Leg relief study'):
