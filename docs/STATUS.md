@@ -6,6 +6,32 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Connected nasal entrances - 2026-10-24
+
+[Current renders, comparison and API](reference/anatomy/NASAL_ENTRANCES.md).
+`nasal_entrance.build` replaces both registered ellipsoid cutouts with connected
+skin-following shoulder/rim/interior patches on a new topology snapshot.
+The exterior-tangent transition and local collar fairing address the visible
+craters/seam wrinkles found in intermediate renders. Aperture/interior rings
+remain fixed during fairing. Each side uses a 70-vertex boundary and 630 new faces.
+This is authored surface construction with a short blind interior, not a nasal
+airway, tissue-thickness model or anatomically validated human library.
+
+Blender 5.2.2 LTS: source preserved, 77,985 out-of-region vertices unchanged,
+invalid registration rejected, injected second-patch failure leaves no output.
+Both central depths read 5.80 mm; no nonmanifold/inconsistently oriented edges.
+Final native readback confirms source layers and explicit exclusion of stale
+topology-bound selections from the output. Front/profile/basal-oblique renders
+were inspected; final visible collar wrinkles were removed. Global geometric
+self-intersection and airway correctness are not established.
+
+Native: `runs/human/nasal-entrances-smooth/nasal-entrances.blend`.
+Registration, geometry/readback reports and cleanup record are beside it.
+One Blender process at a time, two CPU/numerical threads, 640px/16 samples;
+all processes exited. Three rejected intermediate native files were deleted
+after final readback; their images/reports and the original input remain.
+Thumbnail-cache warnings did not prevent native save or successful readback.
+
 ## Registered lower-nose controls - 2026-10-24
 
 [Current mesh, controls and limits](reference/anatomy/LOWER_NOSE_CURVES.md).

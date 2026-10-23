@@ -8,6 +8,13 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Connected nasal entrance patches
+
+`nasal_entrance.build` replaces registered cutouts on a new topology snapshot
+with an exterior-tangent shoulder, rim and short blind interior. It preserves
+the source and explicitly drops topology-bound selection data from the result.
+[Example, registration and limitations](reference/anatomy/NASAL_ENTRANCES.md).
+
 ## Registered lower-nose surface controls
 
 `curve_fit.apply` adds compact 3D control fitting with a reversible layer on a
