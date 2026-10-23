@@ -2,6 +2,21 @@
 
 ## Compact camera exterior — 2026-10-23
 
+Contour and fitting revision: the grip now uses 57 eased sections and rounder
+cross-sections instead of seven linear stations. Both viewfinders have body
+recesses, open rims, recessed coated glass and dark backing wells. The side strap
+mounts and studs are smaller; rounded-wire eyes replace the thick flat washers.
+Native result: `runs/compact-camera-contours/camera.blend`.
+
+Focused checks cover grip/body intersection, open finder apertures, glass/rim
+clearance and open strap eyes. The viewfinder is a visual assembly, not a
+validated optical path; strap strength is not simulated. Blender 5.2.2 LTS
+passed the checks. Front and rear renders were visually inspected: the finder
+glass sits behind its rim, the strap eye is thinner and the grip transitions
+are smoother. The grip remains a distinct attached part. Blender exited after
+one generation and two renders, using one process and two CPU threads.
+Previous revisions follow.
+
 Exterior integration revision addresses the four user-marked areas. A tapered
 section grip replaces the rounded block and projecting top plate. The control
 panel, gasket and body seat extend down to align with the screen; lower fasteners

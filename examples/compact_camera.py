@@ -94,11 +94,16 @@ def build(output):
     casing('Upper recessed gasket',[(68.8,59.4,17.4),(69.5,59.4,17.4)],black)
     casing('Lower recessed gasket',[(6.5,59.4,17.4),(7.2,59.4,17.4)],black)
     # Taper both ends into the body; no separate projecting top plate.
-    grip=assign(sectionstock.create('Tapered front grip',[
-        [8,-44,-16.6,7,1.0],[10,-44,-18.5,9,3.0],
-        [16,-44,-20.6,10.5,5.0],[47,-44,-20.6,10.5,5.0],
-        [54,-44,-19.6,10,4.0],[59,-44,-17.8,8.8,2.2],
-        [63,-44,-16.6,7,1.0]],exponent=4,segments=128),rubber)
+    grip_rows=[]
+    for i in range(57):
+        z=8+i
+        low=max(0,min(1,(z-8)/15))
+        high=max(0,min(1,(64-z)/21))
+        ease=(low*low*(3-2*low))*(high*high*(3-2*high))
+        hy=.6+4.2*ease
+        grip_rows.append([z,-44,-15.6-hy,7.5+3*ease,hy])
+    grip=assign(sectionstock.create('Tapered front grip',grip_rows,
+                                    exponent=3,segments=128),rubber)
     materials.finish([grip], 'Grip fine grain', role='rubber', color=(.025,.03,.033,1),
                      roughness=.7, variation=.03, grain_mm=.5, bump_mm=.025, seed=19)
     # Lens axis: -Y. Ring bores and the glass share the same centre.
@@ -167,8 +172,22 @@ def build(output):
     for x in (-3.5,13.5):box('Hot shoe rail '+str(x),(1.4,14,2.2),(x,3,85),silver,.3)
     cylinder('Hot shoe contact',(5,3,84),(5,3,84.5),1.1,brass)
     # Front window and autofocus lamp.
-    box('Viewfinder surround',(21,1.1,10),(-35,-18.1,75),black,.5)
-    box('Viewfinder window',(16,.3,6),(-35,-18.7,75),glass,.12)
+    finder_glass=material('Viewfinder coated glass',(.22,.3,.32),0,.12,.8)
+    finder_pairs=[]
+    for side,sign in (('Front',-1),('Rear',1)):
+        cut=mechanical.cut_box(upper,side+' finder body recess',(22.4,3.2,9.4),(-35,sign*17.5,75),.6)
+        upper.hide_render=True;upper.hide_set(True);parts.append(cut);upper=cut
+        stock=box(side+' finder rim stock',(22,1.4,9),(-35,sign*17.8,75),black,.5)
+        rim=mechanical.cut_box(stock,side+' recessed finder rim',(17,3,5.6),(-35,sign*17.8,75),.5)
+        stock.hide_render=True;stock.hide_set(True);parts.append(rim)
+        pane=box(side+' recessed finder glass',(16.6,.3,5.2),(-35,sign*17.65,75),finder_glass,.12)
+        box(side+' finder dark well',(17,.3,5.6),(-35,sign*16.5,75),cavity_material,.12)
+        finder_pairs.append((rim,pane,sign))
+    upper_normals=[(0,0,0)]*len(upper.data.loops)
+    for face in upper.data.polygons:
+        face.use_smooth=False
+        for index in face.loop_indices:upper_normals[index]=tuple(face.normal)
+    upper.data.normals_split_custom_set(upper_normals)
     cylinder('Autofocus lamp',(45,-18,61),(45,-19.2,61),2.3,glass)
     label('FRAME',(-7,-18.6,74),4,black)
     label('35 / 2',(33,-18.7,58),2.3,white)
@@ -197,8 +216,6 @@ def build(output):
         label(text,(48,19, z-5),1.6,white,rear=True)
     for obj in set(bpy.data.objects)-controls_before:
         obj.location.y-=.5
-    box('Rear viewfinder eyecup',(25,1.2,12),(-35,18.3,75),black,.4)
-    box('Rear viewfinder glass',(17,.4,6),(-35,19.0,75),glass,.15)
 
     def screw(name, x, y, z, rear=True):
         direction=1 if rear else -1
@@ -209,11 +226,16 @@ def build(output):
         return result
     for x,z in ((33,15),(53,15),(33,65),(53,65)):
         screw('Rear panel screw %s %s'%(x,z),x,18.2 if x>0 else 17.8,z)
+    strap_eyes=[]
     for x in (-60,60):
-        box('Strap mounting plate '+str(x),(1.5,9,12),(x,0,64),black,.5)
+        box('Strap mounting plate '+str(x),(.65,6,8),(x,0,64),black,.25)
         sign=1 if x>0 else -1
-        cylinder('Strap stud '+str(x),(x,0,64),(x+sign*4,0,64),2.5,silver)
-        ring('Strap eye '+str(x),(x+sign*4,-1,64),2,4.5,2.5,silver,(0,1,0))
+        cylinder('Strap stud '+str(x),(x,0,64),(x+sign*2.4,0,64),1.3,silver)
+        profile=[[2.6+.6*math.cos(math.tau*i/16),.6*math.sin(math.tau*i/16)] for i in range(16)]
+        eye=construction.revolve('Rounded strap eye '+str(x),profile,segments=96,closed=True,
+                                 location=(x+sign*4,0,64))
+        eye.rotation_euler=(math.pi/2,0,0)
+        assign(eye,silver);strap_eyes.append(eye)
 
     # A real bottom opening, not a hatch drawn over a solid body. Retain the
     # uncut construction objects hidden; the first native model stays untouched.
@@ -360,6 +382,14 @@ def build(output):
     mechanical.remove(probe)
     if not all((control_apertures,shafts_clear,oversized_rejected,guides_attached)):
         raise ValueError('Button aperture/shaft clearance or negative fit check failed')
+    finder_clear=all(not tree(rim).overlap(tree(pane)) for rim,pane,_ in finder_pairs)
+    finder_apertures=all(tree(rim).ray_cast(Vector((-35,sign*20,75)),Vector((0,-sign,0)),6)[0] is None
+                         for rim,_,sign in finder_pairs)
+    strap_bores=all(tree(eye).ray_cast(Vector((eye.location.x,-3,64)),Vector((0,1,0)),6)[0] is None
+                    for eye in strap_eyes)
+    grip_attached=bool(tree(grip).overlap(tree(seated_body)))
+    if not all((finder_clear,finder_apertures,strap_bores,grip_attached)):
+        raise ValueError('Finder recess, strap bore or grip attachment failed')
     display_clear=not tree(display_frame).overlap(tree(display_glass))
     if not display_clear:raise ValueError('Inset display glass intersects bezel')
     latch_fits=not tree(latch_tongue).overlap(tree(receiver))
@@ -392,6 +422,8 @@ def build(output):
             'control_apertures_open':control_apertures,'button_shafts_clear':shafts_clear,
             'guide_supports_attached':bool(guides_attached),
             'oversized_shaft_rejected':oversized_rejected,'shaft_radial_clearance_mm':.2,
+            'finder_glass_rims_clear':finder_clear,'finder_apertures_open':finder_apertures,
+            'strap_bores_open':strap_bores,'grip_attached':grip_attached,
             'display_glass_bezel_clear':display_clear,
             'panel_bores_open':panel_bores,'panel_gasket_contact':panel_contact,
             'door_seal_seat_contact':seal_contact,'latch_fits_receiver':latch_fits,
