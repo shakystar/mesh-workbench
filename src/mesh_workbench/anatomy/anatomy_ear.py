@@ -67,6 +67,51 @@ def apply_relief(source,targets,name='Auricle relief study',**options):
         raise
 
 
+def compile_surface_paths(obj,targets):
+    """Compile continuous cubic ear paths for surface_brush on a refined snapshot.
+
+    Named knowledge anchors determine the paths; amplitudes remain authored.
+    Each path is projected to visible skin. No mesh edits occur during compilation.
+    """
+    if not isinstance(targets,list) or not 1<=len(targets)<=2:
+        raise ValueError('Expected one or two ear targets')
+    guides=[compile_ear(obj,t,tolerance_mm=.1) for t in targets]
+    if len(guides)==2:
+        a,b=[next(iter(g['regions'].values())) for g in guides]
+        if np.all(np.maximum(a['min'],b['min'])<np.minimum(a['max'],b['max'])):
+            raise ValueError('Ear edit regions overlap')
+    points=sculpt.coordinates(obj)
+    tree=BVHTree.FromPolygons(points.tolist(),[list(f.vertices) for f in obj.data.polygons])
+    diagram={'units':'m','landmarks':{},'regions':{},'registrations':[]};commands=[]
+    settings=[(3.5,1.2),(2.6,1.0),(2.2,.5),(4.5,-1.5),(3.5,.35),(2.5,.7)]
+    for guide in guides:
+        side=guide['registration']['side'];sign=-1 if side=='negative_x' else 1
+        diagram['regions'].update(guide['regions']);diagram['registrations'].append(guide['registration'])
+        for row,(radius,depth) in zip(guide['paths'],settings):
+            p=np.asarray([guide['landmarks'][a] for a in row['anchors']])
+            padded=np.vstack([2*p[0]-p[1],p,2*p[-1]-p[-2]])
+            samples=[]
+            for i in range(len(p)-1):
+                a,b,c,d=padded[i:i+4]
+                for t in np.linspace(0,1,8,endpoint=False):
+                    samples.append(.5*((2*b)+(-a+c)*t+(2*a-5*b+4*c-d)*t*t+(-a+3*b-3*c+d)*t*t*t))
+            samples.append(p[-1]);keys=[]
+            for i,sample in enumerate(samples):
+                hit=tree.ray_cast(Vector((sign*(abs(points[:,0]).max()+1),sample[1],sample[2])),Vector((-sign,0,0)))[0]
+                if hit is None:raise ValueError('Cubic ear path misses surface')
+                key=row['label']+'_'+str(i);diagram['landmarks'][key]=list(hit);keys.append(key)
+            commands.append({'label':row['label'],'mode':'ridge' if depth>0 else 'crease',
+                'anchors':keys,'region':row['region'],'view_direction':[-sign,0,0],
+                'radius_mm':radius,'distance_mm':abs(depth),'max_displacement_mm':abs(depth)+.1})
+        # Fair the ridge/skin collar after the six shaping paths. All coordinates
+        # are reprojected by the brush; the source and opposite side stay protected.
+        helix=commands[-6]
+        commands.append({'label':side+' ridge collar','mode':'relax_volume',
+            'anchors':helix['anchors'],'region':helix['region'],'view_direction':[-sign,0,0],
+            'radius_mm':6,'strength':.35,'iterations':6,'max_displacement_mm':1})
+    return diagram,commands
+
+
 def compile_ear(obj,target,*,relief=1,tolerance_mm=5):
     from .anatomy_fit import knowledge
     sculpt.editable(obj)

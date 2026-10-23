@@ -1,10 +1,12 @@
 # Human modeling entry point
 
-Current trial native: `runs/human/auricle-relief/auricle-relief.blend`.
-Current trial images: `docs/assets/human/ears/after-right.png` and `after-left.png`.
-The ear visual gate is open: scalloped ridges need continuous shaping.
-Run `ears/relief.py` from the preserved `runs/human/chin-contour/chin-contour.blend`
-input with a fresh output folder. Prior face stage:
+Current native: `runs/human/continuous-ears-faired/continuous-ears.blend`.
+Current images: `docs/assets/human/ears/continuous-right.png` and `continuous-left.png`.
+Ear ridge continuity is reviewed; thickness remains shallow. Neck transition is next.
+Run `ears/continuous.py` from the preserved `runs/human/chin-contour/chin-contour.blend`
+input with a fresh output folder. It refines only ears on a new snapshot and
+applies 14 reversible curve/fairing layers. `ears/relief.py` retains the earlier
+point-control trial. Prior face stage:
 Run `mouth/chin.py` with `runs/human/oral-transitions/oral-transitions.blend`
 and a fresh output directory. The static face-tool pass is reviewed; ears/neck
 are next. Prior oral transition stage:

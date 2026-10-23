@@ -1,6 +1,7 @@
 # Bilateral sampled-surface auricle relief
 
-Stage B starts with clearer lateral ear relief on the preserved character.
+The initial Stage B trial used lateral point relief on the preserved character.
+The newer [continuous-path pass](#continuous-path-pass) below supersedes that trial.
 `anatomy_ear.compile_relief` reuses the manually registered `auricle-v1` guide,
 then emits 21 `curve_fit` controls for each ear. `apply_relief` applies one or two
 disjoint ears atomically, retaining a reversible layer for each side and removing
@@ -48,9 +49,55 @@ Saved-native coordinates and unchanged input SHA256 pass. Four matched
 
 ![Current left oblique](../../assets/human/ears/after-left.png)
 
-**Visual gate remains open.** Relief is more distinct, but the outer/inner ridges
+**Initial trial visual gate was open.** Relief is more distinct, but the outer/inner ridges
 are scalloped around individual controls and the ear still resembles shallow
 surface relief. The left oblique view makes this particularly clear. Numerical
 control accuracy does not prove a convincing ear. Next: continuous ridge paths
 and sufficient local mesh resolution, before treating the ear substep as reviewed.
 Neck-to-chin/shoulder work also remains pending in stage B.
+
+## Continuous-path pass
+
+`anatomy_ear.compile_surface_paths(source, targets)` compiles the original six
+named auricle paths per ear into projected cubic curves. `surface_brush.apply`
+then uses distance along the mesh surface to form continuous ridges/recesses,
+rather than fitting independent point bulges. A seventh volume-preserving
+relaxation stroke per ear fairs the ridge/skin collar. The knowledge anchors and
+source relationships above are retained. Brush widths, amplitudes and cubic
+interpolation are authored modeling choices.
+
+The example `examples/human/ears/continuous.py` starts from the preserved
+`runs/human/chin-contour/chin-contour.blend`, not the earlier scalloped result.
+It subdivides only the two registered ear face selections with two cuts on a new
+evaluated snapshot. Existing source layers and selections remain on the input;
+topology-bound selections/masks are not transferred to the new snapshot.
+All 83,081 original vertex positions survive; the new snapshot has 91,375
+vertices. Brush deformation keeps that topology and uses 14 reversible layers.
+
+Current native: `runs/human/continuous-ears-faired/continuous-ears.blend`.
+The unfaired intermediate trial remains in `runs/human/continuous-ears/` as
+evidence of the sharp ridge attachments that prompted the collar correction.
+
+Blender 5.2.2 LTS: source/refined-input preservation, 82,201 unchanged protected
+vertices, all-layer rollback, overlapping-ear rejection, injected second-ear
+failure cleanup, zero nonmanifold edges, saved-coordinate readback and source
+file hash pass. Maximum combined displacement from the refined source is
+1.49981 mm. One process at a time, two CPU/numerical threads.
+
+The initial continuous-path trial exposed sharp ridge attachments in its two
+views. After the collar correction, two matched final 640px/16-sample views were
+inspected. Collar movement is 0.30030/0.29974 mm; minimum changed collar polygon
+area ratios are 0.69408/0.68999. Blender exited after the final renders.
+
+| Earlier point relief | Current continuous path |
+| --- | --- |
+| ![Earlier point relief](../../assets/human/ears/after-left.png) | ![Current continuous path](../../assets/human/ears/continuous-left.png) |
+
+![Current right ear](../../assets/human/ears/continuous-right.png)
+
+The isolated point bulges have been replaced by continuous outer/inner ridges;
+the limited ridge-continuity correction is visually reviewed. The result still
+has shallow ear thickness and a stylized attachment; it is not a finished
+anatomical auricle or an open canal. Next within stage B is neck-to-chin/shoulder
+transition, including the previously recorded under-chin band. Stage B as a
+whole and the full goal remain incomplete.

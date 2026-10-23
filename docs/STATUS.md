@@ -6,6 +6,28 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Continuous auricle paths and local refinement - 2026-10-24
+
+`anatomy_ear.compile_surface_paths` converts the existing knowledge anchors to
+projected cubic paths. The example refines only ear face selections on a new
+snapshot, then applies six shaping paths and one ridge-collar fairing per ear.
+Point-bulge fitting is superseded for the current character, with old inputs
+and trial outputs preserved.
+
+Blender 5.2.2 LTS: 83,081 -> 91,375 vertices, every original vertex retained;
+82,201 protected vertices unchanged. Source/refined-input preservation, 14-layer
+rollback, overlapping-ear rejection, injected second-ear failure cleanup,
+zero nonmanifold edges, saved readback and input hash pass. Maximum combined
+displacement 1.49981 mm. One process at a time, two CPU/numerical threads; exited.
+
+Two initial continuous-path views exposed sharp attachments, prompting collar
+fairing. The two final matched 640px/16-sample views show continuous ridges rather
+than isolated bulges. Ridge continuity is reviewed; shallow thickness and stylized
+attachment remain limits. Stage B is unfinished; next is neck/chin/shoulder
+transition and the under-chin band. Full goal active.
+Current native: `runs/human/continuous-ears-faired/continuous-ears.blend`.
+[API, topology policy, actual comparison and limits](reference/anatomy/AURICLE_RELIEF.md#continuous-path-pass).
+
 ## Stage B auricle relief trial / visual gate open - 2026-10-24
 
 Added `anatomy_ear.compile_relief` and atomic `apply_relief` for one/two ears.

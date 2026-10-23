@@ -14,7 +14,12 @@ Each stores source references separately from authored modeling proportions.
 registered ear. `apply_relief` applies disjoint ears with paired rollback and
 atomic second-ear failure cleanup. `auricle-v1` now records optional scapha and
 triangular-fossa relief relationships without changing legacy path coordinates.
-[Actual trial views and unresolved ridge continuity](reference/anatomy/AURICLE_RELIEF.md).
+[Point-relief trial views and limits](reference/anatomy/AURICLE_RELIEF.md).
+
+The current character instead uses `anatomy_ear.compile_surface_paths` with
+projected cubic curves and the surface brush engine on locally subdivided ears.
+Each side has six shaping paths and a bounded volume-preserving collar pass.
+[Current continuous paths, topology policy and views](reference/anatomy/AURICLE_RELIEF.md#continuous-path-pass).
 
 ## Chin contour controls
 
