@@ -31,7 +31,9 @@ Registered thigh/knee controls reduce central knee projection; its round outline
 remains. Registered longitudinal sections soften its transitions; a faint lower
 band remains. Registered shin/calf controls now distinguish shallow anterior
 and posterior volumes. Ankle/heel/instep/arch controls are applied; toes remain
-separated by bilateral forefoot grafts. The stock cap is tapered to reduce its root wall; a shallow ridge and floor gap remain. [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
+separated by bilateral forefoot grafts. The stock cap is tapered to reduce its root wall; a shallow ridge remains.
+The complete body and both eyes are copied and grounded together.
+[Whole-character views and remaining integration work](docs/reference/anatomy/body/INTEGRATION.md). [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).

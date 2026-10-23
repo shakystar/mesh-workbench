@@ -24,7 +24,7 @@ where = ["src"]
 namespaces = false
 
 [tool.setuptools.package-data]
-mesh_workbench = ["knowledge/*.json", "knowledge/body/*.json", "anatomy/*.py", "anatomy/regions/*.py", "geometry/*.py", "forms/*.py", "mechanisms/*.py", "details/*.py", "workflow/*.py"]
+mesh_workbench = ["knowledge/*.json", "knowledge/body/*.json", "anatomy/*.py", "anatomy/regions/*.py", "anatomy/assembly/*.py", "geometry/*.py", "forms/*.py", "mechanisms/*.py", "details/*.py", "workflow/*.py"]
 
 [project.urls]
 Documentation = "https://shakystar.github.io/mesh-workbench/"

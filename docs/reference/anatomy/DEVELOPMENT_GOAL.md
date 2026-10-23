@@ -114,3 +114,10 @@ Reduced the distal stock cap before fusion and regenerated both grafts from
 preserved foot-relief source. Wall reduced in saved views; retained geometry,
 closed seams, toe gaps, failure cleanup and readback pass. Shallow ridge and
 simple toes remain. Next is bounded E review, then F integration/ground contact.
+
+### Stage E handoff / F assembly - 2026-10-24
+
+[Bounded E evidence reviewed; F assembly saved](body/INTEGRATION.md). Body and
+both eyes translated together onto the floor, originals and relative placement
+preserved. Full front/back views inspected. Assembly map is provenance/placement
+only; merged anatomical landmarks and stage-G reuse remain pending. Goal active.

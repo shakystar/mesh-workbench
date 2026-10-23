@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Current assembly: `runs/human/integrated/integrated.blend`.
+`integration/ground.py` copies body and eye globes and places their assembly on the floor.
+
 Current native: `runs/human/feet-tapered/foots-grafted.blend`.
 `legs/attach.py` now uses the reduced distal forefoot cap; source is foot-relief.
 
