@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current integrated native: `runs/human/hands-grafted/hands-grafted.blend`.
+`hands/attach.py` takes the preserved elbow-relief native and a fresh output
+folder. Both hands are grafted on a new snapshot; original body/layers remain.
+Current images: `docs/assets/human/hands/grafted/`.
+Earlier separate-hand pass:
+
+
 Separate hand prototype: `runs/human/hand-stock-curved/hand-stock.blend`.
 `hands/audit.py` and `hands/build.py` take the preserved elbow-relief native and
 fresh output folders. The prototype is NOT attached; the integrated native below

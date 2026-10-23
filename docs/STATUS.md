@@ -1,5 +1,20 @@
 # Current development status
 
+## Bilateral wrist graft - 2026-10-24
+
+Added bounded `regions.graft.replace_hand` and integrated both five-digit stocks
+on new topology snapshots. Each seam: 34 body/184 stock boundary vertices,
+218 triangles; all retained vertices exact. Blender 5.2.2 LTS: closed/oriented
+edges, noncollapsed seam, invalid cuts, late failure cleanup, source topology/
+geometry, no stale keys/groups, native readback and hash pass. Unrelated eye/
+floor visibility was restored and read back after correcting the example.
+Front/oblique integrated views show a cuff-like band and flat palm/web; next is
+local seam/palm shaping with finger-gap protection. Stage D remains active.
+One process/two threads, exited. Current integrated native:
+`runs/human/hands-grafted/hands-grafted.blend`.
+[Exact preservation scope, images and limits](reference/anatomy/body/HANDS.md#bilateral-wrist-graft).
+
+
 ## Separate five-digit hand stock - 2026-10-24
 
 Source-hand audit confirms a mitten block; topology work now precedes palm

@@ -1,5 +1,9 @@
 # Proportional anatomy knowledge and registration
 
+`regions.graft.replace_hand` attaches hand stock on a new bounded topology
+snapshot with retained vertices exact. [Scope and checks](reference/anatomy/body/HANDS.md#bilateral-wrist-graft).
+
+
 `regions.hand.build` uses `hand-structure-v1` to construct separate five-digit
 stock. [Construction limits and actual prototype](reference/anatomy/body/HANDS.md).
 

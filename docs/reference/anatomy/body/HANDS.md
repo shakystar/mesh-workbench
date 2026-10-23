@@ -53,3 +53,41 @@ Separate procedural stock:
 
 ![](../../../assets/human/hands/stock-front.png)
 ![](../../../assets/human/hands/stock-oblique.png)
+
+## Bilateral wrist graft
+
+`regions.graft.replace_hand(source, stock, side, name)` creates a new topology
+snapshot. It removes bounded distal-hand faces, requires one simple boundary
+per mesh, orders the loops, and joins them with an arc-length zipper of triangles.
+Existing retained vertices are copied exactly. Inputs, layers and topology-bound
+selections remain on the original; none are falsely transferred to new topology.
+This is a restricted upright hand graft (world X side threshold .24 m), not an
+arbitrary mesh replacement API. Opposing sides are applied as explicit snapshots;
+the example does not promise a single atomic transaction across both grafts.
+
+`examples/human/hands/attach.py` takes the preserved elbow native and a fresh
+output folder. Current integrated native:
+`runs/human/hands-grafted/hands-grafted.blend`, object `Hands grafted study`.
+Both generated hands are offset/sheared to the existing wrist axes. Original
+body, hand stocks and the intermediate left-hand snapshot remain preserved.
+
+Blender 5.2.2 LTS: each seam connects 34 body boundary vertices to 184 stock
+boundary vertices using 218 triangles. Left operation retains 90,148 vertices;
+right retains 122,533 of its input, including the new left hand. All retained
+positions are exact; 59,731 original vertices above Z=.912 survive exactly.
+Closed/oriented edge checks, noncollapsed seam triangles, invalid-cut rejection,
+injected late-failure cleanup, original topology/geometry, new snapshot free of
+stale shape keys/groups, native readback and input hash pass. No global seam
+intersection test or generalized graft claim.
+
+Front/oblique integrated views were inspected. A cuff-like wrist band, flat
+palm/web and blunt fingertips remain; next is local seam/palm shaping while
+preserving finger gaps. Stage D remains incomplete.
+An initial example hid unrelated meshes. The script now changes only original,
+intermediate and generated stock visibility. `check_visibility.py` restored the
+second eye and studio floor from the original and verified final readback with
+unchanged graft coordinates. Hand closeups precede that unrelated visibility
+restoration. One process/two threads throughout, exited.
+
+![](../../../assets/human/hands/grafted/front.png)
+![](../../../assets/human/hands/grafted/oblique.png)
