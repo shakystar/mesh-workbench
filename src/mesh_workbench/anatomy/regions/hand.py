@@ -99,3 +99,31 @@ def apply_palms(source,centers,name='Palm shaped study'):
     except Exception:
         for obj in reversed(created):remove(obj)
         raise
+
+
+def compile_transitions(source,centers):
+    """Registered palm/thumb fairing paths, keeping wrist and fingertip zones out."""
+    import numpy as np
+    from mathutils import Vector
+    from mathutils.bvhtree import BVHTree
+    sculpt.editable(source)
+    if len(centers)!=2:raise ValueError('Two palm centers required')
+    p=sculpt.coordinates(source);tree=BVHTree.FromPolygons(p.tolist(),[list(f.vertices) for f in source.data.polygons])
+    diagram={'units':'m','landmarks':{},'regions':{}};commands=[]
+    for side,center in zip((-1,1),centers):
+        center=sculpt.number(center,-2,2,'hand center')
+        if center*side<=0:raise ValueError('Palm center must match side')
+        for view in (-1,1):
+            for part,rows,radius in [('thumb',((-.035,.85),(-.029,.858),(-.024,.867),(-.018,.875)),12),
+                                     ('palm',((-.020,.835),(-.010,.835),(0,.835),(.010,.837),(.022,.840)),18)]:
+                name=f'{part} transition {side} {view}';keys=[]
+                for i,(u,z) in enumerate(rows):
+                    x=center+side*(u+.2*(.85-z))
+                    hit=tree.ray_cast(Vector((x,view,z)),Vector((0,-view,0)))[0]
+                    if hit is None:raise ValueError('Transition path misses surface')
+                    key=name+' '+str(i);diagram['landmarks'][key]=list(hit);keys.append(key)
+                xs=sorted((center-side*.065,center+side*.045))
+                diagram['regions'][name]={'min':[xs[0],-.07,.812],'max':[xs[1],.07,.883],'feather':.003}
+                commands.append({'mode':'relax_volume','label':name,'region':name,'anchors':keys,
+                    'view_direction':[0,-view,0],'radius_mm':radius,'strength':.5,'iterations':10,'max_displacement_mm':3})
+    return diagram,commands

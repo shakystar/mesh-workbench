@@ -1,5 +1,18 @@
 # Current development status
 
+## Thumb/palm registered fairing - 2026-10-24
+
+Added `hand.compile_transitions` with eight front/back thumb/palm paths.
+Blender 5.2.2 LTS: max move .56541 mm, 118,239 protected vertices exact;
+source/topology/rollback/invalid second stroke/finish failure/volume/native/hash
+checks pass. Two matched views inspected. Local rounding is small; the medial
+thumb-root silhouette step remains. Next is direct registration of that outline,
+not repeated front/back smoothing. Stage D remains active. One process, at most
+two threads, exited. Current native:
+`runs/human/hand-transitions/hand-transitions.blend`.
+[API, evidence and remaining step](reference/anatomy/body/HANDS.md#registered-thumbpalm-fairing-paths).
+
+
 ## Palm cupping and web arch - 2026-10-24
 
 Added `hand.compile_palm` and atomic `apply_palms`, 40 controls per side with

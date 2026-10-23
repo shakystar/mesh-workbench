@@ -193,3 +193,32 @@ unfinished. Stage D/full goal remain active.
 | --- | --- | --- |
 | Front | ![](../../../assets/human/hands/palm/before-front.png) | ![](../../../assets/human/hands/palm/after-front.png) |
 | Oblique | ![](../../../assets/human/hands/palm/before-oblique.png) | ![](../../../assets/human/hands/palm/after-oblique.png) |
+
+## Registered thumb/palm fairing paths
+
+`hand.compile_transitions(source, centers)` creates eight source-projected
+paths: thumb-root and palm transitions on front/back of each hand. Existing
+`surface_brush.apply` supplies reversible volume-preserving layers and atomic
+failure cleanup. Fixed upright registration and authored path/radius settings
+remain limitations; this is a surface fairing tool, not anatomy inference.
+Radius 12/18 mm, strength .5, ten iterations, unchanged 3 mm cap.
+
+`examples/human/hands/transitions.py` takes palm-shaped native and a fresh output
+folder. Current native: `runs/human/hand-transitions/hand-transitions.blend`,
+object `Hand transition study`. Blender 5.2.2 LTS: maximum move .56541 mm,
+118,239 outside-box vertices exact. Source/topology, all-layer rollback, exact
+invalid-second-mode rejection, injected finish-failure cleanup, stored-volume,
+native readback and input hash pass. Vertices below Z=.812 and above Z=.883
+remain outside every region. Existing fingers and wrists are protected.
+One process, at most two numerical/CPU threads; exited.
+
+Matched front/oblique renders show only small local rounding. The visible upper
+thumb-root silhouette step remains; front/back fairing does not sufficiently
+control that medial outline. Next: register the medial thumb-root outline and
+shape its continuity directly, rather than repeating this smoothing pass.
+Flat palm areas, blunt fingertips and simplified joints remain. Stage D active.
+
+| View | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/hands/transitions/before-front.png) | ![](../../../assets/human/hands/transitions/after-front.png) |
+| Oblique | ![](../../../assets/human/hands/transitions/before-oblique.png) | ![](../../../assets/human/hands/transitions/after-oblique.png) |

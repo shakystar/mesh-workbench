@@ -1,5 +1,9 @@
 # Proportional anatomy knowledge and registration
 
+`hand.compile_transitions` registers eight thumb/palm fairing paths; front/back
+application leaves the medial outline step unresolved. [Evidence](reference/anatomy/body/HANDS.md#registered-thumbpalm-fairing-paths).
+
+
 `hand.compile_palm` / `apply_palms` provide authored reversible palm/web skin
 controls with explicit wrist/finger protection. [Evidence and limits](reference/anatomy/body/HANDS.md#registered-palm-cupping-and-web-arch).
 

@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current native: `runs/human/hand-transitions/hand-transitions.blend`.
+`hands/transitions.py` takes palm-shaped native and a fresh folder. The eight
+fairing paths preserve wrist/fingertip regions; medial thumb step remains.
+Images: `docs/assets/human/hands/transitions/`.
+Earlier palm-control pass:
+
+
 Current native: `runs/human/palm-shaped/palm-shaped.blend`.
 `hands/palm.py` takes the preserved wrist-ring-faired native and a fresh folder.
 Current views: `docs/assets/human/hands/palm/`.

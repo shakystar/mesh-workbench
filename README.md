@@ -23,7 +23,8 @@ and forearm controls now have saved-model evidence, followed by bounded elbow
 relief. Five-digit hand stocks are now grafted to preserved wrist boundaries on a new
 body snapshot. Intermediate wrist sections permit bounded reversible fairing;
 palm cupping and a curved web start are applied. Thumb-root and fingertip
-refinement remain pending. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
+refinement remain pending. Registered thumb/palm fairing is applied, with the
+medial thumb-root step still visible. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
 [Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
