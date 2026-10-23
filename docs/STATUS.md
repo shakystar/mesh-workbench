@@ -6,6 +6,18 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Nose anatomy audit - 2026-10-24
+
+[Source-based structural review and current three-view board](reference/anatomy/NOSE_AUDIT.md)
+separates anatomical relationships from authored displacement functions.
+The current model lacks registered lower-nose support/surface relationships;
+brush mechanics are not anatomical validation. Next bounded target is the
+tip-columella-alar-base connection, before further detail strokes.
+No geometry changed. Blender 5.2.2 LTS rendered front/profile/basal-oblique
+views with one process, two threads, 560px and 16 samples. An occluded basal
+view was corrected once; both processes exited. Source SHA256 was unchanged.
+No person-specific shape accuracy or measured anatomy template is established.
+
 ## Surface-following brush engine - 2026-10-24
 
 `surface_brush.apply` introduces named-path ridge/crease strokes along per-vertex

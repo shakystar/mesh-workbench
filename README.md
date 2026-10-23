@@ -16,6 +16,8 @@ is uneven; this is still a rough study. [Files and folders](docs/WORKSPACE_LAYOU
 The current nasal detail tests surface-normal ridge/groove brushes and
 volume-preserving relaxation. It is not anatomical validation.
 
+[Nose structural audit: actual three-view comparison and sourced relationship map](docs/reference/anatomy/NOSE_AUDIT.md).
+
 | Current front | Current nasal brush detail |
 | --- | --- |
 | ![Current human front](docs/assets/human/human-current-front.png) | ![Current human three-quarter](docs/assets/human/human-current-three-quarter.png) |
