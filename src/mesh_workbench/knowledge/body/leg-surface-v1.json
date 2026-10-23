@@ -1,0 +1,111 @@
+{
+  "id": "leg-surface-v1",
+  "schema_version": 1,
+  "source": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb",
+  "relationships": [
+    "Patella lies anterior to distal femur.",
+    "Distal femur has medial and lateral condyles.",
+    "Tibial tuberosity is anterior and below the knee."
+  ],
+  "policy": "Authored skin offsets and manual thigh/knee/shin axes, not bone detection. Standing frame, front -Y, up Z. Directions front, front-outer, outer, back-outer, back, back-inner, inner, front-inner.",
+  "stations": [
+    {
+      "segment": "upper",
+      "t": 0.12,
+      "depths_mm": [
+        2,
+        2,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        1
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.42,
+      "depths_mm": [
+        1,
+        2,
+        1,
+        0,
+        1,
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.72,
+      "depths_mm": [
+        0,
+        1,
+        1,
+        0,
+        -1,
+        0,
+        2,
+        3
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.9,
+      "depths_mm": [
+        -1,
+        1,
+        2,
+        0,
+        -1,
+        0,
+        2,
+        1
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0,
+      "depths_mm": [
+        -3,
+        -1,
+        1,
+        0,
+        -1,
+        0,
+        1,
+        -1
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.35,
+      "depths_mm": [
+        -1,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.65,
+      "depths_mm": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

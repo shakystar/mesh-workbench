@@ -65,3 +65,10 @@ Surface realism limits remain explicit; no repeated geometry tests were run.
 [Stage E audit](body/LEGS.md) records 48 skin exits and two actual current views.
 Next implementation is thigh-to-knee transition and knee relief, preserving
 pelvis, lower legs and upper body. Stages E/F/G and the full goal remain active.
+
+### Stage E thigh-knee controls - 2026-10-24
+
+112 registered controls reduce central knee protrusion by approximately 3 mm.
+Protected geometry, reversible layers, atomic failures and saved views verified.
+The spherical outline remains; next is kneecap border/transition, then shin/calf.
+Full goal remains active.

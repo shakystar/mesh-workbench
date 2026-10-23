@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Current native: `runs/human/thigh-knee/knee-relief.blend`.
+`legs/relief.py` applies 112 thigh/knee controls to the rounded-caps source.
+
 Lower-limb inspection: `legs/audit.py` takes the rounded-caps native and a fresh
 folder; read-only 48-exit surface audit plus front/oblique views.
 

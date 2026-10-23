@@ -50,3 +50,34 @@ No whole-project regression or compatibility expansion is authorized.
 | Front | Oblique |
 | --- | --- |
 | ![](../../../assets/human/legs/audit/front.png) | ![](../../../assets/human/legs/audit/oblique.png) |
+
+## Registered thigh-knee controls - 2026-10-24
+
+`regions.leg.compile_controls(source, target)` accepts side and descending
+manual proximal/knee/shin axes plus a protection box. Eight radial directions
+at seven stations register visible skin through outward interior-exit checks.
+`knowledge/body/leg-surface-v1.json` separates sourced anatomical relationships
+from authored skin offsets. `leg.apply_pair` compiles both sides before editing,
+rejects overlapping boxes, and removes partial snapshots on second-side failure.
+Two reversible layers preserve the original. Fixed standing frame only.
+
+Blender 5.2.2 LTS: 112 controls, max move 3.05306 mm, surface residual .00851 mm,
+minimum changed polygon area ratio .94344. 144,789 outside-region vertices exact.
+Original/topology/rollback/invalid axes/second-leg cleanup/saved readback/input
+hash pass. Mid-thigh gap remains open. Actual front rays at the knee measure
+2.99758 and 3.00252 mm less protrusion. Pelvis above Z=.79 m and calf/feet below
+Z=.43 m are protected by the registered boxes.
+
+Matched front/oblique views show modest lower-thigh contour and knee projection
+changes. The spherical knee outline still reads clearly; this does not establish
+an anatomical patella or finished leg. Next: local kneecap border/transition,
+then shin/calf. Stage E remains active.
+
+Native: `runs/human/thigh-knee/knee-relief.blend`, object `Thigh knee study`.
+Example: `examples/human/legs/relief.py` takes rounded-caps native and a fresh
+output folder. One Blender process/two threads, exited.
+
+| View | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/legs/knee/before-front.png) | ![](../../../assets/human/legs/knee/after-front.png) |
+| Oblique | ![](../../../assets/human/legs/knee/before-oblique.png) | ![](../../../assets/human/legs/knee/after-oblique.png) |

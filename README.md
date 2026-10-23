@@ -27,7 +27,8 @@ medial thumb sections fitted for continuity. A small silhouette notch remains. R
 relief and distal width. Elliptical cap controls round the ends while preserving
 length; distal flaring and simplified palm/joint surfaces remain. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
 [Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
-[Current lower-limb audit and next controls](docs/reference/anatomy/body/LEGS.md).
+Registered thigh/knee controls reduce central knee projection; its round outline
+still needs refinement. [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
