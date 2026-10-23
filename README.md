@@ -10,8 +10,8 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-**Current human model, actually rendered:** fitted eye openings, separate
-eyeballs and connected upper/lower lids. Ears remain shallow relief and the chin
+**Current human model, actually rendered:** fitted eyes plus shaped nasal tip,
+alar volumes and paired nostril cavities. Ears remain shallow relief and the chin
 is uneven; this is still a rough study. [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 | Current front | Current three-quarter |
@@ -19,6 +19,7 @@ is uneven; this is still a rough study. [Files and folders](docs/WORKSPACE_LAYOU
 | ![Current human front](docs/assets/human/human-current-front.png) | ![Current human three-quarter](docs/assets/human/human-current-three-quarter.png) |
 
 [Human scripts and current native location](examples/human/README.md).
+[Nose underside](docs/assets/human/nose/underside.png).
 
 Latest: an adult human proportion blockout in a neutral stance, with preserved
 section sources and a separate fused surface. This is an initial silhouette and

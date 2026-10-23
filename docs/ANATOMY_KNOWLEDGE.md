@@ -8,6 +8,34 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Nasal volumes and cavities (static study)
+
+`from mesh_workbench import nasal_structure` provides
+`head, volume_stage, report = nasal_structure.build(source, settings)`.
+The registered mesh faces -Y with Z up. `base_z` and `center_x` use metres;
+`width_mm`, `tip_projection_mm`, `alar_size_mm`, `nostril_width_mm`,
+`nostril_height_mm` and `cavity_depth_mm` are authored geometry controls.
+Projection is relative to the sampled cheek support plane, not a clinical
+measurement. These controls do not add a population anatomy dataset.
+
+Local subdivision creates a new baseline. Tip, alar and central-column volumes
+use a `Nasal volumes` shape key, registered with the existing layer API:
+`sculpt.set_layer(volume_stage, 'Nasal volumes', 0)` restores its baseline;
+value 1 restores the shaped surface. Paired, angled ellipsoid differences and
+rim bevels create blind cavities on a separate final topology snapshot. The
+final cavity mesh must be regenerated after changing the volume controls.
+Source objects, layers, masks and selections remain on their original objects.
+
+The tool rejects inadequate central tissue, missing support and movement over
+12 mm. A failed batch removes its new objects and meshes, including a failure
+on the second cavity. It requires manual registration at the supported scale;
+it does not locate noses automatically or construct internal airways/cartilage.
+
+[Included example](../examples/human/nose/build_nose.py) checks source/eye
+preservation, protected coordinates, layer rollback, early and injected late
+failure, manifold edges and measured cavity depth. It renders front, oblique
+and underside views. Native: `runs/human/nasal-structure-final/nasal-structure.blend`.
+
 ## Open-eye geometry (static study)
 
 `from mesh_workbench import eye_socket` provides

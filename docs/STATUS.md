@@ -6,6 +6,36 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Nasal tip, alae and nostril cavities - 2026-10-24
+
+`nasal_structure.build` adds controlled tip/alar/central-column volumes on a
+locally subdivided snapshot. `Nasal volumes` is a reversible shape-key layer
+supported by `sculpt.set_layer`. Angled oval cavities and 0.35 mm rim bevels
+are made on a separate final snapshot. The original open-eye head, its history
+and both globe meshes are preserved. The nasal base/philtrum transition is
+protected by a smooth lower cutoff; old selections stay on the source topology.
+
+Blender 5.2.2 LTS checks pass: 74,504 protected vertices remain byte-exact;
+the source and eyes are unchanged; the volume layer restores its baseline;
+two invalid registrations and an injected second-cavity failure leave no new
+objects or meshes. The final head has zero nonmanifold edges, both cavities
+measure 7.000 mm along their axes and maximum volume movement is 10.771 mm.
+Native: `runs/human/nasal-structure-final/nasal-structure.blend`.
+Evidence: `runs/human/nasal-structure-final/verification.json`.
+Example: `examples/human/nose/build_nose.py`.
+
+Front, oblique and underside previews use 800px, 16 samples, one Blender
+process and two CPU/numerical threads. Initial forward-facing, oversized
+openings were lowered and directed toward the underside; their circular shape
+was replaced with paired angled ovals. These are authored static volumes and
+blind cavities, not an internal airway, cartilage model or anatomical validation.
+Ear, mouth and chin detail remains rough. The native and explicit render saves
+succeed despite the existing OS thumbnail-cache write restriction.
+All three final views were inspected and Blender exited. Two intermediate
+native files were removed (104,606,729 bytes); source/final models and preview
+evidence remain. Public previews match the final render hashes. The folder
+limit check reports zero violations outside `.git` and `.venv`.
+
 ## Open eyes and fitted lids - 2026-10-24
 
 `eye_socket.build` creates a new head snapshot with paired eye openings,
