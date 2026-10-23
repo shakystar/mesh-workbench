@@ -1,0 +1,10 @@
+{
+  "units": "m",
+  "note": "Manual registration for the lower-face-final procedural model, before mouth path edits.",
+  "landmarks": {
+    "corner_left": [-0.021, -0.067154735, 1.579],
+    "corner_right": [0.021, -0.067152977, 1.579],
+    "nose_base": [0, -0.083435, 1.603],
+    "chin_fold": [0, -0.070946038, 1.562]
+  }
+}

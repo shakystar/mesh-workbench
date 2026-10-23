@@ -1,5 +1,8 @@
 # Registered anatomy diagram brushes
 
+For reusable semantic definitions and proportional fitting to another model,
+see [Anatomy knowledge and registration](ANATOMY_KNOWLEDGE.md).
+
 The diagram is an editable registration for the included procedural adult. It is
 not a population-average chart, automatic anatomical detector or an accuracy
 certificate. World coordinates use metres; brush distances use millimetres.

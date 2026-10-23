@@ -1,0 +1,282 @@
+{
+  "schema_version": 1,
+  "id": "oral-neutral-v1",
+  "scope": "Neutral closed-mouth surface guide; front view only.",
+  "sources": {
+    "nih_oral": {
+      "url": "https://elementsofmorphology.nih.gov/anatomy-oral.shtml",
+      "accessed": "2026-10-23",
+      "use": "Terminology and qualitative relationships only; no images or numerical proportions copied."
+    }
+  },
+  "coordinate_policy": "U is mouth half-width; positive V uses nose-base height, negative V uses lip/chin-fold height. Ratios are authored modeling defaults, not population statistics.",
+  "features": {
+    "upper_lip": {
+      "description": "Upper lip contour joins the corners and includes the philtrum.",
+      "anchors": [
+        "bow_left",
+        "bow_center",
+        "bow_right",
+        "upper_left",
+        "upper_right"
+      ],
+      "source": "nih_oral"
+    },
+    "commissures": {
+      "description": "Junctions between upper and lower lip margins.",
+      "anchors": [
+        "corner_left",
+        "corner_right"
+      ],
+      "source": "nih_oral"
+    },
+    "philtrum": {
+      "description": "Central upper-lip groove bordered by paired ridges.",
+      "anchors": [
+        "philtrum_left",
+        "philtrum_right",
+        "groove_top",
+        "groove_bottom"
+      ],
+      "source": "nih_oral"
+    },
+    "lower_lip": {
+      "description": "Lower margin of the oral aperture.",
+      "anchors": [
+        "lower_left",
+        "lower_center",
+        "lower_right"
+      ],
+      "source": "nih_oral"
+    },
+    "labial_fissure": {
+      "description": "Separation between the lips.",
+      "anchors": [
+        "seam_left",
+        "seam_center",
+        "seam_right"
+      ],
+      "source": "nih_oral"
+    },
+    "mentolabial_sulcus": {
+      "description": "Central lower boundary of the lip region.",
+      "anchors": [
+        "fold_left",
+        "fold_center",
+        "fold_right"
+      ],
+      "source": "nih_oral"
+    }
+  },
+  "relations": [
+    [
+      "philtrum",
+      "part_of",
+      "upper_lip"
+    ],
+    [
+      "commissures",
+      "joins",
+      "upper_lip"
+    ],
+    [
+      "commissures",
+      "joins",
+      "lower_lip"
+    ],
+    [
+      "labial_fissure",
+      "between",
+      "upper_lip"
+    ],
+    [
+      "labial_fissure",
+      "between",
+      "lower_lip"
+    ],
+    [
+      "mentolabial_sulcus",
+      "below",
+      "lower_lip"
+    ]
+  ],
+  "required_target_landmarks": [
+    "corner_left",
+    "corner_right",
+    "nose_base",
+    "chin_fold"
+  ],
+  "landmarks_uv": {
+    "corner_left": [
+      -1.0,
+      0.0
+    ],
+    "seam_left": [
+      -0.476190476,
+      0.041666667
+    ],
+    "seam_center": [
+      0.0,
+      -0.029411765
+    ],
+    "seam_right": [
+      0.476190476,
+      0.041666667
+    ],
+    "corner_right": [
+      1.0,
+      0.0
+    ],
+    "bow_left": [
+      -0.238095238,
+      0.291666667
+    ],
+    "bow_center": [
+      0.0,
+      0.208333333
+    ],
+    "bow_right": [
+      0.238095238,
+      0.291666667
+    ],
+    "upper_left": [
+      -0.619047619,
+      0.166666667
+    ],
+    "upper_right": [
+      0.619047619,
+      0.166666667
+    ],
+    "lower_left": [
+      -0.571428571,
+      -0.235294118
+    ],
+    "lower_center": [
+      0.0,
+      -0.352941176
+    ],
+    "lower_right": [
+      0.571428571,
+      -0.235294118
+    ],
+    "philtrum_left": [
+      -0.142857143,
+      0.791666667
+    ],
+    "philtrum_right": [
+      0.142857143,
+      0.791666667
+    ],
+    "groove_top": [
+      0.0,
+      0.791666667
+    ],
+    "groove_bottom": [
+      0.0,
+      0.375
+    ],
+    "fold_left": [
+      -0.571428571,
+      -0.882352941
+    ],
+    "fold_center": [
+      0.0,
+      -1.0
+    ],
+    "fold_right": [
+      0.571428571,
+      -0.882352941
+    ]
+  },
+  "paths": [
+    {
+      "label": "Upper lip bow",
+      "region": "mouth",
+      "anchors": [
+        "corner_left",
+        "upper_left",
+        "bow_left",
+        "bow_center",
+        "bow_right",
+        "upper_right",
+        "corner_right"
+      ],
+      "radius_half_width_ratio": 0.152380952,
+      "distance_half_width_ratio": 0.04047619,
+      "max_displacement_half_width_ratio": 0.047619048
+    },
+    {
+      "label": "Lower lip volume",
+      "region": "mouth",
+      "anchors": [
+        "corner_left",
+        "lower_left",
+        "lower_center",
+        "lower_right",
+        "corner_right"
+      ],
+      "radius_half_width_ratio": 0.19047619,
+      "distance_half_width_ratio": 0.052380952,
+      "max_displacement_half_width_ratio": 0.057142857
+    },
+    {
+      "label": "Lip separation",
+      "region": "mouth",
+      "anchors": [
+        "corner_left",
+        "seam_left",
+        "seam_center",
+        "seam_right",
+        "corner_right"
+      ],
+      "radius_half_width_ratio": 0.085714286,
+      "distance_half_width_ratio": -0.05952381,
+      "max_displacement_half_width_ratio": 0.061904762
+    },
+    {
+      "label": "Philtrum left ridge",
+      "region": "mouth",
+      "anchors": [
+        "philtrum_left",
+        "bow_left"
+      ],
+      "radius_half_width_ratio": 0.104761905,
+      "distance_half_width_ratio": 0.019047619,
+      "max_displacement_half_width_ratio": 0.023809524
+    },
+    {
+      "label": "Philtrum right ridge",
+      "region": "mouth",
+      "anchors": [
+        "philtrum_right",
+        "bow_right"
+      ],
+      "radius_half_width_ratio": 0.104761905,
+      "distance_half_width_ratio": 0.019047619,
+      "max_displacement_half_width_ratio": 0.023809524
+    },
+    {
+      "label": "Philtrum groove",
+      "region": "mouth",
+      "anchors": [
+        "groove_top",
+        "groove_bottom"
+      ],
+      "radius_half_width_ratio": 0.085714286,
+      "distance_half_width_ratio": -0.016666667,
+      "max_displacement_half_width_ratio": 0.019047619
+    },
+    {
+      "label": "Lip chin fold",
+      "region": "mouth",
+      "anchors": [
+        "fold_left",
+        "fold_center",
+        "fold_right"
+      ],
+      "radius_half_width_ratio": 0.142857143,
+      "distance_half_width_ratio": -0.021428571,
+      "max_displacement_half_width_ratio": 0.023809524
+    }
+  ]
+}

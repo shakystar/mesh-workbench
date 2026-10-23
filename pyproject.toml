@@ -22,6 +22,9 @@ mesh-workbench = "mesh_workbench.cli:main"
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+mesh_workbench = ["knowledge/*.json"]
+
 [project.urls]
 Documentation = "https://shakystar.github.io/mesh-workbench/"
 Issues = "https://github.com/shakystar/mesh-workbench/issues"

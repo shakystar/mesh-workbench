@@ -2,6 +2,23 @@
 
 ## Human proportion base — 2026-10-23
 
+Reusable oral knowledge: `anatomy_fit` loads packaged `oral-neutral-v1.json`,
+separating sourced semantic relationships from authored numerical proportions.
+Four measured targets determine width and independent upper/lower spans;
+20 controls and seven brush paths project onto the visible target surface.
+New snapshots retain registration provenance and reversible layers; failed
+applications remove their partial outputs. [Scope/API](ANATOMY_KNOWLEDGE.md).
+
+Blender 5.2.2 LTS: two curved proportion fixtures (42/58 mm mouth widths) pass
+actual deformation, source preservation, protection and rollback. Protected
+counts: 5,651 / 5,531; maximum combined movement: 1.250 / 1.822 mm.
+Eight invalid targets fail atomically. Evidence: `runs/anatomy-fit/verification.json`.
+The current human target initially failed the depth tolerance at the corners;
+surface readback corrected those coordinates without relaxing the tolerance.
+Native application: `runs/human-mouth-fit-visible/fitted.blend`.
+No new renders; full-body variation and anatomical accuracy remain unvalidated.
+Runs used one Blender process and two CPU threads; Blender exited.
+
 Mouth diagram paths: `anatomy.path_stroke` projects named front-view polylines
 onto the visible mesh with regional protection and reversible layers.
 `examples/human-mouth-diagram.json` drives seven paths for lip contours,

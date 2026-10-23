@@ -23,6 +23,11 @@ Point brushes cover the cranium; path brushes follow the mouth diagram.
 The guides are authored for this model.
 [Registration diagram](docs/assets/human-anatomy-diagram.png).
 
+[Proportional anatomy knowledge](docs/ANATOMY_KNOWLEDGE.md) now separates oral
+feature relationships from authored ratios. Four manually identified landmarks
+fit the same mouth guide to different widths and vertical proportions. This is
+an initial oral module, not a whole-body anatomy library or automatic detection.
+
 Latest mouth pass: [brush diagram](docs/assets/human-mouth-diagram.png).
 
 | Mouth front | Mouth side |
