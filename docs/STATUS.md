@@ -6,6 +6,24 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Tip and upper-alar volume refinement - 2026-10-24
+
+[Current renders and comparison](reference/anatomy/TIP_ALA.md).
+Seventeen registered controls soften the central tip projection and add modest
+paired tip/upper-alar volume. The exact 1,372 vertices added or moved by entrance
+construction are protected; the entire deformation starts above that patch.
+A new `MW tip and alar volumes` layer preserves topology and the original object.
+`curve_fit` now accepts an optional validated layer label; its default is unchanged.
+
+Blender 5.2.2 LTS: maximum displacement 1.44309 mm, 2,782 changed vertices,
+78,004 region-protected vertices, zero entrance-patch displacement. Source,
+topology, layer rollback, invalid-label rejection and saved-native coordinate
+readback pass. Three 640px/16-sample views were rendered with two CPU/numerical
+threads and one Blender process, which exited. All three views were inspected.
+The change is modest; protected lower alae
+and regular aperture shapes remain limits. This is not anatomical validation.
+Native: `runs/human/tip-ala-refined/tip-ala.blend`; diagram/report beside it.
+
 ## Connected nasal entrances - 2026-10-24
 
 [Current renders, comparison and API](reference/anatomy/NASAL_ENTRANCES.md).

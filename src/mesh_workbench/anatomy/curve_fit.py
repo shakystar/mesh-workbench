@@ -19,6 +19,9 @@ def apply(source, diagram, name='Curve fitted surface'):
     A hard region with a smooth interior collar protects unrelated surfaces.
     """
     sculpt.editable(source)
+    label = diagram.get('label', 'lower nose curves')
+    if not isinstance(label,str) or not 1<=len(label)<=48:
+        raise ValueError('Invalid layer label')
     if name in bpy.data.objects:
         raise ValueError('Output already exists')
     radius = sculpt.number(diagram['radius_mm'], 1, 40, 'radius')/1000
@@ -83,7 +86,7 @@ def apply(source, diagram, name='Curve fitted surface'):
         for i in selected:
             key.data[int(i)].co = inv @ Vector(q[i])
         layer = layers.finish(output)
-        layer.name = 'MW lower nose curves'
+        layer.name = 'MW '+label
         report = {'layer':layer.name, 'controls':len(controls),
                   'max_displacement_mm':float(np.linalg.norm(delta,axis=1).max()*1000),
                   'protected_vertices':int(np.count_nonzero(weight==0)),

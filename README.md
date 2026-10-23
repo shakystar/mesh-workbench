@@ -10,17 +10,17 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-**Current human model, actually rendered:** fitted eyes, a lower-nose control
-study and connected nostril entrance patches. The old cutout surfaces have been
-replaced with a skin-following shoulder, rim and short blind interior.
+**Current human model, actually rendered:** fitted eyes, connected nostril
+entrance patches and a modest tip/upper-alar volume refinement. The entrance
+geometry is protected while a reversible layer adjusts the outer nose.
 Ears remain shallow relief and the chin is uneven. This is not anatomical validation.
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 [Nose structural audit: actual three-view comparison and sourced relationship map](docs/reference/anatomy/NOSE_AUDIT.md).
 
-![Current nasal entrance front, profile and basal-oblique views](docs/assets/human/nose/entrances-current.png)
+![Current tip and alar front, profile and basal-oblique views](docs/assets/human/nose/tip-ala-current.png)
 
-[Entrance construction, comparison and limits](docs/reference/anatomy/NASAL_ENTRANCES.md).
+[Tip/alar refinement, comparison and limits](docs/reference/anatomy/TIP_ALA.md).
 
 [Human scripts and current native location](examples/human/README.md).
 [Earlier cavity-stage underside](docs/assets/human/nose/underside.png).

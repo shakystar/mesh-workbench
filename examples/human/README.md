@@ -1,8 +1,9 @@
 # Human modeling entry point
 
-Current native: `runs/human/nasal-entrances-smooth/nasal-entrances.blend`.
-Current images: `docs/assets/human/nose/entrances-current.png` and
-`docs/assets/human/nose/entrances-comparison.png`. This is still a rough study.
+Current native: `runs/human/tip-ala-refined/tip-ala.blend`.
+Current images: `docs/assets/human/nose/tip-ala-current.png` and
+`docs/assets/human/nose/tip-ala-comparison.png`. This is still a rough study.
+The entrance-stage input remains in `runs/human/nasal-entrances-smooth/`.
 The input control-study native remains in `runs/human/lower-nose-curves/`.
 The earlier brush-stage native is preserved in `runs/human/surface-brushed-nose/`.
 Earlier cavity-stage underside: `docs/assets/human/nose/underside.png`.
@@ -11,7 +12,7 @@ Human scripts live in `scripts/`, `eyes/` and `nose/`; target JSON lives in `rec
 in `src/mesh_workbench/`; knowledge data in `src/mesh_workbench/knowledge/`.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/nose/build_entrances.py -- runs/human/lower-nose-curves/lower-nose.blend runs/human/new-entrance-study
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/nose/refine/tip_ala.py -- runs/human/nasal-entrances-smooth/nasal-entrances.blend runs/human/new-tip-ala-study
 ```
 
 Use one Blender process and numerical-library thread limits of two.
@@ -26,6 +27,7 @@ Use one Blender process and numerical-library thread limits of two.
 | Surface-following brush trial | `../nose/brush_surface.py` (relative to `scripts/`) |
 | Registered lower-nose controls and saved-file check | `../nose/fit_lower_nose.py`, `../nose/check_lower_nose.py` (relative to `scripts/`) |
 | Connected entrance patches and saved-file check | `../nose/build_entrances.py`, `../nose/check_entrances.py` (relative to `scripts/`) |
+| Tip/upper-alar refinement with entrance protection | `../nose/refine/tip_ala.py` (relative to `scripts/`) |
 | Guide illustrations | `draw_anatomy_diagram.py`, `draw_mouth_diagram.py` |
 | Current model images | `render_human.py` |
 
