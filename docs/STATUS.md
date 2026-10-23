@@ -1,5 +1,17 @@
 # Current development status
 
+## Costal/abdominal controls - 2026-10-24
+
+Added 41-control `profile="abdomen"` to the torso compiler. Initial dimpling
+was reduced by wider influence; a denser trial was rejected by the unchanged
+surface-residual tolerance. Current arch is more continuous; some waviness remains.
+Blender 5.2.2 LTS: source/topology/protection/rollback/invalid input/late failure/
+native readback/input hash pass; 86,653 vertices protected, max move 2.90274 mm,
+maximum control residual 0.14185 mm. Three saved-model views inspected, two
+threads, process exited. Stage C active; next posterior thorax/scapular connection.
+Current native: `runs/human/costal-continuous/costal-abdomen.blend`.
+[API, comparison and limits](reference/anatomy/body/TORSO.md#costal-and-abdominal-profile).
+
 ## Torso control pass / stage C active - 2026-10-24
 
 Added sourced relationship map `torso-surface-v1` and registered front/back

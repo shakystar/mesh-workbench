@@ -1,5 +1,10 @@
 # Human modeling entry point
 
+Current native: `runs/human/costal-continuous/costal-abdomen.blend`.
+Run `torso/abdomen.py` on the preserved torso-planes native into a fresh output folder.
+Current images: `docs/assets/human/torso/costal-{front,side,back}.png`.
+Earlier torso-plane pass:
+
 Current torso native: `runs/human/torso-planes/torso-planes.blend`.
 `torso/planes.py` takes the preserved rebuilt-underside native and a fresh output
 folder; `torso/audit.py` records the matched before views.

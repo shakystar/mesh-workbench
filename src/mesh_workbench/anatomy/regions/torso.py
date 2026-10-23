@@ -9,7 +9,9 @@ from .. import sculpt
 def knowledge():
     return json.loads(files('mesh_workbench').joinpath('knowledge/torso-surface-v1.json').read_text())
 
-def compile_controls(source,target,relief=1):
+def compile_controls(source,target,relief=1,profile="planes"):
+    if profile not in ("planes", "abdomen"):
+        raise ValueError("Unknown torso profile")
     sculpt.editable(source)
     half=sculpt.number(target['half_width_m'],.08,.16,'torso half width')
     relief=sculpt.number(relief,.1,1.5,'torso relief')
@@ -26,11 +28,11 @@ def compile_controls(source,target,relief=1):
     for r in refs:
         if np.linalg.norm(project(r[0],r[2],'front')-r)>.0001:raise ValueError('Torso reference off visible skin')
     controls=[]
-    for row in knowledge()['controls']:
+    for row in knowledge()['controls' if profile=='planes' else 'abdominal_controls']:
         v=row['v'];z=refs[1,2]+v*(refs[0,2]-refs[1,2] if v>=0 else refs[1,2]-refs[2,2])
         a=project(refs[0,0]+row['u']*half,z,row['view']);b=a.copy()
         b[1]+=(1 if row['view']=='back' else -1)*row['depth_mm']*relief/1000
         controls.append({'name':row['name'],'source':a.tolist(),'target':b.tolist()})
-    return {'units':'m','label':'torso planes','surface_interpolation':True,
-        'radius_mm':half*1000*.7,'max_displacement_mm':8,
+    return {'units':'m','label':'torso '+profile,'surface_interpolation':True,
+        'radius_mm':half*1000*(.7 if profile=='planes' else .55),'max_displacement_mm':8,
         'region':target['region'],'controls':controls,'registration':target,'knowledge':knowledge()}

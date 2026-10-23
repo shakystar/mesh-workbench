@@ -50,3 +50,35 @@ No global collision or anatomical accuracy claim. Reports and diagram are in
 | Front | ![](../../../assets/human/torso/before-front.png) | ![](../../../assets/human/torso/after-front.png) |
 | Side | ![](../../../assets/human/torso/before-side.png) | ![](../../../assets/human/torso/after-side.png) |
 | Back | ![](../../../assets/human/torso/before-back.png) | ![](../../../assets/human/torso/after-back.png) |
+
+## Costal and abdominal profile
+
+`torso.compile_controls(source, target, profile="abdomen")` now provides 41
+front skin controls, with paired costal edges and lower transitions, paired
+rectus volumes, lateral boundaries and anterior midline. The relationship of
+paired rectus and midline linea alba to lateral obliques is supported by
+[OpenStax abdominal wall](https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax).
+All spacing and displacement values remain authored. No source artwork is used.
+
+Run `examples/human/torso/abdomen.py` on the preserved torso-planes native into
+a fresh output folder. Current saved result is
+`runs/human/costal-continuous/costal-abdomen.blend`, object `Costal abdominal study`.
+The initial 39 mm radius caused separate visible dimples despite passing geometry
+checks. A denser-control trial exceeded the 0.2 mm surface residual tolerance and
+was not saved. The final 41-control, 71.5 mm radius pass retains the same tolerance
+and produces a more continuous costal arch. Slight waviness remains; this is not
+an anatomical muscle reconstruction. Tendon intersections and navel are absent.
+
+Blender 5.2.2 LTS: maximum move 2.90274 mm, 3,382 changed vertices, 86,653
+protected vertices exact; minimum changed polygon area ratio 0.87959.
+Protection box is [-.17,-.15,.96] to [.17,-.015,1.31], feather 15 mm.
+Source, topology, rollback, invalid reference order, unknown profile rejection,
+injected late-failure cleanup, saved-native readback and input hash pass.
+Three saved-model views inspected; one process, two threads, exited.
+Stage C remains active. Next: posterior thorax/scapular connection, with the
+remaining costal waviness retained as an unresolved visual limitation.
+
+| View | Before | Current |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/torso/after-front.png) | ![](../../../assets/human/torso/costal-front.png) |
+| Side | ![](../../../assets/human/torso/after-side.png) | ![](../../../assets/human/torso/costal-side.png) |
