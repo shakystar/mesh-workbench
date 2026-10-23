@@ -13,6 +13,10 @@
     "abdominal_wall": {
       "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-4-axial-muscles-of-the-abdominal-wall-and-thorax",
       "use": "Paired rectus, midline linea alba and lateral oblique relationships only."
+    },
+    "scapula": {
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-1-the-pectoral-girdle",
+      "use": "Posterior scapular plane, medial border, inferior angle and superior spine relationships only."
     }
   },
   "relationships": [
@@ -30,6 +34,11 @@
       "region": "abdomen",
       "relation": "paired rectus lies beside the anterior midline; obliques occupy the lateral wall",
       "source": "abdominal_wall"
+    },
+    {
+      "region": "posterior shoulder",
+      "relation": "scapula has a medial border, inferior angle and upper posterior spine extending laterally",
+      "source": "scapula"
     }
   ],
   "coordinate_policy": "Authored U scales with registered half width. V=1 is sternum height, V=0 waist, V=-1 pelvis. Skin probes do not locate bone or muscle insertions. All depths are authored increments, not population measurements.",
@@ -528,5 +537,246 @@
       "view": "front"
     }
   ],
-  "abdominal_policy": "Authored skin relief, not segmented muscle geometry. No tendon intersections or inferred bone locations."
+  "abdominal_policy": "Authored skin relief, not segmented muscle geometry. No tendon intersections or inferred bone locations.",
+  "posterior_controls": [
+    {
+      "name": "scapular_plane_-1_0",
+      "u": -0.32,
+      "v": 1.28,
+      "depth_mm": 1.2,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_1",
+      "u": -0.52,
+      "v": 1.33,
+      "depth_mm": 2.8,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_2",
+      "u": -0.78,
+      "v": 1.4,
+      "depth_mm": 2.5,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_3",
+      "u": -0.35,
+      "v": 1.06,
+      "depth_mm": 2.2,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_4",
+      "u": -0.57,
+      "v": 1.1,
+      "depth_mm": 3.5,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_5",
+      "u": -0.75,
+      "v": 1.15,
+      "depth_mm": 2.3,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_6",
+      "u": -0.4,
+      "v": 0.87,
+      "depth_mm": 1.5,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_7",
+      "u": -0.57,
+      "v": 0.85,
+      "depth_mm": 2,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_8",
+      "u": -0.26,
+      "v": 1.12,
+      "depth_mm": -0.8,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_-1_9",
+      "u": -0.28,
+      "v": 0.9,
+      "depth_mm": -0.6,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_-1_0",
+      "u": -0.16,
+      "v": -0.25,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_-1_1",
+      "u": -0.16,
+      "v": 0.1,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_-1_2",
+      "u": -0.16,
+      "v": 0.45,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_-1_3",
+      "u": -0.16,
+      "v": 0.7,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_0",
+      "u": 0.32,
+      "v": 1.28,
+      "depth_mm": 1.2,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_1",
+      "u": 0.52,
+      "v": 1.33,
+      "depth_mm": 2.8,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_2",
+      "u": 0.78,
+      "v": 1.4,
+      "depth_mm": 2.5,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_3",
+      "u": 0.35,
+      "v": 1.06,
+      "depth_mm": 2.2,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_4",
+      "u": 0.57,
+      "v": 1.1,
+      "depth_mm": 3.5,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_5",
+      "u": 0.75,
+      "v": 1.15,
+      "depth_mm": 2.3,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_6",
+      "u": 0.4,
+      "v": 0.87,
+      "depth_mm": 1.5,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_7",
+      "u": 0.57,
+      "v": 0.85,
+      "depth_mm": 2,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_8",
+      "u": 0.26,
+      "v": 1.12,
+      "depth_mm": -0.8,
+      "view": "back"
+    },
+    {
+      "name": "scapular_plane_1_9",
+      "u": 0.28,
+      "v": 0.9,
+      "depth_mm": -0.6,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_1_0",
+      "u": 0.16,
+      "v": -0.25,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_1_1",
+      "u": 0.16,
+      "v": 0.1,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_1_2",
+      "u": 0.16,
+      "v": 0.45,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "paraspinal_1_3",
+      "u": 0.16,
+      "v": 0.7,
+      "depth_mm": 1.4,
+      "view": "back"
+    },
+    {
+      "name": "back_midline_0",
+      "u": 0,
+      "v": -0.25,
+      "depth_mm": -1,
+      "view": "back"
+    },
+    {
+      "name": "back_midline_1",
+      "u": 0,
+      "v": 0.1,
+      "depth_mm": -1,
+      "view": "back"
+    },
+    {
+      "name": "back_midline_2",
+      "u": 0,
+      "v": 0.45,
+      "depth_mm": -1,
+      "view": "back"
+    },
+    {
+      "name": "back_midline_3",
+      "u": 0,
+      "v": 0.7,
+      "depth_mm": -1,
+      "view": "back"
+    },
+    {
+      "name": "back_midline_4",
+      "u": 0,
+      "v": 1.0,
+      "depth_mm": -1,
+      "view": "back"
+    },
+    {
+      "name": "back_midline_5",
+      "u": 0,
+      "v": 1.3,
+      "depth_mm": -1,
+      "view": "back"
+    }
+  ],
+  "posterior_policy": "Authored superficial skin planes. Not bone reconstruction, scapular motion or muscle segmentation."
 }

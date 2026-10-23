@@ -82,3 +82,32 @@ remaining costal waviness retained as an unresolved visual limitation.
 | --- | --- | --- |
 | Front | ![](../../../assets/human/torso/after-front.png) | ![](../../../assets/human/torso/costal-front.png) |
 | Side | ![](../../../assets/human/torso/after-side.png) | ![](../../../assets/human/torso/costal-side.png) |
+
+## Posterior torso profile
+
+`profile="back"` compiles 34 posterior controls: broad scapular planes, medial
+transitions, paired paraspinal volumes and a protected anterior surface.
+[OpenStax pectoral girdle](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-1-the-pectoral-girdle)
+supports the medial-border, inferior-angle and posterior-spine relationships.
+Depths and coordinates are authored skin relief, not measurements of underlying
+bones. The front reference heights remain the common registration frame.
+
+Run `examples/human/torso/back.py` on the costal-continuous native with a fresh
+output folder. Current result: `runs/human/posterior-torso/posterior-torso.blend`,
+object `Posterior torso study`, reversible layer `MW torso back`.
+Blender 5.2.2 LTS: 3,768 changed vertices, maximum move 3.62591 mm,
+86,213 protected vertices exact, minimum changed polygon area ratio 0.98103.
+The box [-.16,.015,1.04] to [.16,.18,1.43] protects the anterior surface.
+Source/topology, rollback, invalid order/unknown profile, injected late-failure
+cleanup, native readback and input hash pass. Surface target residual is below
+0.2 mm. Two saved-model views inspected, one process/two threads, exited.
+
+The scapular volume is shallow; this does not reconstruct bones or moving
+scapulae. The rough posterior armpit junction remains visible and is the next
+specific torso repair. Costal waviness and anatomical simplification remain.
+Stage C is not complete.
+
+| View | Before | Current |
+| --- | --- | --- |
+| Back | ![](../../../assets/human/torso/costal-back.png) | ![](../../../assets/human/torso/back/back.png) |
+| Side | ![](../../../assets/human/torso/costal-side.png) | ![](../../../assets/human/torso/back/side.png) |

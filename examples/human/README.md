@@ -1,5 +1,11 @@
 # Human modeling entry point
 
+Current native: `runs/human/posterior-torso/posterior-torso.blend`.
+Run `torso/back.py` on the preserved costal-continuous native into a fresh folder.
+Current posterior images: `docs/assets/human/torso/back/`.
+Earlier costal/abdominal pass:
+
+
 Current native: `runs/human/costal-continuous/costal-abdomen.blend`.
 Run `torso/abdomen.py` on the preserved torso-planes native into a fresh output folder.
 Current images: `docs/assets/human/torso/costal-{front,side,back}.png`.

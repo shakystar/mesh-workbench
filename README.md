@@ -17,7 +17,7 @@ softened with protected lips. Chin projection and the stepped lower surface are
 refined. Ear ridges now use continuous curves on a locally refined mesh;
 ear thickness is shallow. Neck paths protect the face, and a locally rebuilt
 underside patch removes the folded under-chin projection.
-Torso front/back and costal/abdominal controls now separate the main volumes; stage C remains
+Torso, costal/abdominal and posterior scapular controls now separate the main volumes; stage C remains
 in progress. This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).

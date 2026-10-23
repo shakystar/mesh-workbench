@@ -1,5 +1,17 @@
 # Current development status
 
+## Posterior torso profile - 2026-10-24
+
+Added 34-control `profile="back"`, registered to the common torso frame.
+Blender 5.2.2 LTS: max move 3.62591 mm, 86,213 protected vertices exact;
+source/topology/rollback/invalid inputs/late failure/native readback/input hash
+pass. Back and side saved-model renders inspected; one process/two threads,
+exited. Scapular volume is shallow; posterior armpit roughness remains visible.
+Stage C active. Next is the posterior armpit junction, preserving chest/back.
+Current native: `runs/human/posterior-torso/posterior-torso.blend`.
+[API, sources, evidence and limits](reference/anatomy/body/TORSO.md#posterior-torso-profile).
+
+
 ## Costal/abdominal controls - 2026-10-24
 
 Added 41-control `profile="abdomen"` to the torso compiler. Initial dimpling
