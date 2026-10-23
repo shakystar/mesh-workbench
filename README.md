@@ -13,13 +13,15 @@ Actual Blender renders created with this toolkit.
 **Current human model, actually rendered:** fitted eyes plus shaped nasal tip,
 alar volumes and paired nostril cavities. Ears remain shallow relief and the chin
 is uneven; this is still a rough study. [Files and folders](docs/WORKSPACE_LAYOUT.md).
+The current nasal detail tests surface-normal ridge/groove brushes and
+volume-preserving relaxation. It is not anatomical validation.
 
-| Current front | Current three-quarter |
+| Current front | Current nasal brush detail |
 | --- | --- |
 | ![Current human front](docs/assets/human/human-current-front.png) | ![Current human three-quarter](docs/assets/human/human-current-three-quarter.png) |
 
 [Human scripts and current native location](examples/human/README.md).
-[Nose underside](docs/assets/human/nose/underside.png).
+[Earlier cavity-stage underside](docs/assets/human/nose/underside.png).
 
 Latest: an adult human proportion blockout in a neutral stance, with preserved
 section sources and a separate fused surface. This is an initial silhouette and

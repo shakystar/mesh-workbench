@@ -6,6 +6,33 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Surface-following brush engine - 2026-10-24
+
+`surface_brush.apply` introduces named-path ridge/crease strokes along per-vertex
+surface normals, edge-graph geodesic footprints, visible-sheet/mask traversal
+barriers and closed-volume-constrained relaxation. Each stroke is a reversible
+layer on one new snapshot; a later failure removes the complete batch. The
+legacy axis-projected brush remains available and unchanged.
+
+Blender 5.2.2 LTS focused checks pass: opposite ridge/crease motion and nonzero
+lateral motion on a curved fixture; hidden surface/source preservation;
+layer rollback; four failure cases, including an injected-by-command second
+stroke failure and open-mesh rejection. The rough curved fixture's measured
+Laplacian roughness ratio is 0.0642 after relaxation, with enclosed-volume
+change -0.0000154 mm3. This is a synthetic geometry check, not anatomy evidence.
+Evidence: `runs/human/surface-brush-check/verification.json`.
+
+The current nasal trial applies five strokes within a small protected region.
+82,382 outside vertices and the source remain unchanged; all layers roll back.
+Maximum combined displacement is 0.3494 mm. The relaxation step changes signed
+volume by -0.0001230 mm3; ridge/groove steps intentionally change volume.
+Native: `runs/human/surface-brushed-nose/surface-brushed.blend`.
+Diagram, commands and verification are stored beside it. The two current
+800px/16-sample renders show the saved model's front and nasal oblique detail.
+One Blender process and two CPU/numerical threads were used; Blender exited.
+This establishes brush behavior on authored paths, not a correct anatomical
+diagram, tissue model or finished realistic nose. No new anatomy dataset was added.
+
 ## Nasal tip, alae and nostril cavities - 2026-10-24
 
 `nasal_structure.build` adds controlled tip/alar/central-column volumes on a

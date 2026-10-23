@@ -8,6 +8,39 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Surface-following brush engine
+
+`surface_brush.apply(source, diagram, commands, name)` returns a new snapshot
+and one report per reversible layer. It accepts the existing metre-based named
+landmark/region diagram format. This is opt-in: the earlier axis-projected
+`anatomy.path_stroke` retains its existing behavior.
+
+Commands select `ridge`, `crease` or `relax_volume`, with `anchors`, `region`,
+`radius_mm`, `max_displacement_mm` and optional `protect_mask`. `view_direction`
+defaults to `[0, 1, 0]`; it determines visible-sheet protection and registration,
+not the displacement direction. The path must fit within 3 mm of the visible
+surface. Its footprint follows shortest paths on the mesh edge graph, with
+protected and hidden vertices acting as traversal barriers. This is an edge-graph
+approximation, not an exact continuous geodesic or adaptive remesher.
+
+Ridge/crease `distance_mm` acts along each affected vertex's area-weighted
+surface normal. Normals and distances refresh between strokes. Radius falloff
+uses distance to the entire sampled path without accumulating at path joins.
+Relaxation uses `strength` and `iterations`; a constrained correction preserves
+the oriented closed mesh's signed enclosed volume within 0.1 mm3 after float32
+shape-key readback. This constraint applies only to `relax_volume`; ridge and
+crease intentionally change volume. It does not preserve each anatomical tissue
+volume, guarantee absence of intersections or prove anatomical accuracy.
+
+The source is unchanged. Output layers work with `sculpt.set_layer`; any failure,
+including a later stroke or a failed volume readback, removes the entire new
+snapshot. Open/inconsistently oriented meshes cannot use volume relaxation.
+
+Focused tests: `tests/surface_brush_test.py`. Authored nasal trial:
+[`brush_surface.py`](../examples/human/nose/brush_surface.py). This trial stores
+its actual projected diagram and commands with the run; it does not introduce
+a new anatomical reference dataset.
+
 ## Nasal volumes and cavities (static study)
 
 `from mesh_workbench import nasal_structure` provides
