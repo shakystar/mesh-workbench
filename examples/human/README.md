@@ -1,7 +1,10 @@
 # Human modeling entry point
 
-Current native: `runs/human/oral-transitions/oral-transitions.blend`.
-Current images: `docs/assets/human/mouth/transition-front.png` and `transition-oblique.png`.
+Current native: `runs/human/chin-contour/chin-contour.blend`.
+Current images: `docs/assets/human/chin/front.png` and `profile.png`.
+Run `mouth/chin.py` with `runs/human/oral-transitions/oral-transitions.blend`
+and a fresh output directory. The static face-tool pass is reviewed; ears/neck
+are next. Prior oral transition stage:
 Local philtrum/lower-fold fairing is reviewed; broad chin/jaw contours remain
 rough. Run `mouth/transitions.py` with `runs/human/oral-relief/oral-relief.blend`
 and a fresh output directory inside Blender. The prior lip-relief stage is

@@ -6,6 +6,26 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Chin contour / static face-stage handoff - 2026-10-24
+
+Added sourced `chin-contour-v1` and `anatomy_fit.compile_chin_contour` with nine
+visible-surface controls. The example first fairs the stepped lower chin, then
+fits projection/width controls while retaining both reversible layers.
+
+Blender 5.2.2 LTS: source/intermediate/topology preservation, 19,355 unchanged
+upper-face vertices, combined rollback, three invalid inputs, late-failure
+cleanup, saved-coordinate readback and input hash pass. Maximum combined movement
+1.53701 mm; central setback 1.49971 mm; maximum surface residual 0.00684 mm.
+Two matched input and two saved-output 640px/16-sample views inspected. One
+Blender process at a time, two CPU/numerical threads; processes exited.
+
+The lower-chin profile is smoother; frontal change is small. A shallow band
+remains at the neck attachment. Stage A's bounded static face-tool criteria have
+evidence; this is not a finished realistic head or anatomical validation.
+Next: stage B ears/neck, including the under-chin attachment. Full goal active.
+Current native: `runs/human/chin-contour/chin-contour.blend`.
+[Knowledge, API, views and face-stage evidence](reference/anatomy/CHIN_CONTOUR.md).
+
 ## Protected oral transition fairing - 2026-10-24
 
 `anatomy_fit.compile_oral_transitions` derives two bounded fairing paths from

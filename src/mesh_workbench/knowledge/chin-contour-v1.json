@@ -1,0 +1,35 @@
+{
+  "id": "chin-contour-v1",
+  "schema_version": 1,
+  "scope": "Manually registered anterior chin surface; no skeletal inference.",
+  "sources": {
+    "nlm_chin": {
+      "url": "https://www.ncbi.nlm.nih.gov/mesh/D002680",
+      "accessed": "2026-10-24",
+      "use": "Chin is the anterior mandibular region containing the mental protuberance. No dimensions or illustrations copied."
+    },
+    "nih_oral": {
+      "url": "https://elementsofmorphology.nih.gov/anatomy-oral.shtml",
+      "accessed": "2026-10-24",
+      "use": "Mentolabial sulcus defines the central lower boundary of the lip region."
+    }
+  },
+  "relationships": [
+    {"feature": "chin", "relation": "anterior mandibular region", "source": "nlm_chin"},
+    {"feature": "mentolabial sulcus", "relation": "upper protection boundary for this chin edit", "source": "nih_oral", "note": "Using it as an edit boundary is an authored modeling choice."}
+  ],
+  "required_registration": ["center", "half_width_m", "upper_protection_z", "lower_protection_z"],
+  "controls": [
+    {"name": "central_projection", "u": 0, "v": 0, "inward": 0, "setback": 1},
+    {"name": "left_chin_shoulder", "u": -0.5, "v": 0, "inward": 0.5, "setback": 0.7},
+    {"name": "right_chin_shoulder", "u": 0.5, "v": 0, "inward": 0.5, "setback": 0.7},
+    {"name": "left_jaw_transition", "u": -1, "v": 0, "inward": 1, "setback": 0.4},
+    {"name": "right_jaw_transition", "u": 1, "v": 0, "inward": 1, "setback": 0.4},
+    {"name": "upper_center", "u": 0, "v": 0.3, "inward": 0, "setback": 0.3},
+    {"name": "lower_center", "u": 0, "v": -0.4, "inward": 0, "setback": 0.2},
+    {"name": "left_lower", "u": -0.5, "v": -0.4, "inward": 0.25, "setback": 0.2},
+    {"name": "right_lower", "u": 0.5, "v": -0.4, "inward": 0.25, "setback": 0.2}
+  ],
+  "coordinate_policy": "u and v are authored offsets scaled by registered chin half-width; all control sources are ray-projected to visible skin. Ratios are not population measurements.",
+  "limits": "Static soft-tissue contour only; no inferred bone, dental occlusion, demographic accuracy or jaw motion."
+}

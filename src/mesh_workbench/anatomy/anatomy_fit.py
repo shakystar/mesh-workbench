@@ -132,6 +132,38 @@ def compile_oral_transitions(obj, target):
     return guide,commands
 
 
+def compile_chin_contour(obj, target, *, setback_mm=1.5, narrowing_mm=1.2):
+    """Compile a chin-specific curve_fit diagram from explicit surface registration."""
+    sculpt.editable(obj)
+    kb=json.loads(files('mesh_workbench').joinpath('knowledge/chin-contour-v1.json').read_text())
+    center=np.asarray(target['center'],float)
+    if center.shape!=(3,) or not np.isfinite(center).all():raise ValueError('Finite chin center required')
+    half=sculpt.number(target['half_width_m'],.015,.045,'chin half width')
+    upper=sculpt.number(target['upper_protection_z'],center[2]+.006,center[2]+.05,'upper protection')
+    lower=sculpt.number(target['lower_protection_z'],center[2]-.06,center[2]-.015,'lower protection')
+    setback=sculpt.number(setback_mm,0,3,'chin setback')/1000
+    narrowing=sculpt.number(narrowing_mm,0,3,'chin narrowing')/1000
+    points=sculpt.coordinates(obj)
+    tree=BVHTree.FromPolygons(points.tolist(),[list(p.vertices) for p in obj.data.polygons])
+    def project(x,z):
+        hit=tree.ray_cast(Vector((float(x),float(points[:,1].min()-1),float(z))),Vector((0,1,0)))[0]
+        if hit is None:raise ValueError('Chin registration misses surface')
+        return np.asarray(hit)
+    if np.linalg.norm(project(center[0],center[2])-center)>.0001:
+        raise ValueError('Chin center is not on visible surface')
+    controls=[]
+    for row in kb['controls']:
+        p=project(center[0]+row['u']*half,center[2]+row['v']*half)
+        delta=np.array([-np.sign(row['u'])*row['inward']*narrowing,row['setback']*setback,0])
+        controls.append({'name':row['name'],'source':p.tolist(),'target':(p+delta).tolist()})
+    return {'units':'m','label':'chin contour','radius_mm':half*1000*.8,
+            'max_displacement_mm':4,'surface_interpolation':True,
+            'region':{'min':[center[0]-half*1.8,float(points[:,1].min()-.01),lower],
+                      'max':[center[0]+half*1.8,center[1]+half*1.7,upper],'feather_mm':2},
+            'controls':controls,'registration':target,'knowledge':kb,
+            'limits':kb['limits']}
+
+
 def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
     """Return a bindable diagram and scaled paths; fail without changing state.
 

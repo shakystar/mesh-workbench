@@ -8,6 +8,14 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Chin contour controls
+
+`anatomy_fit.compile_chin_contour` uses `chin-contour-v1` with an explicit
+surface center, half-width and protection heights. It emits nine projected
+`curve_fit` controls with authored setback/narrowing parameters. This dedicated
+compiler is separate from the normalized-path modules listed above.
+[Sources, actual saved-model views and limits](reference/anatomy/CHIN_CONTOUR.md).
+
 ## Registered eyelid support
 
 `eyelid_fit.knowledge()` exposes `eyelid-support-v1` source relationships and
