@@ -2,6 +2,22 @@
 
 ## Human proportion base — 2026-10-23
 
+Mouth diagram paths: `anatomy.path_stroke` projects named front-view polylines
+onto the visible mesh with regional protection and reversible layers.
+`examples/human-mouth-diagram.json` drives seven paths for lip contours,
+lip separation, philtrum ridges/groove and the lip/chin fold. The corresponding
+diagram uses the same coordinates. Native: `runs/human-mouth/human-mouth.blend`.
+Only the mouth patch is subdivided into a new object; earlier sources remain.
+
+Blender 5.2.2 LTS focused path test passes forward displacement, rear-surface
+protection, bounds, rollback, six atomic failure cases and stale registration.
+The example preserves 71,482 protected vertices exactly, preserves its source,
+passes complete layer rollback and has zero nonmanifold edges. Maximum combined
+movement is 1.314 mm. Front/side mouth previews were inspected: lip separation
+and the upper lip bow are visible; lip corners remain coarse and the existing
+chin surface irregularities remain. This is authored registration, not validated
+anatomical accuracy. One Blender process, two CPU threads; Blender exited.
+
 Lower-face profile revision: `examples/human_lower_face.py` takes the guided
 cranium native file, subdivides only lower-face topology into a new object, and
 applies an authored sagittal profile from `examples/human-lower-face.json`.

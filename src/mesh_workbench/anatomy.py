@@ -35,6 +35,82 @@ def bind(obj, diagram):
     return record
 
 
+def path_stroke(obj, command):
+    """Project a front-diagram polyline; deform only its visible surface footprint.
+
+    Radius is in the diagram plane, not geodesic. Positive distance moves forward.
+    One path creates one reversible layer, with no accumulation at sample joins.
+    """
+    bpy.context.view_layer.update()
+    sculpt.editable(obj)
+    diagram=json.loads(obj.get('mw_anatomy_diagram','{}'))
+    if (diagram.get('topology')!=sculpt.topology(obj) or
+        diagram.get('matrix')!=[list(r) for r in obj.matrix_world]):
+        raise ValueError('Missing or stale diagram binding; register again')
+    names=command.get('anchors',[])
+    if not isinstance(names,list) or len(names)<2 or len(names)>128:
+        raise ValueError('Expected 2..128 named path anchors')
+    points=np.array([_point(diagram['landmarks'][name]) for name in names])
+    uv=points[:,[0,2]]
+    if np.any(np.linalg.norm(np.diff(uv,axis=0),axis=1)<1e-8):
+        raise ValueError('Consecutive path anchors must differ in front view')
+    label=command.get('label','Anatomy path')
+    if not isinstance(label,str) or not 1<=len(label)<=48:raise ValueError('Invalid layer label')
+    radius=sculpt.number(command['radius_mm'],.1,30,'radius')/1000
+    distance=sculpt.number(command['distance_mm'],-5,5,'distance')/1000
+    limit=sculpt.number(command.get('max_displacement_mm',2),.01,5,'displacement limit')/1000
+    if abs(distance)>limit:raise ValueError('Path distance exceeds displacement limit')
+    region=diagram['regions'][command['region']]
+    lo,hi=np.asarray(region['min']),np.asarray(region['max'])
+    original=sculpt.coordinates(obj)
+    tree=BVHTree.FromPolygons(original.tolist(),[list(p.vertices) for p in obj.data.polygons])
+    ray_y=float(original[:,1].min()-1)
+    def project(p):
+        hit=tree.ray_cast(Vector((float(p[0]),ray_y,float(p[1]))),Vector((0,1,0)))[0]
+        if hit is None:raise ValueError('Diagram path misses surface')
+        hit=np.asarray(hit)
+        if np.any(hit<lo) or np.any(hit>hi):raise ValueError('Path outside selected region')
+        return hit
+    # Validate the entire sampled centerline before opening an edit transaction.
+    hits=[]
+    for a,b in zip(uv[:-1],uv[1:]):
+        count=max(2,int(np.ceil(np.linalg.norm(b-a)/min(radius/2,.001)))+1)
+        hits.extend(project(a+(b-a)*t).tolist() for t in np.linspace(0,1,count))
+    allowed=np.all((original>=lo)&(original<=hi),axis=1)
+    edge=np.minimum(original-lo,hi-original).min(axis=1)
+    mask=allowed.astype(float)*(1-sculpt.protection(obj,command.get('protect_mask')))
+    if region['feather']:mask*=np.clip(edge/region['feather'],0,1)
+    nearest=np.full(len(original),np.inf)
+    for a,b in zip(uv[:-1],uv[1:]):
+        ab=b-a
+        t=np.clip(((original[:,[0,2]]-a)@ab)/np.dot(ab,ab),0,1)
+        nearest=np.minimum(nearest,np.linalg.norm(original[:,[0,2]]-(a+t[:,None]*ab),axis=1))
+    weights=np.maximum(0,1-(nearest/radius)**2)**2*mask
+    # A rear surface or another sheet at the same diagram coordinate stays protected.
+    for i in np.flatnonzero(weights):
+        hit=tree.ray_cast(Vector((float(original[i,0]),ray_y,float(original[i,2]))),Vector((0,1,0)))[0]
+        if hit is None or abs(hit.y-original[i,1])>1e-5:weights[i]=0
+    changed=np.flatnonzero(np.abs(weights*distance)>1e-10)
+    if not len(changed):raise ValueError('Path produced no deformation')
+    coords=original.copy();coords[:,1]-=weights*distance
+    key=layers.begin(obj)
+    try:
+        inv=obj.matrix_world.inverted()
+        for i in changed:key.data[int(i)].co=inv@Vector(coords[i])
+        layer=layers.finish(obj)
+    except Exception:
+        if obj.get('mw_pending'):layers.finish(obj,cancel=True)
+        raise
+    layer.name='MW '+label
+    report={'layer':layer.name,'command':command,'projected_path':hits,
+            'changed_vertices':len(changed),'max_displacement_mm':float(np.max(np.abs(weights*distance))*1000),
+            'protected_max_displacement_mm':0.0}
+    records=json.loads(obj.get('mw_layers','[]'))
+    records.append({'name':layer.name,'topology':sculpt.topology(obj),'report':report})
+    obj['mw_layers']=json.dumps(records)
+    return report
+
+
 def stroke(obj, command):
     bpy.context.view_layer.update()
     sculpt.editable(obj)

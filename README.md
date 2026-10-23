@@ -13,14 +13,23 @@ Actual Blender renders created with this toolkit.
 Latest: an adult human proportion blockout in a neutral stance, with preserved
 section sources and a separate fused surface. This is an initial silhouette and
 proportion study, without detailed anatomy, individual fingers or a rig. The
-current pass refines the lower-face profile: nose base, philtrum, lip support and
-chin setback, with protected regions and reversible edits.
+current pass adds diagram-guided mouth paths: lip contours, separation, philtrum
+and the lip/chin fold, with protected regions and reversible edits.
 [Generator](examples/human_base.py) · [Scope and checks](docs/STATUS.md)
 
 [Registered anatomy brushes](docs/ANATOMY_BRUSH.md) now use named landmarks,
 regional protection, geodesic radius and reversible displacement-limited layers.
-The first application is the cranium; the guide is authored for this model.
+Point brushes cover the cranium; path brushes follow the mouth diagram.
+The guides are authored for this model.
 [Registration diagram](docs/assets/human-anatomy-diagram.png).
+
+Latest mouth pass: [brush diagram](docs/assets/human-mouth-diagram.png).
+
+| Mouth front | Mouth side |
+| --- | --- |
+| ![Mouth front](docs/assets/human-mouth-front.png) | ![Mouth side](docs/assets/human-mouth-side.png) |
+
+Earlier lower-face profile:
 
 | Head planes front | Head planes side |
 | --- | --- |
