@@ -34,8 +34,8 @@ def fixture(name,half,upper,lower,tilt):
 
 
 def run():
-    folder=ROOT/'runs/orbital-fit'
-    if folder.exists():raise ValueError('Use a fresh runs/orbital-fit directory')
+    folder=ROOT/'runs/human/orbital-fit'
+    if folder.exists():raise ValueError('Use a fresh runs/human/orbital-fit directory')
     kb=anatomy_fit.knowledge('periorbital-v1')
     assert all(f['source'] in kb['sources'] for f in kb['features'].values())
     assert all(a in kb['features'] and b in kb['features'] for a,_,b in kb['relations'])

@@ -6,12 +6,12 @@ All images below are actual Blender renders from included procedural examples. N
 
 | Field robot | Work lantern |
 |---|---|
-| ![Robot](../assets/field-robot.png) | ![Lantern](../assets/lantern-final.png) |
+| ![Robot](../assets/general/images/part-01/field-robot.png) | ![Lantern](../assets/lantern/lantern-final.png) |
 | Rounded shells, recessed vents and articulated assembly study. | Revolved housing, protective cage and continuous swept handle. |
 
 | Ray sculpture | Field speaker |
 |---|---|
-| ![Ray](../assets/ray-relief-sparse.png) | ![Speaker](../assets/field-speaker-front.png) |
+| ![Ray](../assets/sculpture/images/part-02/ray-relief-sparse.png) | ![Speaker](../assets/speaker/field-speaker-front.png) |
 | Continuous organic form, reversible coordinate edits and conforming motifs. | 70-operation JSON construction with driver profiles, service panel and real vent cuts. |
 
 ## Audit against the requested objective
@@ -37,7 +37,7 @@ The requested modeling/evaluation/development cycle is complete. The code remain
 | Ray sculpture | 10 | 26,702 | 0 | 0 |
 | Field speaker | 26 | 10,576 | 0 | 0 |
 
-Studio floors are excluded. Disconnected designed parts are counted separately. Overlap counts are per object and exclude triangles sharing vertices; this is not an assembly-intersection certificate. File hashes and sizes are in [PORTFOLIO_AUDIT.json](../audits/PORTFOLIO_AUDIT.json). Full local per-part data is retained under `runs/portfolio-audit.json`.
+Studio floors are excluded. Disconnected designed parts are counted separately. Overlap counts are per object and exclude triangles sharing vertices; this is not an assembly-intersection certificate. File hashes and sizes are in [PORTFOLIO_AUDIT.json](../audits/recipes/part-02/PORTFOLIO_AUDIT.json). Full local per-part data is retained under `runs/loose/general/recipes/portfolio-audit.json`.
 
 Final implementation [CI passed](https://github.com/shakystar/mesh-workbench/actions/runs/37288030843): 15 Blender integration tests and 3 host tests. Windows native studies used Blender 5.2.2 LTS; CI also exercised the integration suite on the distribution Blender in Ubuntu 24.04. Saved-file checks additionally verified detail clearances, material/visibility persistence, shape-key rollback and attachment regeneration after pose undo.
 
@@ -46,12 +46,12 @@ Final implementation [CI passed](https://github.com/shakystar/mesh-workbench/act
 Run from the checkout after installing the package and Blender. Use fresh output directories. `BLENDER_BIN` or the CLI `--blender` option can specify the executable when it is not on PATH.
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/design_studies.py -- runs/design-studies
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/refine_lantern.py -- runs/design-studies/work-lantern/model.blend runs/lantern-refined
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic_study.py -- runs/organic-continuous --continuous
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/relief_study.py -- runs/organic-continuous/ray.blend runs/relief
-mesh-workbench run examples/field-speaker.json --output runs/speaker
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/audit_studies.py -- examples/studies-manifest.example.json runs/portfolio-audit-new.json
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/scripts/design_studies.py -- runs/design-studies
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/lantern/scripts/refine_lantern.py -- runs/design-studies/work-lantern/model.blend runs/lantern-refined
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic/scripts/organic_study.py -- runs/organic-continuous --continuous
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/scripts/relief_study.py -- runs/organic-continuous/ray.blend runs/relief
+mesh-workbench run examples/speaker/recipes/field-speaker.json --output runs/speaker
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/checks/audit_studies.py -- examples/general/recipes/studies-manifest.example.json runs/portfolio-audit-new.json
 ```
 
 Further visual comparisons, rejected candidates and design-specific limitations are retained in the [design journal](DESIGN_STUDIES.md). Detailed operations are in the [recipe reference](../reference/OPERATIONS.md).

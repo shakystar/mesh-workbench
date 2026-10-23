@@ -17,10 +17,10 @@ jobs:
         with:
           python-version: '3.12'
       - run: python -m pip install -r requirements-docs.txt
-      - run: python scripts/build_docs.py --output runs/site
+      - run: python scripts/build_docs.py --output runs/builds/site
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: runs/site
+          path: runs/builds/site
   deploy:
     needs: build
     runs-on: ubuntu-24.04

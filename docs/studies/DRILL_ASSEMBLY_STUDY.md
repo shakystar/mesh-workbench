@@ -1,10 +1,10 @@
 # Editable drill assembly
 
-Completed 2026-10-07 against [M0-M5](../ROADMAP.md). The [completion audit](../audits/DRILL_ASSEMBLY_AUDIT.json) records native-file hashes, all change scenarios, measured interfaces, motion sampling, failure cases and Windows/Linux results. The [revision-4 brief](../audits/DRILL_ASSEMBLY_BRIEF.json) freezes dimensions and gates for this original authored design.
+Completed 2026-10-07 against [M0-M5](../ROADMAP.md). The [completion audit](../audits/recipes/part-01/DRILL_ASSEMBLY_AUDIT.json) records native-file hashes, all change scenarios, measured interfaces, motion sampling, failure cases and Windows/Linux results. The [revision-4 brief](../audits/recipes/part-01/DRILL_ASSEMBLY_BRIEF.json) freezes dimensions and gates for this original authored design.
 
 ## Model and tools
 
-![Final drill](../assets/drill-assembly-hero.png)
+![Final drill](../assets/drill/assembly/images/part-01/drill-assembly-hero.png)
 
 The assembly contains 70 dependency nodes, 38 declared part IDs/frames and 35 visible mesh objects. A mesh object can contain multiple pattern solids; these counts are not a manufactured bill of materials. Native coordinates are millimetres.
 
@@ -18,9 +18,9 @@ Same side-camera comparison with the preserved earlier exterior study:
 
 | Earlier exterior drill | Editable assembly |
 | --- | --- |
-| ![Earlier side](../assets/drill-side.png) | ![Assembly side](../assets/drill-assembly-side.png) |
+| ![Earlier side](../assets/drill/base/drill-side.png) | ![Assembly side](../assets/drill/assembly/images/part-01/drill-assembly-side.png) |
 
-![Separated assembly](../assets/drill-assembly-exploded.png)
+![Separated assembly](../assets/drill/assembly/images/part-01/drill-assembly-exploded.png)
 
 Panels are separated for inspection; this preview is not an assembly sequence simulation.
 
@@ -41,9 +41,9 @@ The outline is an authored design guide, not a photograph or manufacturer refere
 
 | Grip section at Z=85 mm | Housing section at Z=165 mm |
 | --- | --- |
-| ![Grip section](../assets/drill-assembly-section-85.png) | ![Housing section](../assets/drill-assembly-section-165.png) |
+| ![Grip section](../assets/drill/assembly/images/part-01/drill-assembly-section-85.png) | ![Housing section](../assets/drill/assembly/images/part-01/drill-assembly-section-165.png) |
 
-![Measured rail clearance](../assets/drill-assembly-clearance.png)
+![Measured rail clearance](../assets/drill/assembly/images/part-01/drill-assembly-clearance.png)
 
 ## Changes and persistence
 
@@ -51,11 +51,11 @@ All four scenarios preserve independent geometry and regenerate affected descend
 
 | Width +2 mm | Length +5 mm | Split +1 mm |
 | --- | --- | --- |
-| ![Width](../assets/drill-assembly-grip-width.png) | ![Length](../assets/drill-assembly-grip-length.png) | ![Split](../assets/drill-assembly-split-shift.png) |
+| ![Width](../assets/drill/assembly/images/part-01/drill-assembly-grip-width.png) | ![Length](../assets/drill/assembly/images/part-01/drill-assembly-grip-length.png) | ![Split](../assets/drill/assembly/images/part-01/drill-assembly-split-shift.png) |
 
 | Before local remesh | After local remesh |
 | --- | --- |
-| ![Before](../assets/drill-assembly-topology-before.png) | ![After](../assets/drill-assembly-topology-after.png) |
+| ![Before](../assets/drill/assembly/images/part-02/drill-assembly-topology-before.png) | ![After](../assets/drill/assembly/images/part-02/drill-assembly-topology-after.png) |
 
 The remesh trial demonstrates nested propagation through a small patch. It bakes the whole source into triangles; the local 80-to-78 change is not a broad topology-quality improvement.
 
@@ -72,18 +72,18 @@ Windows Blender 5.2.2 LTS and [Linux Blender 4.0.2 CI](https://github.com/shakys
 Run from the repository root with Blender on PATH. Output directories must be new; render modes may share a review directory.
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill_assembly.py -- runs/drill-new
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill_assembly_variants.py -- runs/drill-new/drill.blend runs/drill-width-new grip-width
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_drill_assembly.py -- runs/drill-new/drill.blend runs/drill-reopen-new --rollback
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill_assembly_motion.py -- runs/drill-new/drill.blend runs/drill-motion-new
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill_assembly_render.py -- runs/drill-new/drill.blend runs/drill-new/review
-mesh-workbench run examples/drill-assembly.json --output runs/drill-assembly-cli
-mesh-workbench run examples/drill-assembly-rejected.json --output runs/drill-assembly-cli-rejected
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/assembly/scripts/drill_assembly.py -- runs/drill-new
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/assembly/scripts/drill_assembly_variants.py -- runs/drill-new/drill.blend runs/drill-width-new grip-width
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/assembly/checks/verify_drill_assembly.py -- runs/drill-new/drill.blend runs/drill-reopen-new --rollback
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/assembly/scripts/drill_assembly_motion.py -- runs/drill-new/drill.blend runs/drill-motion-new
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/assembly/scripts/drill_assembly_render.py -- runs/drill-new/drill.blend runs/drill-new/review
+mesh-workbench run examples/drill/assembly/recipes/drill-assembly.json --output runs/drill/drill-assembly-cli
+mesh-workbench run examples/drill/assembly/recipes/drill-assembly-rejected.json --output runs/drill/drill-assembly-cli-rejected
 ```
 
 The last command is an expected rejection and references the preceding CLI output. Variant names also accept `grip-length`, `split-shift`, and `remesh`. Motion modes include `interfaces`, `alternate-bits` and `failures`; render modes include `sections`, `clearance` and `topology`. Check JSON pass flags, not process exit alone.
 
-Delivered local files are `runs/drill-assembly-r4/{baseline,grip-width,grip-length,split-shift,remesh}/drill.blend` and `runs/drill-assembly-r4/reopen-{name}/followup.blend`. Generated native files/logs remain ignored; public scripts, measured evidence and previews are tracked. `verify_drill_delivery.py` inspects both groups; `audit_drill_assembly.py` refuses completion when required evidence is missing or fails.
+Delivered local files are `runs/drill/drill-assembly-r4/{baseline,grip-width,grip-length,split-shift,remesh}/drill.blend` and `runs/drill/drill-assembly-r4/reopen-{name}/followup.blend`. Generated native files/logs remain ignored; public scripts, measured evidence and previews are tracked. `verify_drill_delivery.py` inspects both groups; `audit_drill_assembly.py` refuses completion when required evidence is missing or fails.
 
 ## Boundaries
 

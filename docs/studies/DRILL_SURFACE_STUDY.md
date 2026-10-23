@@ -1,28 +1,28 @@
 # Drill surface refinement
 
-M6-M10 complete, 2026-10-07. [Completion audit](../audits/DRILL_SURFACE_AUDIT.json) | [Visual observations](../audits/DRILL_SURFACE_VISUAL.json) | [Frozen specification](../../examples/drill-surface-target.json) | [Target guide](../assets/drill-surface-target.svg)
+M6-M10 complete, 2026-10-07. [Completion audit](../audits/recipes/part-01/DRILL_SURFACE_AUDIT.json) | [Visual observations](../audits/recipes/part-01/DRILL_SURFACE_VISUAL.json) | [Frozen specification](../../examples/drill/surface/recipes/drill-surface-target.json) | [Target guide](../assets/drill/surface/images/part-03/drill-surface-target.svg)
 
 This original procedural drill improves the housing sections, grip and separate mechanical surfaces. It is not a manufacturer replica. The earlier [assembly study](DRILL_ASSEMBLY_STUDY.md) and its native files remain preserved.
 
 ## Before and after
 
-Both columns use the same frozen camera, light setup, 1000 x 1000 output and 12-sample Cycles render. Images are actual Blender output, with no generative editing. Before: `runs/drill-assembly-r4/baseline/drill.blend`. After: `runs/drill-surface-06/drill.blend`.
+Both columns use the same frozen camera, light setup, 1000 x 1000 output and 12-sample Cycles render. Images are actual Blender output, with no generative editing. Before: `runs/drill/drill-assembly-r4/baseline/drill.blend`. After: `runs/drill/drill-surface-06/drill.blend`.
 
 | View | Previous assembly | Surface refinement |
 | --- | --- | --- |
-| Hero | ![Before Hero](../assets/drill-surface-before-hero.png) | ![After Hero](../assets/drill-surface-after-hero.png) |
-| Left | ![Before Left](../assets/drill-surface-before-left.png) | ![After Left](../assets/drill-surface-after-left.png) |
-| Right | ![Before Right](../assets/drill-surface-before-right.png) | ![After Right](../assets/drill-surface-after-right.png) |
-| Front | ![Before Front](../assets/drill-surface-before-front.png) | ![After Front](../assets/drill-surface-after-front.png) |
-| Rear | ![Before Rear](../assets/drill-surface-before-rear.png) | ![After Rear](../assets/drill-surface-after-rear.png) |
-| Top | ![Before Top](../assets/drill-surface-before-top.png) | ![After Top](../assets/drill-surface-after-top.png) |
-| Bottom | ![Before Bottom](../assets/drill-surface-before-bottom.png) | ![After Bottom](../assets/drill-surface-after-bottom.png) |
-| Chuck and torque ring | ![Before Chuck and torque ring](../assets/drill-surface-before-chuck-detail.png) | ![After Chuck and torque ring](../assets/drill-surface-after-chuck-detail.png) |
-| Rubber perimeter and ribs | ![Before Rubber perimeter and ribs](../assets/drill-surface-before-grip-detail.png) | ![After Rubber perimeter and ribs](../assets/drill-surface-after-grip-detail.png) |
-| Trigger grooves | ![Before Trigger grooves](../assets/drill-surface-before-trigger-detail.png) | ![After Trigger grooves](../assets/drill-surface-after-trigger-detail.png) |
-| Battery shrouds | ![Before Battery shrouds](../assets/drill-surface-before-battery-detail.png) | ![After Battery shrouds](../assets/drill-surface-after-battery-detail.png) |
-| Reflection bands | ![Before Reflection bands](../assets/drill-surface-before-stripes-hero.png) | ![After Reflection bands](../assets/drill-surface-after-stripes-hero.png) |
-| Curvature, fixed 0.15 scale | ![Before Curvature, fixed 0.15 scale](../assets/drill-surface-before-curvature-hero.png) | ![After Curvature, fixed 0.15 scale](../assets/drill-surface-after-curvature-hero.png) |
+| Hero | ![Before Hero](../assets/drill/surface/images/part-02/drill-surface-before-hero.png) | ![After Hero](../assets/drill/surface/images/part-01/drill-surface-after-hero.png) |
+| Left | ![Before Left](../assets/drill/surface/images/part-03/drill-surface-before-left.png) | ![After Left](../assets/drill/surface/images/part-01/drill-surface-after-left.png) |
+| Right | ![Before Right](../assets/drill/surface/images/part-03/drill-surface-before-right.png) | ![After Right](../assets/drill/surface/images/part-01/drill-surface-after-right.png) |
+| Front | ![Before Front](../assets/drill/surface/images/part-02/drill-surface-before-front.png) | ![After Front](../assets/drill/surface/images/part-01/drill-surface-after-front.png) |
+| Rear | ![Before Rear](../assets/drill/surface/images/part-03/drill-surface-before-rear.png) | ![After Rear](../assets/drill/surface/images/part-01/drill-surface-after-rear.png) |
+| Top | ![Before Top](../assets/drill/surface/images/part-03/drill-surface-before-top.png) | ![After Top](../assets/drill/surface/images/part-02/drill-surface-after-top.png) |
+| Bottom | ![Before Bottom](../assets/drill/surface/images/part-02/drill-surface-before-bottom.png) | ![After Bottom](../assets/drill/surface/images/part-01/drill-surface-after-bottom.png) |
+| Chuck and torque ring | ![Before Chuck and torque ring](../assets/drill/surface/images/part-02/drill-surface-before-chuck-detail.png) | ![After Chuck and torque ring](../assets/drill/surface/images/part-01/drill-surface-after-chuck-detail.png) |
+| Rubber perimeter and ribs | ![Before Rubber perimeter and ribs](../assets/drill/surface/images/part-02/drill-surface-before-grip-detail.png) | ![After Rubber perimeter and ribs](../assets/drill/surface/images/part-01/drill-surface-after-grip-detail.png) |
+| Trigger grooves | ![Before Trigger grooves](../assets/drill/surface/images/part-03/drill-surface-before-trigger-detail.png) | ![After Trigger grooves](../assets/drill/surface/images/part-02/drill-surface-after-trigger-detail.png) |
+| Battery shrouds | ![Before Battery shrouds](../assets/drill/surface/images/part-02/drill-surface-before-battery-detail.png) | ![After Battery shrouds](../assets/drill/surface/images/part-01/drill-surface-after-battery-detail.png) |
+| Reflection bands | ![Before Reflection bands](../assets/drill/surface/images/part-03/drill-surface-before-stripes-hero.png) | ![After Reflection bands](../assets/drill/surface/images/part-02/drill-surface-after-stripes-hero.png) |
+| Curvature, fixed 0.15 scale | ![Before Curvature, fixed 0.15 scale](../assets/drill/surface/images/part-02/drill-surface-before-curvature-hero.png) | ![After Curvature, fixed 0.15 scale](../assets/drill/surface/images/part-01/drill-surface-after-curvature-hero.png) |
 
 The head now has a sloped roof and crown, with independently controlled rear/front grip width. The chuck has tapered ends and 24 real flutes; the torque ring has 18 flutes and 12 geometric index ticks. Broader rubber patches carry nine raised ribs and a perimeter on each side. Three grooves are cut into the trigger. Battery-fixed side covers have different upper/lower bevel offsets.
 
@@ -50,7 +50,7 @@ The chuck flutes measure 0.7 mm, torque flutes 0.8 mm, trigger grooves 0.25 mm, 
 
 | Original master patch | Rebuilt master patch |
 | --- | --- |
-| ![Original topology](../assets/drill-surface-topology-before.png) | ![Rebuilt topology](../assets/drill-surface-topology-after.png) |
+| ![Original topology](../assets/drill/surface/images/part-03/drill-surface-topology-before.png) | ![Rebuilt topology](../assets/drill/surface/images/part-03/drill-surface-topology-after.png) |
 
 The actual left grip master patch changes from 519 to 487 triangles. It uses 81 splits, 97 collapses, 91 flips and 292 projected relaxation steps. Lower-tail p10 triangle quality improves from 0.272266 to 0.413375; mean quality from 0.475654 to 0.701769; edge-length coefficient of variation falls from 0.505640 to 0.381802. Sampled bidirectional drift is 0.056453 mm against a 0.09 mm bound. All 15,617 pinned vertices have zero movement, and 17,018 untouched polygons retain their original topology/corner UVs.
 
@@ -69,9 +69,9 @@ Windows Blender 5.2.2 LTS and [Linux Blender 4.0.2](https://github.com/shakystar
 Install Blender separately. From a checkout, set `PYTHONPATH=src` and put Blender on PATH or set `BLENDER_BIN`. No external assets or generation service are required.
 
 ```sh
-python -m mesh_workbench run examples/drill-surface.json --output runs/drill-surface-cli-08
+python -m mesh_workbench run examples/drill/surface/recipes/drill-surface.json --output runs/drill/drill-surface-cli-08
 # Expected nonzero exit; this recipe loads the preceding output.
-python -m mesh_workbench run examples/drill-surface-rejected.json --output runs/drill-surface-cli-rejected-08
+python -m mesh_workbench run examples/drill/surface/recipes/drill-surface-rejected.json --output runs/drill/drill-surface-cli-rejected-08
 ```
 
 The CLI recipe is self-contained. It includes a +0.25 mm width edit before the patch operation, so its native result is not byte-identical to the gallery baseline. Output/log paths must not already exist; use a fresh path, and update the rejection recipe source when changing the success path.
@@ -79,20 +79,20 @@ The CLI recipe is self-contained. It includes a +0.25 mm width edit before the p
 Inside factory-startup background Blender, the included helpers can inspect any corresponding saved surface model:
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_drill_surface.py -- runs/drill-surface-cli-08/result.blend runs/surface-check
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_drill_surface_details.py -- runs/drill-surface-cli-08/result.blend runs/surface-details
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_drill_surface_reopen.py -- runs/drill-surface-cli-08/result.blend runs/surface-reopen --rollback
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill_surface_review.py -- runs/drill-surface-cli-08/result.blend runs/surface-review hero left right front rear top bottom stripes-hero curvature-hero chuck-detail grip-detail trigger-detail battery-detail
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/surface/checks/verify_drill_surface.py -- runs/drill/drill-surface-cli-08/result.blend runs/surface-check
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/surface/checks/verify_drill_surface_details.py -- runs/drill/drill-surface-cli-08/result.blend runs/surface-details
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/surface/checks/verify_drill_surface_reopen.py -- runs/drill/drill-surface-cli-08/result.blend runs/surface-reopen --rollback
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/surface/scripts/drill_surface_review.py -- runs/drill/drill-surface-cli-08/result.blend runs/surface-review hero left right front rear top bottom stripes-hero curvature-hero chuck-detail grip-detail trigger-detail battery-detail
 ```
 
 `drill_surface.py` builds/reconfigures the authored candidate when the preserved prior baseline is available. `drill_surface_patch.py` reconstructs its master grip patch. `export_drill_surface_recipe.py` regenerates the public recipe from the target specification. `audit_drill_surface.py --help` lists the required local evidence/log inputs; it fails if a required geometry, motion, render hash, source-preservation or regression gate is missing. Generated `.blend` files remain in ignored `runs/`; the public repository contains their recipes, measured audit and native preview images.
 
 Verified local files:
 
-- `runs/drill-surface-06/drill.blend`: gallery candidate with rebuilt master patch.
-- `runs/drill-surface-06/reopen/followup.blend`: reopened width +0.25 mm result.
-- `runs/drill-surface-cli-08/result.blend`: actual CLI-generated editable result.
-- `runs/drill-surface-patch-03/drill.blend`: preserved reconstruction checkpoint.
+- `runs/drill/drill-surface-06/drill.blend`: gallery candidate with rebuilt master patch.
+- `runs/drill/drill-surface-06/reopen/followup.blend`: reopened width +0.25 mm result.
+- `runs/drill/drill-surface-cli-08/result.blend`: actual CLI-generated editable result.
+- `runs/drill/drill-surface-patch-03/drill.blend`: preserved reconstruction checkpoint.
 
 Exact hashes are in the completion audit. Native evidence paths are local artifacts, not downloadable GitHub assets.
 

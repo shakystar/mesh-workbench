@@ -1,9 +1,15 @@
 # Current development status
 
+Workspace organization: all folders outside `.git` and the approved `.venv`
+exception have at most ten direct files. 4,938 files were grouped by topic/type;
+source imports, example resources and documentation links were updated.
+Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
+[Locations and move maps](WORKSPACE_LAYOUT.md).
+
 ## Human proportion base — 2026-10-23
 
 Current-model front/three-quarter renders are published as
-`docs/assets/human-current-front.png` and `human-current-three-quarter.png`.
+`docs/assets/human/human-current-front.png` and `human-current-three-quarter.png`.
 Visual inspection shows shallow eye/ear relief, no eye openings and persistent
 chin irregularities. Previous tool-pass reports were not visual-quality evidence.
 The saved ear-stage model was rendered with one Blender process, two CPU threads,
@@ -25,9 +31,9 @@ Blender 5.2.2 LTS: `tests/ear_fit_test.py` passes two paired proportion fixtures
 source preservation and rollback. All 9,882 hidden vertices per fixture remain
 unchanged; protected counts are 12,068 / 11,988. Maximum movement: 0.479 / 0.702 mm.
 Six invalid batches and the existing front-path effect/failure check pass.
-Evidence: `runs/ear-fit/verification.json`. The current human application locally
+Evidence: `runs/human/ear-fit/verification.json`. The current human application locally
 subdivides ear patches and preserves existing facial edits:
-`runs/human-ear-fit/fitted-ears.blend`. No new renders; canals, cartilage thickness,
+`runs/human/human-ear-fit/fitted-ears.blend`. No new renders; canals, cartilage thickness,
 free-standing helix rims and anatomical accuracy remain outside this pass.
 The human result preserves 75,230 protected vertices and source/baseline geometry,
 passes all-layer rollback and has zero nonmanifold edges. Maximum movement is
@@ -44,8 +50,8 @@ Blender 5.2.2 LTS: `tests/orbital_fit_test.py` passes two bilateral fixtures
 protection, complete rollback, eight invalid batches and an injected second-eye
 failure after five successful paths. The original single oral API also passes.
 Protected counts: 12,471 / 11,723; maximum movements: 0.510 / 0.871 mm.
-Evidence: `runs/orbital-fit/verification.json`. Current native example:
-`runs/human-eye-fit/fitted-eyes.blend`. It locally subdivides eye patches and
+Evidence: `runs/human/orbital-fit/verification.json`. Current native example:
+`runs/human/human-eye-fit/fitted-eyes.blend`. It locally subdivides eye patches and
 preserves previous nasal/oral objects and layers. It preserves 72,618 protected
 vertices and the source/baseline, passes all-layer rollback, and reports zero
 nonmanifold edges with at most 0.8775 mm displacement. One Blender process and
@@ -62,9 +68,9 @@ Blender 5.2.2 LTS: `tests/nasal_fit_test.py` passes two curved fixtures with
 28/44 mm alar widths and 18/26 mm heights. Protected counts: 6,578 / 6,176;
 unchanged below-base counts: 4,141 / 3,333. Source layers, rollback, caps,
 eight atomic failure cases and oral-default compilation pass. Maximum movement:
-0.698 / 1.093 mm. Evidence: `runs/nasal-fit/verification.json`.
+0.698 / 1.093 mm. Evidence: `runs/human/nasal-fit/verification.json`.
 The current procedural human uses measured targets with the oral link;
-native output: `runs/human-nasal-fit/fitted.blend`. It preserves 72,204 protected
+native output: `runs/human/human-nasal-fit/fitted.blend`. It preserves 72,204 protected
 vertices and its source, passes rollback, and moves at most 0.567 mm.
 One Blender process and two CPU threads were used; Blender exited. No new renders; nostril
 cavities, underside anatomy and anatomical accuracy remain outside this pass.
@@ -79,18 +85,18 @@ applications remove their partial outputs. [Scope/API](ANATOMY_KNOWLEDGE.md).
 Blender 5.2.2 LTS: two curved proportion fixtures (42/58 mm mouth widths) pass
 actual deformation, source preservation, protection and rollback. Protected
 counts: 5,651 / 5,531; maximum combined movement: 1.250 / 1.822 mm.
-Eight invalid targets fail atomically. Evidence: `runs/anatomy-fit/verification.json`.
+Eight invalid targets fail atomically. Evidence: `runs/human/anatomy-fit/verification.json`.
 The current human target initially failed the depth tolerance at the corners;
 surface readback corrected those coordinates without relaxing the tolerance.
-Native application: `runs/human-mouth-fit-visible/fitted.blend`.
+Native application: `runs/human/human-mouth-fit-visible/fitted.blend`.
 No new renders; full-body variation and anatomical accuracy remain unvalidated.
 Runs used one Blender process and two CPU threads; Blender exited.
 
 Mouth diagram paths: `anatomy.path_stroke` projects named front-view polylines
 onto the visible mesh with regional protection and reversible layers.
-`examples/human/human-mouth-diagram.json` drives seven paths for lip contours,
+`examples/human/recipes/human-mouth-diagram.json` drives seven paths for lip contours,
 lip separation, philtrum ridges/groove and the lip/chin fold. The corresponding
-diagram uses the same coordinates. Native: `runs/human-mouth/human-mouth.blend`.
+diagram uses the same coordinates. Native: `runs/human/human-mouth/human-mouth.blend`.
 Only the mouth patch is subdivided into a new object; earlier sources remain.
 
 Blender 5.2.2 LTS focused path test passes forward displacement, rear-surface
@@ -102,13 +108,13 @@ and the upper lip bow are visible; lip corners remain coarse and the existing
 chin surface irregularities remain. This is authored registration, not validated
 anatomical accuracy. One Blender process, two CPU threads; Blender exited.
 
-Lower-face profile revision: `examples/human/human_lower_face.py` takes the guided
+Lower-face profile revision: `examples/human/scripts/human_lower_face.py` takes the guided
 cranium native file, subdivides only lower-face topology into a new object, and
-applies an authored sagittal profile from `examples/human/human-lower-face.json`.
+applies an authored sagittal profile from `examples/human/recipes/human-lower-face.json`.
 Nose base, philtrum, upper/lower lip and chin anchors define forward support and
 chin setback. The profile is a reversible shape key followed by a bounded
 registered smoothing brush. The source and its cranium brush layers remain intact.
-Native result: `runs/human-lower-face-final/human-lower-face.blend`.
+Native result: `runs/human/human-lower-face-final/human-lower-face.blend`.
 
 Focused checks verify unchanged protected coordinates, full layer rollback,
 source preservation, manifold edges, and actual anterior lip support/chin setback
@@ -129,7 +135,7 @@ workbench layer. The template is authored for this procedural subject, not an
 anatomical standard. [Controls and reproduction](ANATOMY_BRUSH.md).
 
 First application: two cranium strokes on a new evaluated snapshot of the head.
-Native result: `runs/human-guided-cranium/human-guided.blend`. The prior object,
+Native result: `runs/human/human-guided-cranium/human-guided.blend`. The prior object,
 keys and smoothing are preserved. Maximum total movement is 1.2243 mm; 64,220
 protected vertices remain coordinate-identical. Source preservation and complete
 brush rollback pass. The focused `tests/blender_tests.py` anatomy test passes
@@ -142,7 +148,7 @@ Head/neck plane revision: cranium and jaw sections replace the egg-shaped head.
 Nose bridge/tip, muzzle/chin and ear masses join the existing surface.
 Orbital recesses, broad cheek relief, brow relief, shallow mouth indication and anterior neck ridges
 are a separate reversible shape key. The neck shifts under the posterior jaw.
-Native result: `runs/human-head-refined/human-base.blend`; previous native models
+Native result: `runs/human/human-head-refined/human-base.blend`; previous native models
 are preserved. Only front and side head close-ups are rendered.
 
 Focused checks cover connected closed geometry, head height, nose projection
@@ -159,7 +165,7 @@ flat arm caps. Torso profiles distinguish ribcage, lumbar curve and pelvis;
 thigh/calf profiles taper into narrower ankles. Separate kneecap and staggered
 ankle masses fuse into the surface. Clavicle and shin relief is a reversible shape
 key, followed by the existing smoothing modifier. Native result:
-`runs/human-landmarks/human-base.blend`; the initial native model is preserved.
+`runs/human/human-landmarks/human-base.blend`; the initial native model is preserved.
 
 Focused checks retain connected/closed geometry, height and the leg gap, and add
 upper-arm gap rays and kneecap projection checks. This remains a static anatomy
@@ -171,11 +177,11 @@ are visible. Joint masses remain simplified and do not establish anatomical
 accuracy. One process, two CPU threads and two renders were used. Blender exited.
 Initial revision details follow.
 
-`examples/human/human_base.py` starts the human-modeling stage with an original adult
+`examples/human/scripts/human_base.py` starts the human-modeling stage with an original adult
 neutral-stance blockout. Separate section sources define the head, torso/pelvis,
 arms, legs, mitten hands, thumb masses and feet. A 6 mm voxel fusion creates a
 new continuous surface; source objects are retained hidden and smoothing remains
-a reversible modifier. Native result: `runs/human-base/human-base.blend`.
+a reversible modifier. Native result: `runs/human/human-base/human-base.blend`.
 
 The focused check measures height, finite geometry, a single connected component,
 two-face edge incidence and the leg gap. This is a proportion study, not detailed
@@ -192,7 +198,7 @@ Contour and fitting revision: the grip now uses 57 eased sections and rounder
 cross-sections instead of seven linear stations. Both viewfinders have body
 recesses, open rims, recessed coated glass and dark backing wells. The side strap
 mounts and studs are smaller; rounded-wire eyes replace the thick flat washers.
-Native result: `runs/compact-camera-contours/camera.blend`.
+Native result: `runs/camera/compact-camera-contours/camera.blend`.
 
 Focused checks cover grip/body intersection, open finder apertures, glass/rim
 clearance and open strap eyes. The viewfinder is a visual assembly, not a
@@ -209,7 +215,7 @@ panel, gasket and body seat extend down to align with the screen; lower fastener
 move with the panel. Its finish is closer to the body. The display now has a
 cut-through bezel, recessed glass, a backing and an actual body recess; exposed
 display-corner screws are removed. Native result:
-`runs/compact-camera-integration/camera.blend`.
+`runs/camera/compact-camera-integration/camera.blend`.
 
 Focused checks cover display glass/bezel non-intersection and the affected panel
 bores, gasket contact and button supports. Front and rear views cover the changed
@@ -227,7 +233,7 @@ apertures. Separate button shafts run through guide sleeves into a body cavity;
 retaining flanges and a navigation carrier complete the static assembly.
 The guide sleeves and rear navigation guide attach to the cavity floor.
 Shaft/sleeve radial clearance is 0.2 mm. Native result:
-`runs/compact-camera-buttons/camera.blend`.
+`runs/camera/compact-camera-buttons/camera.blend`.
 
 Blender 5.2.2 LTS checks aperture rays, shaft clearance from panel/body and guide
 attachment. An oversized shaft must intersect the panel as a negative fit check.
@@ -247,7 +253,7 @@ A recessed, smaller battery exposes more of the pocket wall; a divider separates
 the card area. The door has an inner face insert and a smaller edge bevel.
 The underside view now looks toward the inner door and hinge connection.
 
-Native result: `runs/compact-camera-finish-final/camera.blend`. Focused checks
+Native result: `runs/camera/compact-camera-finish-final/camera.blend`. Focused checks
 cover the existing panel bores, gasket contacts, latch release and two hatch
 poses; they do not establish continuous collision-free travel. Blender 5.2.2 LTS
 produced both images and the completion report; both images were inspected and
@@ -271,11 +277,11 @@ Focused Blender 5.2.2 LTS checks pass panel bore rays, gasket/panel and seal/sea
 contact bounds, latch surface non-overlap and release clearance, battery access,
 and closed/open hatch coverage. These are static geometry checks, not a continuous
 motion or manufacturing validation. Native result:
-`runs/compact-camera-assembly/camera.blend`. Only rear-controls and open-hatch
+`runs/camera/compact-camera-assembly/camera.blend`. Only rear-controls and open-hatch
 views are rendered with one Blender process and two CPU threads. Earlier native
 models are preserved. Both renders were visually inspected and Blender exited.
-Updated previews: [rear panel](assets/compact-camera-controls.png) and
-[open hatch](assets/compact-camera-hatch.png). Previous revisions follow.
+Updated previews: [rear panel](assets/camera/compact-camera-controls.png) and
+[open hatch](assets/camera/compact-camera-hatch.png). Previous revisions follow.
 
 Controls and access revision: seated button bezels and separate caps, menu/play/OK
 labels, dial mode markings, a rear service panel with slotted screws, lower-profile
@@ -288,7 +294,7 @@ open pose. This is not a continuous interference or mechanical-function guarante
 
 The focused Blender 5.2.2 LTS check passes the opening rays through body/cover/
 gasket, access to the battery, and hatch coverage in the closed/open poses. Mesh
-parts have finite geometry. Native result: `runs/compact-camera-controls/camera.blend`.
+parts have finite geometry. Native result: `runs/camera/compact-camera-controls/camera.blend`.
 Only front, rear-controls and open-hatch views are rendered, with one Blender
 process and two CPU threads. Previous native inputs are preserved. Lens optics
 and unrelated tool/OS tests are not rerun. Earlier revision details follow.
@@ -296,16 +302,16 @@ and unrelated tool/OS tests are not rerun. Earlier revision details follow.
 All three views were inspected and Blender exited. The rear controls show the
 separate bezels, labels and panel screws; the underside image shows the opened
 door, exposed battery, release catch and card socket. Public previews:
-[controls](assets/compact-camera-controls.png),
-[open hatch](assets/compact-camera-hatch.png). Only the two static door poses
+[controls](assets/camera/compact-camera-controls.png),
+[open hatch](assets/camera/compact-camera-hatch.png). Only the two static door poses
 were verified; no collision-free travel or manufacturing claim is made.
 
 Refinement: the body and alloy covers now share sampled superellipse outlines.
 The two 0.25 mm joints use recessed gaskets instead of protruding rectangular
 seam plates. The lens has a nonmetallic clear front element recessed inside the
 filter rim, a separate inner element, nine closed iris leaves and a dark cavity.
-The original `runs/compact-camera/camera.blend` is preserved; the new native file
-is `runs/compact-camera-refined/camera.blend`.
+The original `runs/camera/compact-camera/camera.blend` is preserved; the new native file
+is `runs/camera/compact-camera-refined/camera.blend`.
 
 The focused Blender 5.2.2 LTS check passes matching cover outlines, a clear
 4 mm-radius ray bundle through the iris and blade coverage at 10 mm radius.
@@ -315,7 +321,7 @@ opening and inner glass are visible through the clear front element. Blender
 has exited. Only those two views were rendered; rear controls are unchanged. No core tools,
 OS matrix or full regression were added. The following describes the first pass.
 
-`examples/compact_camera.py` creates an original 120 mm-wide fixed-lens camera
+`examples/camera/scripts/compact_camera.py` creates an original 120 mm-wide fixed-lens camera
 using existing rounded-box, annular, profiled-ring and lathed-surface tools.
 The exterior includes a textured body/grip, satin metal covers, concentric lens
 rings, convex coated glass, two knurled top dials, shutter, hot shoe, viewfinder,
@@ -324,14 +330,14 @@ or host fonts are required. No new core modeling operation was added.
 
 Scope: static exterior only. The optics, internal mechanisms and articulation
 are not simulated. Blender 5.2.2 LTS checked 88 mesh parts for finite, nonempty
-geometry. The one native model is `runs/compact-camera/camera.blend`.
+geometry. The one native model is `runs/camera/compact-camera/camera.blend`.
 Both front/rear 1000x800, 32-sample views were rendered and visually inspected.
 The exterior pass is complete; the glass is stylized and shallow cover seams
 remain visible. No OS/version matrix or
 full regression is part of this work. Runs are limited to one Blender process,
 two threads and two logical CPUs. The script rejects an existing output directory.
 Blender has exited. Public previews are
-[front](assets/compact-camera-front.png) and [rear](assets/compact-camera-rear.png).
+[front](assets/camera/compact-camera-front.png) and [rear](assets/camera/compact-camera-rear.png).
 
 The user's longer-term target is human-body design. After this camera, the next
 appropriate scope is a simplified static full-body figure; hands/face and joint
@@ -352,11 +358,11 @@ cases reject while preserving the scene. An initial channel counter included
 float32 jitter on circular lands; its 0.0001 mm prominence threshold fixes that
 measurement issue without rebuilding or altering the mesh.
 
-Native result: `runs/drill-twist-bit/drill.blend`. The public JSON recipe is the
+Native result: `runs/drill/drill-twist-bit/drill.blend`. The public JSON recipe is the
 recipe used for this build. Verification is limited to the bit and stationary
 chuck interface; no OS matrix, full regression or motion sweep was run. The
 faceted point is a visual approximation, not a manufacturing cutter definition.
-The single 1000px/32-sample [detail image](assets/drill-twist-bit-detail.png) was
+The single 1000px/32-sample [detail image](assets/drill/base/drill-twist-bit-detail.png) was
 inspected. Both helical channels and the pointed end are visible. Blender exited;
 the run used at most one process, two threads and two logical CPUs. The old
 overall preview below depicts the earlier slotted bit; the detail image is current.
@@ -382,12 +388,12 @@ The scoped correction/integration is complete. Rear-screw clay and overall beaut
 images were inspected: the localized roof swell is reduced; the unchanged grip
 and trigger details retain their earlier inspected geometry. A faint roof highlight
 transition remains, so this is not a claim of perfect reflection continuity.
-Native result: `runs/drill-realism-final-local/drill.blend`; preview:
-`runs/drill-realism-final-local/overall-review/beauty-hero.png`. Both Blender jobs
+Native result: `runs/drill/drill-realism-final-local/drill.blend`; preview:
+`runs/drill/drill-realism-final-local/overall-review/beauty-hero.png`. Both Blender jobs
 have exited. No further renders, runtime matrices or full regressions were run.
 Public copies of the existing renders are included at
-[`assets/drill-realism-hero.png`](assets/drill-realism-hero.png) and
-[`assets/drill-realism-rear-screw.png`](assets/drill-realism-rear-screw.png).
+[`assets/drill-realism-hero.png`](assets/drill/realism/drill-realism-hero.png) and
+[`assets/drill-realism-rear-screw.png`](assets/drill/realism/drill-realism-rear-screw.png).
 
 The previous parallel jobs were stopped. User-approved cleanup removed 69 obsolete
 Blend files and the local Linux Blender distribution/archive, freeing 4.34 GiB.
@@ -396,15 +402,15 @@ reopenable. The original, candidates 40/42/45/48 and latest edit results were re
 
 ## Historical broad-scope snapshot (superseded)
 
-Updated 2026-10-23. **Drill surface refinement M6-M10 complete; realism M11-M15 resumed, incomplete.** [Study and 28 native previews](studies/DRILL_SURFACE_STUDY.md) | [Completion audit](audits/DRILL_SURFACE_AUDIT.json) | [Next development contract](DRILL_REALISM_PLAN.md) | [Realism progress](studies/DRILL_REALISM_STUDY.md)
+Updated 2026-10-23. **Drill surface refinement M6-M10 complete; realism M11-M15 resumed, incomplete.** [Study and 28 native previews](studies/DRILL_SURFACE_STUDY.md) | [Completion audit](audits/recipes/part-01/DRILL_SURFACE_AUDIT.json) | [Next development contract](DRILL_REALISM_PLAN.md) | [Realism progress](studies/DRILL_REALISM_STUDY.md)
 
 ## Next development phase
 
-The current public generator and self-contained recipe reproduce candidate 40 exactly (`runs/drill-realism-integrated-40-recipe-01/verification.json`). Frozen five-view silhouette, part and landmark gates pass: front/rear IoU 0.97648, hero 0.97449. Native build, cage restoration/pins, four seam grids, three seats, bit/nose checks, all four sampled motion channels, and independent width +0.25 / length +1 edits with reopened vents/seats/materials/eight markings pass. Original inputs remain preserved.
+The current public generator and self-contained recipe reproduce candidate 40 exactly (`runs/drill/drill-realism-integrated-40-recipe-01/verification.json`). Frozen five-view silhouette, part and landmark gates pass: front/rear IoU 0.97648, hero 0.97449. Native build, cage restoration/pins, four seam grids, three seats, bit/nose checks, all four sampled motion channels, and independent width +0.25 / length +1 edits with reopened vents/seats/materials/eight markings pass. Original inputs remain preserved.
 
 Candidate 42 integrates connected side/rear grip patches and retains the original side chart as an explicit construction dependency for the ribs. Generation, fixed rear coverage rays, connectivity, rib support, all four motion channels and frozen silhouette/part/landmark checks pass. Both independent edits pass after reopening, including grip support and all 51 finished parts/eight markings. All twelve native rejection cases preserve state; successful recovery and reopened finish/marking checks pass. High-resolution clay/stripe inspection still finds fastener curvature, trigger-groove highlights and rear-grip edge quality unresolved. This experimental wrap has not replaced the public recipe.
 
-Core snapshot 05: Windows Blender 5.2.2 LTS and Linux Blender 4.0.2 each pass 62 tests. New insert rim-profile support passes 63 tests each on Windows and Linux against unchanged snapshot 06. This includes three-axis insert projection and explicit removal/reporting of stale CSG binding metadata. Candidate-40 native evidence predates those final core changes; current recipe CLI replay on both runtimes remains required. After an initial WSL startup timeout, candidate 42 Linux recipe replay and reopened grip/finish/seat checks pass (`runs/linux-runtime-01/recipes-05.json`); this is native runner evidence, not host CLI evidence.
+Core snapshot 05: Windows Blender 5.2.2 LTS and Linux Blender 4.0.2 each pass 62 tests. New insert rim-profile support passes 63 tests each on Windows and Linux against unchanged snapshot 06. This includes three-axis insert projection and explicit removal/reporting of stale CSG binding metadata. Candidate-40 native evidence predates those final core changes; current recipe CLI replay on both runtimes remains required. After an initial WSL startup timeout, candidate 42 Linux recipe replay and reopened grip/finish/seat checks pass (`runs/other/linux-runtime-01/recipes/part-02/recipes-05.json`); this is native runner evidence, not host CLI evidence.
 
 Candidate 44 replaces projected flat groove cutters with rounded cutters at unchanged 0.25 mm depth and 0.8 mm width. All 35 depth/land rays pass and the 2000px clay detail shows smoother groove highlights. Candidate 45 adds tapered rear-grip rim heights; build and unchanged coverage/connectivity/rib-support gates pass. Its clay grip/rear views were inspected and show reduced rear-edge protrusion; all four motion channels pass, with unchanged rest transforms. Finish/marking readback, frozen-view and alternate-bit checks pass. Candidate 46 reduces width differences around fixed screw lands; all pin/release/frame/cage definitions remain unchanged. Build and all frozen-view measurements pass; stripe inspection still finds local fastener disturbance. Candidate 47 reduces adjacent width correction further but is rejected by the blind-seat wall gauge; diagnosis found three neck samples above the 2.6 mm maximum (peak 2.602125 mm), not a screw-floor failure. Candidate 48 restores the previously passing Z145 row while retaining the zero corrections at Z165/Z180. It passes build, 1.980-2.591 mm wall / 0.800 mm gap checks and all frozen-view gates (hero IoU 0.972035). Stripe/clay hero views show reduced front-fastener disturbance; front screw detail and beauty hero are also inspected. Material creation-failure preservation/recovery passes. Rear detail review, chuck/battery beauty details, independent reopened edits and geometry/interface checks are running. Public recipe remains candidate 40.
 
@@ -421,16 +427,16 @@ Historical candidate-26 measurement: 1.970-2.594 mm shell walls and 0.800 mm spl
 - Actual CLI success, native reopening and out-of-range rejection pass. Twenty-seven detail measurements pass. Windows Blender 5.2.2 LTS and Linux Blender 4.0.2 each pass 46 integration tests; 3 host tests pass.
 - Runtime implementation: `f227142c6b0a902c16233834fc5382f41db5468c`. [Linux runtime CI](https://github.com/shakystar/mesh-workbench/actions/runs/37576165857).
 
-Native candidate: `runs/drill-surface-06/drill.blend`. Follow-up: `runs/drill-surface-06/reopen/followup.blend`. CLI: `runs/drill-surface-cli-08/result.blend`. Recipes and public previews are tracked; generated native files remain local in ignored `runs/`.
+Native candidate: `runs/drill/drill-surface-06/drill.blend`. Follow-up: `runs/drill/drill-surface-06/reopen/followup.blend`. CLI: `runs/drill/drill-surface-cli-08/result.blend`. Recipes and public previews are tracked; generated native files remain local in ignored `runs/`.
 
 ## Limits
 
 The authored design is not a manufacturer replica. Visible fixed-land curvature, shell-split light leaks and faceted groove highlights remain. Collision/error measurements are sampled; no continuous collision, strength or manufacturing claim is made. Patch rebuilding preserves unselected polygons but does not generate a general quad cage or cross arbitrary UV/material seams. Later parameter changes regenerate the procedural root, not arbitrary manual edits.
 
-The preceding [M0-M5 assembly study](studies/DRILL_ASSEMBLY_STUDY.md), [audit](audits/DRILL_ASSEMBLY_AUDIT.json) and original native models remain preserved. Earlier model and tool studies are indexed in [documentation](README.md); historical development records remain in [archive](archive/DEVELOPMENT_HISTORY.md).
+The preceding [M0-M5 assembly study](studies/DRILL_ASSEMBLY_STUDY.md), [audit](audits/recipes/part-01/DRILL_ASSEMBLY_AUDIT.json) and original native models remain preserved. Earlier model and tool studies are indexed in [documentation](README.md); historical development records remain in [archive](archive/DEVELOPMENT_HISTORY.md).
 
 ## Open-source access and discovery
 
 Original project code/documentation now use MIT. The public repository includes contribution instructions, an agent quickstart, llms.txt and a descriptive CLI manifest. A GitHub Pages workflow publishes static HTML, raw Markdown and a sitemap; see [discovery operations](DISCOVERY.md). Search indexing and external agent adoption are separate from deployment and have not been claimed.
 
-Search Console update (2026-10-07): URL-prefix ownership verified; homepage and agent-guide indexing requests accepted. Sitemap submission accepted, but its report still says Could not fetch despite a successful Google live fetch. Indexing and sitemap processing success remain unconfirmed; see [registration evidence](audits/SEARCH_DISCOVERY.json).
+Search Console update (2026-10-07): URL-prefix ownership verified; homepage and agent-guide indexing requests accepted. Sitemap submission accepted, but its report still says Could not fetch despite a successful Google live fetch. Indexing and sitemap processing success remain unconfirmed; see [registration evidence](audits/recipes/part-02/SEARCH_DISCOVERY.json).

@@ -107,12 +107,12 @@ def build(output):
                 "license": "https://opensource.org/license/mit",
                 "programmingLanguage": "Python",
                 "runtimePlatform": "Blender",
-                "image": BASE + "docs/assets/drill-surface-after-hero.png",
+                "image": BASE + "docs/assets/drill/surface/images/part-01/drill-surface-after-hero.png",
             }
             schema = (
                 '<script type="application/ld+json">' + json.dumps(data) + "</script>"
             )
-        page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)} | Mesh Workbench</title><meta name="description" content="{html.escape(DESCRIPTION)}"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="{canonical}"><meta property="og:type" content="website"><meta property="og:title" content="{html.escape(title)}"><meta property="og:description" content="{html.escape(DESCRIPTION)}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{BASE}docs/assets/drill-surface-after-hero.png"><link rel="stylesheet" href="{BASE}style.css">{verification}{schema}</head><body><main><nav><a href="{BASE}">Mesh Workbench</a><a href="{BASE}docs/AGENT_QUICKSTART.html">Agent quickstart</a><a href="{BASE}docs/reference/OPERATIONS.html">API</a><a href="{BASE}llms.txt">llms.txt</a><a href="https://github.com/shakystar/mesh-workbench">GitHub</a></nav>{body}<footer>Original project code: MIT. Blender is a separate dependency. <a href="{BASE}THIRD_PARTY_NOTICES.html">Licensing scope</a></footer></main></body></html>"""
+        page = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{html.escape(title)} | Mesh Workbench</title><meta name="description" content="{html.escape(DESCRIPTION)}"><meta name="robots" content="index,follow,max-image-preview:large"><link rel="canonical" href="{canonical}"><meta property="og:type" content="website"><meta property="og:title" content="{html.escape(title)}"><meta property="og:description" content="{html.escape(DESCRIPTION)}"><meta property="og:url" content="{canonical}"><meta property="og:image" content="{BASE}docs/assets/drill/surface/images/part-01/drill-surface-after-hero.png"><link rel="stylesheet" href="{BASE}style.css">{verification}{schema}</head><body><main><nav><a href="{BASE}">Mesh Workbench</a><a href="{BASE}docs/AGENT_QUICKSTART.html">Agent quickstart</a><a href="{BASE}docs/reference/OPERATIONS.html">API</a><a href="{BASE}llms.txt">llms.txt</a><a href="https://github.com/shakystar/mesh-workbench">GitHub</a></nav>{body}<footer>Original project code: MIT. Blender is a separate dependency. <a href="{BASE}THIRD_PARTY_NOTICES.html">Licensing scope</a></footer></main></body></html>"""
         (output / destination).parent.mkdir(parents=True, exist_ok=True)
         (output / destination).write_text(page, encoding="utf-8")
         pages.append(canonical)
@@ -151,5 +151,5 @@ def build(output):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--output", default="runs/site")
+    parser.add_argument("--output", default="runs/builds/site")
     build(parser.parse_args().output)

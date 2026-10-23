@@ -13,7 +13,7 @@
     "blender": "separately installed; tested 4.0.2 Linux and 5.2.2 LTS Windows"
   },
   "install": "python -m pip install -e .",
-  "example_command": "mesh-workbench run examples/polygon-edit.json --output runs/first-model",
+  "example_command": "mesh-workbench run examples/general/recipes/polygon-edit.json --output runs/first-model",
   "success": {
     "exit_code": 0,
     "audit_status": "complete",

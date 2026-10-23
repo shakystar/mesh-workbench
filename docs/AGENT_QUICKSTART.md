@@ -10,7 +10,7 @@ Requirements: Python 3.11+, separately installed Blender. Integration tests have
 git clone https://github.com/shakystar/mesh-workbench.git
 cd mesh-workbench
 python -m pip install -e .
-mesh-workbench run examples/polygon-edit.json --output runs/first-model
+mesh-workbench run examples/general/recipes/polygon-edit.json --output runs/first-model
 ```
 
 Blender must be on PATH, or set `BLENDER_BIN` / pass `--blender` with the executable path. Use a new output path for each run. A successful run returns exit code 0 and saves `result.blend`, `recipe.json`, and `audit.json` with status `complete`. Read the audit and inspect the actual output; process startup alone is not success. The CLI log is beside the output folder. Failures return nonzero and may include an audit with status `failed`.
@@ -19,11 +19,11 @@ Blender must be on PATH, or set `BLENDER_BIN` / pass `--blender` with the execut
 
 | Task | Entry point |
 | --- | --- |
-| Vertex/face edits | [Polygon recipe](../examples/polygon-edit.json), [operation reference](reference/OPERATIONS.md) |
-| Parametric assemblies | [Assembly recipe](../examples/assembly.json), `nested_initialize`, `nested_update` |
+| Vertex/face edits | [Polygon recipe](../examples/general/recipes/polygon-edit.json), [operation reference](reference/OPERATIONS.md) |
+| Parametric assemblies | [Assembly recipe](../examples/general/recipes/assembly.json), `nested_initialize`, `nested_update` |
 | Surface details | `surface_paths`, `profiled_ring`, `variable_bevel` |
 | Local patch reconstruction | `rebuild_patch`, explicit selection and error bounds |
-| Full modeling example | [Detailed drill recipe](../examples/drill-surface.json), [measured study](studies/DRILL_SURFACE_STUDY.md) |
+| Full modeling example | [Detailed drill recipe](../examples/drill/surface/recipes/drill-surface.json), [measured study](studies/DRILL_SURFACE_STUDY.md) |
 | Current verified behavior | [Status](STATUS.md), [architecture and limits](reference/DESIGN.md) |
 
 Read operation argument definitions before building a recipe. Python geometry operations require Blender's `bpy`; the host CLI launches Blender with factory startup and automatic script execution disabled. Do not install PyPI `bpy` as a substitute for the documented Blender runtime.

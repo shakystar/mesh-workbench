@@ -13,8 +13,8 @@ from anatomy_fit_test import fixture
 
 
 def run():
-    folder=ROOT/'runs/nasal-fit'
-    if folder.exists():raise ValueError('Use a fresh runs/nasal-fit directory')
+    folder=ROOT/'runs/human/nasal-fit'
+    if folder.exists():raise ValueError('Use a fresh runs/human/nasal-fit directory')
     kb=anatomy_fit.knowledge('nasal-base-v1')
     assert all(v['source'] in kb['sources'] for v in kb['features'].values())
     assert all(a in kb['features'] and b in kb['features'] for a,_,b in kb['relations'])

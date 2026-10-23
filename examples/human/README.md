@@ -1,14 +1,14 @@
 # Human modeling entry point
 
-Current native: `runs/human-ear-fit/fitted-ears.blend`.
-Current images: `docs/assets/human-current-front.png` and
-`docs/assets/human-current-three-quarter.png`. This is still a rough study.
+Current native: `runs/human/human-ear-fit/fitted-ears.blend`.
+Current images: `docs/assets/human/human-current-front.png` and
+`docs/assets/human/human-current-three-quarter.png`. This is still a rough study.
 
-All human example scripts and target JSON live here. Tool implementations remain
+Human scripts live in `scripts/`; target JSON lives in `recipes/`. Tool implementations remain
 in `src/mesh_workbench/`; knowledge data in `src/mesh_workbench/knowledge/`.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/render_human.py -- runs/human-ear-fit/fitted-ears.blend runs/human-current-preview
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/scripts/render_human.py -- runs/human/human-ear-fit/fitted-ears.blend runs/human/human-current-preview
 ```
 
 Use one Blender process and numerical-library thread limits of two.

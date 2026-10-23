@@ -27,8 +27,8 @@ def fixture(name,half,upper,lower,offset):
 
 
 def run():
-    folder=ROOT/'runs/anatomy-fit'
-    if folder.exists():raise ValueError('Use fresh runs/anatomy-fit directory')
+    folder=ROOT/'runs/human/anatomy-fit'
+    if folder.exists():raise ValueError('Use fresh runs/human/anatomy-fit directory')
     results=[];diagrams=[]
     kb=anatomy_fit.knowledge()
     assert all(f['source'] in kb['sources'] for f in kb['features'].values())

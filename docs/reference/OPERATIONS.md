@@ -2,7 +2,7 @@
 
 ## Experimental drill realism operations
 
-These additions are under active M11-M15 validation; see the [progress record](../studies/DRILL_REALISM_STUDY.md). They do not establish a completed realistic drill. The asset-free [fixture recipe](../../examples/realism-tools.json) demonstrates the current JSON integration.
+These additions are under active M11-M15 validation; see the [progress record](../studies/DRILL_REALISM_STUDY.md). They do not establish a completed realistic drill. The asset-free [fixture recipe](../../examples/general/recipes/realism-tools.json) demonstrates the current JSON integration.
 
 | Operation | Arguments and result |
 | --- | --- |
@@ -81,10 +81,10 @@ See [DESIGN.md](DESIGN.md) for units, correspondence, remeshing and pattern limi
 
 ## Integrated construction example
 
-`examples/field-speaker.json` builds a complete procedural product study through the host CLI. It uses dimensioned shells, boolean apertures, revolved drivers, a swept handle, surface relief controls, materials, diagnostics and two paired render/coordinate captures.
+`examples/speaker/recipes/field-speaker.json` builds a complete procedural product study through the host CLI. It uses dimensioned shells, boolean apertures, revolved drivers, a swept handle, surface relief controls, materials, diagnostics and two paired render/coordinate captures.
 
 ```sh
-mesh-workbench run examples/field-speaker.json --output runs/speaker
+mesh-workbench run examples/speaker/recipes/field-speaker.json --output runs/speaker
 ```
 
 Construction/fairing/relief parameter limits are enforced by their Python APIs. New object and material names must be unused. `material` validates all targets before assignment and copies shared object data so an unlisted linked object keeps its original material. Color is RGBA in shader space. These are simple Principled materials, not a general node-graph interface.
@@ -104,7 +104,7 @@ The binding requires a static baked target. Changed connectivity, a renamed/diff
 
 ## Reference-driven precision tools
 
-See [the speaker study](../studies/PRECISION_STUDY.md) and its frozen [target drawing data](../../examples/speaker-target.json).
+See [the speaker study](../studies/PRECISION_STUDY.md) and its frozen [target drawing data](../../examples/speaker/recipes/speaker-target.json).
 
 | Operation | Required fields | Optional fields |
 | --- | --- | --- |
@@ -137,7 +137,7 @@ API reference: [Blender BVHTree](https://docs.blender.org/api/current/mathutils.
 
 ## Guide lofts and measured shells
 
-See the [six-milestone mouse study](../studies/MOUSE_STUDY.md), full [Python example](../../examples/mouse_study.py), and [ordinary JSON recipe](../../examples/mouse-shell.json).
+See the [six-milestone mouse study](../studies/MOUSE_STUDY.md), full [Python example](../../examples/mouse/scripts/mouse_study.py), and [ordinary JSON recipe](../../examples/mouse/recipes/mouse-shell.json).
 
 | JSON operation | Required fields | Optional fields |
 | --- | --- | --- |
@@ -181,7 +181,7 @@ All commands execute inside Blender. Register existing **static, unparented, unc
 | `assembly_validate` | none | Actual geometry measurements for registered checks |
 | `motion_inspect` | `object`, `obstacles`; optional `options` | Discrete overlap/clearance results; transform restored exactly |
 
-Python equivalents are `assembly.register`, `assembly.status`, `assembly.update`, `assembly.validate(assembly.load())`, and `motion.inspect`. See [assembly-basic.json](../../examples/assembly-basic.json) for CLI syntax and [assembly_mouse.py](../../examples/assembly_mouse.py) for the full nine-node model.
+Python equivalents are `assembly.register`, `assembly.status`, `assembly.update`, `assembly.validate(assembly.load())`, and `motion.inspect`. See [assembly-basic.json](../../examples/general/recipes/assembly-basic.json) for CLI syntax and [assembly_mouse.py](../../examples/mouse/scripts/assembly_mouse.py) for the full nine-node model.
 
 Each node has `object`, `kind`, and (except a source) `deps`. The first dependency is its generating surface. Additional dependencies conservatively invalidate the node when their coordinates change.
 
@@ -204,7 +204,7 @@ Motion options: `translation`, rotation `axis`/`angle` (radians), optional world
 
 ## Surface quality, explicit refinement, paths and hinges
 
-See [headphone-tools.json](../../examples/headphone-tools.json) for runnable JSON and the [headphone study](../studies/HEADPHONE_STUDY.md) for measured native results. Units follow world coordinates; the study uses millimeters.
+See [headphone-tools.json](../../examples/headphones/recipes/headphone-tools.json) for runnable JSON and the [headphone study](../studies/HEADPHONE_STUDY.md) for measured native results. Units follow world coordinates; the study uses millimeters.
 
 | Operation | Key inputs | Behavior |
 | --- | --- | --- |
@@ -245,7 +245,7 @@ UV seams in every layer, explicit seam/sharp flags, material discontinuities, an
 - `remesh.transfer_pattern(source, target, pattern, name, max_distance=None)` regenerates supported bound relief or seam geometry.
 - `assembly.remesh_source(source_node_id, selection, name, **options)` stages a new source and its direct bound relief/seam/anchor children. It validates constraints before switching graph object references and hiding old objects. Rejection restores graph/visibility and removes staged objects/meshes. Shell and nested topology dependencies are explicitly rejected.
 
-JSON operations are `remesh`, `remesh_selection`, `remesh_pattern` and `assembly_remesh`; see [complete executable recipe](../../examples/local-remesh.json). `remesh` returns an object name plus measurements in the audit. `assembly_remesh` returns updated nodes, actual object names, transfers and constraint results. Same-topology `assembly_update` remains supported afterward.
+JSON operations are `remesh`, `remesh_selection`, `remesh_pattern` and `assembly_remesh`; see [complete executable recipe](../../examples/general/recipes/local-remesh.json). `remesh` returns an object name plus measurements in the audit. `assembly_remesh` returns updated nodes, actual object names, transfers and constraint results. Same-topology `assembly_update` remains supported afterward.
 
 These tools do not establish a continuous geometric error bound, guarantee mesh-quality convergence, perform UV repacking, or implement general quad retopology. See [drill evidence and limitations](../studies/DRILL_STUDY.md).
 
@@ -262,7 +262,7 @@ Builders include `enclosure`, `hollow`, `partition`, `cut_box`, `cut_cylinder`, 
 
 `inserts.create` accepts `projection_axis=0|1|2` (default 1, preserving XZ guides); ellipse radii and shear use the remaining axes in ascending order. The same argument is available on JSON `insert` dependency nodes. Optional `rim_offset` lowers the perimeter from `offset` using a cubic smoothstep across the outer `rim_fraction` of the ellipse radius (default 0.2). Both surfaces follow the profile at constant normal thickness; the center remains unchanged. Require 0 <= rim_offset <= offset and 0.01 <= rim_fraction <= 1. Omitting rim_offset preserves uniform offsets. JSON insert nodes accept the same options. It projects an independently sampled ellipse onto one connected facing surface, transfers named weights and per-corner UV samples, and creates a closed offset patch. Every projection must have support. A selected region crossing a UV chart or material discontinuity is rejected; general seam-aware patch retopology is not implemented. `enclosure.boolean` explicitly removes stale insert/path/marking bindings after topology changes and records removed keys in `mw_csg_transfer.invalidated_indexed_state`; both inputs remain intact. It preserves native Blender deform and corner layers; newly cut surfaces are generated data, not claimed source-face correspondence. Numerical tangent slivers are dissolved at 1e-5 world units before validation.
 
-JSON operations: `nested_initialize`, `nested_status`, `nested_update`, `nested_reconfigure`. `nested.reconfigure(nodes, checks=None)` explicitly revises recipes while preserving the logical ID set; it uses the same staged validation and rollback. Recipe-level `units` accepts `mm`, `cm` or `m` and sets native scene units without rescaling mesh coordinates. The [drill recipe](../../examples/drill-assembly.json) builds the complete assembly and edits its grip width. After running it to `runs/drill-assembly-cli`, the [rejected-edit recipe](../../examples/drill-assembly-rejected.json) loads that saved result and must exit nonzero for an out-of-range width. Inputs are hashed and preserved.
+JSON operations: `nested_initialize`, `nested_status`, `nested_update`, `nested_reconfigure`. `nested.reconfigure(nodes, checks=None)` explicitly revises recipes while preserving the logical ID set; it uses the same staged validation and rollback. Recipe-level `units` accepts `mm`, `cm` or `m` and sets native scene units without rescaling mesh coordinates. The [drill recipe](../../examples/drill/assembly/recipes/drill-assembly.json) builds the complete assembly and edits its grip width. After running it to `runs/drill/drill-assembly-cli`, the [rejected-edit recipe](../../examples/drill/assembly/recipes/drill-assembly-rejected.json) loads that saved result and must exit nonzero for an out-of-range width. Inputs are hashed and preserved.
 
 ## Prismatic and radial mechanism inspection
 
@@ -298,6 +298,6 @@ JSON operations `profiled_ring`, `surface_paths`, `variable_bevel`, and `rebuild
 
 `semantic.resolve` accepts optional `seed: [x,y,z]` and positive `seed_distance` to choose the uniquely nearest connected candidate component. Equal-distance ties reject; all projected samples must still lie on the selected chart. `enclosure.sharp_role_edges` splits shading at physical outer/inner/cut-role boundaries without changing coordinates; nested `cut_cylinder` accepts `sharp_roles: true`.
 
-The [surface recipe](../../examples/drill-surface.json) initializes, edits and reconstructs the full drill through the CLI. See the [completed surface study](../studies/DRILL_SURFACE_STUDY.md) for measured evidence, commands and remaining limits.
+The [surface recipe](../../examples/drill/surface/recipes/drill-surface.json) initializes, edits and reconstructs the full drill through the CLI. See the [completed surface study](../studies/DRILL_SURFACE_STUDY.md) for measured evidence, commands and remaining limits.
 
 Nested `revolve` dispatches `construction.revolve` with an optional nonzero finite `axis` (default Z); profile axial coordinates follow this axis from `location`. Nested `difference` subtracts its second dependency from its first using `enclosure.boolean`. Optional `cut_material_index` selects a source material for generated cut faces using a temporary cutter copy; both dependencies are preserved. Invalid axis, material index or dependency count rejects. Profiles retain the existing revolve API simplicity limits.

@@ -4,9 +4,9 @@ The mouse master now drives shell partitions, surface details and a rigid wheel 
 
 | Before | Width +6 mm |
 | --- | --- |
-| ![Original assembly](../assets/assembly-before.png) | ![Wider assembly](../assets/assembly-width.png) |
+| ![Original assembly](../assets/general/images/part-01/assembly-before.png) | ![Wider assembly](../assets/general/images/part-01/assembly-width.png) |
 | Height +4 mm | Thumb recess +2 mm peak |
-| ![Taller assembly](../assets/assembly-height.png) | ![Deeper local recess](../assets/assembly-thumb.png) |
+| ![Taller assembly](../assets/general/images/part-01/assembly-height.png) | ![Deeper local recess](../assets/general/images/part-01/assembly-thumb.png) |
 
 These are native Blender renders with identical camera and lighting. No generated illustration replaces the model. The thumb change is a normalized **2 mm peak displacement** into the left flank; it is not a claim about human fit or a uniform 2 mm offset across the region.
 
@@ -40,13 +40,13 @@ Motion checks do not guarantee continuous collision avoidance or detect every co
 From the repository root, with Blender available on PATH:
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/mouse_study.py -- runs/mouse-base
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/assembly_mouse.py -- runs/mouse-base/mouse.blend runs/assembly-mouse
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_assembly_mouse.py -- runs/assembly-mouse
-mesh-workbench run examples/assembly-basic.json --output runs/assembly-cli
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/mouse/scripts/mouse_study.py -- runs/mouse-base
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/mouse/scripts/assembly_mouse.py -- runs/mouse-base/mouse.blend runs/other/assembly-mouse
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/mouse/checks/verify_assembly_mouse.py -- runs/other/assembly-mouse
+mesh-workbench run examples/general/recipes/assembly-basic.json --output runs/other/assembly-cli
 ```
 
-Each output directory must be new. The native outputs are `width/model.blend`, `height/model.blend`, and `thumb/model.blend`. This verification used `runs/assembly-mouse-04`; generated runs are ignored, and the [public audit](../audits/ASSEMBLY_AUDIT.json) records file hashes and measurements. The source mouse file hash remains unchanged.
+Each output directory must be new. The native outputs are `width/model.blend`, `height/model.blend`, and `thumb/model.blend`. This verification used `runs/mouse/assembly-mouse-04`; generated runs are ignored, and the [public audit](../audits/recipes/part-01/ASSEMBLY_AUDIT.json) records file hashes and measurements. The source mouse file hash remains unchanged.
 
 Python and JSON interfaces are described in [operations](../reference/OPERATIONS.md#persisted-assemblies-and-motion-inspection). The system updates explicitly through the tool; it does not install handlers, add-ons or global preferences. Only static meshes with stable indexed topology are supported. Previously committed geometry remains in hidden revision objects; source edits retain deformation layers.
 

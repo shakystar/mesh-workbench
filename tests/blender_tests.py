@@ -1791,7 +1791,7 @@ class Modeling(unittest.TestCase):
     def test_remesh_recipe_and_rejection(self):
         from mesh_workbench.runner import run
 
-        recipe = json.loads((ROOT / "examples/local-remesh.json").read_text())
+        recipe = json.loads((ROOT / "examples/general/recipes/local-remesh.json").read_text())
         path = self.root / "recipe.json"
         path.write_text(json.dumps(recipe))
         run(path, self.root / "success")
@@ -1813,7 +1813,7 @@ class Modeling(unittest.TestCase):
     def test_headphone_tools_recipe_and_failure(self):
         from mesh_workbench.runner import run
 
-        recipe = json.loads((ROOT / "examples/headphone-tools.json").read_text())
+        recipe = json.loads((ROOT / "examples/headphones/recipes/headphone-tools.json").read_text())
         path = self.root / "tools.json"
         path.write_text(json.dumps(recipe))
         run(path, self.root / "success")
@@ -2226,7 +2226,7 @@ class Modeling(unittest.TestCase):
         from mesh_workbench import shells
         from mesh_workbench.runner import run
 
-        target = json.loads((ROOT / "examples/mouse-target.json").read_text())
+        target = json.loads((ROOT / "examples/mouse/recipes/mouse-target.json").read_text())
         recipe = {
             "version": 1,
             "operations": [
@@ -2331,7 +2331,7 @@ class Modeling(unittest.TestCase):
     def test_asymmetric_loft_shell_gauges_and_failures(self):
         from mesh_workbench import loft, shells, sections, regions, fairing
 
-        target = json.loads((ROOT / "examples/mouse-target.json").read_text())
+        target = json.loads((ROOT / "examples/mouse/recipes/mouse-target.json").read_text())
         obj = loft.create(
             "Mouse", target["sections"], tilt=target["tilt"], rows=48, segments=64
         )
@@ -2412,7 +2412,7 @@ class Modeling(unittest.TestCase):
             fairing,
         )
 
-        spec = json.loads((ROOT / "examples/speaker-target.json").read_text())
+        spec = json.loads((ROOT / "examples/speaker/recipes/speaker-target.json").read_text())
         panel = precision.rounded_panel("Precision", **spec["construction"]["case"])
         report, actual, expected = reference.evaluate(panel, spec, "case_front")
         self.assertGreater(report["iou"], 0.995)
@@ -2527,7 +2527,7 @@ class Modeling(unittest.TestCase):
         with self.assertRaises(ValueError):
             precision.rounded_panel("BadPanel", [2, 0.1, 1], 0.2, 0.1)
         self.assertNotIn("BadPanel", bpy.data.objects)
-        spec = json.loads((ROOT / "examples/speaker-target.json").read_text())
+        spec = json.loads((ROOT / "examples/speaker/recipes/speaker-target.json").read_text())
         recipe = {
             "version": 1,
             "operations": [
@@ -2542,7 +2542,7 @@ class Modeling(unittest.TestCase):
             {
                 "op": "compare_reference",
                 "object": "Case",
-                "path": str(ROOT / "examples/speaker-target.json"),
+                "path": str(ROOT / "examples/speaker/recipes/speaker-target.json"),
                 "component": "case_front",
                 "overlay": "reference.png",
             },

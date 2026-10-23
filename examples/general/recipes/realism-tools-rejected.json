@@ -1,0 +1,7 @@
+{
+  "version": 1,
+  "source": "../runs/other/realism-tools-cli-02/result.blend",
+  "operations": [
+    {"op": "nested_update", "parameters": {"depth": 0.31}}
+  ]
+}

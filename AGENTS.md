@@ -11,4 +11,5 @@
 - Record tested Blender versions and remaining limits. Do not claim arbitrary retopology, collision-free patterns or production-ready rigs.
 - Generated runs belong in ignored `runs/`. Public preview images must come only from included procedural examples.
 - 인체 예제·설정은 `examples/human/`에 모읍니다. 익명 테스트 산출물은 `runs/_archive/tests/`에 저장합니다.
+- `.git`과 사용자가 제외한 `.venv` 외에는 폴더별 직접 파일 수를 10개 이하로 유지합니다. 하위 폴더는 개수에 포함하지 않습니다. 모델·기능·파일 유형별로 분류하고, 파일 추가·산출물 생성 후 `python scripts/check_layout.py`로 확인합니다. 경로 이동 시 코드·문서 참조도 갱신합니다.
 - 모델 형상을 변경한 결과 보고에는 현재 저장 모델의 대표 렌더 1~2장을 함께 보여줍니다. 도구 수치 검증을 시각적 완성도 검증으로 표현하지 않습니다. 코드·문서만 바꾼 경우에는 렌더하지 않습니다.

@@ -4,14 +4,14 @@ An original field speaker was refined against a frozen, authored design brief. T
 
 | Before | After |
 | --- | --- |
-| ![Before](../assets/precision-before-hero.png) | ![After](../assets/precision-after-hero.png) |
-| ![Original joint](../assets/precision-before-detail.png) | ![Refined joint](../assets/precision-after-detail.png) |
+| ![Before](../assets/general/images/part-02/precision-before-hero.png) | ![After](../assets/general/images/part-01/precision-after-hero.png) |
+| ![Original joint](../assets/general/images/part-02/precision-before-detail.png) | ![Refined joint](../assets/general/images/part-01/precision-after-detail.png) |
 
 ## Frozen target
 
-![Target drawing](../assets/speaker-target.svg)
+![Target drawing](../assets/speaker/speaker-target.svg)
 
-The [target JSON](../../examples/speaker-target.json) was saved before candidate generation. Case: 2.92 x 1.85, outline radius 0.30, depth 0.95, front/back edge radius 0.06. Panel: 2.70 x 1.63, outline radius 0.23; axial margin 0.11. Handle: half-width 1.05, centerline top 2.64, two supported feet. Units are design units, with no manufacturing scale asserted.
+The [target JSON](../../examples/speaker/recipes/speaker-target.json) was saved before candidate generation. Case: 2.92 x 1.85, outline radius 0.30, depth 0.95, front/back edge radius 0.06. Panel: 2.70 x 1.63, outline radius 0.23; axial margin 0.11. Handle: half-width 1.05, centerline top 2.64, two supported feet. Units are design units, with no manufacturing scale asserted.
 
 Target hash: `e957b935cf5e1fa7a47e36515e57f7b14183db0cddef69c9fff81c6a4d21a3ed`.
 
@@ -29,13 +29,13 @@ Mean of these three IoUs: **91.717% to 99.972%**. This is a silhouette metric fo
 
 | Original | More rounded candidate | Final |
 | --- | --- | --- |
-| ![Original front](../assets/precision-before-front.png) | ![Rejected candidate](../assets/precision-soft-front.png) | ![Final front](../assets/precision-after-front.png) |
+| ![Original front](../assets/general/images/part-02/precision-before-front.png) | ![Rejected candidate](../assets/general/images/part-02/precision-soft-front.png) | ![Final front](../assets/general/images/part-01/precision-after-front.png) |
 
 The first run used 0.01-unit pixel-center sampling. A row of pixels coinciding with the analytic panel edge yielded 98.39% panel IoU. That run was rejected. All candidates were then remeasured at twice the linear sampling resolution with the target and acceptance thresholds unchanged. Residual deviations at the final resolution are within one pixel; exact subpixel accuracy is not asserted.
 
 | Panel error before | Panel error after |
 | --- | --- |
-| ![Before mask error](../assets/precision-before-panel_front.png) | ![After mask error](../assets/precision-fitted-panel_front.png) |
+| ![Before mask error](../assets/general/images/part-02/precision-before-panel_front.png) | ![After mask error](../assets/general/images/part-02/precision-fitted-panel_front.png) |
 
 Gray: agreement; orange: excess mesh; blue: missing mesh.
 
@@ -62,14 +62,14 @@ A fresh Blender process reopened the final file and verified:
 
 Implementation [Linux CI passed](https://github.com/shakystar/mesh-workbench/actions/runs/37292317713) for commit `47de44d62ec37c2227ba1371c273009b07850026`.
 
-Machine-readable evidence: [audit](../audits/PRECISION_AUDIT.json). Native local result: `runs/precision-speaker-03/refined-speaker.blend`. Generated runs are ignored by Git.
+Machine-readable evidence: [audit](../audits/recipes/part-02/PRECISION_AUDIT.json). Native local result: `runs/speaker/precision-speaker-03/models/refined-speaker.blend`. Generated runs are ignored by Git.
 
 ## Reproduce
 
 ```sh
-mesh-workbench run examples/field-speaker.json --output runs/speaker-baseline
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/precision_speaker.py -- runs/speaker-baseline/result.blend runs/speaker-precision
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_precision.py -- runs/speaker-baseline/result.blend runs/speaker-precision
+mesh-workbench run examples/speaker/recipes/field-speaker.json --output runs/speaker-baseline
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/speaker/scripts/precision_speaker.py -- runs/speaker-baseline/result.blend runs/speaker-precision
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/checks/verify_precision.py -- runs/speaker-baseline/result.blend runs/speaker-precision
 ```
 
 See [operation reference](../reference/OPERATIONS.md#reference-driven-precision-tools). These are bounded tools for explicit modeling decisions; no automatic photograph matching, remesh correspondence, universal retopology, perspective calibration or complete collision solver is claimed.

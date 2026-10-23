@@ -1,22 +1,46 @@
-# Workspace entry points
+# Workspace layout: at most ten direct files per folder
 
-| What to open | Location |
+The limit counts files, not subfolders. `.git` and the user-approved `.venv`
+exception remain untouched. Every other folder, including generated artifacts,
+is included in the final check.
+
+| Category | Location |
 | --- | --- |
-| Current human model | `runs/human-ear-fit/fitted-ears.blend` |
-| Current renders | `docs/assets/human-current-front.png`, `human-current-three-quarter.png` |
-| Human scripts and target JSON | [`examples/human/`](../examples/human/README.md) |
-| Modeling library | `src/mesh_workbench/` |
-| Anatomy knowledge data | `src/mesh_workbench/knowledge/` |
-| Current scope and evidence | [STATUS.md](STATUS.md) |
-| Historical anonymous test runs | `runs/_archive/tests/` |
+| Current human native | `runs/human/human-ear-fit/fitted-ears.blend` |
+| Current human images | `docs/assets/human/` |
+| Human scripts / target JSON | `examples/human/scripts/`, `examples/human/recipes/` |
+| Drill examples | `examples/drill/{assembly,realism,surface,base}/` |
+| Other examples | `examples/{camera,mouse,headphones,speaker,organic,lantern,sculpture,general}/` |
+| Library implementation | `src/mesh_workbench/{anatomy,geometry,forms,mechanisms,details,workflow}/` |
+| Knowledge data | `src/mesh_workbench/knowledge/` |
+| Model images | `docs/assets/{human,drill,camera,mouse,...}/` |
+| Model runs | `runs/{human,drill,camera,mouse,...}/` |
+| Build snapshots / other runs / loose records | `runs/builds/`, `runs/other/`, `runs/loose/` |
+| Historical tests and caches | `runs/_archive/` |
 
-2,282 `test-<uuid>` directories were moved from the top of `runs/` into
-`runs/_archive/tests/`. The ignored `runs/_archive/test-moves.json` records each
-original and new path. No model or evidence files were deleted. This organizes
-files without reclaiming disk space. New anonymous integration runs use that
-subfolder directly.
+Within topics, scripts, checks, recipes, images, logs and records are separated.
+A type with more than ten files is split into `part-01`, `part-02`, etc.
+Library public imports such as `from mesh_workbench import anatomy` remain valid;
+the package searches its functional source directories. The wheel includes those
+modules and knowledge data. Example scripts use a shared import bootstrap.
 
-17 human example/config/render files were collected under `examples/human/`;
-script roots and documentation references were updated. Named drill, camera and
-human history folders remain in `runs/` as stage inputs and evidence. Their
-cleanup is not claimed complete.
+4,938 files were moved; none were deleted. Empty directories were removed.
+[Tracked path map](reference/layout/moved-files.json) records public relocations.
+The complete local map is `runs/organization/plan.json`; pre-move paths/sizes are
+in `runs/organization/moves-before.json`. Historical generated records retain
+original contents; use the map to locate an old path referenced inside them.
+
+Verification: all moved destinations exist; no local Markdown links are broken;
+Python syntax and literal example resources pass; 48 library modules, four
+knowledge resources and two human entrypoints load in Blender 5.2.2 LTS.
+Three host CLI checks pass. The built wheel contains all 55 expected source/data
+entries. No geometry or render tests were added for this file-layout change.
+
+Run the layout check after adding files or producing artifacts:
+
+```text
+python scripts/check_layout.py
+```
+
+The verified maximum is ten direct files, with zero violations outside `.git`
+and `.venv`. This is organization, not disk-space reclamation.

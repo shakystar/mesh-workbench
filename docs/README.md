@@ -23,14 +23,14 @@ Start with [current status](STATUS.md), then [milestone contract](ROADMAP.md). S
 
 | Study | Evidence |
 | --- | --- |
-| [Drill surface refinement (complete)](studies/DRILL_SURFACE_STUDY.md) | [Audit](audits/DRILL_SURFACE_AUDIT.json), [visual review](audits/DRILL_SURFACE_VISUAL.json), [frozen brief](audits/DRILL_SURFACE_BRIEF.json) |
-| [Editable drill assembly](studies/DRILL_ASSEMBLY_STUDY.md) | [Audit](audits/DRILL_ASSEMBLY_AUDIT.json), [frozen brief](audits/DRILL_ASSEMBLY_BRIEF.json) |
-| [Cordless drill and local remeshing](studies/DRILL_STUDY.md) | [Audit](audits/DRILL_AUDIT.json) |
-| [Folding headphones](studies/HEADPHONE_STUDY.md) | [Audit](audits/HEADPHONE_AUDIT.json) |
-| [Regenerating mouse assembly](studies/ASSEMBLY_STUDY.md) | [Audit](audits/ASSEMBLY_AUDIT.json) |
-| [Asymmetric mouse](studies/MOUSE_STUDY.md) | [Audit](audits/MOUSE_AUDIT.json) |
-| [Speaker precision study](studies/PRECISION_STUDY.md) | [Audit](audits/PRECISION_AUDIT.json) |
-| [Original four-design portfolio](studies/PORTFOLIO.md) | [Audit](audits/PORTFOLIO_AUDIT.json) |
+| [Drill surface refinement (complete)](studies/DRILL_SURFACE_STUDY.md) | [Audit](audits/recipes/part-01/DRILL_SURFACE_AUDIT.json), [visual review](audits/recipes/part-01/DRILL_SURFACE_VISUAL.json), [frozen brief](audits/recipes/part-01/DRILL_SURFACE_BRIEF.json) |
+| [Editable drill assembly](studies/DRILL_ASSEMBLY_STUDY.md) | [Audit](audits/recipes/part-01/DRILL_ASSEMBLY_AUDIT.json), [frozen brief](audits/recipes/part-01/DRILL_ASSEMBLY_BRIEF.json) |
+| [Cordless drill and local remeshing](studies/DRILL_STUDY.md) | [Audit](audits/recipes/part-01/DRILL_AUDIT.json) |
+| [Folding headphones](studies/HEADPHONE_STUDY.md) | [Audit](audits/recipes/part-02/HEADPHONE_AUDIT.json) |
+| [Regenerating mouse assembly](studies/ASSEMBLY_STUDY.md) | [Audit](audits/recipes/part-01/ASSEMBLY_AUDIT.json) |
+| [Asymmetric mouse](studies/MOUSE_STUDY.md) | [Audit](audits/recipes/part-02/MOUSE_AUDIT.json) |
+| [Speaker precision study](studies/PRECISION_STUDY.md) | [Audit](audits/recipes/part-02/PRECISION_AUDIT.json) |
+| [Original four-design portfolio](studies/PORTFOLIO.md) | [Audit](audits/recipes/part-02/PORTFOLIO_AUDIT.json) |
 | [Early design iteration journal](studies/DESIGN_STUDIES.md) | Evidence and rejected candidates within the journal |
 
 ## Maintenance

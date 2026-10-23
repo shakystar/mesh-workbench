@@ -18,7 +18,7 @@ class HostCLI(unittest.TestCase):
         self.assertEqual(result.exception.code, 2)
 
     def test_existing_output(self):
-        recipe = Path(__file__).resolve().parents[1] / "examples/assembly.json"
+        recipe = Path(__file__).resolve().parents[1] / "examples/general/recipes/assembly.json"
         with (
             contextlib.redirect_stderr(io.StringIO()),
             self.assertRaises(SystemExit) as result,
@@ -27,7 +27,7 @@ class HostCLI(unittest.TestCase):
         self.assertEqual(result.exception.code, 2)
 
     def test_blender_missing(self):
-        recipe = Path(__file__).resolve().parents[1] / "examples/assembly.json"
+        recipe = Path(__file__).resolve().parents[1] / "examples/general/recipes/assembly.json"
         with (
             contextlib.redirect_stderr(io.StringIO()),
             self.assertRaises(SystemExit) as result,

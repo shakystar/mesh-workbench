@@ -1,10 +1,10 @@
 # Completed milestones: editable drill assembly
 
-Status: **complete**, 2026-10-07. All M0-M5 gates have recorded evidence in the [completion audit](../audits/DRILL_ASSEMBLY_AUDIT.json) and [modeling study](../studies/DRILL_ASSEMBLY_STUDY.md). The frozen brief is recorded in [DRILL_ASSEMBLY_BRIEF.json](../audits/DRILL_ASSEMBLY_BRIEF.json). No subsequent implementation milestone is active.
+Status: **complete**, 2026-10-07. All M0-M5 gates have recorded evidence in the [completion audit](../audits/recipes/part-01/DRILL_ASSEMBLY_AUDIT.json) and [modeling study](../studies/DRILL_ASSEMBLY_STUDY.md). The frozen brief is recorded in [DRILL_ASSEMBLY_BRIEF.json](../audits/recipes/part-01/DRILL_ASSEMBLY_BRIEF.json). No subsequent implementation milestone is active.
 
 ## Objective and baseline
 
-Evolve the current exterior drill into a dimensioned, editable assembly: changes to its housing and grip regenerate dependent shells, cutouts, fittings and surface details, while declared clearances and motions remain valid. Preserve the [completed drill](../studies/DRILL_STUDY.md) as the comparison baseline (`runs/drill-study-09/drill.blend`, hash in the [audit](../audits/DRILL_AUDIT.json)).
+Evolve the current exterior drill into a dimensioned, editable assembly: changes to its housing and grip regenerate dependent shells, cutouts, fittings and surface details, while declared clearances and motions remain valid. Preserve the [completed drill](../studies/DRILL_STUDY.md) as the comparison baseline (`runs/drill/drill-study-09/drill.blend`, hash in the [audit](../audits/recipes/part-01/DRILL_AUDIT.json)).
 
 The model remains an original authored design. Engineering values below are prototype acceptance targets, not manufacturer specifications or validated production tolerances. M0 froze these values; subsequent design revisions and reasons are recorded in the brief.
 
@@ -53,12 +53,12 @@ These are sampled geometric gates, not continuous collision or strength proofs. 
 
 The study links the final scripts, previews and machine-readable evidence:
 
-- `examples/drill-assembly-target.json`: frozen dimensions, reference provenance, part IDs, interfaces and acceptance gates.
-- `examples/drill_assembly.py`: reproducible construction, variants, nested regeneration and motion inspection.
-- `examples/verify_drill_assembly.py`: fresh-process migration, follow-up edit, motion and rollback audit.
-- `examples/drill-assembly.json`: public host-CLI exercise including one successful nested edit and a separately recorded rejected edit.
-- `runs/drill-assembly-r4/{baseline,grip-width,grip-length,split-shift,remesh}/drill.blend`: preserved source and native variants, with renders and per-variant measurements; a remesh trial is recorded separately.
-- `docs/studies/DRILL_ASSEMBLY_STUDY.md`, `docs/audits/DRILL_ASSEMBLY_AUDIT.json`, `docs/assets/drill-assembly-*.png`: public before/after evidence and completion matrix.
+- `examples/drill/assembly/recipes/drill-assembly-target.json`: frozen dimensions, reference provenance, part IDs, interfaces and acceptance gates.
+- `examples/drill/assembly/scripts/drill_assembly.py`: reproducible construction, variants, nested regeneration and motion inspection.
+- `examples/drill/assembly/checks/verify_drill_assembly.py`: fresh-process migration, follow-up edit, motion and rollback audit.
+- `examples/drill/assembly/recipes/drill-assembly.json`: public host-CLI exercise including one successful nested edit and a separately recorded rejected edit.
+- `runs/drill/drill-assembly-r4/{baseline,grip-width,grip-length,split-shift,remesh}/drill.blend`: preserved source and native variants, with renders and per-variant measurements; a remesh trial is recorded separately.
+- `docs/studies/DRILL_ASSEMBLY_STUDY.md`, `docs/audits/recipes/part-01/DRILL_ASSEMBLY_AUDIT.json`, `docs/assets/drill-assembly-*.png`: public before/after evidence and completion matrix.
 
 Extend the existing assembly, shell, attachment and motion APIs where possible. Decide new module boundaries after M0 identifies the missing operations; the tool/API names are not frozen in this plan.
 

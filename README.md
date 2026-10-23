@@ -16,7 +16,7 @@ finished anatomy. [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 | Current front | Current three-quarter |
 | --- | --- |
-| ![Current human front](docs/assets/human-current-front.png) | ![Current human three-quarter](docs/assets/human-current-three-quarter.png) |
+| ![Current human front](docs/assets/human/human-current-front.png) | ![Current human three-quarter](docs/assets/human/human-current-three-quarter.png) |
 
 [Human scripts and current native location](examples/human/README.md).
 
@@ -25,13 +25,13 @@ section sources and a separate fused surface. This is an initial silhouette and
 proportion study, without detailed anatomy, individual fingers or a rig. The
 current pass adds diagram-guided mouth paths: lip contours, separation, philtrum
 and the lip/chin fold, with protected regions and reversible edits.
-[Generator](examples/human/human_base.py) · [Scope and checks](docs/STATUS.md)
+[Generator](examples/human/scripts/human_base.py) · [Scope and checks](docs/STATUS.md)
 
 [Registered anatomy brushes](docs/ANATOMY_BRUSH.md) now use named landmarks,
 regional protection, geodesic radius and reversible displacement-limited layers.
 Point brushes cover the cranium; path brushes follow the mouth diagram.
 The guides are authored for this model.
-[Registration diagram](docs/assets/human-anatomy-diagram.png).
+[Registration diagram](docs/assets/human/human-anatomy-diagram.png).
 
 [Proportional anatomy knowledge](docs/ANATOMY_KNOWLEDGE.md) separates oral, nasal
 and periorbital/ear feature relationships from authored ratios. Manual landmarks fit
@@ -40,23 +40,23 @@ regions can share one reversible result; failed batches leave no partial output.
 Ear guides use side projection with opposite/hidden-surface protection.
 Whole-body knowledge and automatic landmark detection remain unimplemented.
 
-Latest mouth pass: [brush diagram](docs/assets/human-mouth-diagram.png).
+Latest mouth pass: [brush diagram](docs/assets/human/human-mouth-diagram.png).
 
 | Mouth front | Mouth side |
 | --- | --- |
-| ![Mouth front](docs/assets/human-mouth-front.png) | ![Mouth side](docs/assets/human-mouth-side.png) |
+| ![Mouth front](docs/assets/human/human-mouth-front.png) | ![Mouth side](docs/assets/human/human-mouth-side.png) |
 
 Earlier lower-face profile:
 
 | Head planes front | Head planes side |
 | --- | --- |
-| ![Head planes front](docs/assets/human-head-front.png) | ![Head planes side](docs/assets/human-head-side.png) |
+| ![Head planes front](docs/assets/human/human-head-front.png) | ![Head planes side](docs/assets/human/human-head-side.png) |
 
 Earlier full-body silhouette and joint-landmark pass:
 
 | Human base front | Human base side |
 | --- | --- |
-| ![Human base front](docs/assets/human-base-front.png) | ![Human base side](docs/assets/human-base-side.png) |
+| ![Human base front](docs/assets/human/human-base-front.png) | ![Human base side](docs/assets/human/human-base-side.png) |
 
 Previous: an original fixed-lens compact camera with a satin metal top, textured
 grip, concentric lens barrel, clear front element, nine-leaf aperture, top dials
@@ -67,46 +67,46 @@ The rear panel seats in a body recess with a perimeter gasket and through-holes
 for separate screws. Fixed and moving hinge knuckles share one pin axis.
 The grip tapers into the body without a projecting cap; the rear panel aligns
 with a recessed display and narrow bezel.
-[Generator](examples/compact_camera.py) · [Scope and checks](docs/STATUS.md)
+[Generator](examples/camera/scripts/compact_camera.py) · [Scope and checks](docs/STATUS.md)
 
 | Refined front | Lens and aperture |
 | --- | --- |
-| ![Compact camera front](docs/assets/compact-camera-front.png) | ![Lens and aperture](docs/assets/compact-camera-lens.png) |
+| ![Compact camera front](docs/assets/camera/compact-camera-front.png) | ![Lens and aperture](docs/assets/camera/compact-camera-lens.png) |
 
 | Rear controls | Open battery/card hatch |
 | --- | --- |
-| ![Rear controls](docs/assets/compact-camera-controls.png) | ![Battery/card hatch](docs/assets/compact-camera-hatch.png) |
+| ![Rear controls](docs/assets/camera/compact-camera-controls.png) | ![Battery/card hatch](docs/assets/camera/compact-camera-hatch.png) |
 
 Previous: a 6 mm two-flute drill bit with a round shank, helical chip channels and
 a tapered cutting point. Three chuck jaws contact the shank; the flute interiors
 use a rougher metal finish than the lands. This is an original visual model.
 
-![Two-flute drill bit and chuck](docs/assets/drill-twist-bit-detail.png)
+![Two-flute drill bit and chuck](docs/assets/drill/base/drill-twist-bit-detail.png)
 
 Previous housing refinement: connected rubber grip with tapered edges, rounded trigger
 grooves and reduced housing distortion around the rear screw. The
-[self-contained recipe](examples/drill-realism.json) and
-[generator](examples/drill_realism.py) are included. The preview below is an
+[self-contained recipe](examples/drill/realism/recipes/part-02/drill-realism.json) and
+[generator](examples/drill/realism/scripts/part-01/drill_realism.py) are included. The preview below is an
 800px, 32-sample local check; a faint roof highlight transition remains.
 
-![Refined drill realism example](docs/assets/drill-realism-hero.png)
+![Refined drill realism example](docs/assets/drill/realism/drill-realism-hero.png)
 
-[Rear screw detail](docs/assets/drill-realism-rear-screw.png) ·
+[Rear screw detail](docs/assets/drill/realism/drill-realism-rear-screw.png) ·
 [Current scope and verification](docs/STATUS.md)
 
 | Field robot | Work lantern |
 | --- | --- |
-| ![Field robot](docs/assets/field-robot.png) | ![Work lantern](docs/assets/lantern-final.png) |
+| ![Field robot](docs/assets/general/images/part-01/field-robot.png) | ![Work lantern](docs/assets/lantern/lantern-final.png) |
 | Ray sculpture | Field speaker |
-| ![Ray sculpture](docs/assets/ray-relief-sparse.png) | ![Field speaker](docs/assets/precision-after-hero.png) |
+| ![Ray sculpture](docs/assets/sculpture/images/part-02/ray-relief-sparse.png) | ![Field speaker](docs/assets/general/images/part-01/precision-after-hero.png) |
 | Asymmetric mouse | Mouse shell separation |
-| ![Asymmetric mouse](docs/assets/mouse-final-hero.png) | ![Separated mouse shells](docs/assets/mouse-exploded-hero.png) |
+| ![Asymmetric mouse](docs/assets/mouse/images/part-01/mouse-final-hero.png) | ![Separated mouse shells](docs/assets/mouse/images/part-01/mouse-exploded-hero.png) |
 | Folding headphones | Folded configuration |
-| ![Headphones](docs/assets/headphone-standard-open.png) | ![Folded headphones](docs/assets/headphone-standard-folded.png) |
+| ![Headphones](docs/assets/headphones/images/part-01/headphone-standard-open.png) | ![Folded headphones](docs/assets/headphones/images/part-01/headphone-standard-folded.png) |
 | Refined cordless drill | Chuck and torque detail |
-| ![Drill](docs/assets/drill-surface-after-hero.png) | ![Chuck](docs/assets/drill-surface-after-chuck-detail.png) |
+| ![Drill](docs/assets/drill/surface/images/part-01/drill-surface-after-hero.png) | ![Chuck](docs/assets/drill/surface/images/part-01/drill-surface-after-chuck-detail.png) |
 
-See the [four-design portfolio and completion audit](docs/studies/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/studies/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/field-speaker.json) runs directly through the CLI.
+See the [four-design portfolio and completion audit](docs/studies/PORTFOLIO.md) for model details and reproduction commands, and the [design journal](docs/studies/DESIGN_STUDIES.md) for revisions and evaluation. The [field speaker recipe](examples/speaker/recipes/field-speaker.json) runs directly through the CLI.
 
 Latest: [drill surface refinement](docs/studies/DRILL_SURFACE_STUDY.md): section-shaped housing, fluted parts, surface ribs/grooves, variable bevel, measured local patch rebuilding and 28 before/after previews. Windows/Linux: 46 integration tests each.
 
@@ -149,8 +149,8 @@ Install Blender separately and make `blender` available on PATH, or set `BLENDER
 
 ```sh
 python -m pip install -e .
-mesh-workbench run examples/assembly.json --output runs/assembly
-mesh-workbench inspect runs/assembly/review --pixel 192 192
+mesh-workbench run examples/general/recipes/assembly.json --output runs/other/assembly
+mesh-workbench inspect runs/other/assembly/review --pixel 192 192
 ```
 
 Pixel inspection on the host requires `python -m pip install -e ".[analysis]"`. Official Blender builds include NumPy. Distribution packages may require it separately (Ubuntu: `python3-numpy`). No PyPI `bpy` package is required.
@@ -158,7 +158,7 @@ Pixel inspection on the host requires `python -m pip install -e ".[analysis]"`. 
 From a checkout without installation:
 
 ```sh
-PYTHONPATH=src python -m mesh_workbench run examples/polygon-edit.json --output runs/polygon-edit
+PYTHONPATH=src python -m mesh_workbench run examples/general/recipes/polygon-edit.json --output runs/other/polygon-edit
 ```
 
 PowerShell equivalent: `$env:PYTHONPATH='src'`. Alternatively use the installed `mesh-workbench` command. Output paths must be new; each run produces `result.blend`, `recipe.json`, `audit.json` and requested captures. Logs are stored beside the run directory.

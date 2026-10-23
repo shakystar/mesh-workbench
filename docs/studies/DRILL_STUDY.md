@@ -4,7 +4,7 @@ Native Blender study, 2026-10-06. Original authored dimensions, not a reconstruc
 
 | Assembled drill | Separated housing |
 | --- | --- |
-| ![Drill](../assets/drill-hero.png) | ![Housing separation](../assets/drill-exploded.png) |
+| ![Drill](../assets/drill/base/drill-hero.png) | ![Housing separation](../assets/drill/base/drill-exploded.png) |
 
 ## Delivered milestones
 
@@ -35,7 +35,7 @@ Distance probes include every vertex, edge midpoint and triangle centroid: 18,47
 
 | Original polygon layout | Remeshed triangle layout |
 | --- | --- |
-| ![Before](../assets/drill-topology-before.png) | ![After](../assets/drill-topology-after.png) |
+| ![Before](../assets/drill/base/drill-topology-before.png) | ![After](../assets/drill/base/drill-topology-after.png) |
 
 Both renders use identical cameras and lighting, with only the respective housing and its wire overlay visible. The output is globally triangulated at snapshot time; only the selected chart interiors undergo edge operations. Outside-patch coordinates are preserved, but original outside polygon IDs and n-gon/quad representation are not retained.
 
@@ -47,9 +47,9 @@ Both renders use identical cameras and lighting, with only the respective housin
 - Fresh-process verification compares saved coordinates to `housing.npy`, checks fixed source/output vertex pairs exactly, independently checks the linear UV field and interpolated mask values, and resolves the retained named region (544 vertices).
 - An injected failed constraint leaves graph text, object/mesh sets and housing coordinates unchanged. A subsequent radial edit of -0.15 mm along Y succeeds and regenerates four fasteners; their largest anchor movement is 0.0645962 mm. The following clearance check still passes at 0.0660952 mm.
 - A manual edit on a fork can be disabled to restore its coordinates. The input `.blend` hash remains unchanged throughout verification.
-- Artifact: `runs/drill-study-09/drill.blend`, SHA-256 `d99ed5e940aff6bde0b7827f1c585d5b1cf791dba54f7c121c7da6f4a35f1f81`.
+- Artifact: `runs/drill/drill-study-09/drill.blend`, SHA-256 `d99ed5e940aff6bde0b7827f1c585d5b1cf791dba54f7c121c7da6f4a35f1f81`.
 
-[Machine-readable evidence](../audits/DRILL_AUDIT.json) includes the per-part results, six vent probes, transfer/clearance results and reopened-file checks.
+[Machine-readable evidence](../audits/recipes/part-01/DRILL_AUDIT.json) includes the per-part results, six vent probes, transfer/clearance results and reopened-file checks.
 
 ## Development findings retained
 
@@ -62,9 +62,9 @@ The first fastener geometry had only 0.03 mm nominal top clearance, insufficient
 Run from the checkout with Blender on PATH; output directories must be new:
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill_study.py -- runs/drill-new
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_drill.py -- runs/drill-new
-PYTHONPATH=src python -m mesh_workbench run examples/local-remesh.json --output runs/remesh-cli-new
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/base/scripts/drill_study.py -- runs/drill-new
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/drill/base/checks/verify_drill.py -- runs/drill-new
+PYTHONPATH=src python -m mesh_workbench run examples/general/recipes/local-remesh.json --output runs/remesh-cli-new
 blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python tests/blender_tests.py
 PYTHONPATH=src python -m unittest discover -s tests -p 'test_*.py'
 ```

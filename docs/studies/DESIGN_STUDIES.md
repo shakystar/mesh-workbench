@@ -1,4 +1,4 @@
-﻿# Design iteration journal
+# Design iteration journal
 
 ## 2026-10-05: two original product studies
 
@@ -7,15 +7,15 @@ These are static design studies, not mechanically validated products or rigged c
 Reproduce with a fresh output directory:
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/design_studies.py -- runs/design-studies
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/review_studies.py -- runs/design-studies
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/scripts/design_studies.py -- runs/design-studies
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/checks/review_studies.py -- runs/design-studies
 ```
 
 Each study saves a native editable `model.blend`, front/rear renders and a report. The review reopens each file, checks evaluated meshes, measures a recessed slot and captures paired render/pixel world-coordinate maps. Repeat reviews require removing nothing: use a fresh design run instead. Scripts refuse existing capture folders.
 
 ### Field robot
 
-![Field robot](../assets/field-robot.png)
+![Field robot](../assets/general/images/part-01/field-robot.png)
 
 - First render exposed faceted shell corners, visibly empty knee collars and flat dark rectangles standing in for vents.
 - Revision increases bevel resolution, weights surface normals, fills the knee with an axle/bolt, cuts 14 actual recesses into the shell and adds a rear service panel with connectors.
@@ -25,7 +25,7 @@ Each study saves a native editable `model.blend`, front/rear renders and a repor
 
 ### Work lantern
 
-![Work lantern](../assets/work-lantern.png)
+![Work lantern](../assets/lantern/work-lantern.png)
 
 - First render exposed an unbroken lower housing and a visually uniform diffuser.
 - Revision adds real circumferential seams and repeated vertical grip ribs, preserving the switch and protective cage.
@@ -55,8 +55,8 @@ The broader iterative modeling goal remains active. Passing these checks does no
 
 ## 2026-10-05: organic ray and tool reuse
 
-![Original wing pose](../assets/organic-ray-before.png)
-![Coordinate-sculpted wing pose](../assets/organic-ray.png)
+![Original wing pose](../assets/sculpture/images/part-01/organic-ray-before.png)
+![Coordinate-sculpted wing pose](../assets/sculpture/images/part-01/organic-ray.png)
 
 Third design family: a stylized ray sculpture on a display stand. Body sections define the planform; the tail uses a tapering curved sweep. This is an original decorative design, not a measured anatomical reconstruction.
 
@@ -72,8 +72,8 @@ Third design family: a stylized ray sculpture on a display stand. Body sections 
 Reproduce (fresh output):
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic_study.py -- runs/organic
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_organic.py -- runs/organic
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic/scripts/organic_study.py -- runs/organic
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic/checks/verify_organic.py -- runs/organic
 ```
 
 Artifacts include `ray.blend`, before/after/side renders, paired coordinate captures, `deformation.npz`, `report.json` and independent `reopen-verification.json`.
@@ -86,12 +86,12 @@ This tool does not interpolate/smooth the supplied path, support closed paths or
 
 ### Reused on the earlier lantern
 
-![Continuous handle detail](../assets/lantern-handle.png)
+![Continuous handle detail](../assets/lantern/lantern-handle.png)
 
 The earlier handle had overlapping straight rods. The same sweep tool now creates a continuous tube through two rounded corners, with a separate shorter grip. Native Blender geometry and the close-up render were checked. The handle mesh has no nonmanifold edges. The mechanical hinge and manufacturing clearance remain unvalidated.
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/refine_lantern.py -- runs/design-studies/work-lantern/model.blend runs/lantern-refined
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/lantern/scripts/refine_lantern.py -- runs/design-studies/work-lantern/model.blend runs/lantern-refined
 ```
 
 Validation: nine Blender integration tests passed on Blender 5.2.2 LTS after the final cap change. The new test measures every section center and minimum/maximum radius, verifies frame orthogonality, manifoldness and positive signed volume, and checks failure cases leave the scene unchanged. The prior product-study commit also passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37279692223 .
@@ -108,28 +108,28 @@ The narrow end sections inherited the same camber amplitude as the wide wings. S
 
 ### Two junction designs compared
 
-![Separate tail junction](../assets/ray-junction-before.png)
-![Continuous-section junction](../assets/ray-junction-after.png)
+![Separate tail junction](../assets/sculpture/images/part-01/ray-junction-before.png)
+![Continuous-section junction](../assets/sculpture/images/part-01/ray-junction-after.png)
 
 1. **Exact union plus local fairing:** structurally connected the pieces, retaining the original inputs. Three stronger smoothing candidates introduced nonadjacent overlap candidates and were rejected with coordinate/key/history rollback. The accepted weak candidate moved vertices at most 0.00007725 units, which had negligible visual benefit. This is retained as a tool-validation example, not presented as a successfully rounded transition.
 2. **Continuous section design:** extended the body sweep through the tail with a gradual taper. The actual close-up shows a continuous transition instead of an attached cylinder. Initial asymmetric root controls propagated a small asymmetry toward the wing; aligning the root controls before the tail bend restored the required wing-edit symmetry. This is the preferred design.
 
 The final continuous design has 18,946 vertices, 18,944 faces and one connected component. Boundary/nonmanifold edge counts and nonadjacent triangle-overlap candidates are zero. The coordinate Grab changes 5,964 vertices; the middle 6,090 vertices remain unchanged. A fresh Blender process matched saved edited and base arrays and verified mirrored edit error below 2.82e-7. This is still a decorative static mesh without anatomical or rigging validation.
 
-![Continuous ray](../assets/ray-continuous.png)
+![Continuous ray](../assets/sculpture/images/part-01/ray-continuous.png)
 
 Recommended reproduction:
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic_study.py -- runs/organic-continuous --continuous
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_organic.py -- runs/organic-continuous
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic/scripts/organic_study.py -- runs/organic-continuous --continuous
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/organic/checks/verify_organic.py -- runs/organic-continuous
 ```
 
 The separated-part comparison remains available by omitting `--continuous`. The join experiment accepts that saved file:
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/refine_ray.py -- runs/organic/ray.blend runs/join-review
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_join.py -- runs/join-review
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/sculpture/scripts/refine_ray.py -- runs/organic/ray.blend runs/join-review
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/checks/verify_join.py -- runs/join-review
 ```
 
 ### Tools improved by the failed candidates
@@ -145,8 +145,8 @@ Remaining work: richer deliberate surface detail, stronger adjacent-face/interse
 
 ## 2026-10-05: conforming relief pattern study
 
-![Dense pattern](../assets/ray-relief-dense.png)
-![Selected sparse pattern](../assets/ray-relief-sparse.png)
+![Dense pattern](../assets/sculpture/images/part-01/ray-relief-dense.png)
+![Selected sparse pattern](../assets/sculpture/images/part-02/ray-relief-sparse.png)
 
 Two surface designs were modeled as actual closed geometry on the continuous ray: 48 larger spots and 32 smaller spots. The sparse version was selected after viewing the full model because it preserves more uninterrupted wing surface. This is a design judgment, not a numerical quality score or anatomical claim.
 
@@ -154,7 +154,7 @@ Two surface designs were modeled as actual closed geometry on the continuous ray
 
 The first close-up showed nibbled spot edges. Testing only face centers missed the defect: all 2,304 sparse top-face centers were above the body, but six of 4,608 top-edge midpoints were below it, by up to 0.00004166 world units. The top clearance was increased from 0.0001 to 0.0005, and the construction tool now validates vertices, edge midpoints and face centers before creating the output object.
 
-![Selected detail after correction](../assets/ray-relief-detail.png)
+![Selected detail after correction](../assets/sculpture/images/part-01/ray-relief-detail.png)
 
 Fresh-process saved-file verification checked 13,872 probes on the dense design and 9,248 on the sparse design. Minimum signed sampled clearance was respectively 0.00031427 and 0.00035797. Independent conservative bounding-sphere gaps were at least 0.063276 and 0.100889. Each motif is a closed component, with zero nonmanifold edges and no nonadjacent overlap candidates in the relief object. Body coordinates match the source exactly, and the source file hash is unchanged.
 
@@ -173,8 +173,8 @@ The dark/white objects do not form one booleaned mesh: bottom faces intentionall
 This is currently a Python API; the new construction tools still need consistent recipe dispatch and broader cross-version example coverage.
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/relief_study.py -- runs/organic-continuous/ray.blend runs/relief
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_relief.py -- runs/organic-continuous/ray.blend runs/relief
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/scripts/relief_study.py -- runs/organic-continuous/ray.blend runs/relief
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/checks/verify_relief.py -- runs/organic-continuous/ray.blend runs/relief
 ```
 
 `dense.blend` and `sparse.blend` retain editable motifs and the original body. Both have whole/detail renders and an independent `reopen-verification.json`.
@@ -185,8 +185,8 @@ Remaining visual limits: repeated rows are deliberately regular, with no asymmet
 
 ## 2026-10-05: unified recipe interface and fourth design
 
-![Field speaker front](../assets/field-speaker-front.png)
-![Field speaker rear](../assets/field-speaker-rear.png)
+![Field speaker front](../assets/speaker/field-speaker-front.png)
+![Field speaker rear](../assets/speaker/field-speaker-rear.png)
 
 The construction tools developed in the earlier studies now execute through the standard JSON/host CLI: `rounded_box`, `revolve`, `strut`, `sweep`, `fair`, `relief_dots`, `diagnose` and `material`. No custom Blender script is required to build the included speaker recipe. Optional `viewport: true` on `visible` also hides construction cutters in the saved Blender viewport, while keeping the older render-only default.
 
@@ -195,8 +195,8 @@ A fourth original design, a portable field speaker, was modeled through 70 recip
 The resulting file was independently reopened: all five recorded diagnostics match the saved geometry; 27 visible mesh parts (including the studio floor) have no nonmanifold edges; viewport hiding matches the recipe. This does not establish assembly collision clearance, acoustic behavior, sealing or manufacturing viability. The visual design still lacks labels and physical control mechanisms, and the shell has no modeled wall thickness.
 
 ```sh
-mesh-workbench run examples/field-speaker.json --output runs/speaker
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_recipe.py -- runs/speaker
+mesh-workbench run examples/speaker/recipes/field-speaker.json --output runs/speaker
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/checks/verify_recipe.py -- runs/speaker
 ```
 
 The verifier compares recorded diagnostic counts and components/overlap candidates, checks requested viewport state, and reports manifoldness of visible parts. It does not reject intentional open surfaces merely because they are open.
@@ -214,9 +214,9 @@ The earlier Python-only integration gap is closed. Remaining development should 
 
 ## 2026-10-05: preserve surface details through a shape edit
 
-![Before second pose](../assets/ray-attachment-before.png)
-![Changed shape with stale motifs](../assets/ray-attachment-stale.png)
-![Explicitly refreshed motifs](../assets/ray-attachment-updated.png)
+![Before second pose](../assets/sculpture/images/part-01/ray-attachment-before.png)
+![Changed shape with stale motifs](../assets/sculpture/images/part-01/ray-attachment-stale.png)
+![Explicitly refreshed motifs](../assets/sculpture/images/part-01/ray-attachment-updated.png)
 
 The ray's wing pose was edited again from a captured coordinate map. The new Grab moved 4,300 vertices by up to 0.3121066 world units. The stale render demonstrates the actual failure: most of the original spots disappear into the changed wing or sit off its surface. Rebuilding from stored surface anchors restores all 32 spots on the new form while keeping the original pattern object intact.
 
@@ -233,8 +233,8 @@ New `attachments` functions bind points to original mesh triangles using barycen
 - Changed topology and collapsed binding triangles are rejected. Reprojection that changes the surface side is rejected. Inputs with active modifiers require an explicit baked fork.
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/attachment_study.py -- runs/organic-continuous/ray.blend runs/attachment-study
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_attachments.py -- runs/attachment-study
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/scripts/attachment_study.py -- runs/organic-continuous/ray.blend runs/attachment-study
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/general/checks/verify_attachments.py -- runs/attachment-study
 ```
 
 Validation: 15 Blender integration tests passed on 5.2.2 LTS, including transform-aware anchor positions, old-pattern preservation, save/reopen, topology/collapse rejection and all three recipe operations. The actual ray study has separate fresh-process verification. Previous recipe integration passed Linux CI: https://github.com/shakystar/mesh-workbench/actions/runs/37286453015 .

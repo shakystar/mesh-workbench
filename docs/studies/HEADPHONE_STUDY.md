@@ -4,11 +4,11 @@ Three native headphone designs exercise new surface-quality, boundary-pinned rep
 
 | Standard open | Standard folded 45 degrees |
 | --- | --- |
-| ![Standard headphones](../assets/headphone-standard-open.png) | ![Folded headphones](../assets/headphone-standard-folded.png) |
+| ![Standard headphones](../assets/headphones/images/part-01/headphone-standard-open.png) | ![Folded headphones](../assets/headphones/images/part-01/headphone-standard-folded.png) |
 | Compact, 156 mm span | Wide, 180 mm span |
-| ![Compact headphones](../assets/headphone-compact-open.png) | ![Wide headphones](../assets/headphone-wide-open.png) |
+| ![Compact headphones](../assets/headphones/images/part-01/headphone-compact-open.png) | ![Wide headphones](../assets/headphones/images/part-02/headphone-wide-open.png) |
 
-The [dimension sheet](../assets/headphone-target.svg) and [frozen JSON brief](../../examples/headphone-target.json) are authored procedural references, not scans of an existing product. The target hash is recorded before modeling. Cups, band, cushions, Hermite yokes, hinge barrels, driver discs and nine surface inlays are actual mesh objects. Dark dots are raised cosmetic details, not through-holes.
+The [dimension sheet](../assets/headphones/images/part-01/headphone-target.svg) and [frozen JSON brief](../../examples/headphones/recipes/headphone-target.json) are authored procedural references, not scans of an existing product. The target hash is recorded before modeling. Cups, band, cushions, Hermite yokes, hinge barrels, driver discs and nine surface inlays are actual mesh objects. Dark dots are raised cosmetic details, not through-holes.
 
 ## Six milestones
 
@@ -25,9 +25,9 @@ The [dimension sheet](../assets/headphone-target.svg) and [frozen JSON brief](..
 
 | Reflected-view bands before | After |
 | --- | --- |
-| ![Bands before](../assets/headphone-surface-before.png) | ![Bands after](../assets/headphone-surface-after.png) |
+| ![Bands before](../assets/headphones/images/part-01/headphone-surface-before.png) | ![Bands after](../assets/headphones/images/part-01/headphone-surface-after.png) |
 | Mean-curvature map before | After, same color scale |
-| ![Curvature before](../assets/headphone-curvature-before.png) | ![Curvature after](../assets/headphone-curvature-after.png) |
+| ![Curvature before](../assets/headphones/images/part-01/headphone-curvature-before.png) | ![Curvature after](../assets/headphones/images/part-01/headphone-curvature-after.png) |
 
 The defect is a known sinusoidal perturbation on an authored ellipsoidal cup. This controlled benchmark lets the repair be checked against the untouched guide. It does not establish likeness to a photographed product.
 
@@ -59,12 +59,12 @@ All three designs pass a simultaneous 0-to-45-degree fold, checked at **19 poses
 ## Reproduce and inspect
 
 ```sh
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/headphone_study.py -- runs/headphones
-blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/verify_headphones.py -- runs/headphones
-mesh-workbench run examples/headphone-tools.json --output runs/headphone-tools
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/headphones/scripts/headphone_study.py -- runs/headphones
+blender --background --factory-startup --disable-autoexec --python-exit-code 2 --python examples/headphones/checks/verify_headphones.py -- runs/headphones
+mesh-workbench run examples/headphones/recipes/headphone-tools.json --output runs/headphone-tools
 ```
 
-Use new output directories. `--quick` skips renders and is only a geometry diagnostic. The verified native artifacts are `runs/headphone-study-06/{compact,standard,wide}/headphones.blend`. Hidden objects retain the clean guide, defective input, repaired pre-split source and diagnostic copies. Native output files are local ignored artifacts; the [public audit](../audits/HEADPHONE_AUDIT.json) records their hashes, metrics and verification.
+Use new output directories. `--quick` skips renders and is only a geometry diagnostic. The verified native artifacts are `runs/headphones/headphone-study-06/{compact,standard,wide}/headphones.blend`. Hidden objects retain the clean guide, defective input, repaired pre-split source and diagnostic copies. Native output files are local ignored artifacts; the [public audit](../audits/recipes/part-02/HEADPHONE_AUDIT.json) records their hashes, metrics and verification.
 
 The headphone variants currently use full procedural regeneration from the size brief, not selective mouse-assembly graph propagation. Refinement supports only the defined triangle-centroid operation. It preserves the source's piecewise planar surface within floating-point precision, not its subdivision-limit surface. Shape-key history remains on the source; the refined output is a new baked mesh. Arbitrary remeshing, UV transfer and automatic re-registration into an existing assembly graph remain outside this implementation.
 

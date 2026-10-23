@@ -34,8 +34,8 @@ def fixture(name,half,height):
 
 
 def run():
-    folder=ROOT/'runs/ear-fit'
-    if folder.exists():raise ValueError('Use a fresh runs/ear-fit directory')
+    folder=ROOT/'runs/human/ear-fit'
+    if folder.exists():raise ValueError('Use a fresh runs/human/ear-fit directory')
     kb=anatomy_fit.knowledge('auricle-v1')
     assert all(f['source'] in kb['sources'] for f in kb['features'].values())
     results=[]
