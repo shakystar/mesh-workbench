@@ -12,7 +12,8 @@ Actual Blender renders created with this toolkit.
 
 Latest: an adult human proportion blockout in a neutral stance, with preserved
 section sources and a separate fused surface. This is an initial silhouette and
-proportion study, without detailed anatomy, individual fingers or a rig.
+proportion study, without detailed anatomy, individual fingers or a rig. The
+current pass refines shoulders, torso curves, kneecaps and ankle landmarks.
 [Generator](examples/human_base.py) · [Scope and checks](docs/STATUS.md)
 
 | Human base front | Human base side |

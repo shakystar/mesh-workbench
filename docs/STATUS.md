@@ -2,6 +2,23 @@
 
 ## Human proportion base — 2026-10-23
 
+Silhouette and joint-landmark revision: rounded shoulder stations replace the
+flat arm caps. Torso profiles distinguish ribcage, lumbar curve and pelvis;
+thigh/calf profiles taper into narrower ankles. Separate kneecap and staggered
+ankle masses fuse into the surface. Clavicle and shin relief is a reversible shape
+key, followed by the existing smoothing modifier. Native result:
+`runs/human-landmarks/human-base.blend`; the initial native model is preserved.
+
+Focused checks retain connected/closed geometry, height and the leg gap, and add
+upper-arm gap rays and kneecap projection checks. This remains a static anatomy
+blockout; facial features, fingers and a deformation rig are outside this pass.
+Blender 5.2.2 LTS passed the checks: one closed connected surface with 65,256
+vertices and preserved 1.7455 m height. Front/side images were visually inspected;
+the square shoulder caps are removed, and knee/ankle landmarks and torso curves
+are visible. Joint masses remain simplified and do not establish anatomical
+accuracy. One process, two CPU threads and two renders were used. Blender exited.
+Initial revision details follow.
+
 `examples/human_base.py` starts the human-modeling stage with an original adult
 neutral-stance blockout. Separate section sources define the head, torso/pelvis,
 arms, legs, mitten hands, thumb masses and feet. A 6 mm voxel fusion creates a

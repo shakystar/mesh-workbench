@@ -1,4 +1,4 @@
-﻿"""Procedural adult proportion study; neutral stance, no rig or fine anatomy.
+"""Procedural adult proportion study; neutral stance, no rig or fine anatomy.
 
 blender -b --factory-startup -t 2 --python examples/human_base.py -- runs/human-base
 """
@@ -52,12 +52,14 @@ def build(output):
         return ob
 
     stock('Source torso pelvis neck',[
-        [.79,0,.015,.055,.055],[.84,0,.015,.115,.08],
-        [.94,0,.02,.15,.105],[1.02,0,.005,.14,.09],
-        [1.11,0,0,.115,.075],[1.22,0,.004,.15,.10],
-        [1.32,0,0,.178,.105],[1.40,0,.005,.19,.085],
-        [1.44,0,.01,.16,.07],[1.48,0,.012,.08,.052],
-        [1.52,0,.008,.047,.045],[1.57,0,0,.048,.045]])
+        [.79,0,.018,.055,.055],[.85,0,.024,.114,.084],
+        [.92,0,.026,.142,.106],[.98,0,.014,.145,.099],
+        [1.04,0,-.003,.133,.085],[1.11,0,-.012,.123,.077],
+        [1.18,0,-.006,.141,.09],[1.27,0,-.008,.164,.109],
+        [1.35,0,-.003,.175,.10],[1.40,0,.005,.178,.081],
+        [1.435,0,.012,.149,.065],[1.465,0,.015,.106,.052],
+        [1.49,0,.012,.062,.044],[1.53,0,.006,.047,.043],
+        [1.57,0,0,.048,.045]])
     stock('Source head',[
         [1.52,0,-.02,.032,.035],[1.55,0,-.016,.053,.057],
         [1.61,0,-.003,.074,.082],[1.68,0,.003,.078,.085],
@@ -65,11 +67,13 @@ def build(output):
         [1.755,0,.006,.004,.005]])
     for sign,side in ((-1,'Left'),(1,'Right')):
         stock(side+' source leg',[
-            [.075,sign*.103,.018,.033,.04],[.14,sign*.103,.015,.034,.04],
-            [.26,sign*.104,.026,.052,.059],[.36,sign*.103,.018,.061,.065],
-            [.46,sign*.102,-.012,.048,.05],[.52,sign*.102,-.017,.05,.052],
-            [.64,sign*.098,.005,.068,.075],[.78,sign*.092,.008,.085,.092],
-            [.91,sign*.087,.014,.083,.09],[.98,sign*.085,.015,.06,.065]])
+            [.075,sign*.103,.018,.031,.039],[.13,sign*.103,.018,.03,.034],
+            [.19,sign*.104,.021,.035,.039],[.29,sign*.105,.027,.052,.059],
+            [.37,sign*.104,.018,.055,.06],[.44,sign*.102,-.002,.044,.048],
+            [.49,sign*.101,-.016,.047,.049],[.535,sign*.10,-.014,.049,.05],
+            [.62,sign*.096,0,.064,.074],[.76,sign*.092,.012,.08,.091],
+            [.88,sign*.087,.02,.083,.096],[.96,sign*.083,.02,.068,.078],
+            [1.00,sign*.082,.018,.042,.047]])
         stock(side+' source foot',[
             [.008,sign*.103,-.055,.043,.112],[.027,sign*.103,-.055,.05,.13],
             [.06,sign*.103,-.047,.048,.125],[.095,sign*.103,0,.036,.067],
@@ -77,8 +81,9 @@ def build(output):
         stock(side+' source arm',[
             [.895,sign*.31,0,.026,.028],[.96,sign*.299,.003,.033,.035],
             [1.06,sign*.28,.006,.041,.044],[1.14,sign*.26,.012,.036,.038],
-            [1.22,sign*.24,.01,.046,.05],[1.32,sign*.216,.006,.054,.058],
-            [1.405,sign*.19,.004,.063,.062],[1.445,sign*.178,.005,.04,.045]])
+            [1.22,sign*.24,.013,.043,.047],[1.30,sign*.222,.008,.05,.054],
+            [1.365,sign*.205,.005,.059,.063],[1.405,sign*.186,.006,.052,.054],
+            [1.434,sign*.165,.01,.035,.036],[1.45,sign*.147,.012,.012,.016]])
         stock(side+' source hand',[
             [.755,sign*.337,-.005,.016,.015],[.79,sign*.332,-.006,.032,.022],
             [.845,sign*.322,-.004,.037,.025],[.885,sign*.314,0,.029,.026],
@@ -87,10 +92,30 @@ def build(output):
             [.802,sign*.284,-.015,.012,.013],[.837,sign*.281,-.016,.016,.018],
             [.866,sign*.296,-.008,.02,.019]])
 
+    def landmark(name,center,radii):
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=32,ring_count=16,location=center)
+        ob=bpy.context.object;ob.name=name;ob.scale=radii
+        ob.data.materials.append(clay);sources.append(ob)
+
+    for sign,side in ((-1,'Left'),(1,'Right')):
+        landmark(side+' kneecap',(sign*.101,-.057,.505),(.029,.016,.034))
+        landmark(side+' outer ankle',(sign*.132,.012,.121),(.012,.019,.018))
+        landmark(side+' inner ankle',(sign*.077,.009,.14),(.011,.017,.017))
+
     body=models.combine(sources,'Human base surface',voxel=.006)
     for source in sources:source.hide_render=True;source.hide_set(True)
     body.data.materials.clear();body.data.materials.append(clay)
     for face in body.data.polygons:face.material_index=0;face.use_smooth=True
+    body.shape_key_add(name='Basis')
+    landmarks=body.shape_key_add(name='Clavicle and shin landmarks')
+    for vertex in landmarks.data:
+        x,y,z=vertex.co
+        # Broad, shallow relief follows front-facing skin, not detached rods.
+        front=max(0,min(1,(-y-.012)/.025))
+        clavicle=.005*math.exp(-((abs(x)-.09)/.065)**4-((z-(1.449-.14*abs(x)))/.015)**2)
+        shin=.0035*math.exp(-((abs(x)-.103)/.018)**2-((z-.33)/.12)**4)
+        vertex.co.y-=front*(clavicle+shin)
+    landmarks.value=1
     smooth=body.modifiers.new('Reversible surface smoothing','SMOOTH')
     smooth.factor=.65;smooth.iterations=5
     # Inspect generated geometry, not just successful operator return codes.
@@ -120,10 +145,18 @@ def build(output):
     tree=BVHTree.FromPolygons(coords,[list(f.vertices) for f in mesh.polygons])
     leg_gap=tree.ray_cast(Vector((0,-.4,.65)),Vector((0,1,0)),.8)[0] is None
     if not leg_gap:raise ValueError('Legs fused across intended gap')
+    arm_gaps=all(tree.ray_cast(Vector((sign*.197,-.4,1.19)),Vector((0,1,0)),.8)[0] is None
+                 for sign in (-1,1))
+    knees=[]
+    for sign in (-1,1):
+        hit=tree.ray_cast(Vector((sign*.101,-.4,.505)),Vector((0,1,0)),.8)[0]
+        knees.append(hit is not None and hit.y<-.066)
+    if not arm_gaps or not all(knees):raise ValueError('Armpit clearance or kneecap relief lost')
     report={'blender':bpy.app.version_string,'height_m':height,'source_parts':len(sources),
             'vertices':len(coords),'connected_components':components,'closed_edges':closed,
-            'leg_gap_open':leg_gap,'voxel_m':.006,'threads':2,
-            'scope':'Adult neutral proportion blockout; no detailed face, fingers, anatomy or rig.'}
+            'leg_gap_open':leg_gap,'arm_gaps_open':arm_gaps,'kneecap_relief_present':all(knees),
+            'reversible_landmarks':True,'voxel_m':.006,'threads':2,
+            'scope':'Adult silhouette and joint-landmark study; no detailed face, fingers or rig.'}
     ev.to_mesh_clear()
     output.mkdir(parents=True)
     (output/'verification.json').write_text(json.dumps(report,indent=2))
