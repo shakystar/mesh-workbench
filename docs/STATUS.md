@@ -6,6 +6,31 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Active anatomy-tool goal / eyelid support - 2026-10-24
+
+The user-authorized [goal contract](reference/anatomy/DEVELOPMENT_GOAL.md) is
+active: face -> ears/neck -> torso -> arms/hands -> legs/feet -> integration ->
+second face/body configuration. Clothing/hair, arbitrary-mesh automation and
+production rigs are excluded from this goal. No new compatibility/full-suite work.
+
+[First implementation and actual renders](reference/anatomy/EYELID_SUPPORT.md):
+`eyelid_fit.fit` registers existing lid margins to explicit spherical supports
+with a reversible layer. Orbital orientation and gaze are separated in the
+example. `eyelid_fit.knowledge()` exposes sourced relationships, authored-model
+assumptions and limits; it is not an `anatomy_fit` normalized-path module.
+
+Blender 5.2.2 LTS: 113 margin samples per eye, stored radial clearance
+0.110-0.292 mm, maximum movement 1.63795 mm; 81,761 unaffected vertices and
+11,786 nose-region vertices preserved. Source head/globes, topology, rollback,
+two invalid registrations, injected late failure and saved-coordinate readback
+pass. Knowledge-resource loading and source-key references pass. One Blender
+at a time, two CPU/numerical threads, two 640px/16-sample views; all processes exited.
+
+Visual gate remains OPEN: forward gaze is corrected, but medial lid-corner
+pinching remains. Next action is local corner/skin-transition correction, then
+oral/philtrum/chin work. Do not call the eye stage or overall goal complete.
+Current native: `runs/human/supported-eyelids/supported-lids.blend`.
+
 ## Tip and upper-alar volume refinement - 2026-10-24
 
 [Current renders and comparison](reference/anatomy/TIP_ALA.md).

@@ -10,17 +10,18 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-**Current human model, actually rendered:** fitted eyes, connected nostril
-entrance patches and a modest tip/upper-alar volume refinement. The entrance
-geometry is protected while a reversible layer adjusts the outer nose.
-Ears remain shallow relief and the chin is uneven. This is not anatomical validation.
+**Current human model, actually rendered:** spherical-support eyelid fitting,
+forward gaze and the preserved nasal work. Medial lid-corner pinching remains;
+the eye stage has not passed its visual completion gate. Ears and chin are rough.
+This is not anatomical validation.
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 [Nose structural audit: actual three-view comparison and sourced relationship map](docs/reference/anatomy/NOSE_AUDIT.md).
 
-![Current tip and alar front, profile and basal-oblique views](docs/assets/human/nose/tip-ala-current.png)
+![Current eyelid front and oblique views](docs/assets/human/eyes/supported-current.png)
 
-[Tip/alar refinement, comparison and limits](docs/reference/anatomy/TIP_ALA.md).
+[Active anatomy-tool goal](docs/reference/anatomy/DEVELOPMENT_GOAL.md) |
+[Eyelid implementation, comparison and limits](docs/reference/anatomy/EYELID_SUPPORT.md).
 
 [Human scripts and current native location](examples/human/README.md).
 [Earlier cavity-stage underside](docs/assets/human/nose/underside.png).

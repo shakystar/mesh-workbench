@@ -1,0 +1,22 @@
+{
+  "schema_version": 1,
+  "id": "eyelid-support-v1",
+  "scope": "Explicitly registered static eyelid margins on a spherical globe; no automatic landmark inference or blink rig.",
+  "sources": {
+    "nih_periorbital": {
+      "url": "https://elementsofmorphology.nih.gov/anatomy-periorbital.shtml",
+      "accessed": "2026-10-24",
+      "use": "Eyelid and upper crease terminology; no numerical proportions or source images copied."
+    },
+    "author": {"use": "Spherical support, clearance and aperture heights are modeling approximations, not anatomical measurements."}
+  },
+  "relationships": [
+    {"feature": "upper_and_lower_lids", "relation": "Skin and underlying components cover the anterior globe.", "source": "nih_periorbital"},
+    {"feature": "upper_crease", "relation": "An upper-lid crease is associated with attachment of the eyelid elevating muscle to orbicularis tissue.", "source": "nih_periorbital"},
+    {"feature": "globe_support", "relation": "Fit registered margin samples to a spherical support with explicit clearance; do not substitute this approximation for tissue anatomy.", "source": "author"},
+    {"feature": "gaze", "relation": "Gaze rotation is independent of the orbital/aperture frame.", "source": "author"}
+  ],
+  "required_registration": ["globe_center", "globe_radius", "aperture_frame", "source_upper_height", "source_lower_height", "source_margin_samples"],
+  "validation": ["source preservation", "unrelated-face protection", "reversible layer", "stored margin clearance", "no local polygon collapse", "invalid registration rejection", "actual front and oblique render"],
+  "limits": ["No tear lake or tear ducts", "No corneal optics", "No tarsal or muscle reconstruction", "No dynamic eyelid closure", "No population shape standard"]
+}

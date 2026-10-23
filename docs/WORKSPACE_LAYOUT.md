@@ -6,8 +6,8 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/tip-ala-refined/tip-ala.blend` |
-| Current human images | `docs/assets/human/nose/tip-ala-current.png`, `tip-ala-comparison.png` |
+| Current human native | `runs/human/supported-eyelids/supported-lids.blend` |
+| Current human images | `docs/assets/human/eyes/supported-current.png`, `supported-comparison.png` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |
 | Other examples | `examples/{camera,mouse,headphones,speaker,organic,lantern,sculpture,general}/` |

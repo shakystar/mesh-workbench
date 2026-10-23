@@ -1,6 +1,13 @@
 # Development milestones
 
-Active phase: **M11-M15 reference-grounded drill realism**, planned 2026-10-09 and started. The [development contract](DRILL_REALISM_PLAN.md) fixes six tool workstreams, implementation order, acceptance gates and failure verification. The [progress record](studies/DRILL_REALISM_STUDY.md) records experimental tool implementation; no completed realism model is claimed.
+Active phase: **Anatomy-guided tools and procedural character development**,
+authorized 2026-10-24. The [goal contract](reference/anatomy/DEVELOPMENT_GOAL.md)
+defines seven bounded stages, reusable tools, actual model/render evidence and
+resource limits. Current stage: face, beginning with eyelid/globe connection.
+
+Earlier drill phase: **M11-M15 reference-grounded drill realism**. Its
+[development contract](DRILL_REALISM_PLAN.md) and
+[progress record](studies/DRILL_REALISM_STUDY.md) remain historical context.
 
 ## Completed milestones: drill surface refinement
 

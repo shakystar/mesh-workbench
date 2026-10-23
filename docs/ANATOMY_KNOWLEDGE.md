@@ -8,6 +8,13 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Registered eyelid support
+
+`eyelid_fit.knowledge()` exposes `eyelid-support-v1` source relationships and
+modeling limits. It is separate from the four normalized-path modules above.
+`eyelid_fit.fit` operates on manually registered static lid margins and a
+spherical globe approximation. [Implementation and open visual gate](reference/anatomy/EYELID_SUPPORT.md).
+
 ## Connected nasal entrance patches
 
 `nasal_entrance.build` replaces registered cutouts on a new topology snapshot
