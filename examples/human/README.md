@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Current native: `runs/human/foot-relief/foot-relief.blend`.
+`legs/foot.py` applies 62 ankle/heel/instep/arch controls to calf-continuous source.
+
 Current native: `runs/human/calf-continuous/calf-relief.blend`.
 `legs/calf.py` applies 112 shin/calf controls to knee-transition source.
 

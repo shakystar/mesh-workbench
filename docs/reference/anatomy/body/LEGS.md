@@ -144,3 +144,36 @@ authored modeling parameters, not copied anatomical measurements.
 | --- | --- | --- |
 | Front | ![](../../../assets/human/legs/calf/before-front.png) | ![](../../../assets/human/legs/calf/after-front.png) |
 | Back | ![](../../../assets/human/legs/calf/before-back.png) | ![](../../../assets/human/legs/calf/after-back.png) |
+
+## Registered ankle/foot skin controls - 2026-10-24
+
+`leg.compile_foot` / `compile_controls(profile="foot")` projects 31 skin controls
+per foot from a manual ankle anchor. `knowledge/body/foot-surface-v1.json`
+records ankle prominence, heel, instep and medial arch relations separately from
+authored offsets. Outward-exit guards, bilateral precompilation/atomic cleanup,
+35 mm kernels and reversible layers preserve the input.
+
+Blender 5.2.2 LTS: 62 controls, max move 3.18622 mm, surface residual .04478 mm,
+minimum polygon area ratio .90743. 150,019 outside-box vertices and 190 low sole
+vertices unchanged. Original/topology/rollback/invalid side anchor/second-leg
+cleanup/sampled thigh gap/native readback/input hash pass. Medial arch probes
+move inward 3.00013/2.99986 mm. Sole protection is coordinate preservation,
+not proof of floor contact or biomechanical correctness.
+
+Matched front/oblique views show small ankle/instep changes. The toe block remains
+undivided and a floor gap remains. No anatomical foot completion claim. Next:
+five-toe structure with preserved heel/ankle; grounding remains for integration.
+Stage E and the full goal remain active.
+
+Current native: `runs/human/foot-relief/foot-relief.blend`, object `Foot relief study`.
+`examples/human/legs/foot.py` takes calf-continuous native and a fresh folder.
+One Blender process/two threads, exited.
+
+The foot knowledge file uses the [OpenStax lower-limb bones](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb)
+relationships already recorded above. No source artwork or measured dimensions
+are included. Surface anchors are manually placed on this standing model.
+
+| View | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/legs/foot/before-front.png) | ![](../../../assets/human/legs/foot/after-front.png) |
+| Oblique | ![](../../../assets/human/legs/foot/before-oblique.png) | ![](../../../assets/human/legs/foot/after-oblique.png) |

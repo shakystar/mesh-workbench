@@ -1,0 +1,445 @@
+{
+  "id": "foot-surface-v1",
+  "source": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb",
+  "relationships": [
+    "Distal tibia forms the medial malleolus; distal fibula forms the lateral malleolus.",
+    "Calcaneus forms the heel; tarsals and metatarsals support the foot arches."
+  ],
+  "policy": "Authored skin offsets relative to a manually registered ankle interior anchor. Fixed standing frame, front -Y and up Z. No bone detection or measured anatomical dimensions. Sole is protected by the region box.",
+  "controls": [
+    {
+      "name": "ankle_0_front",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.035
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "ankle_0_back",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.035
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "depth_mm": 0.5
+    },
+    {
+      "name": "ankle_0_outer",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.035
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "depth_mm": -1
+    },
+    {
+      "name": "ankle_0_inner",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.035
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -1
+    },
+    {
+      "name": "ankle_1_front",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.01
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "ankle_1_back",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.01
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "depth_mm": 0.5
+    },
+    {
+      "name": "ankle_1_outer",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.01
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "depth_mm": -1.5
+    },
+    {
+      "name": "ankle_1_inner",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.01
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -1.5
+    },
+    {
+      "name": "ankle_2_front",
+      "origin_offset_m": [
+        0,
+        0,
+        0.01
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "ankle_2_back",
+      "origin_offset_m": [
+        0,
+        0,
+        0.01
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "depth_mm": 0.5
+    },
+    {
+      "name": "ankle_2_outer",
+      "origin_offset_m": [
+        0,
+        0,
+        0.01
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "depth_mm": -1
+    },
+    {
+      "name": "ankle_2_inner",
+      "origin_offset_m": [
+        0,
+        0,
+        0.01
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -1
+    },
+    {
+      "name": "ankle_3_front",
+      "origin_offset_m": [
+        0,
+        0,
+        0.03
+      ],
+      "direction": [
+        0,
+        -1,
+        0
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "ankle_3_back",
+      "origin_offset_m": [
+        0,
+        0,
+        0.03
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "depth_mm": 0.5
+    },
+    {
+      "name": "ankle_3_outer",
+      "origin_offset_m": [
+        0,
+        0,
+        0.03
+      ],
+      "direction": [
+        1,
+        0,
+        0
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "ankle_3_inner",
+      "origin_offset_m": [
+        0,
+        0,
+        0.03
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "instep_0_0",
+      "origin_offset_m": [
+        -0.018,
+        -0.05,
+        -0.095
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "depth_mm": 2
+    },
+    {
+      "name": "instep_0_1",
+      "origin_offset_m": [
+        0.018,
+        -0.05,
+        -0.095
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "depth_mm": 2
+    },
+    {
+      "name": "instep_1_0",
+      "origin_offset_m": [
+        -0.018,
+        -0.09,
+        -0.095
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "depth_mm": 1
+    },
+    {
+      "name": "instep_1_1",
+      "origin_offset_m": [
+        0.018,
+        -0.09,
+        -0.095
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "depth_mm": 1
+    },
+    {
+      "name": "instep_2_0",
+      "origin_offset_m": [
+        -0.018,
+        -0.13,
+        -0.095
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "instep_2_1",
+      "origin_offset_m": [
+        0.018,
+        -0.13,
+        -0.095
+      ],
+      "direction": [
+        0,
+        0,
+        1
+      ],
+      "depth_mm": -0.5
+    },
+    {
+      "name": "arch_0_0",
+      "origin_offset_m": [
+        0,
+        -0.045,
+        -0.1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -2
+    },
+    {
+      "name": "arch_0_1",
+      "origin_offset_m": [
+        0,
+        -0.045,
+        -0.08
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -2
+    },
+    {
+      "name": "arch_1_0",
+      "origin_offset_m": [
+        0,
+        -0.075,
+        -0.1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -3
+    },
+    {
+      "name": "arch_1_1",
+      "origin_offset_m": [
+        0,
+        -0.075,
+        -0.08
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -3
+    },
+    {
+      "name": "arch_2_0",
+      "origin_offset_m": [
+        0,
+        -0.105,
+        -0.1
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -1.5
+    },
+    {
+      "name": "arch_2_1",
+      "origin_offset_m": [
+        0,
+        -0.105,
+        -0.08
+      ],
+      "direction": [
+        -1,
+        0,
+        0
+      ],
+      "depth_mm": -1.5
+    },
+    {
+      "name": "heel_0",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.105
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "depth_mm": 1
+    },
+    {
+      "name": "heel_1",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.085
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "depth_mm": 2
+    },
+    {
+      "name": "heel_2",
+      "origin_offset_m": [
+        0,
+        0,
+        -0.065
+      ],
+      "direction": [
+        0,
+        1,
+        0
+      ],
+      "depth_mm": 1
+    }
+  ]
+}

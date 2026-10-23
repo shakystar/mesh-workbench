@@ -10,6 +10,7 @@ from .. import sculpt,curve_fit
 def compile_controls(source,target):
     sculpt.editable(source)
     profile=target.get('profile','leg')
+    if profile=='foot':return compile_foot(source,target)
     if profile=='knee_transition':return compile_knee_transition(source,target)
     if profile not in ('leg','calf'):raise ValueError('Unknown leg profile')
     side=target['side']
@@ -89,3 +90,28 @@ def compile_knee_transition(source,target):
         'radius_mm':22,'max_displacement_mm':5,'region':target['region'],'controls':controls,
         'registration':target,'sections':sections,
         'limits':'Endpoint-preserving skin continuity fit; not a reconstructed patella or inferred bone outline.'}
+
+
+def compile_foot(source,target):
+    """Manually register ankle, heel, instep and medial arch skin controls."""
+    sculpt.editable(source)
+    side=target['side']
+    if side not in (-1,1):raise ValueError('Side must be -1 or 1')
+    anchor=np.asarray(target['ankle'],float)
+    if anchor.shape!=(3,) or not np.isfinite(anchor).all() or anchor[0]*side<=0:
+        raise ValueError('Finite ankle anchor matching side required')
+    k=json.loads(files('mesh_workbench').joinpath('knowledge/body/foot-surface-v1.json').read_text())
+    points=sculpt.coordinates(source)
+    tree=BVHTree.FromPolygons(points.tolist(),[list(f.vertices) for f in source.data.polygons])
+    controls=[]
+    for row in k['controls']:
+        offset=np.asarray(row['origin_offset_m'],float)*[side,1,1]
+        direction=Vector(np.asarray(row['direction'],float)*[side,1,1])
+        hit,normal,_,distance=tree.ray_cast(Vector(anchor+offset),direction)
+        if hit is None or normal.dot(direction)<=0 or not .005<distance<.15:
+            raise ValueError('Foot anchor must exit its registered skin region')
+        a=np.asarray(hit);b=a+np.asarray(direction)*row['depth_mm']/1000
+        controls.append({'name':row['name'],'source':a.tolist(),'target':b.tolist()})
+    return {'units':'m','label':'foot relief '+str(side),'surface_interpolation':True,
+        'radius_mm':35,'max_displacement_mm':5,'region':target['region'],
+        'controls':controls,'registration':target,'knowledge':k}

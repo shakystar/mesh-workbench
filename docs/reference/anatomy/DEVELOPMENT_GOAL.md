@@ -86,3 +86,10 @@ Next is shin/calf; stage E and full goal remain active.
 An initial visible station-banding defect was corrected with a wider kernel;
 source/protection/rollback/failure/readback and final front/back views pass.
 Next is ankle/heel/instep, then toe divisions. Stage E and full goal remain active.
+
+### Ankle/foot skin controls - 2026-10-24
+
+62 registered controls shape ankle, heel, instep and medial arch. Low sole
+coordinates, protected body, rollback, failure cleanup and saved views verified.
+Next is five-toe structure. Floor contact remains for stage F integration.
+Stage E and full goal remain active.
