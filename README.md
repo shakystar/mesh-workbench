@@ -10,7 +10,16 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-Latest: an original fixed-lens compact camera with a satin metal top, textured
+Latest: an adult human proportion blockout in a neutral stance, with preserved
+section sources and a separate fused surface. This is an initial silhouette and
+proportion study, without detailed anatomy, individual fingers or a rig.
+[Generator](examples/human_base.py) · [Scope and checks](docs/STATUS.md)
+
+| Human base front | Human base side |
+| --- | --- |
+| ![Human base front](docs/assets/human-base-front.png) | ![Human base side](docs/assets/human-base-side.png) |
+
+Previous: an original fixed-lens compact camera with a satin metal top, textured
 grip, concentric lens barrel, clear front element, nine-leaf aperture, top dials
 and rear controls. Matching cover outlines replace the earlier protruding seams.
 Seated buttons, marked dials and panel screws define the controls. The bottom

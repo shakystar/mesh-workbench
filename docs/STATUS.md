@@ -1,5 +1,22 @@
 # Current development status
 
+## Human proportion base — 2026-10-23
+
+`examples/human_base.py` starts the human-modeling stage with an original adult
+neutral-stance blockout. Separate section sources define the head, torso/pelvis,
+arms, legs, mitten hands, thumb masses and feet. A 6 mm voxel fusion creates a
+new continuous surface; source objects are retained hidden and smoothing remains
+a reversible modifier. Native result: `runs/human-base/human-base.blend`.
+
+The focused check measures height, finite geometry, a single connected component,
+two-face edge incidence and the leg gap. This is a proportion study, not detailed
+anatomy, finger topology or a deformation-ready rig. Blender 5.2.2 LTS verified
+12 source parts fused into one closed surface (66,158 vertices), 1.7455 m height
+and an open leg gap. Front and side renders were visually inspected. Shoulder
+contours, pelvis and knees remain simplified; hands are masses without fingers.
+One Blender process and two CPU threads produced two 650x1000, 24-sample views.
+Blender exited. The camera is retained at its last revision below.
+
 ## Compact camera exterior — 2026-10-23
 
 Contour and fitting revision: the grip now uses 57 eased sections and rounder
