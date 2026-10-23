@@ -11,7 +11,7 @@ certificate. World coordinates use metres; brush distances use millimetres.
 
 ## Controls
 
-`examples/human-anatomy-diagram.json` defines named landmarks and regional bounds.
+`examples/human/human-anatomy-diagram.json` defines named landmarks and regional bounds.
 Only the cranium region is enabled in this first pass. Face, neck and body remain
 protected. Other landmarks are reference points for later regional work.
 
@@ -36,9 +36,9 @@ Use one factory-startup Blender process with two threads at a time. Set numerica
 library thread limits to two in the calling environment.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_base.py -- runs/human-input
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_guided_brush.py -- runs/human-input/human-base.blend runs/human-guided
-python examples/draw_anatomy_diagram.py runs/human-guided/diagram-preview.json runs/human-guided/diagram.png
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/human_base.py -- runs/human-input
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/human_guided_brush.py -- runs/human-input/human-base.blend runs/human-guided
+python examples/human/draw_anatomy_diagram.py runs/human-guided/diagram-preview.json runs/human-guided/diagram.png
 ```
 
 The last command requires Pillow. Each Blender example requires a fresh output
@@ -65,14 +65,14 @@ and bounds edits precisely; it does not supply anatomical ground truth.
 
 ## Lower-face profile example
 
-`examples/human_lower_face.py` consumes the guided native file and applies
-`examples/human-lower-face.json`. A new mesh has only the lower-face patch
+`examples/human/human_lower_face.py` consumes the guided native file and applies
+`examples/human/human-lower-face.json`. A new mesh has only the lower-face patch
 subdivided. Authored sagittal Z/Y/half-width rows produce a reversible profile
 layer, followed by registered smoothing strokes. The measured nose-base,
 philtrum, lip and chin positions are recorded before and after editing.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_lower_face.py -- runs/human-guided-cranium/human-guided.blend runs/human-lower-face
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/human_lower_face.py -- runs/human-guided-cranium/human-guided.blend runs/human-lower-face
 ```
 
 The source object's earlier keys remain intact. The new mesh gets a fresh diagram
@@ -99,14 +99,14 @@ This is orthographically projected authoring, not a geodesic path or automatic a
 
 ![Mouth registration](assets/human-mouth-diagram.png)
 
-`examples/human-mouth-diagram.json` defines the upper lip bow, lower lip volume,
+`examples/human/human-mouth-diagram.json` defines the upper lip bow, lower lip volume,
 lip separation, two philtrum ridges, philtrum groove and lip/chin fold.
 The same coordinates generate the diagram and drive the seven reversible paths.
 Left and right controls are explicit; this API does not implicitly mirror them.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_mouth.py -- runs/human-lower-face-final/human-lower-face.blend runs/human-mouth
-python examples/draw_mouth_diagram.py examples/human-mouth-diagram.json docs/assets/human-mouth-diagram.png
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/human_mouth.py -- runs/human-lower-face-final/human-lower-face.blend runs/human-mouth
+python examples/human/draw_mouth_diagram.py examples/human/human-mouth-diagram.json docs/assets/human-mouth-diagram.png
 ```
 
 The example subdivides only the mouth patch into a new object and registers a

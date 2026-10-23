@@ -10,12 +10,22 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
+**Current human model, actually rendered:** eyes/ears remain shallow surface
+relief, eyes lack openings, and the chin is uneven. Tool checks do not imply
+finished anatomy. [Files and folders](docs/WORKSPACE_LAYOUT.md).
+
+| Current front | Current three-quarter |
+| --- | --- |
+| ![Current human front](docs/assets/human-current-front.png) | ![Current human three-quarter](docs/assets/human-current-three-quarter.png) |
+
+[Human scripts and current native location](examples/human/README.md).
+
 Latest: an adult human proportion blockout in a neutral stance, with preserved
 section sources and a separate fused surface. This is an initial silhouette and
 proportion study, without detailed anatomy, individual fingers or a rig. The
 current pass adds diagram-guided mouth paths: lip contours, separation, philtrum
 and the lip/chin fold, with protected regions and reversible edits.
-[Generator](examples/human_base.py) · [Scope and checks](docs/STATUS.md)
+[Generator](examples/human/human_base.py) · [Scope and checks](docs/STATUS.md)
 
 [Registered anatomy brushes](docs/ANATOMY_BRUSH.md) now use named landmarks,
 regional protection, geodesic radius and reversible displacement-limited layers.

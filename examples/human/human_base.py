@@ -1,6 +1,6 @@
 """Procedural adult proportion study; neutral stance, no rig or fine anatomy.
 
-blender -b --factory-startup -t 2 --python examples/human_base.py -- runs/human-base
+blender -b --factory-startup -t 2 --python examples/human/human_base.py -- runs/human-base
 """
 import json
 import math
@@ -9,7 +9,7 @@ from pathlib import Path
 import bpy
 from mathutils import Vector
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 from mesh_workbench import sectionstock, models
 from mesh_workbench.runner import camera

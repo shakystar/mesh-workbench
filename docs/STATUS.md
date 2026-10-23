@@ -2,6 +2,19 @@
 
 ## Human proportion base — 2026-10-23
 
+Current-model front/three-quarter renders are published as
+`docs/assets/human-current-front.png` and `human-current-three-quarter.png`.
+Visual inspection shows shallow eye/ear relief, no eye openings and persistent
+chin irregularities. Previous tool-pass reports were not visual-quality evidence.
+The saved ear-stage model was rendered with one Blender process, two CPU threads,
+24 samples and two 900px views; Blender exited.
+
+Workspace cleanup: 17 human example/config files moved to `examples/human/`;
+2,282 anonymous test runs moved to `runs/_archive/tests/` without deletion.
+References and script roots were updated; syntax/JSON/resource-path checks passed.
+New anonymous tests use that subfolder. Named historical model runs remain.
+[Current entry points](WORKSPACE_LAYOUT.md).
+
 Auricle knowledge: `auricle-v1.json` adds five semantic groups, 19 controls and
 six paths per ear. `anatomy.path_stroke` supports explicit positive/negative-X
 side views in addition to front projection. Same-view visibility protects opposite
@@ -75,7 +88,7 @@ Runs used one Blender process and two CPU threads; Blender exited.
 
 Mouth diagram paths: `anatomy.path_stroke` projects named front-view polylines
 onto the visible mesh with regional protection and reversible layers.
-`examples/human-mouth-diagram.json` drives seven paths for lip contours,
+`examples/human/human-mouth-diagram.json` drives seven paths for lip contours,
 lip separation, philtrum ridges/groove and the lip/chin fold. The corresponding
 diagram uses the same coordinates. Native: `runs/human-mouth/human-mouth.blend`.
 Only the mouth patch is subdivided into a new object; earlier sources remain.
@@ -89,9 +102,9 @@ and the upper lip bow are visible; lip corners remain coarse and the existing
 chin surface irregularities remain. This is authored registration, not validated
 anatomical accuracy. One Blender process, two CPU threads; Blender exited.
 
-Lower-face profile revision: `examples/human_lower_face.py` takes the guided
+Lower-face profile revision: `examples/human/human_lower_face.py` takes the guided
 cranium native file, subdivides only lower-face topology into a new object, and
-applies an authored sagittal profile from `examples/human-lower-face.json`.
+applies an authored sagittal profile from `examples/human/human-lower-face.json`.
 Nose base, philtrum, upper/lower lip and chin anchors define forward support and
 chin setback. The profile is a reversible shape key followed by a bounded
 registered smoothing brush. The source and its cranium brush layers remain intact.
@@ -158,7 +171,7 @@ are visible. Joint masses remain simplified and do not establish anatomical
 accuracy. One process, two CPU threads and two renders were used. Blender exited.
 Initial revision details follow.
 
-`examples/human_base.py` starts the human-modeling stage with an original adult
+`examples/human/human_base.py` starts the human-modeling stage with an original adult
 neutral-stance blockout. Separate section sources define the head, torso/pelvis,
 arms, legs, mitten hands, thumb masses and feet. A 6 mm voxel fusion creates a
 new continuous surface; source objects are retained hidden and smoothing remains

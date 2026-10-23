@@ -5,7 +5,7 @@ from pathlib import Path
 import bpy
 import numpy as np
 
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 from mesh_workbench import anatomy,sculpt,geometry
 from mesh_workbench.runner import camera
@@ -14,7 +14,7 @@ from mesh_workbench.runner import camera
 def build(source_path,output):
     output=Path(output)
     if output.exists():raise ValueError('Use a fresh output directory')
-    spec=json.loads((ROOT/'examples/human-mouth-diagram.json').read_text())
+    spec=json.loads((ROOT/'examples/human/human-mouth-diagram.json').read_text())
     bpy.ops.wm.open_mainfile(filepath=str(Path(source_path).resolve()))
     source=bpy.data.objects['Lower face refinement']
     before=sculpt.coordinates(source)

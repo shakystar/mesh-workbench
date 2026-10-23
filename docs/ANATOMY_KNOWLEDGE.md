@@ -60,7 +60,7 @@ Included procedural model example (one Blender process, two threads; numerical
 library thread limits must also be two):
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/fit_anatomy.py -- runs/human-lower-face-final/human-lower-face.blend "Lower face refinement" examples/human-mouth-target.json runs/human-mouth-fit-visible
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/fit_anatomy.py -- runs/human-lower-face-final/human-lower-face.blend "Lower face refinement" examples/human/human-mouth-target.json runs/human-mouth-fit-visible
 ```
 
 The example hides the preserved input after success to avoid overlapping surfaces.
@@ -121,7 +121,7 @@ nostril cavities, internal septum and cartilage are not modeled. `relief` remain
 available; `bow_width` is oral-only and non-default values are rejected for nose.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/fit_anatomy.py -- runs/human-mouth-fit-visible/fitted.blend "Fitted oral guide" examples/human-nasal-target.json runs/human-nasal-fit
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/fit_anatomy.py -- runs/human-mouth-fit-visible/fitted.blend "Fitted oral guide" examples/human/human-nasal-target.json runs/human-nasal-fit
 ```
 
 Focused checks: `tests/nasal_fit_test.py`, Blender 5.2.2 LTS. Two curved fixtures
@@ -178,7 +178,7 @@ both guides. Existing nose/mouth deformation remains in the new baseline;
 previous source objects and keys remain available.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_eyes.py -- runs/human-nasal-fit/fitted.blend runs/human-eye-fit
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/human_eyes.py -- runs/human-nasal-fit/fitted.blend runs/human-eye-fit
 ```
 
 Use a fresh output directory, one Blender process and numerical-library thread
@@ -226,7 +226,7 @@ lobule and tragus support. They do not create a free-standing rolled rim, cartil
 thickness or an auditory canal. This does not complete anatomical ear modeling.
 
 ```text
-blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_ears.py -- runs/human-eye-fit/fitted-eyes.blend runs/human-ear-fit
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human/human_ears.py -- runs/human-eye-fit/fitted-eyes.blend runs/human-ear-fit
 ```
 
 The example reuses the paired-region local subdivision workflow, preserves the

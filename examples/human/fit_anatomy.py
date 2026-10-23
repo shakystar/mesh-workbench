@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 import bpy
 import numpy as np
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 from mesh_workbench import anatomy_fit,sculpt
 

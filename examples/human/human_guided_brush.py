@@ -1,12 +1,12 @@
 ﻿"""Apply the registered anatomy diagram to an included human_base.py result.
 
-blender -b --factory-startup -t 2 --python examples/human_guided_brush.py -- INPUT.blend OUTPUT_DIR
+blender -b --factory-startup -t 2 --python examples/human/human_guided_brush.py -- INPUT.blend OUTPUT_DIR
 """
 import json,sys
 from pathlib import Path
 import bpy
 import numpy as np
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 from mesh_workbench import anatomy,sculpt
 from mesh_workbench.runner import camera
@@ -15,7 +15,7 @@ from mesh_workbench.runner import camera
 def build(source_path,output):
     source_path=Path(source_path);output=Path(output)
     if output.exists():raise ValueError('Use a fresh output directory')
-    spec=json.loads((ROOT/'examples/human-anatomy-diagram.json').read_text(encoding='utf-8-sig'))
+    spec=json.loads((ROOT/'examples/human/human-anatomy-diagram.json').read_text(encoding='utf-8-sig'))
     bpy.ops.wm.open_mainfile(filepath=str(source_path.resolve()))
     scene=bpy.context.scene;scene.render.threads_mode='FIXED';scene.render.threads=2
     source=bpy.data.objects['Human base surface']

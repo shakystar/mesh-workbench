@@ -1,6 +1,6 @@
 ﻿"""Refine a registered sagittal nose/philtrum/lip/chin profile on a new local mesh.
 
-blender -b --factory-startup -t 2 --python examples/human_lower_face.py -- INPUT.blend OUTPUT_DIR
+blender -b --factory-startup -t 2 --python examples/human/human_lower_face.py -- INPUT.blend OUTPUT_DIR
 Input: human_guided_brush.py output; source objects and keys remain preserved.
 """
 import json,sys
@@ -9,7 +9,7 @@ import bpy
 import numpy as np
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 from mesh_workbench import anatomy,sculpt,geometry,layers
 from mesh_workbench.runner import camera
@@ -18,7 +18,7 @@ from mesh_workbench.runner import camera
 def build(source_path,output):
     output=Path(output)
     if output.exists():raise ValueError('Use a fresh output directory')
-    spec=json.loads((ROOT/'examples/human-lower-face.json').read_text(encoding='utf-8-sig'))
+    spec=json.loads((ROOT/'examples/human/human-lower-face.json').read_text(encoding='utf-8-sig'))
     rows=np.asarray(spec['profile_z_y_half_width'],dtype=float)
     if rows.ndim!=2 or rows.shape[1]!=3 or not np.isfinite(rows).all() or np.any(np.diff(rows[:,0])<=0) or np.any(rows[:,2]<=0):
         raise ValueError('Ordered finite Z/Y/width profile required')

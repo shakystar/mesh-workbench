@@ -4,7 +4,7 @@ import sys
 from pathlib import Path
 import bpy
 import numpy as np
-ROOT=Path(__file__).resolve().parents[1]
+ROOT=Path(__file__).resolve().parents[2]
 sys.path.insert(0,str(ROOT/'src'))
 from mesh_workbench import anatomy_fit,geometry,sculpt
 
@@ -14,7 +14,7 @@ def run(source_path,output_path,*,source_name='Fitted nasal guide',target_file='
         scope='Surface eye guides; no eyeballs, openings or orbital cavities. No visual quality validation.'):
     folder=Path(output_path)
     if folder.exists():raise ValueError('Use a fresh output directory')
-    targets=json.loads((ROOT/'examples'/target_file).read_text())['targets']
+    targets=json.loads((ROOT/'examples/human'/target_file).read_text())['targets']
     bpy.ops.wm.open_mainfile(filepath=str(Path(source_path).resolve()))
     source=bpy.data.objects[source_name];source_before=sculpt.coordinates(source)
     guides=[anatomy_fit.compile_diagram(source,t) for t in targets]

@@ -10,3 +10,5 @@
 - Blender 렌더와 무거운 형상 검증은 동시에 실행하지 않습니다. Blender는 한 번에 1개만 실행하고 CPU 스레드는 2개로 제한합니다. 수치 라이브러리의 스레드 수도 함께 제한합니다.
 - Record tested Blender versions and remaining limits. Do not claim arbitrary retopology, collision-free patterns or production-ready rigs.
 - Generated runs belong in ignored `runs/`. Public preview images must come only from included procedural examples.
+- 인체 예제·설정은 `examples/human/`에 모읍니다. 익명 테스트 산출물은 `runs/_archive/tests/`에 저장합니다.
+- 모델 형상을 변경한 결과 보고에는 현재 저장 모델의 대표 렌더 1~2장을 함께 보여줍니다. 도구 수치 검증을 시각적 완성도 검증으로 표현하지 않습니다. 코드·문서만 바꾼 경우에는 렌더하지 않습니다.

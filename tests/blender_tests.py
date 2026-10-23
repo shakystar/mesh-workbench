@@ -24,7 +24,7 @@ from mesh_workbench.runner import camera
 class Modeling(unittest.TestCase):
     def setUp(self):
         bpy.ops.wm.read_factory_settings(use_empty=True)
-        self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
+        self.root = ROOT / "runs" / "_archive" / "tests" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
     def test_anatomy_diagram_brush_protection_rollback_and_failures(self):
