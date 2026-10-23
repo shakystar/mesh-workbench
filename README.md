@@ -10,9 +10,9 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-**Current human model, actually rendered:** eyes/ears remain shallow surface
-relief, eyes lack openings, and the chin is uneven. Tool checks do not imply
-finished anatomy. [Files and folders](docs/WORKSPACE_LAYOUT.md).
+**Current human model, actually rendered:** fitted eye openings, separate
+eyeballs and connected upper/lower lids. Ears remain shallow relief and the chin
+is uneven; this is still a rough study. [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 | Current front | Current three-quarter |
 | --- | --- |

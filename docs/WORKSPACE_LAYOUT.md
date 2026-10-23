@@ -6,9 +6,9 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/human-ear-fit/fitted-ears.blend` |
+| Current human native | `runs/human/open-eyes-finished/open-eyes.blend` |
 | Current human images | `docs/assets/human/` |
-| Human scripts / target JSON | `examples/human/scripts/`, `examples/human/recipes/` |
+| Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |
 | Other examples | `examples/{camera,mouse,headphones,speaker,organic,lantern,sculpture,general}/` |
 | Library implementation | `src/mesh_workbench/{anatomy,geometry,forms,mechanisms,details,workflow}/` |

@@ -8,6 +8,31 @@ The periorbital module adds six groups, 19 controls and five paths per eye.
 The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
+## Open-eye geometry (static study)
+
+`from mesh_workbench import eye_socket` provides
+`head, globes, report = eye_socket.build(source, settings)` for a static mesh
+facing -Y with Z up. Each settings entry supplies `center_xz` in metres,
+`width_mm`, `upper_mm`, `lower_mm`, `radius_mm`, `tilt_degrees` and `yaw_degrees`.
+These are authored geometry controls, not new anatomical knowledge or population
+measurements. Centers are manually placed; the front surface is ray-projected.
+
+The tool creates a new evaluated head snapshot with two local openings, fitted
+lid transitions, a 0.9 mm inner return and closed socket cavities. Separate
+globes retain editable size and orientation. The original object's layers,
+selections and masks stay on that original; they are not copied onto changed
+topology. A narrow seam band is smoothed on the new snapshot with a 2 mm
+displacement cap; the aperture rim is locked. No source visibility changes happen inside the library API.
+Invalid sizes, overlapping patches, missing surfaces and non-simple patch
+boundaries are rejected; failed batches remove their new meshes and objects.
+
+[Procedural example](../examples/human/eyes/build_open_eyes.py) includes source
+and protected-region checks, early/late failure checks, a procedural eye
+material and two renders. The native study lives at
+`runs/human/open-eyes-finished/open-eyes.blend`. Blender 5.2.2 LTS was used.
+This is not an eyelid rig, a tear-duct model, corneal optics or a validated
+anatomical library. Socket/globe contact has not been certified collision-free.
+
 ## Knowledge versus authored proportions
 
 [`oral-neutral-v1.json`](../src/mesh_workbench/knowledge/oral-neutral-v1.json)

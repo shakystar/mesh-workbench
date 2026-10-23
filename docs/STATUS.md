@@ -6,9 +6,42 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Open eyes and fitted lids - 2026-10-24
+
+`eye_socket.build` creates a new head snapshot with paired eye openings,
+connected upper/lower lids, inner lid returns, closed sockets and separate globes.
+Width, independent opening heights, tilt, yaw and globe radius are explicit
+controls. A fitted boundary plane replaces the old relief inside the patch.
+The source ear-stage model and its existing layers remain untouched; old
+selections are not transferred to changed topology.
+
+Blender 5.2.2 LTS: both eyes replace 1,348 local faces each. The head has zero
+nonmanifold edges; 72,450 protected vertices and all source coordinates remain
+unchanged. Invalid globe size, overlapping regions and a missing second-eye
+surface fail without leaving meshes or objects, including a late batch failure.
+Evidence: `runs/human/open-eyes-finished/verification.json`.
+Native: `runs/human/open-eyes-finished/open-eyes.blend`.
+Entry point: `examples/human/eyes/build_open_eyes.py`.
+
+The saved model supplies the current front/three-quarter previews. Rendering
+uses one Blender process, two threads, 24 samples and 900px views. The earlier
+iterations exposed an uneven transition and inward pupil placement; the fitted
+transition and globe orientation were corrected. A quadratic boundary fit was
+replaced with an affine fit after its interior bulging appeared in the preview.
+The seam band receives bounded smoothing (2 mm cap), with the aperture rim fixed.
+Ears, nose and chin remain
+rough. Tear ducts, corneal optics, animation and anatomical validation are not
+implemented. Blender's OS thumbnail-cache write failed under the sandbox;
+the native file and explicit render files were saved successfully.
+Final front/three-quarter inspection confirms visible openings and globes with
+the radial seam artifacts removed. Blender exited. Four intermediate native
+files generated during this pass were removed (182,327,324 bytes); the source,
+final native, iteration images and verification records remain. The ten-file
+folder check reports zero violations outside `.git` and `.venv`.
+
 ## Human proportion base — 2026-10-23
 
-Current-model front/three-quarter renders are published as
+Earlier ear-stage front/three-quarter renders were published as
 `docs/assets/human/human-current-front.png` and `human-current-three-quarter.png`.
 Visual inspection shows shallow eye/ear relief, no eye openings and persistent
 chin irregularities. Previous tool-pass reports were not visual-quality evidence.
