@@ -121,3 +121,44 @@ stage D remain unfinished.
 
 ![](../../../assets/human/hands/welded/front.png)
 ![](../../../assets/human/hands/welded/oblique.png)
+
+## Intermediate wrist sections and successful fairing
+
+`graft.replace_hand` now inserts four 64-vertex rings. It samples the existing
+boundary loops, measures nearby radial sections 8 mm above/below them and uses
+cubic Hermite interpolation to carry the local slope across the gap. Boundary
+vertices remain unchanged during reconstruction. Interior-origin/exit-normal,
+height and degenerate-triangle guards reject unsupported configurations.
+Source-specific upright wrist limitations remain; this is not arbitrary grafting.
+
+Each seam has 730 pre-weld candidate triangles. Fifty near-coincident stock
+vertices per side are still merged without merging retained body vertices.
+`attach.py` verifies exact retention, original topology/geometry, closed oriented
+edges, invalid cuts, injected late failure cleanup, native readback and hash.
+Reconstructed native: `runs/human/hands-ring-bridge/hands-grafted.blend`.
+
+`examples/human/hands/fair_wrist.py` then applies four existing uniform-neighbor
+volume-preserving strokes, radius 20 mm, strength 0.12, three iterations, unchanged
+3 mm cap. The same low-strength setting rejected on the long-triangle bridge
+now passes. No brush algorithm, cap or polygon guard was relaxed.
+Blender 5.2.2 LTS: maximum move 0.48410 mm, 149,715 protected vertices exact;
+source/topology, layer rollback, exact invalid-second-mode rejection, injected
+finish-failure cleanup, stored-volume checks, native readback and input hash pass.
+Finger vertices below Z=.875 are outside all edit boxes and remain exact.
+
+Current integrated native: `runs/human/wrist-ring-faired/wrist-transitions.blend`,
+object `Wrist transition study`. The reconstructed boundaries are preserved on
+the input snapshot; subsequent local motion is reversible. Two matched views
+inspected; one process/two threads throughout, exited. A broad wrist contour
+remains, while the brush-blocking topology problem is resolved for this operation.
+Palm/web slab shape and blunt fingertips remain; next is palm/web shaping.
+Stage D and full goal remain active.
+
+Reconstructed whole-hand view:
+
+![](../../../assets/human/hands/rings/bridge-front.png)
+
+| Fairing view | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/hands/rings/before-front.png) | ![](../../../assets/human/hands/rings/after-front.png) |
+| Oblique | ![](../../../assets/human/hands/rings/before-oblique.png) | ![](../../../assets/human/hands/rings/after-oblique.png) |

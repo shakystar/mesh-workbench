@@ -2,6 +2,8 @@
 from collections import Counter,defaultdict
 import bpy,bmesh
 import numpy as np
+from mathutils import Vector
+from mathutils.bvhtree import BVHTree
 from .. import sculpt
 
 def _loop(faces,points):
@@ -43,12 +45,44 @@ def replace_hand(source,stock,side,name='Grafted hand body',body_cut=.905,stock_
         v=verts[loop];length=np.linalg.norm(np.roll(v,-1,axis=0)-v,axis=1)
         if np.any(length<1e-8):raise ValueError('Collapsed boundary edge')
         return np.r_[0,np.cumsum(length)]/length.sum()
-    sa,sb=steps(a),steps(b);i=j=0;seam=[]
-    while i<len(a) or j<len(b):
-        if j==len(b) or (i<len(a) and sa[i+1]<=sb[j+1]):
-            seam.append([a[i%len(a)],b[j%len(b)],a[(i+1)%len(a)]]);i+=1
-        else:
-            seam.append([a[i%len(a)],b[j%len(b)],b[(j+1)%len(b)]]);j+=1
+    # Four intermediate rings resolve the 34-to-184 vertex density jump.
+    fractions=np.arange(64)/64
+    def resample(loop):
+        values=verts[loop+[loop[0]]];u=steps(loop)
+        return np.column_stack([np.interp(fractions,u,values[:,axis]) for axis in range(3)])
+    upper,lower=resample(a),resample(b)
+    gap=upper[:,2]-lower[:,2]
+    if np.any(gap<=.001):raise ValueError('Insufficient wrist bridge height')
+    def tangent(probes,original,faces,sign):
+        tree=BVHTree.FromPolygons(original.tolist(),faces)
+        center=probes[:,:2].mean(axis=0);values=[]
+        for sample in probes:
+            direction=np.r_[sample[:2]-center,0.0];direction/=np.linalg.norm(direction)
+            origin=Vector((center[0],center[1],sample[2]+sign*.008))
+            hit,normal,_,distance=tree.ray_cast(origin,Vector(direction))
+            if hit is None or normal.dot(Vector(direction))<=0 or not .008<distance<.07:
+                raise ValueError('Wrist slope probe misses local interior')
+            values.append(np.asarray(hit))
+        return np.asarray(values)
+    higher=tangent(upper,p,faces,1)
+    lower_probe=tangent(lower,q,[list(f.vertices) for f in stock.data.polygons],-1)
+    m0=(upper-higher)*(gap/.008)[:,None]
+    m1=(lower_probe-lower)*(gap/.008)[:,None]
+    loops=[a]
+    for t in (.2,.4,.6,.8):
+        ring=(2*t**3-3*t*t+1)*upper+(t**3-2*t*t+t)*m0+(-2*t**3+3*t*t)*lower+(t**3-t*t)*m1
+        if not np.isfinite(ring).all() or np.any(ring[:,2]>=upper[:,2]) or np.any(ring[:,2]<=lower[:,2]):
+            raise ValueError('Wrist interpolation leaves bridge height')
+        loops.append(list(range(len(verts),len(verts)+len(ring))))
+        verts=np.concatenate((verts,ring))
+    loops.append(b);seam=[]
+    for first,second in zip(loops,loops[1:]):
+        sa,sb=steps(first),steps(second);i=j=0
+        while i<len(first) or j<len(second):
+            if j==len(second) or (i<len(first) and sa[i+1]<=sb[j+1]):
+                seam.append([first[i%len(first)],second[j%len(second)],first[(i+1)%len(first)]]);i+=1
+            else:
+                seam.append([first[i%len(first)],second[j%len(second)],second[(j+1)%len(second)]]);j+=1
     for tri in seam:
         v=verts[tri]
         if np.linalg.norm(np.cross(v[1]-v[0],v[2]-v[0]))<1e-12:raise ValueError('Collapsed seam triangle')
@@ -72,7 +106,7 @@ def replace_hand(source,stock,side,name='Grafted hand body',body_cut=.905,stock_
         for face in mesh.polygons:face.use_smooth=True
         np.testing.assert_array_equal(sculpt.coordinates(output)[:len(used)],p[used])
         output['mw_source']=source.name;output['mw_graft_stock']=stock.name
-        report={'retained_vertices':len(used),'body_boundary_vertices':len(a),'stock_boundary_vertices':len(b),'seam_triangles':len(seam),'stock_vertices_welded':stock_welded,'stock_weld_distance_m':1e-5,'closed_oriented':True,'retained_exact':True,'source_topology_unchanged':True,'limits':'New topology snapshot; masks and layers are retained only on original source. No general graft or global intersection guarantee.'}
+        report={'retained_vertices':len(used),'body_boundary_vertices':len(a),'stock_boundary_vertices':len(b),'intermediate_rings':4,'ring_vertices':64,'seam_triangles_before_weld':len(seam),'stock_vertices_welded':stock_welded,'stock_weld_distance_m':1e-5,'closed_oriented':True,'retained_exact':True,'source_topology_unchanged':True,'limits':'New topology snapshot; masks and layers are retained only on original source. No general graft or global intersection guarantee.'}
         return output,report
     except Exception:
         if output:bpy.data.objects.remove(output,do_unlink=True)

@@ -1,5 +1,20 @@
 # Current development status
 
+## Wrist intermediate rings / fairing passes - 2026-10-24
+
+Replaced long wrist bridges with four 64-vertex intermediate sections per hand,
+using local sampled slopes and cubic interpolation. Exact retained boundary/body
+vertices, original geometry/topology, closed/oriented edges, invalid cuts, late
+failure cleanup and native/hash checks pass in Blender 5.2.2 LTS.
+Existing uniform volume-relaxation at strength .12 / three iterations now passes:
+max move .48410 mm, 149,715 protected vertices exact, reversible layers, invalid
+second stroke/injected failure cleanup, native readback/hash pass. Guards unchanged.
+Matched front/oblique views inspected; broad wrist contour remains. Next palm/web
+shaping. Stage D active. One process/two threads, exited.
+Current native: `runs/human/wrist-ring-faired/wrist-transitions.blend`.
+[Implementation, comparison and limits](reference/anatomy/body/HANDS.md#intermediate-wrist-sections-and-successful-fairing).
+
+
 ## Wrist seam diagnosis / stock-only weld - 2026-10-24
 
 Wrist smoothing remains rejected by the 3 mm cap; a reduced inverse-length

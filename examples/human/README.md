@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current native: `runs/human/wrist-ring-faired/wrist-transitions.blend`.
+`hands/attach.py` now adds intermediate wrist rings; `hands/fair_wrist.py` takes
+that reconstructed native and a fresh output folder. Original boundaries remain
+on the input; local fairing uses reversible layers. Images: `docs/assets/human/hands/rings/`.
+Earlier stock-weld pass:
+
+
 Current integrated native: `runs/human/hands-grafted-welded/hands-grafted.blend`.
 `hands/attach.py` includes stock-only near-vertex welding. `hands/wrist.py` is a
 rejection audit on the earlier hands-grafted native; it does not save a new model.
