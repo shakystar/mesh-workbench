@@ -91,3 +91,33 @@ restoration. One process/two threads throughout, exited.
 
 ![](../../../assets/human/hands/grafted/front.png)
 ![](../../../assets/human/hands/grafted/oblique.png)
+
+## Wrist fairing rejection and stock vertex weld
+
+The wrist band is not fixed. Uniform surface relaxation exceeded its unchanged
+3 mm cap. An experimental inverse-length neighbor weighting with reduced
+strength then failed polygon orientation at face 122586; it was not retained
+in the library. That face had edges 21.10135, 0.0008643 and 21.10122 mm, a ratio
+of about 24,415. `examples/human/hands/wrist.py` reproduces the uniform rejection
+on the earlier hands-grafted native, checks no source mutation or leaked objects,
+and records that suspect face. It is a rejection audit, not a successful brush.
+The inverse-length experiment is only retained in ignored local runs.
+
+`graft.replace_hand` now welds stock-only vertices within 0.01 mm, after mesh
+construction and before orientation checks. No retained body vertex is included
+in the weld. Both hands merged 50 stock vertices. The report's 218 seam triangles
+are the pre-weld candidate triangles, not a post-weld count.
+Blender 5.2.2 LTS: exact retained vertices, 59,731 original above-wrist points,
+source/topology, closed/oriented edges, invalid cuts, late-failure cleanup,
+native readback and input hash pass. Latest native:
+`runs/human/hands-grafted-welded/hands-grafted.blend`.
+Two actual views inspected, one process/two threads, exited.
+
+A subsequent low-strength uniform relaxation on the welded model still exceeded
+the 3 mm cap; it produced no result native. The remaining large density mismatch
+and long bridge triangles require intermediate wrist sections before further
+fairing. Do not raise caps or weaken polygon guards. Finger/palm refinement and
+stage D remain unfinished.
+
+![](../../../assets/human/hands/welded/front.png)
+![](../../../assets/human/hands/welded/oblique.png)

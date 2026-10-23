@@ -57,7 +57,13 @@ def replace_hand(source,stock,side,name='Grafted hand body',body_cut=.905,stock_
         mesh.from_pydata(verts.tolist(),[],outfaces+seam);mesh.update()
         bm=bmesh.new()
         try:
-            bm.from_mesh(mesh);bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces))
+            bm.from_mesh(mesh);bm.verts.ensure_lookup_table()
+            # Voxel intersections can leave near-coincident stock vertices.
+            # Never merge or move any retained source/boundary vertex.
+            count_before=len(bm.verts)
+            bmesh.ops.remove_doubles(bm,verts=list(bm.verts)[len(used):],dist=1e-5)
+            stock_welded=count_before-len(bm.verts)
+            bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces))
             if any(not e.is_manifold or not e.is_contiguous for e in bm.edges):raise ValueError('Graft is not closed and oriented')
             bm.to_mesh(mesh)
         finally:bm.free()
@@ -66,7 +72,7 @@ def replace_hand(source,stock,side,name='Grafted hand body',body_cut=.905,stock_
         for face in mesh.polygons:face.use_smooth=True
         np.testing.assert_array_equal(sculpt.coordinates(output)[:len(used)],p[used])
         output['mw_source']=source.name;output['mw_graft_stock']=stock.name
-        report={'retained_vertices':len(used),'body_boundary_vertices':len(a),'stock_boundary_vertices':len(b),'seam_triangles':len(seam),'closed_oriented':True,'retained_exact':True,'source_topology_unchanged':True,'limits':'New topology snapshot; masks and layers are retained only on original source. No general graft or global intersection guarantee.'}
+        report={'retained_vertices':len(used),'body_boundary_vertices':len(a),'stock_boundary_vertices':len(b),'seam_triangles':len(seam),'stock_vertices_welded':stock_welded,'stock_weld_distance_m':1e-5,'closed_oriented':True,'retained_exact':True,'source_topology_unchanged':True,'limits':'New topology snapshot; masks and layers are retained only on original source. No general graft or global intersection guarantee.'}
         return output,report
     except Exception:
         if output:bpy.data.objects.remove(output,do_unlink=True)

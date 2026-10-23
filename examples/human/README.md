@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current integrated native: `runs/human/hands-grafted-welded/hands-grafted.blend`.
+`hands/attach.py` includes stock-only near-vertex welding. `hands/wrist.py` is a
+rejection audit on the earlier hands-grafted native; it does not save a new model.
+Current images: `docs/assets/human/hands/welded/`. Wrist band remains unresolved.
+Earlier graft pass:
+
+
 Current integrated native: `runs/human/hands-grafted/hands-grafted.blend`.
 `hands/attach.py` takes the preserved elbow-relief native and a fresh output
 folder. Both hands are grafted on a new snapshot; original body/layers remain.

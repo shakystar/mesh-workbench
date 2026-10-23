@@ -21,7 +21,8 @@ Torso, costal/abdominal and posterior scapular controls now separate the main vo
 are reduced and lateral waist/pelvic controls are applied. Bilateral upper-arm
 and forearm controls now have saved-model evidence, followed by bounded elbow
 relief. Five-digit hand stocks are now grafted to preserved wrist boundaries on a new
-body snapshot; wrist-band and palm refinement remain pending. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
+body snapshot. Stock near-vertices are welded; wrist-band and palm refinement
+remain pending. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
 [Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).

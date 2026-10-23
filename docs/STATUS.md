@@ -1,5 +1,20 @@
 # Current development status
 
+## Wrist seam diagnosis / stock-only weld - 2026-10-24
+
+Wrist smoothing remains rejected by the 3 mm cap; a reduced inverse-length
+experiment also failed polygon orientation and was reverted. A suspect seam
+face has a 0.0008643 mm edge beside 21.10135 mm edges. Added reproducible rejection
+audit and stock-only 0.01 mm weld to graft construction: 50 vertices merged per
+hand, all retained body vertices exact. Blender 5.2.2 LTS source/topology,
+closed/oriented seam, invalid cut, late failure, native readback/hash pass.
+Two result views inspected; wrist band remains. Relaxation on the welded model
+still exceeds the cap. Next: intermediate wrist sections for the density gap;
+no more strength/cap adjustments. Stage D active. One process/two threads, exited.
+Current native: `runs/human/hands-grafted-welded/hands-grafted.blend`.
+[Rejection evidence and limits](reference/anatomy/body/HANDS.md#wrist-fairing-rejection-and-stock-vertex-weld).
+
+
 ## Bilateral wrist graft - 2026-10-24
 
 Added bounded `regions.graft.replace_hand` and integrated both five-digit stocks
