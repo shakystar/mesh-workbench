@@ -1,0 +1,23 @@
+{
+  "note": "Authored X/Z eye references with measured front-surface depths on Fitted nasal guide; not automatically detected landmarks.",
+  "targets": [
+    {
+      "units": "m", "knowledge_id": "periorbital-v1", "side": "negative_x",
+      "landmarks": {
+        "medial_canthus": [-0.016, -0.072537392, 1.645],
+        "lateral_canthus": [-0.048, -0.054164827, 1.645],
+        "upper_lid": [-0.032, -0.063316852, 1.651],
+        "lower_lid": [-0.032, -0.061771601, 1.641]
+      }
+    },
+    {
+      "units": "m", "knowledge_id": "periorbital-v1", "side": "positive_x",
+      "landmarks": {
+        "medial_canthus": [0.016, -0.072538018, 1.645],
+        "lateral_canthus": [0.048, -0.054156661, 1.645],
+        "upper_lid": [0.032, -0.063317776, 1.651],
+        "lower_lid": [0.032, -0.061778009, 1.641]
+      }
+    }
+  ]
+}

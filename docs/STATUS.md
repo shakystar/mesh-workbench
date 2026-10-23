@@ -2,6 +2,25 @@
 
 ## Human proportion base — 2026-10-23
 
+Periorbital knowledge: `periorbital-v1.json` adds six semantic groups, 19 controls
+and five paths per eye. Four references determine the canthal axis and independent
+lid heights. `apply_many` applies disjoint regions to one new snapshot while
+retaining all reversible layers and registration metadata. Failed batches remove
+the entire output, including failure after earlier paths succeeded.
+
+Blender 5.2.2 LTS: `tests/orbital_fit_test.py` passes two bilateral fixtures
+(24/34 mm eye widths, 0/0.12 rad tilt), caps, source/lower-face preservation,
+protection, complete rollback, eight invalid batches and an injected second-eye
+failure after five successful paths. The original single oral API also passes.
+Protected counts: 12,471 / 11,723; maximum movements: 0.510 / 0.871 mm.
+Evidence: `runs/orbital-fit/verification.json`. Current native example:
+`runs/human-eye-fit/fitted-eyes.blend`. It locally subdivides eye patches and
+preserves previous nasal/oral objects and layers. It preserves 72,618 protected
+vertices and the source/baseline, passes all-layer rollback, and reports zero
+nonmanifold edges with at most 0.8775 mm displacement. One Blender process and
+two CPU threads were used; Blender exited. No new renders; eye openings,
+eyeballs, orbital cavities and anatomical accuracy remain outside this pass.
+
 Nasal knowledge: packaged `nasal-base-v1.json` adds five semantic groups,
 19 normalized controls and six front-surface paths. Five manual target points
 set alar width, base/tip height and philtrum reference. Optional linked oral

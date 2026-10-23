@@ -23,10 +23,10 @@ Point brushes cover the cranium; path brushes follow the mouth diagram.
 The guides are authored for this model.
 [Registration diagram](docs/assets/human-anatomy-diagram.png).
 
-[Proportional anatomy knowledge](docs/ANATOMY_KNOWLEDGE.md) separates oral and
-nasal feature relationships from authored ratios. Manually identified landmarks
-fit mouth and nasal-base guides to different widths and heights. Shared reference
-checks connect the modules while nasal edits protect the existing mouth surface.
+[Proportional anatomy knowledge](docs/ANATOMY_KNOWLEDGE.md) separates oral, nasal
+and periorbital feature relationships from authored ratios. Manual landmarks fit
+regional guides to different widths, heights and supported eye tilts. Both eye
+regions can share one reversible result; failed batches leave no partial output.
 Whole-body knowledge and automatic landmark detection remain unimplemented.
 
 Latest mouth pass: [brush diagram](docs/assets/human-mouth-diagram.png).

@@ -17,7 +17,19 @@ def apply(obj, target, name, **options):
     The input object's geometry, layers, visibility and registration stay intact.
     Failure removes the new object; no partially applied output is retained.
     """
+    output,diagrams,reports=apply_many(obj,[target],name,**options)
+    return output,diagrams[0],reports
+
+
+def apply_many(obj, targets, name, **options):
+    """Apply disjoint regions to one snapshot; all regions remain reversible.
+
+    Returns (object, diagrams, reports). All registrations are retained; the last
+    diagram is the active brush binding. Rebind another diagram before extending it.
+    """
     from . import anatomy
+    if not isinstance(targets,list) or not 1<=len(targets)<=8:
+        raise ValueError('Expected 1..8 regional targets')
     if name in bpy.data.objects:raise ValueError('Output object exists')
     if obj.type!='MESH' or obj.animation_data or obj.get('mw_pending'):
         raise ValueError('Expected idle static mesh')
@@ -29,11 +41,19 @@ def apply(obj, target, name, **options):
     output=bpy.data.objects.new(name,mesh)
     bpy.context.scene.collection.objects.link(output);output.matrix_world=obj.matrix_world.copy()
     try:
-        diagram=compile_diagram(output,target,**options)
-        anatomy.bind(output,diagram)
-        reports=[anatomy.path_stroke(output,command) for command in diagram['paths']]
-        output['mw_anatomy_fit']=json.dumps(diagram['registration'])
-        return output,diagram,reports
+        diagrams=[compile_diagram(output,target,**options) for target in targets]
+        bounds=[next(iter(d['regions'].values())) for d in diagrams]
+        for i,a in enumerate(bounds):
+            for b in bounds[:i]:
+                if np.all(np.maximum(a['min'],b['min'])<np.minimum(a['max'],b['max'])):
+                    raise ValueError('Regional edit bounds overlap; apply separately with explicit review')
+        reports=[]
+        for diagram in diagrams:
+            anatomy.bind(output,diagram)
+            reports.extend(anatomy.path_stroke(output,command) for command in diagram['paths'])
+        output['mw_anatomy_fit']=json.dumps(diagrams[-1]['registration'])
+        output['mw_anatomy_fits']=json.dumps([d['registration'] for d in diagrams])
+        return output,diagrams,reports
     except Exception:
         bpy.data.objects.remove(output,do_unlink=True)
         if mesh.users==0:bpy.data.meshes.remove(mesh)
@@ -41,7 +61,7 @@ def apply(obj, target, name, **options):
 
 
 def knowledge(module_id='oral-neutral-v1'):
-    if module_id not in ('oral-neutral-v1','nasal-base-v1'):
+    if module_id not in ('oral-neutral-v1','nasal-base-v1','periorbital-v1'):
         raise ValueError('Unknown anatomy knowledge module')
     return json.loads(files('mesh_workbench').joinpath('knowledge/'+module_id+'.json').read_text())
 
@@ -52,6 +72,10 @@ def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
     Target units are metres, front faces -Y, Z is up. Left/right mean diagram
     negative/positive X. Required targets must lie near the visible surface.
     """
+    if target.get('knowledge_id')=='periorbital-v1':
+        from .anatomy_orbital import compile_orbital
+        if bow_width!=1:raise ValueError('bow_width applies only to the oral module')
+        return compile_orbital(obj,target,relief=relief,tolerance_mm=tolerance_mm)
     sculpt.editable(obj)
     if target.get('units')!='m':raise ValueError('Target units must be metres')
     bow_width=sculpt.number(bow_width,.7,1.3,'bow width multiplier')

@@ -1,8 +1,10 @@
 # Proportional anatomy knowledge and registration
 
-Reusable modules cover the neutral oral region and the front-visible nasal base.
+Reusable modules cover the neutral oral region, front-visible nasal base and
+periorbital surface.
 The oral module contains six semantic feature groups, 20 normalized controls and
 seven brush paths. The nasal module adds five groups, 19 controls and six paths.
+The periorbital module adds six groups, 19 controls and five paths per eye.
 Each stores source references separately from authored modeling proportions.
 
 ## Knowledge versus authored proportions
@@ -78,7 +80,8 @@ made from this geometry-only pass.
 | --- | --- |
 | Oral region | Semantic definitions, proportional guide, manual landmark fitting |
 | Nasal base and alae | Semantic definitions, proportional guide, shared oral reference |
-| Eye sockets, ears, upper nasal bridge | No reusable knowledge modules yet |
+| Periorbital surface | Eyelid/crease/brow guides, per-eye canthal-axis fitting |
+| Orbital cavities, eyeballs, ears, upper nasal bridge | No reusable knowledge modules yet |
 | Skull, neck, torso, limbs, hands and feet | No reusable knowledge modules yet |
 | Automatic landmark detection | Not implemented |
 | Pose/expression, age or body-type models | Not implemented |
@@ -125,3 +128,65 @@ protected regions, existing mouth-layer preservation, rollback, eight atomic
 failure cases and old oral-default compilation. The procedural human application
 also checks source preservation, protected coordinates and full rollback before
 saving. No new renders or anatomical-accuracy claims accompany this tool pass.
+
+## Periorbital surface module
+
+[`periorbital-v1.json`](../src/mesh_workbench/knowledge/periorbital-v1.json) stores
+upper/lower eyelid, canthal registration, upper crease, lower transition and brow
+groups. Terms for lid, crease and brow reference the
+[NIH/NHGRI periorbital anatomy page](https://elementsofmorphology.nih.gov/anatomy-periorbital.shtml).
+The canthal guide and lower transition are authored modeling conventions.
+All numerical ratios remain artist-defined, with no demographic meaning.
+
+Each target selects `knowledge_id: periorbital-v1`, supplies `side: negative_x`
+or `positive_x` (diagram sides, not anatomical left/right), and four visible
+surface references: `medial_canthus`, `lateral_canthus`, `upper_lid`, `lower_lid`.
+`midline_x` defaults to zero. The canthal axis runs medial to lateral and follows
+the measured tilt. Upper/lower lid references set independent perpendicular
+heights. This differs from the horizontal-only oral/nasal reference frame.
+
+Implementation bounds: eye half-width 5–30 mm, upper/lower heights 1–20 mm and
+absolute vertical canthal-axis component at most 0.35. These are supported tool
+ranges, not normal anatomy ranges. Wrong-side references, inverted lid heights,
+off-surface points, bounds crossing the facial midline and excessive tilt fail.
+`bow_width` is not applicable. Five surface paths mark the upper/lower lid,
+upper crease, lower transition and brow support. They do not create an eye
+opening, eyeball, tear duct or an orbital cavity.
+
+### Both eyes in one reversible result
+
+```python
+result, diagrams, reports = anatomy_fit.apply_many(
+    source, [negative_x_target, positive_x_target], "Both eye guides"
+)
+```
+
+All target diagrams are compiled before editing. Their axis-aligned edit bounds
+must be disjoint. Each path stays a separate reversible layer on the same output;
+the first eye is not baked away when applying the second. Any failure, including
+one after the first region has changed, removes the entire new object and mesh.
+The source stays intact. `mw_anatomy_fits` retains all registration metadata.
+Only the last diagram remains the active `anatomy` brush binding; explicitly bind
+another returned diagram before extending that region. The existing single-region
+`apply` API still returns one diagram and uses the same transaction mechanism.
+
+Included example measures reference depths on the existing procedural human,
+subdivides only selected eye-region faces into a preserved baseline, then applies
+both guides. Existing nose/mouth deformation remains in the new baseline;
+previous source objects and keys remain available.
+
+```text
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_eyes.py -- runs/human-nasal-fit/fitted.blend runs/human-eye-fit
+```
+
+Use a fresh output directory, one Blender process and numerical-library thread
+limits of two. The example saves native geometry and reports without rendering.
+
+Focused check: `tests/orbital_fit_test.py`, Blender 5.2.2 LTS. Two bilateral
+fixtures use 24/34 mm eye widths, distinct lid heights, and 0/0.12 rad canthal
+tilts. It verifies both-eye geometry changes, protected coordinates, earlier
+lower-face layers, all-layer rollback, eight invalid batches, an injected failure
+after five successful paths, and compatibility of the original oral `apply` API.
+The current human example additionally verifies closed manifold geometry and
+source/baseline preservation. These checks do not establish anatomical accuracy
+or rendered realism.

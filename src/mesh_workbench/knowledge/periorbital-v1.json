@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "id": "periorbital-v1",
+  "scope": "One front-visible periorbital surface. No globe, open aperture, tear ducts or orbital cavity.",
+  "sources": {
+    "nih_periorbital": {
+      "url": "https://elementsofmorphology.nih.gov/anatomy-periorbital.shtml",
+      "accessed": "2026-10-23",
+      "use": "Terminology only; no images or numerical proportions copied."
+    },
+    "author": {
+      "use": "Procedural guide conventions, not anatomical measurements."
+    }
+  },
+  "coordinate_policy": "U runs medial to lateral along the canthal axis. Positive V is above the axis using upper-lid height; negative V uses lower-lid height. Authored ratios, not population standards.",
+  "features": {
+    "upper_lid": {
+      "description": "Upper skin fold in front of the globe.",
+      "anchors": [
+        "upper_medial",
+        "upper_lid",
+        "upper_lateral"
+      ],
+      "source": "nih_periorbital"
+    },
+    "lower_lid": {
+      "description": "Lower skin fold in front of the globe.",
+      "anchors": [
+        "lower_medial",
+        "lower_lid",
+        "lower_lateral"
+      ],
+      "source": "nih_periorbital"
+    },
+    "canthi": {
+      "description": "Medial and lateral registration points where lid margins meet.",
+      "anchors": [
+        "medial_canthus",
+        "lateral_canthus"
+      ],
+      "source": "author"
+    },
+    "upper_crease": {
+      "description": "A crease on the upper eyelid.",
+      "anchors": [
+        "crease_medial",
+        "crease_center",
+        "crease_end"
+      ],
+      "source": "nih_periorbital"
+    },
+    "infraorbital_transition": {
+      "description": "Authored transition from the lower lid toward the cheek.",
+      "anchors": [
+        "infra_medial",
+        "infra_center",
+        "infra_lateral"
+      ],
+      "source": "author"
+    },
+    "brow": {
+      "description": "Soft tissue over the upper orbital ridge.",
+      "anchors": [
+        "brow_medial",
+        "brow_center",
+        "brow_lateral"
+      ],
+      "source": "nih_periorbital"
+    }
+  },
+  "relations": [
+    [
+      "upper_lid",
+      "joins_at",
+      "canthi"
+    ],
+    [
+      "lower_lid",
+      "joins_at",
+      "canthi"
+    ],
+    [
+      "upper_crease",
+      "part_of",
+      "upper_lid"
+    ],
+    [
+      "brow",
+      "above",
+      "upper_lid"
+    ],
+    [
+      "infraorbital_transition",
+      "below",
+      "lower_lid"
+    ]
+  ],
+  "required_target_landmarks": [
+    "medial_canthus",
+    "lateral_canthus",
+    "upper_lid",
+    "lower_lid"
+  ],
+  "landmarks_uv": {
+    "medial_canthus": [
+      -1,
+      0
+    ],
+    "lateral_canthus": [
+      1,
+      0
+    ],
+    "upper_medial": [
+      -0.55,
+      0.75
+    ],
+    "upper_lid": [
+      0,
+      1
+    ],
+    "upper_lateral": [
+      0.55,
+      0.65
+    ],
+    "lower_medial": [
+      -0.55,
+      -0.7
+    ],
+    "lower_lid": [
+      0,
+      -1
+    ],
+    "lower_lateral": [
+      0.55,
+      -0.65
+    ],
+    "crease_medial": [
+      -0.8,
+      1
+    ],
+    "crease_mid_medial": [
+      -0.4,
+      1.55
+    ],
+    "crease_center": [
+      0,
+      1.7
+    ],
+    "crease_lateral": [
+      0.6,
+      1.35
+    ],
+    "crease_end": [
+      0.9,
+      0.65
+    ],
+    "infra_medial": [
+      -0.7,
+      -1.2
+    ],
+    "infra_center": [
+      0,
+      -1.65
+    ],
+    "infra_lateral": [
+      0.7,
+      -1.15
+    ],
+    "brow_medial": [
+      -0.65,
+      2.5
+    ],
+    "brow_center": [
+      0,
+      2.8
+    ],
+    "brow_lateral": [
+      0.65,
+      2.3
+    ]
+  },
+  "paths": [
+    {
+      "label": "upper lid",
+      "anchors": [
+        "medial_canthus",
+        "upper_medial",
+        "upper_lid",
+        "upper_lateral",
+        "lateral_canthus"
+      ],
+      "radius_half_width_ratio": 0.12,
+      "distance_half_width_ratio": 0.03,
+      "max_displacement_half_width_ratio": 0.04
+    },
+    {
+      "label": "lower lid",
+      "anchors": [
+        "medial_canthus",
+        "lower_medial",
+        "lower_lid",
+        "lower_lateral",
+        "lateral_canthus"
+      ],
+      "radius_half_width_ratio": 0.12,
+      "distance_half_width_ratio": 0.025,
+      "max_displacement_half_width_ratio": 0.035
+    },
+    {
+      "label": "upper crease",
+      "anchors": [
+        "crease_medial",
+        "crease_mid_medial",
+        "crease_center",
+        "crease_lateral",
+        "crease_end"
+      ],
+      "radius_half_width_ratio": 0.1,
+      "distance_half_width_ratio": -0.02,
+      "max_displacement_half_width_ratio": 0.03
+    },
+    {
+      "label": "lower transition",
+      "anchors": [
+        "infra_medial",
+        "infra_center",
+        "infra_lateral"
+      ],
+      "radius_half_width_ratio": 0.18,
+      "distance_half_width_ratio": 0.02,
+      "max_displacement_half_width_ratio": 0.03
+    },
+    {
+      "label": "brow support",
+      "anchors": [
+        "brow_medial",
+        "brow_center",
+        "brow_lateral"
+      ],
+      "radius_half_width_ratio": 0.24,
+      "distance_half_width_ratio": 0.035,
+      "max_displacement_half_width_ratio": 0.045000000000000005
+    }
+  ]
+}
