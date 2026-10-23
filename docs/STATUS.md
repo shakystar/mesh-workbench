@@ -6,6 +6,24 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Eyelid skin transition reviewed - 2026-10-24
+
+The goal remains active. The static eyelid-connection/gaze substep now has
+front/oblique review evidence after tapering displacement through its skin collar.
+The source geometry is not smoothed: registered margin/return displacements are
+pinned and only the surrounding displacement field is diffused. Sliver-related
+vertices keep the original fit; polygon reversal/collapse rejection is unchanged.
+Left/right collars contain 418/423 vertices with 43/35 sliver guards.
+
+Blender 5.2.2 LTS: prior margin-clearance range, nose/source/topology preservation,
+rollback, two registration failures, late failure cleanup and saved-coordinate
+readback pass. Two 640px/16-sample renders were inspected and the pinched corner
+transition is improved. One process, two CPU/numerical threads; Blender exited.
+Current native: `runs/human/supported-eyelids-collar/supported-lids.blend`.
+Next: lips/philtrum/chin structural review and lip-boundary/volume work.
+Face stage A and the overall goal are incomplete; tear anatomy and dynamic lids
+are not claimed. [Updated evidence](reference/anatomy/EYELID_SUPPORT.md).
+
 ## Active anatomy-tool goal / eyelid support - 2026-10-24
 
 The user-authorized [goal contract](reference/anatomy/DEVELOPMENT_GOAL.md) is

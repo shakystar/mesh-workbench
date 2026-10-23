@@ -13,7 +13,7 @@ Each stores source references separately from authored modeling proportions.
 `eyelid_fit.knowledge()` exposes `eyelid-support-v1` source relationships and
 modeling limits. It is separate from the four normalized-path modules above.
 `eyelid_fit.fit` operates on manually registered static lid margins and a
-spherical globe approximation. [Implementation and open visual gate](reference/anatomy/EYELID_SUPPORT.md).
+spherical globe approximation. [Implementation, reviewed skin transition and remaining limits](reference/anatomy/EYELID_SUPPORT.md).
 
 ## Connected nasal entrance patches
 

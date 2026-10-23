@@ -1,9 +1,10 @@
 # Human modeling entry point
 
-Current native: `runs/human/supported-eyelids/supported-lids.blend`.
+Current native: `runs/human/supported-eyelids-collar/supported-lids.blend`.
 Current images: `docs/assets/human/eyes/supported-current.png` and
-`docs/assets/human/eyes/supported-comparison.png`. Medial lid pinching remains;
-the eye stage is not visually complete. The nasal input remains in `runs/human/tip-ala-refined/`.
+`docs/assets/human/eyes/supported-comparison.png`. Static lid connection and skin
+transition are reviewed; facial development continues with lips/philtrum/chin.
+The nasal input remains in `runs/human/tip-ala-refined/`.
 The entrance-stage input remains in `runs/human/nasal-entrances-smooth/`.
 The input control-study native remains in `runs/human/lower-nose-curves/`.
 The earlier brush-stage native is preserved in `runs/human/surface-brushed-nose/`.

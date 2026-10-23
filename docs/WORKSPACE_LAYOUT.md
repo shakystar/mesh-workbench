@@ -6,7 +6,7 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/supported-eyelids/supported-lids.blend` |
+| Current human native | `runs/human/supported-eyelids-collar/supported-lids.blend` |
 | Current human images | `docs/assets/human/eyes/supported-current.png`, `supported-comparison.png` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |

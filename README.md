@@ -11,8 +11,8 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 Actual Blender renders created with this toolkit.
 
 **Current human model, actually rendered:** spherical-support eyelid fitting,
-forward gaze and the preserved nasal work. Medial lid-corner pinching remains;
-the eye stage has not passed its visual completion gate. Ears and chin are rough.
+forward gaze, a tapered eyelid/skin transition and the preserved nasal work.
+The static lid-connection substep is reviewed; ears, mouth and chin remain rough.
 This is not anatomical validation.
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
