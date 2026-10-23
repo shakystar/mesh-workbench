@@ -1,5 +1,9 @@
 # Human modeling entry point
 
+Final second character: `runs/human/variant-reuse/reused.blend`.
+`integration/reuse.py` takes variant native, original assembly JSON and a fresh
+folder; reuses oral/calf APIs and re-registers guides.
+
 Second character: `integration/variant.py` takes integrated native, guide JSON
 and a fresh folder. Selected run: `runs/human/variant-b-limbs/variant.blend`.
 

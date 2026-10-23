@@ -35,7 +35,7 @@ separated by bilateral forefoot grafts. The stock cap is tapered to reduce its r
 The complete body and both eyes are copied and grounded together.
 A 40-point registered surface guide is saved with the assembly.
 [A distinct face/body variant](docs/reference/anatomy/body/VARIANTS.md) is now
-generated; reuse of local modeling tools on it is pending.
+generated; unchanged oral/calf tools have been reused with separate registration.
 [Whole-character views and registered guide](docs/reference/anatomy/body/INTEGRATION.md). [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
@@ -59,7 +59,7 @@ This is not anatomical validation.
 
 [Oral control implementation and actual before/after](docs/reference/anatomy/ORAL_RELIEF.md).
 
-[Active anatomy-tool goal](docs/reference/anatomy/DEVELOPMENT_GOAL.md) |
+[Completed bounded anatomy-tool goal](docs/reference/anatomy/DEVELOPMENT_GOAL.md) |
 [Eyelid implementation, comparison and limits](docs/reference/anatomy/EYELID_SUPPORT.md).
 
 [Human scripts and current native location](examples/human/README.md).

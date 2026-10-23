@@ -1,5 +1,32 @@
 # Current development status
 
+## Existing local tools reused on the variant - 2026-10-24
+
+The unchanged oral-relief and bilateral calf APIs now compile against separately
+registered coordinates on the second character. The script projects mouth
+landmarks onto its actual skin and maps calf axes/bounds through the recorded
+proportion field. Three reversible layers contain 132 controls. All 40 guide
+rays are re-registered on the final surface.
+
+Blender 5.2.2 LTS: maximum displacement .903 mm at the mouth and 3.011 mm at
+the calves; maximum fitting residual .02517 mm. 189,736 protected vertices,
+original body/eyes and topology remain unchanged. Disabling the three new
+layers restores the input variant. Invalid oral/calf registration and an
+injected final-calf failure pass; the latter removes all intermediate outputs.
+Saved native readback and unchanged input SHA256 pass. Four actual before/after
+renders were inspected: the lip-volume change is subtle, and calf silhouettes
+are broader. The nose, facial planes, ankle bulges and simplified surfaces
+remain visibly unfinished.
+
+Selected native: `runs/human/variant-reuse/reused.blend`, body
+`Variant reused study`, eyes `Variant B 1/2`. Registration, guides and verification
+are adjacent. Run `examples/human/integration/reuse.py` with the variant native,
+original `assembly.json` and a fresh output folder. This establishes representative
+oral/calf reuse on a manually registered same-topology variant, not every tool
+on arbitrary meshes. One Blender process, two threads, exited successfully.
+
+The bounded A?G goal is complete; see [acceptance audit](reference/anatomy/body/GOAL_AUDIT.md).
+
 ## Distinct face/body variant with registered guides - 2026-10-24
 
 `assembly.variant.apply` builds a new body/eye assembly with one reversible

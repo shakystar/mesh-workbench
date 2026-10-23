@@ -7,7 +7,7 @@ is included in the final check.
 | Category | Location |
 | --- | --- |
 | Current human native | `runs/human/integrated/integrated.blend`; preserved input in `runs/human/feet-tapered/` |
-| Second character | `runs/human/variant-b-limbs/variant.blend`; profile/guides alongside; images `docs/assets/human/variant/` |
+| Second character | `runs/human/variant-reuse/reused.blend`; registration/guides alongside; proportion source `runs/human/variant-b-limbs/`; images `docs/assets/human/variant/` |
 | Annotated integration | `runs/human/guided-complete/guided.blend` and `guides.json`; clean source remains integrated native |
 | Separate forefoot prototype | `runs/human/forefoot-stock/forefoot-stock.blend`; not attached; images `docs/assets/human/legs/toes/` |
 | Separate hand prototype | `runs/human/hand-stock-curved/hand-stock.blend`; not attached |
