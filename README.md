@@ -25,7 +25,8 @@ body snapshot. Intermediate wrist sections permit bounded reversible fairing;
 palm cupping and a curved web start are applied. Thumb-root and fingertip
 refinement remain pending. Registered thumb/palm fairing is applied, with the
 medial thumb sections fitted for continuity. A small silhouette notch remains. Registered finger sections add shallow joint
-relief and distal width; angular terminal caps remain. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
+relief and distal width. Elliptical cap controls round the ends while preserving
+length; distal flaring and simplified palm/joint surfaces remain. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
 [Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).

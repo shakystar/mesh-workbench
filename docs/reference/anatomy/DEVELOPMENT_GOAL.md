@@ -49,3 +49,10 @@ Blender는 한 번에 하나, CPU·수치 라이브러리 2스레드입니다. �
 Stage D active: 160 registered controls applied and saved-model views inspected.
 Source preservation, rollback and atomic failure pass. Next: angular terminal caps,
 then bounded hand-stage review. E-G remain unfinished.
+
+### Rounded caps - 2026-10-24
+
+160 cap controls preserve length and round the four non-thumb ends per hand.
+Saved front/oblique views inspected; local geometry and failure checks pass.
+Next: bounded stage-D handoff review using existing evidence, then stage E.
+Residual distal flaring and simplified hand surface remain explicit limits.

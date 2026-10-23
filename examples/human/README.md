@@ -1,5 +1,9 @@
 # Human modeling entry point
 
+Current hand: `hands/caps/run.py` takes finger-contours native and a fresh output folder.
+Recorded native: `runs/human/rounded-caps/rounded-caps.blend`.
+160 cap controls; rounded ends with residual flaring.
+
 Current hand: `hands/fingers.py` takes thumb-outline native and a fresh output folder.
 Recorded native: `runs/human/finger-contours/finger-contours.blend`.
 160 controls; terminal caps remain angular.

@@ -83,8 +83,8 @@ def apply_palms(source,centers,name='Palm shaped study',profile='palm'):
     from .. import curve_fit
     if name in bpy.data.objects:raise ValueError('Output exists')
     if len(centers)!=2:raise ValueError('Two palm centers required')
-    if profile not in ('palm','thumb','fingers'):raise ValueError('Unknown hand profile')
-    compiler={'palm':compile_palm,'thumb':compile_thumb_outline,'fingers':compile_fingers}[profile]
+    if profile not in ('palm','thumb','fingers','caps'):raise ValueError('Unknown hand profile')
+    compiler={'palm':compile_palm,'thumb':compile_thumb_outline,'fingers':compile_fingers,'caps':compile_caps}[profile]
     diagrams=[compiler(source,side,center) for side,center in zip((-1,1),centers)]
     a,b=[d['region'] for d in diagrams]
     if a['max'][0]>=b['min'][0]:raise ValueError('Palm regions overlap')
@@ -201,3 +201,42 @@ def compile_fingers(source,side,center_x):
         'region':{'min':[xs[0],-.035,.738],'max':[xs[1],.035,.813],'feather_mm':2},
         'registration':{'side':side,'center_x':center_x},
         'limits':'Fixed upright procedural hand only; authored distal and joint skin relief, no bone detection or nails.'}
+
+
+def compile_caps(source,side,center_x):
+    """Register distal skin sections against an elliptical cap, preserving Z."""
+    import numpy as np
+    from mathutils import Vector
+    from mathutils.bvhtree import BVHTree
+    sculpt.editable(source)
+    if side not in (-1,1):raise ValueError('Hand side must be -1 or 1')
+    center_x=sculpt.number(center_x,-2,2,'palm center')
+    if center_x*side<=0:raise ValueError('Palm center must match side')
+    kb=json.loads(files('mesh_workbench').joinpath('knowledge/hand-structure-v1.json').read_text())
+    points=sculpt.coordinates(source)
+    tree=BVHTree.FromPolygons(points.tolist(),[list(f.vertices) for f in source.data.polygons])
+    controls=[]
+    for digit,(u,length,radius) in enumerate(zip(kb['finger_centers'],kb['finger_lengths'],kb['finger_radii'])):
+        for j,h in enumerate((.001,.002,.0035,.0055,.008)):
+            z=.825-length+h;t=h/length
+            origin=np.array([center_x+side*(u*(1+.1*(1-t))+.2*(.85-z)),-.002-.004*(1-t),z])
+            # Authored cap height, not a phalanx measurement. Blend the top
+            # section to the existing shaft rather than forcing its diameter.
+            radial=radius*np.sqrt(max(0,1-(1-h/.008)**2))
+            for axis,sign in ((0,-1),(0,1),(1,-1),(1,1)):
+                direction=Vector((sign if axis==0 else 0,sign if axis==1 else 0,0))
+                hit,normal,_,distance=tree.ray_cast(Vector(origin),direction)
+                if hit is None or normal.dot(direction)<=0 or not .0003<distance<radius*1.6:
+                    raise ValueError('Cap reference must exit its local skin envelope')
+                a=np.asarray(hit);b=a.copy()
+                desired=radial*(.84 if axis==1 else 1)
+                if j==4:desired=distance
+                b[axis]=origin[axis]+sign*desired
+                if np.linalg.norm(b-a)>.003:raise ValueError('Cap target exceeds 3 mm local limit')
+                controls.append({'name':f'cap_{digit}_{j}_{axis}_{sign}','source':a.tolist(),'target':b.tolist()})
+    xs=sorted((center_x-side*.05,center_x+side*.06))
+    return {'units':'m','label':'rounded caps '+str(side),'surface_interpolation':True,
+        'radius_mm':7,'max_displacement_mm':3,'controls':controls,
+        'region':{'min':[xs[0],-.035,.738],'max':[xs[1],.035,.792],'feather_mm':2},
+        'registration':{'side':side,'center_x':center_x},
+        'limits':'Authored elliptical skin cap in fixed stock frame; Z preserved, no nails or bone inference.'}

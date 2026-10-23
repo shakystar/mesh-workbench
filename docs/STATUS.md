@@ -1,5 +1,27 @@
 # Current development status
 
+## Rounded fingertip caps - 2026-10-24
+
+`hand.compile_caps` registers five radial sections per non-thumb digit against
+an authored elliptical skin cap. `apply_palms(profile="caps")` applies two
+reversible layers atomically. The top section stays at its source diameter.
+All vertex Z coordinates remain exactly unchanged: finger length is preserved.
+This fixed stock-frame tool does not detect bones or model nails.
+
+Blender 5.2.2 LTS: 160 controls, max move 2.02035 mm, surface residual .01725 mm,
+minimum changed polygon area ratio .77927. 142,399 outside-region vertices and
+7,028 thumb-region vertices unchanged. Source/topology/rollback/invalid side/
+second-hand failure cleanup/six gap rays/native readback/input hash pass.
+Front and oblique renders confirm rounder ends. Some distal flaring, planar
+palm, simple joint relief and a small thumb-root notch remain.
+
+Native: `runs/human/rounded-caps/rounded-caps.blend`, object `Rounded fingertip study`.
+Example: `examples/human/hands/caps/run.py` takes finger-contours native and a
+fresh output folder. Uses the shared hand verification/render runner.
+One Blender process/two threads, exited. Next is bounded stage-D handoff review
+against existing arm/hand evidence, then pelvis/legs/feet. The overall goal is active.
+
+
 ## Finger section controls - 2026-10-24
 
 Added `hand.compile_fingers` and atomic `apply_palms(profile="fingers")`.

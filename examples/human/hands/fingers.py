@@ -16,16 +16,16 @@ from mesh_workbench.regions import hand
 from mesh_workbench.runner import camera
 
 
-def run(source_path,output_path):
+def run(source_path,output_path,source_name="Thumb outline study",result_name="Finger contour study",profile="fingers",native_name="finger-contours.blend"):
     path,folder=Path(source_path).resolve(),Path(output_path).resolve()
     if folder.exists():raise ValueError('Use a fresh output folder')
     digest=hashlib.sha256(path.read_bytes()).hexdigest()
     bpy.ops.wm.open_mainfile(filepath=str(path))
-    source=bpy.data.objects['Thumb outline study'];before=sculpt.coordinates(source)
+    source=bpy.data.objects[source_name];before=sculpt.coordinates(source)
     tree=BVHTree.FromPolygons(before.tolist(),[list(p.vertices) for p in source.data.polygons])
     centers=[-.32,.32]
     objects,meshes=set(bpy.data.objects),set(bpy.data.meshes)
-    try:hand.apply_palms(source,[.32,.32],name="Invalid thumb probe",profile="fingers")
+    try:hand.apply_palms(source,[.32,.32],name="Invalid thumb probe",profile=profile)
     except ValueError as exc:assert str(exc)=='Palm center must match side'
     else:raise AssertionError('Invalid side accepted')
     original=curve_fit.apply;calls=[]
@@ -34,13 +34,14 @@ def run(source_path,output_path):
         if len(calls)==2:raise RuntimeError('Injected second hand failure')
         return original(*args,**kwargs)
     with patch.object(curve_fit,'apply',side_effect=fail_second):
-        try:hand.apply_palms(source,centers,name="Finger contour study",profile="fingers")
+        try:hand.apply_palms(source,centers,name=result_name,profile=profile)
         except RuntimeError as exc:assert str(exc)=='Injected second hand failure'
         else:raise AssertionError('Failure not exercised')
     assert len(calls)==2
     assert set(bpy.data.objects)==objects and set(bpy.data.meshes)==meshes
-    result,diagrams,reports=hand.apply_palms(source,centers,name="Finger contour study",profile="fingers")
+    result,diagrams,reports=hand.apply_palms(source,centers,name=result_name,profile=profile)
     after=sculpt.coordinates(result)
+    if profile=="caps":np.testing.assert_array_equal(before[:,2],after[:,2])
     np.testing.assert_array_equal(before,sculpt.coordinates(source))
     assert sculpt.topology(source)==sculpt.topology(result)
     allowed=np.zeros(len(before),dtype=bool)
@@ -73,15 +74,15 @@ def run(source_path,output_path):
     (folder/'diagram.json').write_text(json.dumps(diagrams,indent=2))
     source.hide_render=True;source.hide_set(True);result.hide_render=False;result.hide_set(False)
     scene=bpy.context.scene;scene.render.threads_mode='FIXED';scene.render.threads=2
-    native=folder/'finger-contours.blend';bpy.ops.wm.save_as_mainfile(filepath=str(native))
+    native=folder/native_name;bpy.ops.wm.save_as_mainfile(filepath=str(native))
     bpy.ops.wm.open_mainfile(filepath=str(native))
-    np.testing.assert_array_equal(after,sculpt.coordinates(bpy.data.objects['Finger contour study']))
+    np.testing.assert_array_equal(after,sculpt.coordinates(bpy.data.objects[result_name]))
     print('TRANSITIONS_READBACK_PASS',json.dumps(report),flush=True)
     for view,pos in [('front',(.32,-4,.84)),('oblique',(2.32,-4,.84))]:
         camera(position=pos,target=(.32,0,.84),scale=.25,size=(640,640))
         scene=bpy.context.scene;scene.cycles.samples=16;scene.cycles.use_denoising=True
         # Both renders use the same saved scene and camera; originals remain preserved.
-        source=bpy.data.objects['Thumb outline study'];result=bpy.data.objects['Finger contour study']
+        source=bpy.data.objects[source_name];result=bpy.data.objects[result_name]
         for label,original in [('before',True),('after',False)]:
             source.hide_render=not original;result.hide_render=original
             scene.render.filepath=str(folder/(label+'-'+view+'.png'));bpy.ops.render.render(write_still=True)
