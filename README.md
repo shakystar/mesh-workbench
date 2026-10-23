@@ -13,8 +13,14 @@ Actual Blender renders created with this toolkit.
 Latest: an adult human proportion blockout in a neutral stance, with preserved
 section sources and a separate fused surface. This is an initial silhouette and
 proportion study, without detailed anatomy, individual fingers or a rig. The
-current pass refines shoulders, torso curves, kneecaps and ankle landmarks.
+current pass develops cranium/jaw planes, nose, ears and neck transitions.
 [Generator](examples/human_base.py) · [Scope and checks](docs/STATUS.md)
+
+| Head planes front | Head planes side |
+| --- | --- |
+| ![Head planes front](docs/assets/human-head-front.png) | ![Head planes side](docs/assets/human-head-side.png) |
+
+Earlier full-body silhouette and joint-landmark pass:
 
 | Human base front | Human base side |
 | --- | --- |

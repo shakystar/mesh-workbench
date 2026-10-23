@@ -58,13 +58,18 @@ def build(output):
         [1.18,0,-.006,.141,.09],[1.27,0,-.008,.164,.109],
         [1.35,0,-.003,.175,.10],[1.40,0,.005,.178,.081],
         [1.435,0,.012,.149,.065],[1.465,0,.015,.106,.052],
-        [1.49,0,.012,.062,.044],[1.53,0,.006,.047,.043],
-        [1.57,0,0,.048,.045]])
-    stock('Source head',[
-        [1.52,0,-.02,.032,.035],[1.55,0,-.016,.053,.057],
-        [1.61,0,-.003,.074,.082],[1.68,0,.003,.078,.085],
-        [1.72,0,.006,.065,.07],[1.746,0,.006,.035,.04],
-        [1.755,0,.006,.004,.005]])
+        [1.49,0,.014,.059,.042],[1.53,0,.018,.043,.038],
+        [1.575,0,.018,.045,.041]])
+    stock('Source cranium jaw',[
+        [1.525,0,-.018,.028,.035],[1.54,0,-.013,.043,.063],
+        [1.565,0,.005,.061,.069],[1.60,0,.009,.07,.081],
+        [1.645,0,.014,.077,.091],[1.69,0,.017,.077,.09],
+        [1.725,0,.017,.062,.074],[1.748,0,.017,.032,.039],
+        [1.757,0,.017,.004,.005]])
+    stock('Source nose bridge and tip',[
+        [1.599,0,-.079,.009,.012],[1.61,0,-.079,.016,.018],
+        [1.625,0,-.087,.013,.019],[1.643,0,-.077,.01,.014],
+        [1.663,0,-.071,.011,.012],[1.675,0,-.065,.008,.008]])
     for sign,side in ((-1,'Left'),(1,'Right')):
         stock(side+' source leg',[
             [.075,sign*.103,.018,.031,.039],[.13,sign*.103,.018,.03,.034],
@@ -102,6 +107,11 @@ def build(output):
         landmark(side+' outer ankle',(sign*.132,.012,.121),(.012,.019,.018))
         landmark(side+' inner ankle',(sign*.077,.009,.14),(.011,.017,.017))
 
+    for sign,side in ((-1,'Left'),(1,'Right')):
+        landmark(side+' ear mass',(sign*.077,.012,1.628),(.016,.021,.035))
+    landmark('Muzzle plane',(0,-.063,1.579),(.027,.008,.014))
+    landmark('Chin plane',(0,-.063,1.543),(.028,.019,.017))
+
     body=models.combine(sources,'Human base surface',voxel=.006)
     for source in sources:source.hide_render=True;source.hide_set(True)
     body.data.materials.clear();body.data.materials.append(clay)
@@ -116,6 +126,23 @@ def build(output):
         shin=.0035*math.exp(-((abs(x)-.103)/.018)**2-((z-.33)/.12)**4)
         vertex.co.y-=front*(clavicle+shin)
     landmarks.value=1
+    facial=body.shape_key_add(name='Face planes and neck tendons')
+    for vertex in facial.data:
+        x,y,z=vertex.co
+        front=max(0,min(1,(-y-.02)/.025))
+        orbit=.010*math.exp(-((abs(x)-.031)/.019)**2-((z-1.645)/.013)**2)
+        brow=.004*math.exp(-((abs(x)-.03)/.023)**2-((z-1.665)/.012)**2)
+        mouth=.003*math.exp(-(x/.023)**4-((z-1.578)/.004)**2)
+        cheek=.004*math.exp(-((abs(x)-.045)/.027)**2-((z-1.614)/.026)**2)
+        vertex.co.y+=front*(orbit-brow+mouth-cheek)
+        # Shallow anterior neck ridges from jaw toward the collarbone.
+        ridge_x=.018+.34*(z-1.475)
+        tendon=.003*math.exp(-((abs(x)-ridge_x)/.011)**2-((z-1.52)/.05)**4)
+        vertex.co.y-=front*tendon
+        if abs(x)>.072:
+            concha=.004*math.exp(-((y-.003)/.011)**2-((z-1.63)/.02)**2)
+            vertex.co.x-=math.copysign(concha,x)
+    facial.value=1
     smooth=body.modifiers.new('Reversible surface smoothing','SMOOTH')
     smooth.factor=.65;smooth.iterations=5
     # Inspect generated geometry, not just successful operator return codes.
@@ -152,11 +179,18 @@ def build(output):
         hit=tree.ray_cast(Vector((sign*.101,-.4,.505)),Vector((0,1,0)),.8)[0]
         knees.append(hit is not None and hit.y<-.066)
     if not arm_gaps or not all(knees):raise ValueError('Armpit clearance or kneecap relief lost')
+    nose=tree.ray_cast(Vector((0,-.4,1.625)),Vector((0,1,0)),.8)[0]
+    brow=tree.ray_cast(Vector((0,-.4,1.68)),Vector((0,1,0)),.8)[0]
+    nose_projection=nose is not None and brow is not None and nose.y<brow.y-.02
+    ear_width=max(abs(v.x) for v in coords if 1.61<v.z<1.65)
+    if not nose_projection or ear_width<.083:
+        raise ValueError('Nose projection or ear silhouette lost during fusion')
     report={'blender':bpy.app.version_string,'height_m':height,'source_parts':len(sources),
             'vertices':len(coords),'connected_components':components,'closed_edges':closed,
             'leg_gap_open':leg_gap,'arm_gaps_open':arm_gaps,'kneecap_relief_present':all(knees),
-            'reversible_landmarks':True,'voxel_m':.006,'threads':2,
-            'scope':'Adult silhouette and joint-landmark study; no detailed face, fingers or rig.'}
+            'reversible_landmarks':True,'nose_projection_present':nose_projection,
+            'ear_half_width_m':ear_width,'renders':['head-front','head-side'],'voxel_m':.006,'threads':2,
+            'scope':'Adult head and neck plane study; no detailed eyes, lips, ear folds, fingers or rig.'}
     ev.to_mesh_clear()
     output.mkdir(parents=True)
     (output/'verification.json').write_text(json.dumps(report,indent=2))
@@ -166,16 +200,16 @@ def build(output):
     scene.world=bpy.data.worlds.new('Human study studio');scene.world.use_nodes=True
     scene.world.node_tree.nodes['Background'].inputs['Color'].default_value=(.16,.18,.2,1)
     scene.world.node_tree.nodes['Background'].inputs['Strength'].default_value=.4
-    for name,pos,power,size in [('Key',(-2,-3,3.5),450,2.5),('Fill',(2,-1,2),170,2),('Rim',(1,2,3),350,2)]:
+    for name,pos,power,size in [('Key',(-2,-3,3.5),450,2.5),('Fill',(2,-1,2),85,2),('Rim',(1,2,3),350,2)]:
         light=bpy.data.lights.new(name,'AREA');light.energy=power;light.size=size
         ob=bpy.data.objects.new(name,light);scene.collection.objects.link(ob);ob.location=pos
         ob.rotation_euler=(Vector((0,0,.95))-ob.location).to_track_quat('-Z','Y').to_euler()
-    camera(position=(0,-4,.9),target=(0,0,.9),scale=1.3,size=(650,1000))
+    camera(position=(0,-4,1.56),target=(0,0,1.56),scale=.48,size=(800,900))
     scene.cycles.samples=24;scene.cycles.use_denoising=True
     scene.view_settings.view_transform='AgX'
     bpy.ops.wm.save_as_mainfile(filepath=str((output/'human-base.blend').resolve()))
-    for view,pos in [('front',(0,-4,.9)),('side',(4,0,.9))]:
-        camera(position=pos,target=(0,0,.9),scale=1.3,size=(650,1000))
+    for view,pos in [('head-front',(0,-4,1.56)),('head-side',(4,0,1.56))]:
+        camera(position=pos,target=(0,0,1.56),scale=.48,size=(800,900))
         scene.cycles.samples=24;scene.cycles.use_denoising=True
         scene.render.filepath=str((output/(view+'.png')).resolve())
         bpy.ops.render.render(write_still=True)

@@ -2,6 +2,22 @@
 
 ## Human proportion base — 2026-10-23
 
+Head/neck plane revision: cranium and jaw sections replace the egg-shaped head.
+Nose bridge/tip, muzzle/chin and ear masses join the existing surface.
+Orbital recesses, broad cheek relief, brow relief, shallow mouth indication and anterior neck ridges
+are a separate reversible shape key. The neck shifts under the posterior jaw.
+Native result: `runs/human-head-refined/human-base.blend`; previous native models
+are preserved. Only front and side head close-ups are rendered.
+
+Focused checks cover connected closed geometry, head height, nose projection
+and ear silhouette. Eyes/eyelids, detailed lips, ear folds, hair and facial
+animation topology are not implemented. Blender 5.2.2 LTS passed the checks.
+Both close-ups were inspected; an initial render exposed spherical cheek/muzzle
+bulges and excessive nose projection, which were reduced before the final pair.
+Facial contours remain coarse at 6 mm fusion resolution, particularly the mouth
+region and skull outline. One process and two CPU threads were used at a time;
+Blender exited. Earlier revisions follow.
+
 Silhouette and joint-landmark revision: rounded shoulder stations replace the
 flat arm caps. Torso profiles distinguish ribcage, lumbar curve and pelvis;
 thigh/calf profiles taper into narrower ankles. Separate kneecap and staggered
