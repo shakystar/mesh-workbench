@@ -6,6 +6,26 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Under-chin folded-surface diagnosis - 2026-10-24
+
+Read-only cross sections now identify the thin projection as a folded local
+surface, not just a rough normal or overlapping visible object. At X=0,
+Y=-0.052 m, a vertical ray intersects three sheets at Z=1.525253, 1.525275 and
+1.526457 m, with alternating negative/positive/negative Z normals. The adjacent
+1 mm Y interval has a 1.55437 mm lower-envelope height jump.
+
+A bounded hidden-return relaxation experiment was rejected by the existing
+polygon-orientation guard at polygon 69104. No result native was saved; the
+experimental visibility bypass was removed. The current model and production
+brush behavior remain unchanged. This is new diagnostic evidence, not a fix.
+Blender 5.2.2 LTS, two CPU/numerical threads, one process at a time; exited.
+
+Next: reconstruct this small folded patch on a new object with its outer boundary
+and all out-of-region geometry preserved, then verify single-sheet sections and
+the actual saved-model profile. Do not repeat relaxation or relax polygon guards.
+Stage B and the full goal remain active/incomplete.
+[Reproducible audit and measured crossings](reference/anatomy/NECK_TRANSITIONS.md#folded-surface-diagnosis).
+
 ## Neck guide / unresolved underside projection - 2026-10-24
 
 Added `mesh_workbench.regions.neck.compile_paths` and sourced

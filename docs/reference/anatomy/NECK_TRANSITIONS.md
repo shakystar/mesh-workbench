@@ -58,3 +58,35 @@ surface itself, instead of repeating the same relaxation operation.
 
 Stage B and the whole goal remain incomplete. A successful numerical test is not
 evidence that the neck attachment is visually finished.
+
+## Folded-surface diagnosis
+
+`examples/human/neck/underside_audit.py INPUT.blend OUTPUT.json` reads the current
+`Neck transition study` surface without editing or rendering. It samples four
+lower-chin sections and enumerates vertical intersections in the local height
+range. Current diagnostic: `runs/human/underside-audit/sections.json`.
+
+At X=0, Y=-0.052 m, the same vertical ray crosses three surface sheets:
+
+| Height Z (m) | Normal Z | Interpretation |
+| --- | --- | --- |
+| 1.52525282 | -0.99702 | Lower outward-facing sheet |
+| 1.52527523 | +0.71434 | Fold return |
+| 1.52645731 | -0.91509 | Upper outward-facing sheet |
+
+Y=-0.0518 m also has three intersections. Neighboring samples at -0.054,
+-0.053, -0.051 and -0.050 m have one intersection in this local band. The
+lower-envelope height changes by 1.55437 mm from Y=-0.053 to -0.052 m.
+This establishes a folded local surface in the input. It does not establish
+that the entire mesh is globally free of other folds or intersections.
+
+A bounded experiment including hidden return faces in volume relaxation was
+rejected by the existing polygon guard at face 69104 (area 5.22027e-7 m2).
+The source fold cannot be accepted as corrected by that operation. No result
+native was produced, no guard was weakened, and the experimental brush option
+was removed. The current saved model remains unchanged.
+
+Next action: local patch reconstruction on a new object, preserving its outer
+boundary and all unrelated geometry. Required checks are source preservation,
+boundary continuity, single-sheet sections through this defect, failure cleanup
+and actual saved-model before/after profile. Stage B is still incomplete.
