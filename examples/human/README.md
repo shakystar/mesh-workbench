@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Second character: `integration/variant.py` takes integrated native, guide JSON
+and a fresh folder. Selected run: `runs/human/variant-b-limbs/variant.blend`.
+
 Registered assembly guide: `integration/guides.py` takes integrated native and
 a fresh folder; `runs/human/guided-complete/` contains the 40-marker native/JSON.
 

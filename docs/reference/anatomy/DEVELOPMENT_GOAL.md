@@ -128,3 +128,10 @@ only; merged anatomical landmarks and stage-G reuse remain pending. Goal active.
 body/eye assembly. No geometry change; source, late-ray rejection and readback
 verified. F bounded model/guide criteria met. Anatomy accuracy is not claimed.
 Next is G: different face/body and separate registered reuse; full goal active.
+
+### Stage G variant generation - 2026-10-24
+
+[Different face/body and 40 re-registered guide rays](body/VARIANTS.md) saved.
+Original preservation, reversible layers, polygon guards, atomic failure and
+native readback pass; real comparisons inspected. Existing local face/body
+tool application on this variant is still pending. Goal remains active.

@@ -34,6 +34,8 @@ and posterior volumes. Ankle/heel/instep/arch controls are applied; toes remain
 separated by bilateral forefoot grafts. The stock cap is tapered to reduce its root wall; a shallow ridge remains.
 The complete body and both eyes are copied and grounded together.
 A 40-point registered surface guide is saved with the assembly.
+[A distinct face/body variant](docs/reference/anatomy/body/VARIANTS.md) is now
+generated; reuse of local modeling tools on it is pending.
 [Whole-character views and registered guide](docs/reference/anatomy/body/INTEGRATION.md). [Current lower-limb audit and controls](docs/reference/anatomy/body/LEGS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
