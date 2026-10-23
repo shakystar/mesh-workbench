@@ -107,3 +107,10 @@ Both five-toe stocks are grafted on new topology, preserving original character
 and 155,080 protected points. Closed seams, toe gap rays, failure cleanup and
 saved readback verified. Thick forefoot-root rim remains visible and is next.
 Ground contact remains for integration. Stage E/full goal active.
+
+### Forefoot-root correction - 2026-10-24
+
+Reduced the distal stock cap before fusion and regenerated both grafts from
+preserved foot-relief source. Wall reduced in saved views; retained geometry,
+closed seams, toe gaps, failure cleanup and readback pass. Shallow ridge and
+simple toes remain. Next is bounded E review, then F integration/ground contact.

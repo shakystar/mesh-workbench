@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Current native: `runs/human/feet-tapered/foots-grafted.blend`.
+`legs/attach.py` now uses the reduced distal forefoot cap; source is foot-relief.
+
 Current native: `runs/human/feet-grafted/foots-grafted.blend`.
 `legs/attach.py` grafts bilateral forefoot stocks onto foot-relief source.
 

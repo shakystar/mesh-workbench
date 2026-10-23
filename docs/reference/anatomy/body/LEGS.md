@@ -241,3 +241,38 @@ and a fresh output folder. One Blender process/two threads at a time; exited.
 | --- | --- | --- |
 | Above/front | ![](../../../assets/human/legs/grafted/before-top.png) | ![](../../../assets/human/legs/grafted/after-top.png) |
 | Oblique | ![](../../../assets/human/legs/grafted/before-oblique.png) | ![](../../../assets/human/legs/grafted/after-oblique.png) |
+
+## Forefoot-root stock correction - 2026-10-24
+
+The thick toe-root wall came from the authored forefoot cap. Changed the two
+distal section heights/radii in `foot.build`: at Y=-.140 m center Z=.029 m and
+vertical radius .014 m; at Y=-.147 m center Z=.026 m and radius .007 m. This
+lowers the cap into the toe envelope before fusion. The preserved foot-relief
+source is grafted again as a new snapshot; heel/ankle geometry is retained.
+
+Blender 5.2.2 LTS: both grafts closed/oriented; 155,080 protected original points
+exact; invalid cuts, late failure cleanup, eight toe-gap rays, ten toe hits,
+original topology/input hash and saved readback pass. Existing masks/layers stay
+on original topology. One process/two threads at a time, exited.
+
+Matched saved views against the earlier graft show a substantially reduced
+front wall. A shallow root ridge, simple toe shapes and floor gap remain.
+Next: bounded stage-E review, then full-body integration and floor contact.
+No anatomical foot accuracy or rig claim. Full goal remains active.
+
+A preceding reversible dorsal-fit experiment in `runs/human/toe-root/` improved
+sampled continuity but left the wall visible. It was not selected; its temporary
+API/example were removed from public code, with evidence retained locally.
+The final change fixes stock geometry rather than repeating that deformation.
+
+Current native: `runs/human/feet-tapered/foots-grafted.blend`, object
+`Forefoots grafted study`. Reproduce with `examples/human/legs/attach.py`, the
+foot-relief native and a fresh output folder.
+
+Below: earlier graft versus corrected graft, using the same cameras. The raw
+new run also includes comparisons against its preserved undivided source.
+
+| View | Earlier graft | Corrected graft |
+| --- | --- | --- |
+| Above/front | ![](../../../assets/human/legs/tapered/before-top.png) | ![](../../../assets/human/legs/tapered/after-top.png) |
+| Oblique | ![](../../../assets/human/legs/tapered/before-oblique.png) | ![](../../../assets/human/legs/tapered/after-oblique.png) |

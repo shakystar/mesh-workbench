@@ -29,7 +29,7 @@ def build(name='Forefoot stock',scale=1,side=1):
         return obj
     try:
         stock('forefoot',[[.105,0,.036,.043,.025],[.125,.002,.033,.049,.024],
-            [.14,.003,.030,.050,.021],[.147,.003,.029,.043,.018]])
+            [.14,.003,.029,.049,.014],[.147,.003,.026,.043,.007]])
         import math
         for i,(x,length,radius) in enumerate(zip(kb['centers'],kb['lengths'],kb['radii'])):
             rows=[]
