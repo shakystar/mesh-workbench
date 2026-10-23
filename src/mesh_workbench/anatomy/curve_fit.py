@@ -48,6 +48,22 @@ def apply(source, diagram, name='Curve fitted surface'):
     if np.any(distances[np.triu_indices(len(a),1)] < .0001):
         raise ValueError('Overlapping controls')
     matrix = _kernel(distances/radius)
+    if diagram.get('surface_interpolation', False):
+        # Fit the sampled mesh surface, not only an ideal continuous RBF field.
+        # Barycentric interpolation accounts for controls between sparse vertices.
+        source.data.calc_loop_triangles()
+        triangles = [list(t.vertices) for t in source.data.loop_triangles]
+        surface = BVHTree.FromPolygons(points.tolist(),triangles,all_triangles=True)
+        rows=[]
+        for p in a:
+            hit,_,index,_=surface.find_nearest(Vector(p))
+            corners=points[triangles[index]]
+            uv=np.linalg.lstsq((corners[1:]-corners[0]).T,np.asarray(hit)-corners[0],rcond=None)[0]
+            bary=np.array([1-uv.sum(),uv[0],uv[1]])
+            taper=np.clip(np.minimum(corners-lo,hi-corners).min(axis=1)/feather,0,1)
+            taper=taper*taper*(3-2*taper)
+            rows.append((bary*taper) @ _kernel(np.linalg.norm(corners[:,None]-a[None,:],axis=2)/radius))
+        matrix=np.asarray(rows)
     if np.linalg.cond(matrix) > 1e7:
         raise ValueError('Ill-conditioned controls')
     coefficients = np.linalg.solve(matrix, b-a)
@@ -88,6 +104,7 @@ def apply(source, diagram, name='Curve fitted surface'):
         layer = layers.finish(output)
         layer.name = 'MW '+label
         report = {'layer':layer.name, 'controls':len(controls),
+                  'surface_interpolation':bool(diagram.get('surface_interpolation',False)),
                   'max_displacement_mm':float(np.linalg.norm(delta,axis=1).max()*1000),
                   'protected_vertices':int(np.count_nonzero(weight==0)),
                   'changed_vertices':int(np.count_nonzero(np.linalg.norm(delta,axis=1)>1e-9)),

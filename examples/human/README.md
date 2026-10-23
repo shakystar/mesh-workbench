@@ -1,9 +1,10 @@
 # Human modeling entry point
 
-Current native: `runs/human/supported-eyelids-collar/supported-lids.blend`.
-Current images: `docs/assets/human/eyes/supported-current.png` and
-`docs/assets/human/eyes/supported-comparison.png`. Static lid connection and skin
-transition are reviewed; facial development continues with lips/philtrum/chin.
+Current native: `runs/human/oral-relief/oral-relief.blend`.
+Current images: `docs/assets/human/mouth/after-front.png` and `after-oblique.png`.
+Registered lip relief is reviewed; philtrum termination and lower fold remain
+rough. The preserved input is `runs/human/supported-eyelids-collar/supported-lids.blend`.
+Run `mouth/refine.py` with that input and a fresh output directory inside Blender.
 The nasal input remains in `runs/human/tip-ala-refined/`.
 The entrance-stage input remains in `runs/human/nasal-entrances-smooth/`.
 The input control-study native remains in `runs/human/lower-nose-curves/`.

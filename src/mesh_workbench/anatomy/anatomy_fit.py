@@ -66,6 +66,43 @@ def knowledge(module_id='oral-neutral-v1'):
     return json.loads(files('mesh_workbench').joinpath('knowledge/'+module_id+'.json').read_text())
 
 
+def compile_oral_relief(obj, target, *, upper_mm=.9, lower_mm=1.4,
+                       seam_mm=.4, philtrum_mm=.3, fold_mm=.3):
+    """Compile visible-surface controls for a neutral oral relief study.
+
+    Positive volume projects toward -Y; seam/fold recess toward +Y. Values are
+    authored displacements, not tissue thicknesses or anatomical proportions.
+    Returns a curve_fit diagram without changing the object. Corners are pinned.
+    """
+    if target.get('knowledge_id') != 'oral-neutral-v1':
+        raise ValueError('Oral relief requires oral-neutral-v1')
+    upper,lower,seam,philtrum,fold=[sculpt.number(v,0,2,'oral relief')
+        for v in (upper_mm,lower_mm,seam_mm,philtrum_mm,fold_mm)]
+    guide=compile_diagram(obj,target,tolerance_mm=.1)
+    values={
+        'corner_left':0,'corner_right':0,
+        'upper_left':-upper,'upper_right':-upper,
+        'bow_left':-upper*.7,'bow_center':-upper*.6,'bow_right':-upper*.7,
+        'lower_left':-lower*.8,'lower_center':-lower,'lower_right':-lower*.8,
+        'seam_left':seam,'seam_center':seam,'seam_right':seam,
+        'philtrum_left':-philtrum,'philtrum_right':-philtrum,
+        'groove_top':philtrum*.5,'groove_bottom':philtrum*.5,
+        'fold_left':fold*.6,'fold_center':fold,'fold_right':fold*.6}
+    controls=[]
+    for name,value in values.items():
+        p=guide['landmarks'][name]
+        controls.append({'name':name,'source':p,'target':[p[0],p[1]+value/1000,p[2]]})
+    region=guide['regions']['mouth']
+    return {'units':'m','label':'oral volume and transitions','surface_interpolation':True,
+            'radius_mm':guide['registration']['half_width_m']*1000*.30,
+            'max_displacement_mm':3,
+            'region':{'min':region['min'],'max':region['max'],
+                      'feather_mm':region['feather']*1000},
+            'controls':controls,'registration':guide['registration'],
+            'relationships':knowledge()['relations'],
+            'limits':'Static closed-mouth relief only; no oral opening, mucosa, teeth or anatomical validation.'}
+
+
 def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
     """Return a bindable diagram and scaled paths; fail without changing state.
 

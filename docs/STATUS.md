@@ -6,6 +6,25 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Oral relief and sampled-surface fitting - 2026-10-24
+
+`anatomy_fit.compile_oral_relief` compiles 20 registered controls from the existing
+oral knowledge module. Upper/lower lip projection, seam recession, philtral
+pillars and the lower fold have independent authored displacement parameters.
+`curve_fit` optionally solves against barycentric mesh samples: the initial
+0.25589 mm target error is reduced to 0.02252 mm without relaxing checks.
+
+Blender 5.2.2 LTS: 617 changed vertices, 1.40372 mm maximum displacement;
+source/topology, 81,668 region-protected vertices, nose/eye protection, rollback,
+four invalid inputs, injected late failure cleanup, native coordinate readback
+and unchanged input file pass. Four matched 640px/16-sample before/after renders
+were inspected. One process, two CPU/numerical threads; Blender exited.
+The lip volumes are more distinct; philtrum termination and the coarse lower
+fold remain visually unfinished. Next is their transition into surrounding skin
+and chin. Face stage A and the full goal remain open.
+Current native: `runs/human/oral-relief/oral-relief.blend`.
+[Source relationships, API, images and limits](reference/anatomy/ORAL_RELIEF.md).
+
 ## Eyelid skin transition reviewed - 2026-10-24
 
 The goal remains active. The static eyelid-connection/gaze substep now has

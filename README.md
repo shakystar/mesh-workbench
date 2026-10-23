@@ -10,15 +10,19 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
-**Current human model, actually rendered:** spherical-support eyelid fitting,
-forward gaze, a tapered eyelid/skin transition and the preserved nasal work.
-The static lid-connection substep is reviewed; ears, mouth and chin remain rough.
+**Current human model, actually rendered:** registered oral volume controls with
+sampled-surface fitting, preserved eyelid support, forward gaze and nasal work.
+Lip volume is more distinct; philtrum termination, chin and ears remain rough.
 This is not anatomical validation.
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 [Nose structural audit: actual three-view comparison and sourced relationship map](docs/reference/anatomy/NOSE_AUDIT.md).
 
 ![Current eyelid front and oblique views](docs/assets/human/eyes/supported-current.png)
+
+![Current mouth oblique](docs/assets/human/mouth/after-oblique.png)
+
+[Oral control implementation and actual before/after](docs/reference/anatomy/ORAL_RELIEF.md).
 
 [Active anatomy-tool goal](docs/reference/anatomy/DEVELOPMENT_GOAL.md) |
 [Eyelid implementation, comparison and limits](docs/reference/anatomy/EYELID_SUPPORT.md).
