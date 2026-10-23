@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Separate forefoot prototype: `legs/toes.py` takes foot-relief native and a fresh
+folder. Recorded `runs/human/forefoot-stock/forefoot-stock.blend`; not attached.
+
 Current native: `runs/human/foot-relief/foot-relief.blend`.
 `legs/foot.py` applies 62 ankle/heel/instep/arch controls to calf-continuous source.
 

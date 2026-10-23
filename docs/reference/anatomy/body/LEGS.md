@@ -177,3 +177,37 @@ are included. Surface anchors are manually placed on this standing model.
 | --- | --- | --- |
 | Front | ![](../../../assets/human/legs/foot/before-front.png) | ![](../../../assets/human/legs/foot/after-front.png) |
 | Oblique | ![](../../../assets/human/legs/foot/before-oblique.png) | ![](../../../assets/human/legs/foot/after-oblique.png) |
+
+## Five-toe forefoot stock - 2026-10-24
+
+`regions.foot.build(name, scale, side)` creates a new closed forefoot stock from
+six preserved construction parts and local 1 mm voxel fusion. Authored centers,
+lengths and radii live in `knowledge/body/toe-structure-v1.json`; the hallux is
+medial and larger. Anatomical relationships are sourced separately from these
+modeling dimensions. Original character and construction parts are preserved.
+Invalid scale/side/name guards and late-fusion cleanup are included.
+
+Blender 5.2.2 LTS, tested default right stock: 32,120 vertices, one connected
+closed oriented surface. Four gap rays and five toe-hit rays at Y=-.160 m pass.
+Original coordinates and input hash unchanged; invalid scale, injected late
+fusion failure cleanup and saved native readback pass. The first gap probe
+accidentally lay on a toe boundary; it was corrected to the midpoint of the
+authored free interval, with no geometry or tolerance relaxation.
+
+Actual top/oblique views inspected. This is a separate prototype, NOT attached
+to the character. The forefoot root is blocky, toe tips slightly pointed, and
+joint/nail details absent. Next: explicit forefoot graft preserving existing
+heel/ankle, then local connection review. Stage E and full goal remain active.
+
+Prototype: `runs/human/forefoot-stock/forefoot-stock.blend`, object `Forefoot stock`.
+Current character stays `runs/human/foot-relief/foot-relief.blend`.
+`examples/human/legs/toes.py` takes foot-relief native and a fresh folder.
+One Blender process/two threads, exited.
+
+[OpenStax toe structure](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb)
+identifies the medial hallux and its two phalanges; the other toes each have
+three. Current skin stocks do not yet model those individual joints.
+
+| Top | Oblique |
+| --- | --- |
+| ![](../../../assets/human/legs/toes/top.png) | ![](../../../assets/human/legs/toes/oblique.png) |

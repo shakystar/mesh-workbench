@@ -7,6 +7,7 @@ is included in the final check.
 | Category | Location |
 | --- | --- |
 | Current human native | `runs/human/foot-relief/foot-relief.blend`; preserved input in `runs/human/calf-continuous/` |
+| Separate forefoot prototype | `runs/human/forefoot-stock/forefoot-stock.blend`; not attached; images `docs/assets/human/legs/toes/` |
 | Separate hand prototype | `runs/human/hand-stock-curved/hand-stock.blend`; not attached |
 | Current human images | `docs/assets/human/legs/foot/`; hand details in `hands/caps/`; prior torso views in `torso/`; prior details in `ears/`, `chin/`, `mouth/`, `eyes/`, `nose/` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |

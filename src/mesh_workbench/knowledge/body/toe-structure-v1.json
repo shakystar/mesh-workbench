@@ -1,0 +1,30 @@
+{
+  "id": "toe-structure-v1",
+  "source": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-4-bones-of-the-lower-limb",
+  "relationships": [
+    "Five toes numbered from medial hallux.",
+    "Hallux has two phalanges; other toes have three."
+  ],
+  "policy": "Authored skin stocks with rounded distal caps. No bones, nails, joints or rig; not attached to a foot. Dimensions are modeling parameters.",
+  "centers": [
+    -0.032,
+    -0.008,
+    0.012,
+    0.029,
+    0.044
+  ],
+  "lengths": [
+    0.061,
+    0.063,
+    0.056,
+    0.045,
+    0.035
+  ],
+  "radii": [
+    0.012,
+    0.009,
+    0.008,
+    0.007,
+    0.006
+  ]
+}

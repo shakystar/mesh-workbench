@@ -93,3 +93,10 @@ Next is ankle/heel/instep, then toe divisions. Stage E and full goal remain acti
 coordinates, protected body, rollback, failure cleanup and saved views verified.
 Next is five-toe structure. Floor contact remains for stage F integration.
 Stage E and full goal remain active.
+
+### Separate forefoot stock - 2026-10-24
+
+Five-toe prototype created with four sampled gaps, closed connected topology,
+source preservation, late-failure cleanup and saved views. Not yet attached.
+Next is explicit forefoot graft preserving heel/ankle; stage E remains active.
+Blocky root, pointed tips and missing joint/nail details remain limits.
