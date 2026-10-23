@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current native: `runs/human/elbow-relief/elbow-relief.blend`.
+`arms/elbow.py` takes the preserved arm-relief native and a fresh output folder;
+`arms/check_elbow.py` takes the result folder for focused registration failures.
+Current views: `docs/assets/human/arms/elbow/`.
+Earlier arm-volume pass:
+
+
 Current native: `runs/human/arm-relief/arm-relief.blend`.
 `arms/audit.py` reads the flank-transition native; `arms/relief.py` applies bilateral
 controls to it with a fresh output folder. Current views: `docs/assets/human/arms/`.

@@ -1,5 +1,19 @@
 # Current development status
 
+## Elbow controls - 2026-10-24
+
+Added `profile="elbow"`, 20 controls per arm, through the atomic arm API.
+Blender 5.2.2 LTS: 88,719 protected vertices exact, max move 3.15435 mm,
+residual 0.01436 mm; source/topology/rollback/second-arm cleanup/native/hash pass.
+Corrected an invalid-input test that hit a name collision; focused readback
+checks confirm the intended order/profile rejection without mutation.
+Back/outer saved-model comparisons inspected; posterior prominence remains
+rounded. One process/two threads, exited. Next wrist-to-palm connection, then
+separate fingers. Stage D and full goal active.
+Current native: `runs/human/elbow-relief/elbow-relief.blend`.
+[Implementation and actual views](reference/anatomy/body/ARMS.md#elbow-profile).
+
+
 ## Stage D arm volumes - 2026-10-24
 
 Added `regions.arm.compile_controls` and atomic `apply_pair`, plus sourced

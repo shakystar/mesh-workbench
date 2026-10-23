@@ -49,3 +49,36 @@ body and hand protection. Stage D and the full goal remain active.
 | --- | --- | --- |
 | Front | ![](../../../assets/human/arms/before-front.png) | ![](../../../assets/human/arms/after-front.png) |
 | Back | ![](../../../assets/human/arms/before-back.png) | ![](../../../assets/human/arms/after-back.png) |
+
+## Elbow profile
+
+Set `target['profile']='elbow'` for 20 controls per side, including medial skin
+in addition to the anterior/posterior/lateral directions. Radius is 26 mm;
+coordinates and depths remain authored. The olecranon tip and medial/lateral
+epicondyle relationship is supported by
+[OpenStax upper-limb bones](https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb).
+These are skin-envelope controls, not identified bone coordinates or joint motion.
+
+`examples/human/arms/elbow.py` takes the arm-relief native and a fresh output
+folder. Current native: `runs/human/elbow-relief/elbow-relief.blend`, object
+`Elbow relief study`. Two reversible elbow layers retain prior arm layers.
+Blender 5.2.2 LTS: 40 controls, 1,805 changed vertices, 88,719 protected vertices
+exact; max move 3.15435 mm, target residual 0.01436 mm, minimum changed polygon
+area ratio 0.96580. Source/topology/rollback/second-arm failure cleanup/native
+readback/input hash pass. One process/two threads; exited.
+
+The initial invalid-registration test encountered the existing default output
+name first. It was corrected to use a unique probe name and exact error checks.
+`check_elbow.py` independently confirms invalid order and unknown profile
+rejection with no object/mesh/source change; `registration-check.json` is the
+specific evidence for these input failures. No geometry/render repetition.
+
+Matched back and outer views show a modest posterior prominence and width
+change; the contour remains rounded. The outer view includes the torso behind
+the arm, not a separate isolated limb. No realistic bony reconstruction claim.
+Next is wrist-to-palm connection, then separate fingers; stage D remains active.
+
+| View | Before | After |
+| --- | --- | --- |
+| Back | ![](../../../assets/human/arms/elbow/before-back.png) | ![](../../../assets/human/arms/elbow/after-back.png) |
+| Outer | ![](../../../assets/human/arms/elbow/before-outer.png) | ![](../../../assets/human/arms/elbow/after-outer.png) |

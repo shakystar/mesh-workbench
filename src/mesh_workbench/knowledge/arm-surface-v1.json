@@ -4,7 +4,8 @@
   "source": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
   "relationships": [
     "Anterior upper-arm flexor mass and posterior extensor mass surround the humerus.",
-    "Forearm has anterior flexor and posterior extensor compartments."
+    "Forearm has anterior flexor and posterior extensor compartments.",
+    "Posterior proximal ulna forms the olecranon tip; distal humerus has medial and lateral epicondyles."
   ],
   "policy": "Manual interior proximal/elbow/wrist axes; authored skin depth changes, not muscle segmentation or inferred joint centers. Upright hanging arms, front -Y, up Z.",
   "stations": [
@@ -80,5 +81,59 @@
         0
       ]
     }
-  ]
+  ],
+  "elbow_source": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb",
+  "elbow_stations": [
+    {
+      "segment": "upper",
+      "t": 0.8,
+      "depths_mm": [
+        0,
+        0.6,
+        0.8,
+        1
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.94,
+      "depths_mm": [
+        -0.6,
+        2,
+        2,
+        2.5
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.035,
+      "depths_mm": [
+        -0.9,
+        3,
+        1.7,
+        2.2
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.12,
+      "depths_mm": [
+        0,
+        0.5,
+        0.2,
+        0.4
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.22,
+      "depths_mm": [
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "elbow_policy": "Authored superficial elbow relief in fixed hanging-arm orientation; does not establish actual bony landmarks or articulate the joint."
 }

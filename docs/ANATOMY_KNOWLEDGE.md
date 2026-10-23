@@ -1,7 +1,7 @@
 # Proportional anatomy knowledge and registration
 
 `regions.arm.compile_controls` and `apply_pair` use `arm-surface-v1` for manual
-bilateral hanging-arm registration. [API and actual evidence](reference/anatomy/body/ARMS.md).
+bilateral hanging-arm registration; `profile="elbow"` adds bounded elbow relief. [API and actual evidence](reference/anatomy/body/ARMS.md).
 
 
 Registered torso skin controls: `mesh_workbench.regions.torso.compile_controls`
