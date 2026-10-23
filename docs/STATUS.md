@@ -2,6 +2,23 @@
 
 ## Human proportion base — 2026-10-23
 
+Nasal knowledge: packaged `nasal-base-v1.json` adds five semantic groups,
+19 normalized controls and six front-surface paths. Five manual target points
+set alar width, base/tip height and philtrum reference. Optional linked oral
+targets check the common nose-base coordinate and vertical ordering. Nasal
+protection stops at base height, preserving existing oral deformations.
+
+Blender 5.2.2 LTS: `tests/nasal_fit_test.py` passes two curved fixtures with
+28/44 mm alar widths and 18/26 mm heights. Protected counts: 6,578 / 6,176;
+unchanged below-base counts: 4,141 / 3,333. Source layers, rollback, caps,
+eight atomic failure cases and oral-default compilation pass. Maximum movement:
+0.698 / 1.093 mm. Evidence: `runs/nasal-fit/verification.json`.
+The current procedural human uses measured targets with the oral link;
+native output: `runs/human-nasal-fit/fitted.blend`. It preserves 72,204 protected
+vertices and its source, passes rollback, and moves at most 0.567 mm.
+One Blender process and two CPU threads were used; Blender exited. No new renders; nostril
+cavities, underside anatomy and anatomical accuracy remain outside this pass.
+
 Reusable oral knowledge: `anatomy_fit` loads packaged `oral-neutral-v1.json`,
 separating sourced semantic relationships from authored numerical proportions.
 Four measured targets determine width and independent upper/lower spans;

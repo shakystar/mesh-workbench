@@ -1,8 +1,9 @@
 # Proportional anatomy knowledge and registration
 
-The first reusable module is the neutral oral region. It contains six semantic
-feature groups, their qualitative relationships, 20 normalized controls and seven
-brush paths. It is no longer tied to one model's absolute coordinates.
+Reusable modules cover the neutral oral region and the front-visible nasal base.
+The oral module contains six semantic feature groups, 20 normalized controls and
+seven brush paths. The nasal module adds five groups, 19 controls and six paths.
+Each stores source references separately from authored modeling proportions.
 
 ## Knowledge versus authored proportions
 
@@ -76,12 +77,51 @@ made from this geometry-only pass.
 | Area | Current coverage |
 | --- | --- |
 | Oral region | Semantic definitions, proportional guide, manual landmark fitting |
-| Nose, eye sockets, ears | No reusable knowledge modules yet |
+| Nasal base and alae | Semantic definitions, proportional guide, shared oral reference |
+| Eye sockets, ears, upper nasal bridge | No reusable knowledge modules yet |
 | Skull, neck, torso, limbs, hands and feet | No reusable knowledge modules yet |
 | Automatic landmark detection | Not implemented |
 | Pose/expression, age or body-type models | Not implemented |
 | Anatomical accuracy across human subjects | Not validated |
 
-Next module: nose base and alar region, linked to the existing nose-base and
-philtrum references. Whole-body variation requires additional regional modules
-and independently registered models; the current two fixtures do not establish it.
+Whole-body variation requires additional regional modules and independently
+registered models; the current fixtures do not establish it.
+
+## Nasal base and alar module
+
+`anatomy_fit.knowledge("nasal-base-v1")` loads
+[`nasal-base-v1.json`](../src/mesh_workbench/knowledge/nasal-base-v1.json).
+Definitions of the ala, columella and tip reference the
+[NIH/NHGRI nasal anatomy page](https://elementsofmorphology.nih.gov/anatomy-nose.shtml).
+The alar attachment and central junction are explicitly labeled authored modeling
+conventions. In particular, the shared legacy key `nose_base` means the central
+nose/upper-lip junction here, not the complete anatomical nasal-base line.
+
+Set `knowledge_id` to `nasal-base-v1` in the target JSON. Required references:
+`ala_left`, `ala_right`, `nose_base`, `nose_tip`, `philtrum_top`.
+Alar width sets the horizontal scale; base-to-tip height sets the upper scale.
+The philtrum reference lies below the base. Targets must be front-visible,
+upright and close to the mesh surface; tilted/asymmetric reference frames beyond
+the documented horizontal tolerance are rejected instead of silently corrected.
+
+An optional `linked_oral_target` checks the shared nose-base coordinate within
+0.1 mm and ensures the philtrum reference is between mouth and nose base. This
+checks reference consistency, not anatomical correctness. The included human
+target uses this link. Nasal edit bounds stop at the base height, keeping all
+lower mouth/philtrum coordinates unchanged, including existing oral deformations.
+
+Six paths add paired alar volume/attachment relief, columella support and a tip
+transition. They project from the front. Hidden underside structures, open
+nostril cavities, internal septum and cartilage are not modeled. `relief` remains
+available; `bow_width` is oral-only and non-default values are rejected for nose.
+
+```text
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/fit_anatomy.py -- runs/human-mouth-fit-visible/fitted.blend "Fitted oral guide" examples/human-nasal-target.json runs/human-nasal-fit
+```
+
+Focused checks: `tests/nasal_fit_test.py`, Blender 5.2.2 LTS. Two curved fixtures
+use alar widths 28/44 mm and heights 18/26 mm. Checks cover deformation caps,
+protected regions, existing mouth-layer preservation, rollback, eight atomic
+failure cases and old oral-default compilation. The procedural human application
+also checks source preservation, protected coordinates and full rollback before
+saving. No new renders or anatomical-accuracy claims accompany this tool pass.

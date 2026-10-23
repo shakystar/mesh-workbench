@@ -1,4 +1,4 @@
-"""Fit an authored proportional oral guide to manually identified surface landmarks.
+"""Fit authored proportional regional guides to manually identified landmarks.
 
 No landmark detection or demographic inference. Compilation never mutates a mesh.
 """
@@ -40,39 +40,63 @@ def apply(obj, target, name, **options):
         raise
 
 
-def knowledge():
-    return json.loads(files('mesh_workbench').joinpath('knowledge/oral-neutral-v1.json').read_text())
+def knowledge(module_id='oral-neutral-v1'):
+    if module_id not in ('oral-neutral-v1','nasal-base-v1'):
+        raise ValueError('Unknown anatomy knowledge module')
+    return json.loads(files('mesh_workbench').joinpath('knowledge/'+module_id+'.json').read_text())
 
 
 def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
     """Return a bindable diagram and scaled paths; fail without changing state.
 
     Target units are metres, front faces -Y, Z is up. Left/right mean diagram
-    negative/positive X. Four targets must lie near this object's visible surface.
+    negative/positive X. Required targets must lie near the visible surface.
     """
     sculpt.editable(obj)
     if target.get('units')!='m':raise ValueError('Target units must be metres')
     bow_width=sculpt.number(bow_width,.7,1.3,'bow width multiplier')
     relief=sculpt.number(relief,.5,1.5,'relief multiplier')
     tolerance=sculpt.number(tolerance_mm,.01,10,'target tolerance')/1000
-    kb=knowledge()
+    kb=knowledge(target.get('knowledge_id','oral-neutral-v1'))
+    nasal=kb['id']=='nasal-base-v1'
+    if nasal and bow_width!=1:raise ValueError('bow_width applies only to the oral module')
     points={}
     for name in kb['required_target_landmarks']:
         if name not in target.get('landmarks',{}):raise ValueError('Missing target landmark: '+name)
         p=np.asarray(target['landmarks'][name],dtype=float)
         if p.shape!=(3,) or not np.isfinite(p).all():raise ValueError('Finite XYZ target required')
         points[name]=p
-    left,right=points['corner_left'],points['corner_right']
+    left_name,right_name=('ala_left','ala_right') if nasal else ('corner_left','corner_right')
+    left,right=points[left_name],points[right_name]
     half=(right[0]-left[0])/2
-    if not .005<=half<=.06:raise ValueError('Supported mouth half-width is 5..60 mm')
-    if abs(right[2]-left[2])>half*.05:raise ValueError('Align mouth corners horizontally before fitting')
-    center=(left+right)/2
-    upper=points['nose_base'][2]-center[2]
-    lower=center[2]-points['chin_fold'][2]
+    if not .005<=half<=.06:raise ValueError('Supported regional half-width is 5..60 mm')
+    if abs(right[2]-left[2])>half*.05:raise ValueError('Align lateral landmarks horizontally before fitting')
+    center=points['nose_base'].copy() if nasal else (left+right)/2
+    upper_name,lower_name=('nose_tip','philtrum_top') if nasal else ('nose_base','chin_fold')
+    upper=points[upper_name][2]-center[2]
+    lower=center[2]-points[lower_name][2]
     if not .003<=upper<=.08 or not .003<=lower<=.08:
-        raise ValueError('Nose base must be above and chin fold below mouth')
-    if any(abs(points[n][0]-center[0])>half*.15 for n in ('nose_base','chin_fold')):
-        raise ValueError('Central target landmarks must align with the mouth center')
+        raise ValueError('Upper and lower references must bracket the regional center')
+    if any(abs(points[n][0]-center[0])>half*.15 for n in (upper_name,lower_name)):
+        raise ValueError('Central target landmarks must align with the regional center')
+    link=None
+    if nasal:
+        if abs((left[0]+right[0])/2-center[0])>half*.15:
+            raise ValueError('Nose base must align with the alar midpoint')
+        if not all(center[2]<=p[2]<=points['nose_tip'][2] for p in (left,right)):
+            raise ValueError('Alar references must lie between nose base and tip heights')
+        link=target.get('linked_oral_target')
+        if link is not None:
+            if link.get('units')!='m':raise ValueError('Linked oral target units must be metres')
+            linked=link.get('landmarks',{})
+            for key in ('nose_base','corner_left','corner_right'):
+                p=np.asarray(linked.get(key),dtype=float)
+                if p.shape!=(3,) or not np.isfinite(p).all():raise ValueError('Invalid linked oral reference')
+            if np.linalg.norm(np.asarray(linked['nose_base'])-center)>.0001:
+                raise ValueError('Shared nose-base references disagree by more than 0.1 mm')
+            mouth_z=(linked['corner_left'][2]+linked['corner_right'][2])/2
+            if not mouth_z<points['philtrum_top'][2]<center[2]:
+                raise ValueError('Philtrum reference must lie between mouth and nose base')
     original=sculpt.coordinates(obj)
     tree=BVHTree.FromPolygons(original.tolist(),[list(f.vertices) for f in obj.data.polygons])
     ray_y=float(original[:,1].min()-1)
@@ -89,12 +113,13 @@ def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
         if name in ('bow_left','bow_right'):u*=bow_width
         landmarks[name]=project(center[0]+u*half,center[2]+v*(upper if v>=0 else lower)).tolist()
     # Preserve the measured corner heights instead of flattening accepted small offsets.
-    for name in ('corner_left','corner_right'):
+    for name in (left_name,right_name):
         landmarks[name]=project(points[name][0],points[name][2]).tolist()
     xyz=np.array(list(landmarks.values()))
     margin=half*.20
     lo=xyz.min(axis=0)-[margin,half*.5,margin]
     hi=xyz.max(axis=0)+[margin,half*.5,margin]
+    if nasal:lo[2]=center[2]  # Upper lip and existing oral edits stay protected.
     feather=min(half*.08,float(np.min(hi-lo))*.2)
     paths=[]
     for row in kb['paths']:
@@ -111,10 +136,12 @@ def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
                 r=p+(q-p)*t;hit=project(r[0],r[2])
                 if np.any(hit<lo) or np.any(hit>hi):raise ValueError('Path leaves registered depth envelope')
         paths.append(command)
+    region_name='nasal_base' if nasal else 'mouth'
     return {'units':'m','landmarks':landmarks,
-            'regions':{'mouth':{'min':lo.tolist(),'max':hi.tolist(),'feather':feather}},
+            'regions':{region_name:{'min':lo.tolist(),'max':hi.tolist(),'feather':feather}},
             'paths':paths,'registration':{'knowledge_id':kb['id'],'schema_version':kb['schema_version'],
                 'target':target,'half_width_m':float(half),'upper_span_m':float(upper),'lower_span_m':float(lower),
                 'bow_width':bow_width,'relief':relief,'target_residual_mm':residuals,
+                'shared_oral_reference_checked':link is not None,
                 'topology':sculpt.topology(obj),'matrix':[list(r) for r in obj.matrix_world],
                 'limits':'Manual front-view registration; authored ratios, not anatomical validation.'}}

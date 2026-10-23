@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "id": "nasal-base-v1",
+  "scope": "Front-visible alar/base surface relief. No nostril cavity or internal septum.",
+  "sources": {
+    "nih_nose": {
+      "url": "https://elementsofmorphology.nih.gov/anatomy-nose.shtml",
+      "accessed": "2026-10-23",
+      "use": "Terminology only; no measured proportions or images copied."
+    },
+    "author": {
+      "use": "Procedural modeling conventions; not clinical anatomy definitions."
+    }
+  },
+  "coordinate_policy": "U is alar half-width. V uses nose-base-to-tip height above the shared central junction and philtrum reference below it. Authored defaults, not population averages.",
+  "features": {
+    "ala": {
+      "description": "Lateral tissue surrounding the nostril.",
+      "anchors": [
+        "ala_left",
+        "ala_right",
+        "ala_left_top",
+        "ala_right_top"
+      ],
+      "source": "nih_nose"
+    },
+    "columella": {
+      "description": "Tissue between the nares linking tip and base.",
+      "anchors": [
+        "columella_low",
+        "columella_mid"
+      ],
+      "source": "nih_nose"
+    },
+    "tip": {
+      "description": "Junction of the lower nasal ridge and columella.",
+      "anchors": [
+        "nose_tip",
+        "tip_left",
+        "tip_right"
+      ],
+      "source": "nih_nose"
+    },
+    "alar_attachment": {
+      "description": "Modeled transition between alar tissue and the face.",
+      "anchors": [
+        "crease_left_low",
+        "crease_right_low",
+        "crease_left_top",
+        "crease_right_top"
+      ],
+      "source": "author"
+    },
+    "nasolabial_junction": {
+      "description": "Central modeling reference shared with the oral module; legacy key nose_base.",
+      "anchors": [
+        "nose_base",
+        "philtrum_top"
+      ],
+      "source": "author"
+    }
+  },
+  "relations": [
+    [
+      "columella",
+      "connects_to",
+      "tip"
+    ],
+    [
+      "ala",
+      "blends_into",
+      "alar_attachment"
+    ],
+    [
+      "columella",
+      "connects_to",
+      "nasolabial_junction"
+    ]
+  ],
+  "shared_anchors": {
+    "nose_base": {
+      "module": "oral-neutral-v1",
+      "target": "nose_base",
+      "meaning": "Central nose/upper-lip junction, not the full anatomical nasal-base line."
+    }
+  },
+  "required_target_landmarks": [
+    "ala_left",
+    "ala_right",
+    "nose_base",
+    "nose_tip",
+    "philtrum_top"
+  ],
+  "landmarks_uv": {
+    "nose_base": [
+      0,
+      0
+    ],
+    "philtrum_top": [
+      0,
+      -1
+    ],
+    "nose_tip": [
+      0,
+      1
+    ],
+    "ala_left": [
+      -1,
+      0.3
+    ],
+    "ala_right": [
+      1,
+      0.3
+    ],
+    "ala_left_top": [
+      -0.72,
+      0.65
+    ],
+    "ala_right_top": [
+      0.72,
+      0.65
+    ],
+    "ala_left_inner": [
+      -0.4,
+      0.33
+    ],
+    "ala_right_inner": [
+      0.4,
+      0.33
+    ],
+    "crease_left_low": [
+      -1.12,
+      0.2
+    ],
+    "crease_right_low": [
+      1.12,
+      0.2
+    ],
+    "crease_left_mid": [
+      -1.1,
+      0.5
+    ],
+    "crease_right_mid": [
+      1.1,
+      0.5
+    ],
+    "crease_left_top": [
+      -0.83,
+      0.76
+    ],
+    "crease_right_top": [
+      0.83,
+      0.76
+    ],
+    "columella_low": [
+      0,
+      0.14
+    ],
+    "columella_mid": [
+      0,
+      0.48
+    ],
+    "tip_left": [
+      -0.28,
+      0.9
+    ],
+    "tip_right": [
+      0.28,
+      0.9
+    ]
+  },
+  "paths": [
+    {
+      "label": "Left alar volume",
+      "region": "nasal_base",
+      "anchors": [
+        "ala_left",
+        "ala_left_top",
+        "ala_left_inner"
+      ],
+      "radius_half_width_ratio": 0.19,
+      "distance_half_width_ratio": 0.035,
+      "max_displacement_half_width_ratio": 0.045
+    },
+    {
+      "label": "Left alar attachment",
+      "region": "nasal_base",
+      "anchors": [
+        "crease_left_low",
+        "crease_left_mid",
+        "crease_left_top"
+      ],
+      "radius_half_width_ratio": 0.14,
+      "distance_half_width_ratio": -0.025,
+      "max_displacement_half_width_ratio": 0.035
+    },
+    {
+      "label": "Right alar volume",
+      "region": "nasal_base",
+      "anchors": [
+        "ala_right",
+        "ala_right_top",
+        "ala_right_inner"
+      ],
+      "radius_half_width_ratio": 0.19,
+      "distance_half_width_ratio": 0.035,
+      "max_displacement_half_width_ratio": 0.045
+    },
+    {
+      "label": "Right alar attachment",
+      "region": "nasal_base",
+      "anchors": [
+        "crease_right_low",
+        "crease_right_mid",
+        "crease_right_top"
+      ],
+      "radius_half_width_ratio": 0.14,
+      "distance_half_width_ratio": -0.025,
+      "max_displacement_half_width_ratio": 0.035
+    },
+    {
+      "label": "Columella support",
+      "region": "nasal_base",
+      "anchors": [
+        "columella_low",
+        "columella_mid",
+        "nose_tip"
+      ],
+      "radius_half_width_ratio": 0.15,
+      "distance_half_width_ratio": 0.025,
+      "max_displacement_half_width_ratio": 0.035
+    },
+    {
+      "label": "Tip transition",
+      "region": "nasal_base",
+      "anchors": [
+        "tip_left",
+        "nose_tip",
+        "tip_right"
+      ],
+      "radius_half_width_ratio": 0.2,
+      "distance_half_width_ratio": 0.025,
+      "max_displacement_half_width_ratio": 0.035
+    }
+  ]
+}

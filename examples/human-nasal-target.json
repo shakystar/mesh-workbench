@@ -1,0 +1,20 @@
+{
+  "units": "m",
+  "knowledge_id": "nasal-base-v1",
+  "note": "Front surface readback on the procedural Fitted oral guide; authored X/Z references, not anatomical detection.",
+  "landmarks": {
+    "ala_left": [-0.013, -0.084161758, 1.609],
+    "ala_right": [0.013, -0.084094763, 1.609],
+    "nose_base": [0, -0.083435118, 1.603],
+    "nose_tip": [0, -0.100634664, 1.621],
+    "philtrum_top": [0, -0.078917682, 1.598]
+  },
+  "linked_oral_target": {
+    "units": "m",
+    "landmarks": {
+      "nose_base": [0, -0.083435, 1.603],
+      "corner_left": [-0.021, -0.067154735, 1.579],
+      "corner_right": [0.021, -0.067152977, 1.579]
+    }
+  }
+}
