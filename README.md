@@ -16,6 +16,11 @@ proportion study, without detailed anatomy, individual fingers or a rig. The
 current pass develops cranium/jaw planes, nose, ears and neck transitions.
 [Generator](examples/human_base.py) · [Scope and checks](docs/STATUS.md)
 
+[Registered anatomy brushes](docs/ANATOMY_BRUSH.md) now use named landmarks,
+regional protection, geodesic radius and reversible displacement-limited layers.
+The first application is the cranium; the guide is authored for this model.
+[Registration diagram](docs/assets/human-anatomy-diagram.png).
+
 | Head planes front | Head planes side |
 | --- | --- |
 | ![Head planes front](docs/assets/human-head-front.png) | ![Head planes side](docs/assets/human-head-side.png) |

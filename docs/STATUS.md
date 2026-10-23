@@ -2,6 +2,23 @@
 
 ## Human proportion base — 2026-10-23
 
+Registered anatomy brushing: `anatomy.bind` and `anatomy.stroke` project named
+landmarks from front/side diagrams to the current mesh surface. Regional bounds,
+feathering, optional protection masks, geodesic radius, X mirroring and per-stroke
+displacement caps constrain smooth/normal edits. Each stroke is a reversible
+workbench layer. The template is authored for this procedural subject, not an
+anatomical standard. [Controls and reproduction](ANATOMY_BRUSH.md).
+
+First application: two cranium strokes on a new evaluated snapshot of the head.
+Native result: `runs/human-guided-cranium/human-guided.blend`. The prior object,
+keys and smoothing are preserved. Maximum total movement is 1.2243 mm; 64,220
+protected vertices remain coordinate-identical. Source preservation and complete
+brush rollback pass. The focused `tests/blender_tests.py` anatomy test passes
+normal/smooth effects, limits, protection, rollback and invalid/stale commands.
+Blender 5.2.2 LTS; front/side close-ups and the registration diagram were inspected.
+No anatomy ground-truth or fine-detail claim is made. Blender exited; runs used
+one process and two CPU threads at a time. Previous head revision follows.
+
 Head/neck plane revision: cranium and jaw sections replace the egg-shaped head.
 Nose bridge/tip, muzzle/chin and ear masses join the existing surface.
 Orbital recesses, broad cheek relief, brow relief, shallow mouth indication and anterior neck ridges

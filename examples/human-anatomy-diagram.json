@@ -1,0 +1,105 @@
+{
+  "units": "m",
+  "note": "Artist-authored registration for the included procedural adult; not universal anatomical proportions.",
+  "landmarks": {
+    "crown": [
+      0,
+      0.017,
+      1.7553772926330566
+    ],
+    "brow": [
+      0,
+      -0.071,
+      1.665
+    ],
+    "ear_right": [
+      0.077,
+      0.012,
+      1.628
+    ],
+    "chin": [
+      0,
+      -0.07,
+      1.54
+    ],
+    "neck_base": [
+      0,
+      0.012,
+      1.465
+    ],
+    "shoulder_right": [
+      0.186,
+      0.006,
+      1.405
+    ],
+    "pelvis": [
+      0,
+      0.026,
+      0.92
+    ],
+    "knee_right": [
+      0.101,
+      -0.057,
+      0.505
+    ],
+    "ankle_right": [
+      0.103,
+      0.018,
+      0.13
+    ],
+    "crown_guide": [
+      0,
+      0.017,
+      1.744
+    ]
+  },
+  "regions": {
+    "cranium": {
+      "min": [
+        -0.12,
+        -0.12,
+        1.685
+      ],
+      "max": [
+        0.12,
+        0.14,
+        1.78
+      ],
+      "feather": 0.015
+    }
+  },
+  "strokes": [
+    {
+      "label": "Crown front smoothing",
+      "region": "cranium",
+      "anchor": "crown_guide",
+      "view": "front",
+      "offset_mm": [
+        0,
+        -8
+      ],
+      "radius_mm": 65,
+      "mode": "smooth",
+      "steps": 12,
+      "strength": 0.65,
+      "max_displacement_mm": 3,
+      "symmetry_x": true
+    },
+    {
+      "label": "Crown side smoothing",
+      "region": "cranium",
+      "anchor": "crown_guide",
+      "view": "side",
+      "offset_mm": [
+        0,
+        -8
+      ],
+      "radius_mm": 65,
+      "mode": "smooth",
+      "steps": 12,
+      "strength": 0.65,
+      "max_displacement_mm": 3,
+      "symmetry_x": true
+    }
+  ]
+}

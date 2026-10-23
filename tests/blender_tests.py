@@ -27,6 +27,35 @@ class Modeling(unittest.TestCase):
         self.root = ROOT / "runs" / ("test-" + uuid.uuid4().hex)
         self.root.mkdir(parents=True)
 
+    def test_anatomy_diagram_brush_protection_rollback_and_failures(self):
+        from mesh_workbench import anatomy
+        obj=m.primitive('sphere','Diagram subject',scale=(.1,.1,.1),segments=48,rings=32)
+        s.bake(obj)
+        spec={'units':'m','landmarks':{'crown':[0,0,.07]},
+              'regions':{'upper':{'min':[-.2,-.2,0],'max':[.2,.2,.12],'feather':.01}}}
+        anatomy.bind(obj,spec)
+        before=s.coordinates(obj).copy()
+        command={'region':'upper','anchor':'crown','view':'front','radius_mm':65,
+                 'mode':'normal','distance_mm':2,'steps':3,'max_displacement_mm':1}
+        result=anatomy.stroke(obj,command)
+        after=s.coordinates(obj)
+        self.assertGreater(result['changed_vertices'],0)
+        np.testing.assert_array_equal(before[before[:,2]<0],after[before[:,2]<0])
+        self.assertLessEqual(np.linalg.norm(after-before,axis=1).max(),.001001)
+        s.set_layer(obj,result['layer'],0)
+        np.testing.assert_allclose(s.coordinates(obj),before,atol=1e-8)
+        count=len(obj.data.shape_keys.key_blocks)
+        for changes in ({'offset_mm':[1000,0]},{'offset_mm':[0,-130]},
+                        {'radius_mm':float('nan')},{'steps':0},{'view':'unknown'}):
+            with self.assertRaises(ValueError):anatomy.stroke(obj,{**command,**changes})
+            self.assertEqual(len(obj.data.shape_keys.key_blocks),count)
+            np.testing.assert_allclose(s.coordinates(obj),before,atol=1e-8)
+        smooth=anatomy.stroke(obj,{**command,'mode':'smooth','steps':4})
+        self.assertGreater(smooth['changed_vertices'],0)
+        self.assertEqual(smooth['protected_max_displacement_mm'],0)
+        obj.location.x=.1
+        with self.assertRaisesRegex(ValueError,'stale'):anatomy.stroke(obj,command)
+
     def test_insert_rim_profile_and_invalid_profile_preserve_source(self):
         from mesh_workbench import inserts, nested
 
