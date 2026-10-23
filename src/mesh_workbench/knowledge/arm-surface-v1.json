@@ -1,0 +1,84 @@
+{
+  "id": "arm-surface-v1",
+  "schema_version": 1,
+  "source": "https://openstax.org/books/anatomy-and-physiology-2e/pages/11-5-muscles-of-the-pectoral-girdle-and-upper-limbs",
+  "relationships": [
+    "Anterior upper-arm flexor mass and posterior extensor mass surround the humerus.",
+    "Forearm has anterior flexor and posterior extensor compartments."
+  ],
+  "policy": "Manual interior proximal/elbow/wrist axes; authored skin depth changes, not muscle segmentation or inferred joint centers. Upright hanging arms, front -Y, up Z.",
+  "stations": [
+    {
+      "segment": "upper",
+      "t": 0.2,
+      "depths_mm": [
+        2,
+        2,
+        1
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.45,
+      "depths_mm": [
+        3,
+        2.5,
+        1
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 0.75,
+      "depths_mm": [
+        1.2,
+        2,
+        0
+      ]
+    },
+    {
+      "segment": "upper",
+      "t": 1,
+      "depths_mm": [
+        -1,
+        2,
+        1.5
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.2,
+      "depths_mm": [
+        2,
+        1.5,
+        2
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.45,
+      "depths_mm": [
+        2,
+        1,
+        1.5
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.7,
+      "depths_mm": [
+        0.8,
+        0.5,
+        0.5
+      ]
+    },
+    {
+      "segment": "lower",
+      "t": 0.9,
+      "depths_mm": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

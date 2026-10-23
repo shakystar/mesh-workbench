@@ -18,7 +18,9 @@ refined. Ear ridges now use continuous curves on a locally refined mesh;
 ear thickness is shallow. Neck paths protect the face, and a locally rebuilt
 underside patch removes the folded under-chin projection.
 Torso, costal/abdominal and posterior scapular controls now separate the main volumes; the bounded static torso pass is reviewed. Posterior axillary junction scallops
-are reduced and lateral waist/pelvic controls are applied. Arms/hands are next.
+are reduced and lateral waist/pelvic controls are applied. Bilateral upper-arm
+and forearm controls now have saved-model evidence; elbow detail and hands remain.
+[Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).

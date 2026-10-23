@@ -6,8 +6,8 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/flank-transition/flank-transition.blend`; preserved input in `runs/human/axillary-junction/` |
-| Current human images | `docs/assets/human/torso/flank/`, `torso/axilla/` and `torso/back/`; prior details in `ears/`, `chin/`, `mouth/`, `eyes/`, `nose/` |
+| Current human native | `runs/human/arm-relief/arm-relief.blend`; preserved input in `runs/human/flank-transition/` |
+| Current human images | `docs/assets/human/arms/`; prior torso views in `torso/`; prior details in `ears/`, `chin/`, `mouth/`, `eyes/`, `nose/` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |
 | Other examples | `examples/{camera,mouse,headphones,speaker,organic,lantern,sculpture,general}/` |

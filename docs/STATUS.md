@@ -1,5 +1,18 @@
 # Current development status
 
+## Stage D arm volumes - 2026-10-24
+
+Added `regions.arm.compile_controls` and atomic `apply_pair`, plus sourced
+`arm-surface-v1` relationship data. Applied 24 controls per side; original
+body/hand geometry protected outside the explicit boxes. Blender 5.2.2 LTS:
+83,233 protected vertices exact, max move 3.08106 mm, residual 0.00565 mm;
+source/topology/rollback/invalid registration/second-arm failure cleanup/native
+readback/input hash pass. Front/back before/after inspected; changes are modest.
+One process/two threads, exited. Next: elbow landmarks and transitions.
+Current native: `runs/human/arm-relief/arm-relief.blend`.
+[API, sources, comparisons and limits](reference/anatomy/body/ARMS.md).
+
+
 ## Lateral torso / stage C handoff - 2026-10-24
 
 Added 30-control `profile="flank"` with guarded interior-to-lateral registration.

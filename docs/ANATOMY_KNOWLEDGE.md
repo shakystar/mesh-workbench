@@ -1,5 +1,9 @@
 # Proportional anatomy knowledge and registration
 
+`regions.arm.compile_controls` and `apply_pair` use `arm-surface-v1` for manual
+bilateral hanging-arm registration. [API and actual evidence](reference/anatomy/body/ARMS.md).
+
+
 Registered torso skin controls: `mesh_workbench.regions.torso.compile_controls`
 uses `torso-surface-v1`, with `profile="abdomen"` for costal/abdominal relief and `profile="back"` for posterior planes. `profile="flank"` uses guarded lateral torso exits. [API, authored dimensions and limits](reference/anatomy/body/TORSO.md).
 

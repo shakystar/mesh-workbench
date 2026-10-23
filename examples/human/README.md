@@ -1,5 +1,11 @@
 # Human modeling entry point
 
+Current native: `runs/human/arm-relief/arm-relief.blend`.
+`arms/audit.py` reads the flank-transition native; `arms/relief.py` applies bilateral
+controls to it with a fresh output folder. Current views: `docs/assets/human/arms/`.
+Earlier torso pass:
+
+
 Current native: `runs/human/flank-transition/flank-transition.blend`.
 Run `torso/flank.py` on the preserved axillary native into a fresh folder.
 `torso/check_flank.py` takes the result folder and checks lateral-origin rejection.
