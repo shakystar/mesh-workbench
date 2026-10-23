@@ -1,0 +1,27 @@
+{
+  "id": "hand-structure-v1",
+  "source": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-2-bones-of-the-upper-limb",
+  "relationships": [
+    "Palm supports five metacarpal rays.",
+    "Thumb has two phalanges; each other digit has three."
+  ],
+  "policy": "Authored neutral skin envelope. Joint station counts reflect the relationship, not actual bones. No tendons, nails, rig or automatic wrist graft.",
+  "finger_centers": [
+    -0.0255,
+    -0.0085,
+    0.0085,
+    0.0255
+  ],
+  "finger_lengths": [
+    0.067,
+    0.075,
+    0.069,
+    0.054
+  ],
+  "finger_radii": [
+    0.007,
+    0.0075,
+    0.007,
+    0.006
+  ]
+}

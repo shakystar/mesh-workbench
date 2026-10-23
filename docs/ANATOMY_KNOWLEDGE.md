@@ -1,5 +1,9 @@
 # Proportional anatomy knowledge and registration
 
+`regions.hand.build` uses `hand-structure-v1` to construct separate five-digit
+stock. [Construction limits and actual prototype](reference/anatomy/body/HANDS.md).
+
+
 `regions.arm.compile_controls` and `apply_pair` use `arm-surface-v1` for manual
 bilateral hanging-arm registration; `profile="elbow"` adds bounded elbow relief. [API and actual evidence](reference/anatomy/body/ARMS.md).
 

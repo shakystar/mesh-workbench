@@ -1,5 +1,19 @@
 # Current development status
 
+## Separate five-digit hand stock - 2026-10-24
+
+Source-hand audit confirms a mitten block; topology work now precedes palm
+brushing. Added `regions.hand.build` and `hand-structure-v1`, preserving construction
+stocks and original character. Blender 5.2.2 LTS: 39,378 vertices, one closed
+oriented component, three finger-gap/four digit-hit rays at Z=.79; source,
+invalid scale, fusion failure cleanup, native readback and hash pass. Two actual
+views inspected, one process/two threads, exited. Palm/web still too slab-like;
+next is palm/web shaping and explicit wrist graft. Not attached to the character.
+Prototype: `runs/human/hand-stock-curved/hand-stock.blend`.
+Integrated character remains `runs/human/elbow-relief/elbow-relief.blend`.
+[Implementation, actual images and limits](reference/anatomy/body/HANDS.md).
+
+
 ## Elbow controls - 2026-10-24
 
 Added `profile="elbow"`, 20 controls per arm, through the atomic arm API.

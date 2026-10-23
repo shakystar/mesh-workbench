@@ -1,5 +1,11 @@
 # Human modeling entry point
 
+Separate hand prototype: `runs/human/hand-stock-curved/hand-stock.blend`.
+`hands/audit.py` and `hands/build.py` take the preserved elbow-relief native and
+fresh output folders. The prototype is NOT attached; the integrated native below
+remains authoritative. [Evidence](../../docs/reference/anatomy/body/HANDS.md).
+
+
 Current native: `runs/human/elbow-relief/elbow-relief.blend`.
 `arms/elbow.py` takes the preserved arm-relief native and a fresh output folder;
 `arms/check_elbow.py` takes the result folder for focused registration failures.
