@@ -12,7 +12,8 @@ Actual Blender renders created with this toolkit.
 
 **Current human model, actually rendered:** registered oral volume controls with
 sampled-surface fitting, preserved eyelid support, forward gaze and nasal work.
-Lip volume is more distinct; philtrum termination, chin and ears remain rough.
+Lip volume is more distinct and local philtrum/lower-fold transitions are
+softened with protected lips. Broad chin/jaw contours and ears remain rough.
 This is not anatomical validation.
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
@@ -20,7 +21,7 @@ This is not anatomical validation.
 
 ![Current eyelid front and oblique views](docs/assets/human/eyes/supported-current.png)
 
-![Current mouth oblique](docs/assets/human/mouth/after-oblique.png)
+![Current mouth oblique](docs/assets/human/mouth/transition-oblique.png)
 
 [Oral control implementation and actual before/after](docs/reference/anatomy/ORAL_RELIEF.md).
 

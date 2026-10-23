@@ -6,6 +6,29 @@ source imports, example resources and documentation links were updated.
 Layout violations: zero. Import/CLI/wheel checks passed; no new renders.
 [Locations and move maps](WORKSPACE_LAYOUT.md).
 
+## Protected oral transition fairing - 2026-10-24
+
+`anatomy_fit.compile_oral_transitions` derives two bounded fairing paths from
+the registered philtrum and lower-fold landmarks. The lip band and nose are
+excluded. Existing geodesic volume-preserving relaxation is reused;
+`surface_brush` now rejects changed polygon reversal or collapse before a layer
+is written. No anatomical dimensions are inferred.
+
+Blender 5.2.2 LTS: 63 philtrum and 200 lower-fold vertices changed; maximum
+combined movement 0.86820 mm. 81,755 out-of-region vertices and all 988 lip-band
+vertices are unchanged. Source, topology, layer rollback, invalid second-stroke
+cleanup, injected layer-finish failure, saved-coordinate readback and input hash
+pass. Minimum polygon area ratios are 0.59834/0.79306; stored volume differences
+are 0.000037/0.001172 mm3. One Blender process, two threads, exited.
+
+Two matched 640px/16-sample saved-model views were compared with the previous
+oral-relief images. The lower-fold transition is slightly softer; this is a
+limited local change. The broad angular chin still needs silhouette work.
+Next: chin projection and jaw/cheek transition, preserving the finished local
+oral controls. Stage A and the full goal remain incomplete.
+Current native: `runs/human/oral-transitions/oral-transitions.blend`.
+[API and actual views](reference/anatomy/ORAL_RELIEF.md#protected-transition-fairing).
+
 ## Oral relief and sampled-surface fitting - 2026-10-24
 
 `anatomy_fit.compile_oral_relief` compiles 20 registered controls from the existing

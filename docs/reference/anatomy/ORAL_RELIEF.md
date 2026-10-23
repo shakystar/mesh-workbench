@@ -60,3 +60,41 @@ The input file hash is unchanged and Blender exited.
 The result is a static closed-mouth surface relief. There is no actual oral
 opening, mucosa, teeth, muscle model or anatomical validation. Chin silhouette
 and the full face stage remain unfinished.
+
+## Protected transition fairing
+
+`anatomy_fit.compile_oral_transitions(source, target)` returns a diagram and two
+commands for `surface_brush.apply`. The same four visible-surface references are
+required. Upper/lower region limits are derived from the Cupid's bow, lower-lip
+and nose-base landmarks, leaving the vermilion band and nose unchanged.
+Geodesic radii are authored fractions of mouth half-width; ten relaxation
+iterations at strength 0.5 retain signed enclosed volume. This numerical volume
+constraint does not represent tissue mechanics or anatomical correctness.
+
+`surface_brush` also now rejects changed polygons that reverse orientation or
+retain less than 15% of their previous area before writing a layer.
+
+Reproduce with `examples/human/mouth/transitions.py`, input
+`runs/human/oral-relief/oral-relief.blend`, and a fresh output folder. The script
+reprojects the stored registration to the current visible skin.
+Current native: `runs/human/oral-transitions/oral-transitions.blend`.
+The previous source and its layers remain in the scene; the new object is an
+evaluated snapshot with two reversible transition layers.
+
+Blender 5.2.2 LTS: 63/200 changed vertices, maximum combined movement 0.86820 mm,
+81,755 protected vertices and 988 unchanged lip-band vertices. Source/topology,
+rollback, invalid second-stroke cleanup, injected finish failure, saved-native
+coordinate readback and input-file hash pass. Stored per-stroke volume changes
+are 0.000037/0.001172 mm3, below the existing 0.1 mm3 limit. Minimum changed
+polygon area ratios are 0.59834/0.79306. Two CPU/numerical threads, one process,
+two 640px/16-sample saved-model renders; Blender exited.
+
+| Previous oral relief | Current transition |
+| --- | --- |
+| ![Previous](../../assets/human/mouth/after-front.png) | ![Current](../../assets/human/mouth/transition-front.png) |
+
+![Current oblique transition](../../assets/human/mouth/transition-oblique.png)
+
+Visual review: the lower-fold transition is slightly softer. This is a small
+local fairing pass; the broad angular chin and jaw/cheek transition still need
+silhouette work. The oral opening and interior remain unimplemented.

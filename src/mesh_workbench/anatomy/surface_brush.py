@@ -129,6 +129,19 @@ def _stroke(obj,source,diagram,command):
     maximum=float(np.linalg.norm(delta,axis=1).max())
     if not np.isfinite(result).all() or maximum>cap:raise ValueError('Surface brush exceeds displacement cap')
     np.testing.assert_array_equal(points[~editable],result[~editable])
+    # Compare real polygon area vectors, including all changed faces. Virtual
+    # tessellation triangles of n-gons are accumulated before checking orientation.
+    polygon_ids=np.asarray([t.polygon_index for t in obj.data.loop_triangles])
+    def areas(p):
+        cross=np.cross(p[triangles[:,1]]-p[triangles[:,0]],p[triangles[:,2]]-p[triangles[:,0]])
+        value=np.zeros((len(obj.data.polygons),3));np.add.at(value,polygon_ids,cross)
+        return value
+    old_area,new_area=areas(points),areas(result)
+    changed=np.zeros(len(old_area),dtype=bool)
+    np.logical_or.at(changed,polygon_ids,np.any(editable[triangles],axis=1))
+    ratios=np.linalg.norm(new_area,axis=1)/np.maximum(np.linalg.norm(old_area,axis=1),1e-30)
+    failed=changed & ((np.einsum('ij,ij->i',old_area,new_area)<=0)|(ratios<.15))
+    if failed.any():raise ValueError('Surface brush folds or collapses polygon '+str(np.flatnonzero(failed)[0]))
     key=layers.begin(obj)
     try:
         inv=obj.matrix_world.inverted()
@@ -144,6 +157,7 @@ def _stroke(obj,source,diagram,command):
     if mode=='relax_volume' and abs(volume_after-volume_before)>1e-10:
         raise ValueError('Stored layer exceeds 0.1 mm3 volume tolerance')
     report={'layer':layer.name,'mode':mode,'command':command,'projected_path':samples,
+            'minimum_changed_polygon_area_ratio':float(ratios[changed].min()),
             'changed_vertices':int(np.count_nonzero(np.linalg.norm(actual-points,axis=1)>1e-9)),
             'max_displacement_mm':maximum*1000,'protected_max_displacement_mm':0,
             'volume_change_mm3':(volume_after-volume_before)*1e9}

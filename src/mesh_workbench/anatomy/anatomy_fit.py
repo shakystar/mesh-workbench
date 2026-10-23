@@ -103,6 +103,35 @@ def compile_oral_relief(obj, target, *, upper_mm=.9, lower_mm=1.4,
             'limits':'Static closed-mouth relief only; no oral opening, mucosa, teeth or anatomical validation.'}
 
 
+def compile_oral_transitions(obj, target):
+    """Compile two bounded fairing paths, preserving vermilion and nose.
+
+    Region boundaries derive from registered bow/lower-lip landmarks. Brush
+    radii and strength are authored defaults, not anatomical measurements.
+    """
+    if target.get('knowledge_id') != 'oral-neutral-v1':
+        raise ValueError('Oral transitions require oral-neutral-v1')
+    guide=compile_diagram(obj,target,tolerance_mm=.1)
+    p=guide['landmarks'];half=guide['registration']['half_width_m']
+    region=guide['regions']['mouth'];lo=np.array(region['min']);hi=np.array(region['max'])
+    upper_lo=lo.copy();upper_hi=hi.copy()
+    upper_lo[2]=max(p[n][2] for n in ('bow_left','bow_right'))+half*.025
+    upper_hi[2]=target['landmarks']['nose_base'][2]-half*.04
+    lower_lo=lo.copy();lower_hi=hi.copy()
+    lower_lo[2]=p['fold_center'][2]-half*.55
+    lower_hi[2]=p['lower_center'][2]-half*.08
+    guide['regions']={name:{'min':a.tolist(),'max':b.tolist(),'feather':half*.08}
+        for name,a,b in [('philtrum',upper_lo,upper_hi),('lower_fold',lower_lo,lower_hi)]}
+    commands=[]
+    for name,anchors,radius in [('philtrum',['groove_bottom','groove_top'],.20),
+                               ('lower_fold',['fold_left','fold_center','fold_right'],.38)]:
+        commands.append({'mode':'relax_volume','label':name+' transition',
+                         'anchors':anchors,'region':name,'radius_mm':half*1000*radius,
+                         'strength':.5,'iterations':10,'max_displacement_mm':1.5})
+    guide['paths']=[]
+    return guide,commands
+
+
 def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
     """Return a bindable diagram and scaled paths; fail without changing state.
 
