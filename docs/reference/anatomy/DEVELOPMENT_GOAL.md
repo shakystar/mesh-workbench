@@ -100,3 +100,10 @@ Five-toe prototype created with four sampled gaps, closed connected topology,
 source preservation, late-failure cleanup and saved views. Not yet attached.
 Next is explicit forefoot graft preserving heel/ankle; stage E remains active.
 Blocky root, pointed tips and missing joint/nail details remain limits.
+
+### Forefoot attachment - 2026-10-24
+
+Both five-toe stocks are grafted on new topology, preserving original character
+and 155,080 protected points. Closed seams, toe gap rays, failure cleanup and
+saved readback verified. Thick forefoot-root rim remains visible and is next.
+Ground contact remains for integration. Stage E/full goal active.

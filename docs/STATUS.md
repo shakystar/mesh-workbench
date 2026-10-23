@@ -1,5 +1,31 @@
 # Current development status
 
+## Bilateral forefoot graft - 2026-10-24
+
+`regions.footgraft.replace_forefoot` makes an explicit new topology snapshot.
+Restricted standing-frame cuts at Y=-.112/- .125 m retain existing heel/ankle
+vertices. Four 64-point Hermite rings bridge each 54-to-296 boundary. Only added
+stock/ring vertices are welded; original retained vertices remain exact.
+This is a local procedural-stock graft, not arbitrary retopology.
+
+Blender 5.2.2 LTS: both seams closed/oriented, 862 candidate seam triangles each,
+262/260 stock vertices welded within .01 mm. 155,080 protected heel/ankle/upper
+body points survive exactly. Original coordinates/topology, invalid cuts,
+injected late-failure cleanup, no stale keys/groups on new topology, eight gap
+rays, ten toe hits, native readback and input SHA pass. Older layers/masks remain
+on the preserved original, not on the replacement topology.
+
+Saved comparisons show attached toes but a thick forefoot-root rim remains.
+Toe tips, root shape and floor contact remain unfinished. Next is local root
+transition shaping. Stage E and the full goal remain active. The initial top
+camera was obstructed by the upper body, then clipped the calf; only this view
+was recaptured from above/front. Passed geometry checks were not repeated.
+
+Current native: `runs/human/feet-grafted/foots-grafted.blend`, object
+`Forefoots grafted study`. `examples/human/legs/attach.py` takes foot-relief native
+and a fresh output folder. One Blender process/two threads at a time; exited.
+
+
 ## Five-toe forefoot stock - 2026-10-24
 
 `regions.foot.build(name, scale, side)` creates a new closed forefoot stock from

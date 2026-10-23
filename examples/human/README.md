@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Current native: `runs/human/feet-grafted/foots-grafted.blend`.
+`legs/attach.py` grafts bilateral forefoot stocks onto foot-relief source.
+
 Separate forefoot prototype: `legs/toes.py` takes foot-relief native and a fresh
 folder. Recorded `runs/human/forefoot-stock/forefoot-stock.blend`; not attached.
 
