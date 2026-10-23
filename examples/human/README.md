@@ -1,5 +1,8 @@
 # Human modeling entry point
 
+Lower-limb inspection: `legs/audit.py` takes the rounded-caps native and a fresh
+folder; read-only 48-exit surface audit plus front/oblique views.
+
 Current hand: `hands/caps/run.py` takes finger-contours native and a fresh output folder.
 Recorded native: `runs/human/rounded-caps/rounded-caps.blend`.
 160 cap controls; rounded ends with residual flaring.

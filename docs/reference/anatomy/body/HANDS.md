@@ -302,3 +302,24 @@ against existing arm/hand evidence, then pelvis/legs/feet. The overall goal is a
 | --- | --- | --- |
 | Front | ![](../../../assets/human/hands/caps/before-front.png) | ![](../../../assets/human/hands/caps/after-front.png) |
 | Oblique | ![](../../../assets/human/hands/caps/before-oblique.png) | ![](../../../assets/human/hands/caps/after-oblique.png) |
+
+## Stage-D handoff review - 2026-10-24
+
+Reviewed existing verification JSON and corresponding assertion paths in arm,
+elbow, attachment and hand examples. No rerun of passed geometry checks.
+
+| Required capability | Recorded evidence |
+| --- | --- |
+| Upper/lower arm and elbow controls | arm-relief 48 controls, elbow-relief 40; source, rollback, outside-region, failure cleanup and saved readback pass |
+| Connected separated digits | hands-ring-bridge closed oriented wrist seams, retained vertices exact; palm/finger/cap runs preserve six sampled finger gaps |
+| Palm and joint-position controls | palm-shaped 80 controls; finger-contours 160 controls at authored distal/joint stations |
+| Body protection and reversible edits | 59,731 above-wrist vertices retained in graft; deformation examples compare all outside-box coordinates and layer rollback |
+| Actual stored geometry and views | each stage native readback; latest rounded-caps front and oblique views inspected |
+
+The bounded static tool/application criteria of stage D are satisfied. This is
+not anatomical correctness or a realistic finished hand: planar palm, shallow
+joint relief, slight distal flaring, small thumb-root notch and simple elbow
+remain. New-topology graft retains older layers/masks on the original snapshot,
+not on the replacement topology. Gap rays are sampled clearance, not a global
+collision proof. Full-body integration and reuse remain stages F/G.
+Next is [stage E lower-limb work](LEGS.md).

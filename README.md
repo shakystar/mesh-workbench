@@ -22,12 +22,12 @@ are reduced and lateral waist/pelvic controls are applied. Bilateral upper-arm
 and forearm controls now have saved-model evidence, followed by bounded elbow
 relief. Five-digit hand stocks are now grafted to preserved wrist boundaries on a new
 body snapshot. Intermediate wrist sections permit bounded reversible fairing;
-palm cupping and a curved web start are applied. Thumb-root and fingertip
-refinement remain pending. Registered thumb/palm fairing is applied, with the
+palm cupping and a curved web start are applied. Registered thumb/palm fairing is applied, with the
 medial thumb sections fitted for continuity. A small silhouette notch remains. Registered finger sections add shallow joint
 relief and distal width. Elliptical cap controls round the ends while preserving
 length; distal flaring and simplified palm/joint surfaces remain. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
 [Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
+[Current lower-limb audit and next controls](docs/reference/anatomy/body/LEGS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).

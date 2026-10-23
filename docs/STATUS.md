@@ -1,5 +1,17 @@
 # Current development status
 
+## Stage D handoff; stage E surface audit - 2026-10-24
+
+[Existing arm/hand evidence review](reference/anatomy/body/HANDS.md#stage-d-handoff-review---2026-10-24)
+satisfies the bounded static tool/application criteria; realism limits remain.
+No passed arm/hand checks repeated. [Lower-limb audit](reference/anatomy/body/LEGS.md)
+loads current rounded-caps native, registers 48 outward skin exits, confirms
+source geometry/hash and a sampled thigh gap, and renders front/oblique views.
+Blender 5.2.2 LTS, one process/two threads, exited. No geometry changes this pass.
+Cylindrical thigh, button-like knee and undivided toes remain. Next is registered
+thigh-to-knee controls. Overall goal active, E/F/G incomplete.
+
+
 ## Rounded fingertip caps - 2026-10-24
 
 `hand.compile_caps` registers five radial sections per non-thumb digit against

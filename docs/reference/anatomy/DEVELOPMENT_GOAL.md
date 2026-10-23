@@ -56,3 +56,12 @@ then bounded hand-stage review. E-G remain unfinished.
 Saved front/oblique views inspected; local geometry and failure checks pass.
 Next: bounded stage-D handoff review using existing evidence, then stage E.
 Residual distal flaring and simplified hand surface remain explicit limits.
+
+### Stage D handoff and stage E start - 2026-10-24
+
+The bounded static tool/application criteria for D are satisfied by the
+[existing arm/hand evidence review](body/HANDS.md#stage-d-handoff-review---2026-10-24).
+Surface realism limits remain explicit; no repeated geometry tests were run.
+[Stage E audit](body/LEGS.md) records 48 skin exits and two actual current views.
+Next implementation is thigh-to-knee transition and knee relief, preserving
+pelvis, lower legs and upper body. Stages E/F/G and the full goal remain active.
