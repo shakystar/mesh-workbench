@@ -22,7 +22,8 @@ are reduced and lateral waist/pelvic controls are applied. Bilateral upper-arm
 and forearm controls now have saved-model evidence, followed by bounded elbow
 relief. Five-digit hand stocks are now grafted to preserved wrist boundaries on a new
 body snapshot. Intermediate wrist sections permit bounded reversible fairing;
-palm/web and fingertip refinement remain pending. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
+palm cupping and a curved web start are applied. Thumb-root and fingertip
+refinement remain pending. [Hand prototype](docs/reference/anatomy/body/HANDS.md).
 [Arm tools and comparison](docs/reference/anatomy/body/ARMS.md).
 This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).

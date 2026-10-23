@@ -1,5 +1,9 @@
 # Proportional anatomy knowledge and registration
 
+`hand.compile_palm` / `apply_palms` provide authored reversible palm/web skin
+controls with explicit wrist/finger protection. [Evidence and limits](reference/anatomy/body/HANDS.md#registered-palm-cupping-and-web-arch).
+
+
 `regions.graft.replace_hand` attaches hand stock on a new bounded topology
 snapshot with retained vertices exact. [Scope and checks](reference/anatomy/body/HANDS.md#bilateral-wrist-graft).
 

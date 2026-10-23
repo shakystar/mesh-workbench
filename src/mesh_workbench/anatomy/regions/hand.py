@@ -45,3 +45,57 @@ def build(name='Hand stock',scale=1,side=1):
         for mesh in set(bpy.data.meshes)-meshes:
             if mesh.users==0:bpy.data.meshes.remove(mesh)
         raise
+
+
+def compile_palm(source,side,center_x):
+    """Authored palm cupping/web arch on this upright hand frame; metres."""
+    import numpy as np
+    from mathutils import Vector
+    from mathutils.bvhtree import BVHTree
+    sculpt.editable(source)
+    if side not in (-1,1):raise ValueError('Hand side must be -1 or 1')
+    center_x=sculpt.number(center_x,-2,2,'palm center')
+    if center_x*side<=0:raise ValueError('Palm center must match side')
+    p=sculpt.coordinates(source);tree=BVHTree.FromPolygons(p.tolist(),[list(f.vertices) for f in source.data.polygons])
+    controls=[]
+    for view in (-1,1):
+        for iz,z in enumerate((.820,.835,.850,.865)):
+            for ix,u in enumerate((-.024,-.012,0,.012,.024)):
+                x=center_x+side*(u+.2*(.85-z))
+                hit=tree.ray_cast(Vector((x,view,z)),Vector((0,-view,0)))[0]
+                if hit is None:raise ValueError('Palm reference misses visible skin')
+                a=np.asarray(hit);b=a.copy()
+                arch=(0,-2,-1,2,5)[ix]/1000
+                b[2]+=arch*(1,.5,.12,0)[iz]
+                # Palm hollow between lateral pads; dorsal surface stays shallow.
+                depth=((.5,.1,-1.3,.2,.6)[ix] if view==-1 else -.3)*(0.5,1,1,.25)[iz]/1000
+                b[1]+=view*depth
+                controls.append({'name':f'palm_{view}_{iz}_{ix}','source':a.tolist(),'target':b.tolist()})
+    xs=sorted((center_x-side*.045,center_x+side*.045))
+    return {'units':'m','label':'palm '+str(side),'surface_interpolation':True,
+        'radius_mm':24,'max_displacement_mm':8,'controls':controls,
+        'region':{'min':[xs[0],-.07,.800],'max':[xs[1],.07,.878],'feather_mm':6},
+        'registration':{'side':side,'center_x':center_x},
+        'limits':'Authored skin hollow and web arch; not measured joint or muscle positions.'}
+
+
+def apply_palms(source,centers,name='Palm shaped study'):
+    from .. import curve_fit
+    if name in bpy.data.objects:raise ValueError('Output exists')
+    if len(centers)!=2:raise ValueError('Two palm centers required')
+    diagrams=[compile_palm(source,side,center) for side,center in zip((-1,1),centers)]
+    a,b=[d['region'] for d in diagrams]
+    if a['max'][0]>=b['min'][0]:raise ValueError('Palm regions overlap')
+    created=[];reports=[];current=source
+    def remove(obj):
+        mesh=obj.data;bpy.data.objects.remove(obj,do_unlink=True)
+        if mesh.users==0:bpy.data.meshes.remove(mesh)
+    try:
+        for i,diagram in enumerate(diagrams):
+            current,report=curve_fit.apply(current,diagram,name if i else name+' temporary')
+            created.append(current);reports.append(report)
+        remove(created.pop(0));current['mw_source']=source.name
+        return current,diagrams,reports
+    except Exception:
+        for obj in reversed(created):remove(obj)
+        raise

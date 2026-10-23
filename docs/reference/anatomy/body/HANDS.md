@@ -162,3 +162,34 @@ Reconstructed whole-hand view:
 | --- | --- | --- |
 | Front | ![](../../../assets/human/hands/rings/before-front.png) | ![](../../../assets/human/hands/rings/after-front.png) |
 | Oblique | ![](../../../assets/human/hands/rings/before-oblique.png) | ![](../../../assets/human/hands/rings/after-oblique.png) |
+
+## Registered palm cupping and web arch
+
+`hand.compile_palm(source, side, center_x)` emits 40 source-projected front/back
+controls in the current upright hand frame. `hand.apply_palms(source, centers)`
+precompiles both sides and applies reversible layers atomically, cleaning the
+first output if the second fails. It retains the original geometry and layers.
+Offsets establish a shallow palm hollow and vary the web start height toward
+the little finger; these are authored skin offsets, not measured bone positions.
+Fixed Z levels, front -Y, and side/center requirements limit this registration.
+It is not automatic anatomy fitting or arbitrary hand-pose support.
+
+`examples/human/hands/palm.py` takes the preserved wrist-ring-faired native and
+a fresh output folder. Current native: `runs/human/palm-shaped/palm-shaped.blend`,
+object `Palm shaped study`. Blender 5.2.2 LTS: 80 controls, max move 5.06327 mm,
+maximum target residual 0.00352 mm; minimum changed polygon area ratio 0.69192.
+115,253 vertices outside the two palm boxes are exact. All finger vertices below
+Z=.800 and wrist vertices above Z=.878 are protected; six gap rays at Z=.79
+remain empty. This is a section check, not a global collision guarantee.
+Source/topology, layer rollback, invalid side/center rejection, injected second
+hand cleanup, saved readback and input hash pass. One process/two threads, exited.
+
+Front/oblique comparisons show a curved rather than straight web start, with a
+small palm-depth change. Thumb-root step and planar palm surfaces remain visible.
+Next is thumb-root/palm transition shaping; fingertips and detailed joints remain
+unfinished. Stage D/full goal remain active.
+
+| View | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/hands/palm/before-front.png) | ![](../../../assets/human/hands/palm/after-front.png) |
+| Oblique | ![](../../../assets/human/hands/palm/before-oblique.png) | ![](../../../assets/human/hands/palm/after-oblique.png) |

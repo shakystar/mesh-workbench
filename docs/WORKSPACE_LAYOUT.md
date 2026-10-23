@@ -6,9 +6,9 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/wrist-ring-faired/wrist-transitions.blend`; preserved input in `runs/human/hands-ring-bridge/` |
+| Current human native | `runs/human/palm-shaped/palm-shaped.blend`; preserved input in `runs/human/wrist-ring-faired/` |
 | Separate hand prototype | `runs/human/hand-stock-curved/hand-stock.blend`; not attached |
-| Current human images | `docs/assets/human/hands/rings/`; prior torso views in `torso/`; prior details in `ears/`, `chin/`, `mouth/`, `eyes/`, `nose/` |
+| Current human images | `docs/assets/human/hands/palm/`; prior torso views in `torso/`; prior details in `ears/`, `chin/`, `mouth/`, `eyes/`, `nose/` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |
 | Other examples | `examples/{camera,mouse,headphones,speaker,organic,lantern,sculpture,general}/` |

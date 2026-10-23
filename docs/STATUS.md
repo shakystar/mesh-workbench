@@ -1,5 +1,18 @@
 # Current development status
 
+## Palm cupping and web arch - 2026-10-24
+
+Added `hand.compile_palm` and atomic `apply_palms`, 40 controls per side with
+reversible layers. Blender 5.2.2 LTS: max move 5.06327 mm, residual .00352 mm;
+115,253 outside-box vertices exact, six finger gap rays open. Source/topology,
+rollback, invalid side/center, second-hand failure cleanup, native readback/hash
+pass. Matched front/oblique renders show curved web starts and shallow palm
+relief. Thumb-root step and planar palm remain; next is that junction. Stage D
+active. One process/two threads, exited.
+Current native: `runs/human/palm-shaped/palm-shaped.blend`.
+[API, exact protection and comparison](reference/anatomy/body/HANDS.md#registered-palm-cupping-and-web-arch).
+
+
 ## Wrist intermediate rings / fairing passes - 2026-10-24
 
 Replaced long wrist bridges with four 64-vertex intermediate sections per hand,

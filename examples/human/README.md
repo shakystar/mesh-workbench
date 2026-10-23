@@ -1,5 +1,11 @@
 # Human modeling entry point
 
+Current native: `runs/human/palm-shaped/palm-shaped.blend`.
+`hands/palm.py` takes the preserved wrist-ring-faired native and a fresh folder.
+Current views: `docs/assets/human/hands/palm/`.
+Earlier wrist-ring pass:
+
+
 Current native: `runs/human/wrist-ring-faired/wrist-transitions.blend`.
 `hands/attach.py` now adds intermediate wrist rings; `hands/fair_wrist.py` takes
 that reconstructed native and a fresh output folder. Original boundaries remain

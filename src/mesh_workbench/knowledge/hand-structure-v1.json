@@ -23,5 +23,6 @@
     0.0075,
     0.007,
     0.006
-  ]
+  ],
+  "palm_surface_policy": "compile_palm uses authored front/back skin controls for cupping and an asymmetric web arch. Values are not anatomical measurements; fixed upright registration requires review."
 }
