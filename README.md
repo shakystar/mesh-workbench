@@ -18,7 +18,8 @@ refined. Ear ridges now use continuous curves on a locally refined mesh;
 ear thickness is shallow. Neck paths protect the face, and a locally rebuilt
 underside patch removes the folded under-chin projection.
 Torso, costal/abdominal and posterior scapular controls now separate the main volumes; stage C remains
-in progress. This is not anatomical validation.
+in progress. Posterior axillary junction scallops are reduced by bounded fairing.
+This is not anatomical validation.
 [Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 

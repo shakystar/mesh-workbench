@@ -1,5 +1,11 @@
 # Human modeling entry point
 
+Current native: `runs/human/axillary-junction/axillary-transitions.blend`.
+Run `torso/axilla.py` on the preserved posterior-torso native into a fresh folder.
+Current matched junction renders: `docs/assets/human/torso/axilla/`.
+Earlier posterior-plane pass:
+
+
 Current native: `runs/human/posterior-torso/posterior-torso.blend`.
 Run `torso/back.py` on the preserved costal-continuous native into a fresh folder.
 Current posterior images: `docs/assets/human/torso/back/`.

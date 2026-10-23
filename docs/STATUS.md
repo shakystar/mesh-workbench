@@ -1,5 +1,18 @@
 # Current development status
 
+## Posterior axillary junction repair - 2026-10-24
+
+Reused the volume-preserving surface brush on two registered posterior paths.
+Back/oblique saved-model comparisons show reduced small junction scallops;
+a broad groove and simplified shoulder remain. Blender 5.2.2 LTS: 90,143
+protected vertices exact; source/topology/rollback/failure cleanup/native
+readback/input hash pass. One process/two threads, exited. A stronger trial was
+rejected by the unchanged displacement cap. Next: waist/flank to upper pelvis.
+Stage C remains active. Current native:
+`runs/human/axillary-junction/axillary-transitions.blend`.
+[Script, before/after and limitations](reference/anatomy/body/TORSO.md#posterior-axillary-junction-fairing).
+
+
 ## Posterior torso profile - 2026-10-24
 
 Added 34-control `profile="back"`, registered to the common torso frame.

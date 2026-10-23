@@ -111,3 +111,31 @@ Stage C is not complete.
 | --- | --- | --- |
 | Back | ![](../../../assets/human/torso/costal-back.png) | ![](../../../assets/human/torso/back/back.png) |
 | Side | ![](../../../assets/human/torso/costal-side.png) | ![](../../../assets/human/torso/back/side.png) |
+
+## Posterior axillary junction fairing
+
+Reused `surface_brush.apply` with two posterior visible-surface paths, one per
+side. `examples/human/torso/axilla.py` projects authored paths on the preserved
+posterior-torso native and applies reversible volume-preserving relaxation.
+This is a local junction repair, not a new anatomical claim or reconstructed
+axillary fold. Radius 20 mm, strength 0.4, eight iterations, 3 mm cap.
+
+The initial inner path missed the visible seam. Moving the path laterally located
+the defect; a stronger setting exceeded the existing displacement cap and was
+rejected without saving. The accepted setting reduces small scallops in both
+back and oblique views. A broad groove and simplified shoulder anatomy remain.
+No guards or tolerances were weakened. The next stage C item is waist/flank to
+upper-pelvis connection; stage C remains incomplete.
+
+Blender 5.2.2 LTS: 90,143 vertices outside the two boxes remain exact. Source
+and topology preserved, both layers roll back exactly, invalid second stroke
+and injected finish failure leave no snapshot/mesh, saved-native readback and
+input SHA pass. Each stroke passes polygon orientation/area and stored-volume
+checks. One process/two threads; exited. The saved result is
+`runs/human/axillary-junction/axillary-transitions.blend`, object
+`Axillary transition study`. Diagram, commands and report are adjacent.
+
+| View | Before | After |
+| --- | --- | --- |
+| Back | ![](../../../assets/human/torso/axilla/before-back.png) | ![](../../../assets/human/torso/axilla/after-back.png) |
+| Oblique | ![](../../../assets/human/torso/axilla/before-oblique.png) | ![](../../../assets/human/torso/axilla/after-oblique.png) |
