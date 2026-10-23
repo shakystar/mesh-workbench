@@ -24,11 +24,11 @@ def apply(source, diagram, name='Curve fitted surface'):
         raise ValueError('Invalid layer label')
     if name in bpy.data.objects:
         raise ValueError('Output already exists')
-    radius = sculpt.number(diagram['radius_mm'], 1, 40, 'radius')/1000
+    radius = sculpt.number(diagram['radius_mm'], 1, 150, 'radius')/1000
     cap = sculpt.number(diagram['max_displacement_mm'], .01, 8, 'cap')/1000
     region = diagram['region']
     lo, hi = np.asarray(region['min'], float), np.asarray(region['max'], float)
-    feather = sculpt.number(region['feather_mm'], .1, 8, 'feather')/1000
+    feather = sculpt.number(region['feather_mm'], .1, 30, 'feather')/1000
     if lo.shape != (3,) or hi.shape != (3,) or not np.isfinite([lo, hi]).all() or np.any(hi-lo<=2*feather):
         raise ValueError('Invalid region')
     controls = diagram['controls']

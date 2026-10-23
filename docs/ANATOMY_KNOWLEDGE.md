@@ -1,5 +1,9 @@
 # Proportional anatomy knowledge and registration
 
+Registered torso skin controls: `mesh_workbench.regions.torso.compile_controls`
+uses `torso-surface-v1`. [API, authored dimensions and limits](reference/anatomy/body/TORSO.md).
+
+
 Reusable modules cover the neutral oral region, front-visible nasal base and
 periorbital surface and external-ear relief.
 The oral module contains six semantic feature groups, 20 normalized controls and

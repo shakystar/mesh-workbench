@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current torso native: `runs/human/torso-planes/torso-planes.blend`.
+`torso/planes.py` takes the preserved rebuilt-underside native and a fresh output
+folder; `torso/audit.py` records the matched before views.
+[Current torso evidence](../../docs/reference/anatomy/body/TORSO.md).
+
+Earlier neck stage:
+
 Current native: `runs/human/rebuilt-underside/rebuilt-underside.blend`.
 Current images: `docs/assets/human/neck/rebuilt-front.png` and `rebuilt-profile.png`.
 The local under-chin fold is repaired. Run `neck/rebuild_underside.py` from

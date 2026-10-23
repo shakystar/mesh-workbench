@@ -1,0 +1,233 @@
+{
+  "id": "torso-surface-v1",
+  "schema_version": 1,
+  "sources": {
+    "thoracic_cage": {
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/7-4-the-thoracic-cage",
+      "use": "Qualitative sternum/ribs/posterior vertebral relationship only."
+    },
+    "pelvis": {
+      "url": "https://openstax.org/books/anatomy-and-physiology-2e/pages/8-3-the-pelvic-girdle-and-pelvis",
+      "use": "Iliac crest as superior ilium border and pelvis connection to sacrum only."
+    }
+  },
+  "relationships": [
+    {
+      "region": "thoracic cage",
+      "relation": "anterior sternum and posterior thoracic vertebrae connected by ribs",
+      "source": "thoracic_cage"
+    },
+    {
+      "region": "pelvis",
+      "relation": "ilium superior margin forms iliac crest; hip bones articulate with sacrum",
+      "source": "pelvis"
+    }
+  ],
+  "coordinate_policy": "Authored U scales with registered half width. V=1 is sternum height, V=0 waist, V=-1 pelvis. Skin probes do not locate bone or muscle insertions. All depths are authored increments, not population measurements.",
+  "controls": [
+    {
+      "name": "sternum_0.7",
+      "view": "front",
+      "u": 0,
+      "v": 0.7,
+      "depth_mm": -2.5
+    },
+    {
+      "name": "sternum_1",
+      "view": "front",
+      "u": 0,
+      "v": 1,
+      "depth_mm": -2.5
+    },
+    {
+      "name": "sternum_1.15",
+      "view": "front",
+      "u": 0,
+      "v": 1.15,
+      "depth_mm": -2.5
+    },
+    {
+      "name": "thorax_-1_0.85",
+      "view": "front",
+      "u": -0.55,
+      "v": 0.85,
+      "depth_mm": 3.5
+    },
+    {
+      "name": "thorax_-1_1.1",
+      "view": "front",
+      "u": -0.55,
+      "v": 1.1,
+      "depth_mm": 3.5
+    },
+    {
+      "name": "costal_transition_-1_0.3",
+      "view": "front",
+      "u": -0.3,
+      "v": 0.48,
+      "depth_mm": -1.2
+    },
+    {
+      "name": "costal_transition_-1_0.6",
+      "view": "front",
+      "u": -0.6,
+      "v": 0.35,
+      "depth_mm": -1.2
+    },
+    {
+      "name": "costal_transition_-1_0.85",
+      "view": "front",
+      "u": -0.85,
+      "v": 0.2,
+      "depth_mm": -1.2
+    },
+    {
+      "name": "abdominal_-1_-0.45",
+      "view": "front",
+      "u": -0.28,
+      "v": -0.45,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "abdominal_-1_0",
+      "view": "front",
+      "u": -0.28,
+      "v": 0,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "abdominal_-1_0.25",
+      "view": "front",
+      "u": -0.28,
+      "v": 0.25,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "pelvic_transition_-1",
+      "view": "front",
+      "u": -0.72,
+      "v": -0.85,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "posterior_thorax_-1_0.7",
+      "view": "back",
+      "u": -0.48,
+      "v": 0.7,
+      "depth_mm": 2.5
+    },
+    {
+      "name": "posterior_thorax_-1_1.05",
+      "view": "back",
+      "u": -0.48,
+      "v": 1.05,
+      "depth_mm": 2.5
+    },
+    {
+      "name": "thorax_1_0.85",
+      "view": "front",
+      "u": 0.55,
+      "v": 0.85,
+      "depth_mm": 3.5
+    },
+    {
+      "name": "thorax_1_1.1",
+      "view": "front",
+      "u": 0.55,
+      "v": 1.1,
+      "depth_mm": 3.5
+    },
+    {
+      "name": "costal_transition_1_0.3",
+      "view": "front",
+      "u": 0.3,
+      "v": 0.48,
+      "depth_mm": -1.2
+    },
+    {
+      "name": "costal_transition_1_0.6",
+      "view": "front",
+      "u": 0.6,
+      "v": 0.35,
+      "depth_mm": -1.2
+    },
+    {
+      "name": "costal_transition_1_0.85",
+      "view": "front",
+      "u": 0.85,
+      "v": 0.2,
+      "depth_mm": -1.2
+    },
+    {
+      "name": "abdominal_1_-0.45",
+      "view": "front",
+      "u": 0.28,
+      "v": -0.45,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "abdominal_1_0",
+      "view": "front",
+      "u": 0.28,
+      "v": 0,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "abdominal_1_0.25",
+      "view": "front",
+      "u": 0.28,
+      "v": 0.25,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "pelvic_transition_1",
+      "view": "front",
+      "u": 0.72,
+      "v": -0.85,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "posterior_thorax_1_0.7",
+      "view": "back",
+      "u": 0.48,
+      "v": 0.7,
+      "depth_mm": 2.5
+    },
+    {
+      "name": "posterior_thorax_1_1.05",
+      "view": "back",
+      "u": 0.48,
+      "v": 1.05,
+      "depth_mm": 2.5
+    },
+    {
+      "name": "posterior_midline_-0.5",
+      "view": "back",
+      "u": 0,
+      "v": -0.5,
+      "depth_mm": -2
+    },
+    {
+      "name": "posterior_midline_0",
+      "view": "back",
+      "u": 0,
+      "v": 0,
+      "depth_mm": -2
+    },
+    {
+      "name": "posterior_midline_0.5",
+      "view": "back",
+      "u": 0,
+      "v": 0.5,
+      "depth_mm": -2
+    },
+    {
+      "name": "posterior_midline_1",
+      "view": "back",
+      "u": 0,
+      "v": 1,
+      "depth_mm": -2
+    }
+  ],
+  "limits": "Static torso surface planes; no skeleton, muscle simulation, demographic inference or anatomical validation."
+}

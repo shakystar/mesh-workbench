@@ -17,7 +17,9 @@ softened with protected lips. Chin projection and the stepped lower surface are
 refined. Ear ridges now use continuous curves on a locally refined mesh;
 ear thickness is shallow. Neck paths protect the face, and a locally rebuilt
 underside patch removes the folded under-chin projection.
-This is not anatomical validation.
+Torso front/back controls now add subtle volume separation; stage C remains
+in progress. This is not anatomical validation.
+[Torso control evidence and actual comparisons](docs/reference/anatomy/body/TORSO.md).
 [Files and folders](docs/WORKSPACE_LAYOUT.md).
 
 [Nose structural audit: actual three-view comparison and sourced relationship map](docs/reference/anatomy/NOSE_AUDIT.md).

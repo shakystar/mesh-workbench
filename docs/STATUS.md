@@ -1,5 +1,19 @@
 # Current development status
 
+## Torso control pass / stage C active - 2026-10-24
+
+Added sourced relationship map `torso-surface-v1` and registered front/back
+compiler `mesh_workbench.regions.torso.compile_controls`. Applied 29 controls
+as a reversible layer. Blender 5.2.2 LTS: maximum displacement 3.66272 mm,
+77,457 protected vertices exact, source/topology/rollback/failure cleanup/native
+readback/input hash pass. Three matched saved-model views reviewed with two
+threads and one Blender process; exited. Volume changes are subtle; costal
+margin, abdominal and scapular structure remain insufficient. Next is costal
+margin/abdomen connection. Stage C and the full goal remain active.
+Current native: `runs/human/torso-planes/torso-planes.blend`.
+[Implementation, sources, comparison and limits](reference/anatomy/body/TORSO.md).
+
+
 Workspace organization: all folders outside `.git` and the approved `.venv`
 exception have at most ten direct files. 4,938 files were grouped by topic/type;
 source imports, example resources and documentation links were updated.
