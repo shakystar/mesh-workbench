@@ -10,7 +10,7 @@ def knowledge():
     return json.loads(files('mesh_workbench').joinpath('knowledge/torso-surface-v1.json').read_text())
 
 def compile_controls(source,target,relief=1,profile="planes"):
-    if profile not in ("planes", "abdomen", "back"):
+    if profile not in ("planes", "abdomen", "back", "flank"):
         raise ValueError("Unknown torso profile")
     sculpt.editable(source)
     half=sculpt.number(target['half_width_m'],.08,.16,'torso half width')
@@ -28,10 +28,18 @@ def compile_controls(source,target,relief=1,profile="planes"):
     for r in refs:
         if np.linalg.norm(project(r[0],r[2],'front')-r)>.0001:raise ValueError('Torso reference off visible skin')
     controls=[]
-    for row in knowledge()[{'planes':'controls','abdomen':'abdominal_controls','back':'posterior_controls'}[profile]]:
+    for row in knowledge()[{'planes':'controls','abdomen':'abdominal_controls','back':'posterior_controls','flank':'flank_controls'}[profile]]:
         v=row['v'];z=refs[1,2]+v*(refs[0,2]-refs[1,2] if v>=0 else refs[1,2]-refs[2,2])
-        a=project(refs[0,0]+row['u']*half,z,row['view']);b=a.copy()
-        b[1]+=(1 if row['view']=='back' else -1)*row['depth_mm']*relief/1000
+        if profile=='flank':
+            y=row['w']*half
+            origin=Vector((refs[0,0],y,z));direction=Vector((row['side'],0,0))
+            hit,normal,_,distance=tree.ray_cast(origin,direction)
+            if hit is None or normal.dot(direction)<=0 or not half*.4<distance<half*1.5:
+                raise ValueError('Flank reference must exit the torso from inside')
+            a=np.asarray(hit);b=a.copy();b[0]+=row['side']*row['depth_mm']*relief/1000
+        else:
+            a=project(refs[0,0]+row['u']*half,z,row['view']);b=a.copy()
+            b[1]+=(1 if row['view']=='back' else -1)*row['depth_mm']*relief/1000
         controls.append({'name':row['name'],'source':a.tolist(),'target':b.tolist()})
     return {'units':'m','label':'torso '+profile,'surface_interpolation':True,
         'radius_mm':half*1000*(.7 if profile=='planes' else .55),'max_displacement_mm':8,

@@ -778,5 +778,218 @@
       "view": "back"
     }
   ],
-  "posterior_policy": "Authored superficial skin planes. Not bone reconstruction, scapular motion or muscle segmentation."
+  "posterior_policy": "Authored superficial skin planes. Not bone reconstruction, scapular motion or muscle segmentation.",
+  "flank_controls": [
+    {
+      "name": "flank_-1_0_0",
+      "side": -1,
+      "w": -0.25,
+      "v": -0.7,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "flank_-1_0_1",
+      "side": -1,
+      "w": 0,
+      "v": -0.7,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "flank_-1_0_2",
+      "side": -1,
+      "w": 0.25,
+      "v": -0.7,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "flank_-1_1_0",
+      "side": -1,
+      "w": -0.25,
+      "v": -0.4,
+      "depth_mm": 3
+    },
+    {
+      "name": "flank_-1_1_1",
+      "side": -1,
+      "w": 0,
+      "v": -0.4,
+      "depth_mm": 3
+    },
+    {
+      "name": "flank_-1_1_2",
+      "side": -1,
+      "w": 0.25,
+      "v": -0.4,
+      "depth_mm": 3
+    },
+    {
+      "name": "flank_-1_2_0",
+      "side": -1,
+      "w": -0.25,
+      "v": -0.1,
+      "depth_mm": 1
+    },
+    {
+      "name": "flank_-1_2_1",
+      "side": -1,
+      "w": 0,
+      "v": -0.1,
+      "depth_mm": 1
+    },
+    {
+      "name": "flank_-1_2_2",
+      "side": -1,
+      "w": 0.25,
+      "v": -0.1,
+      "depth_mm": 1
+    },
+    {
+      "name": "flank_-1_3_0",
+      "side": -1,
+      "w": -0.25,
+      "v": 0.25,
+      "depth_mm": -1.5
+    },
+    {
+      "name": "flank_-1_3_1",
+      "side": -1,
+      "w": 0,
+      "v": 0.25,
+      "depth_mm": -1.5
+    },
+    {
+      "name": "flank_-1_3_2",
+      "side": -1,
+      "w": 0.25,
+      "v": 0.25,
+      "depth_mm": -1.5
+    },
+    {
+      "name": "flank_-1_4_0",
+      "side": -1,
+      "w": -0.25,
+      "v": 0.5,
+      "depth_mm": 0
+    },
+    {
+      "name": "flank_-1_4_1",
+      "side": -1,
+      "w": 0,
+      "v": 0.5,
+      "depth_mm": 0
+    },
+    {
+      "name": "flank_-1_4_2",
+      "side": -1,
+      "w": 0.25,
+      "v": 0.5,
+      "depth_mm": 0
+    },
+    {
+      "name": "flank_1_0_0",
+      "side": 1,
+      "w": -0.25,
+      "v": -0.7,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "flank_1_0_1",
+      "side": 1,
+      "w": 0,
+      "v": -0.7,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "flank_1_0_2",
+      "side": 1,
+      "w": 0.25,
+      "v": -0.7,
+      "depth_mm": 1.5
+    },
+    {
+      "name": "flank_1_1_0",
+      "side": 1,
+      "w": -0.25,
+      "v": -0.4,
+      "depth_mm": 3
+    },
+    {
+      "name": "flank_1_1_1",
+      "side": 1,
+      "w": 0,
+      "v": -0.4,
+      "depth_mm": 3
+    },
+    {
+      "name": "flank_1_1_2",
+      "side": 1,
+      "w": 0.25,
+      "v": -0.4,
+      "depth_mm": 3
+    },
+    {
+      "name": "flank_1_2_0",
+      "side": 1,
+      "w": -0.25,
+      "v": -0.1,
+      "depth_mm": 1
+    },
+    {
+      "name": "flank_1_2_1",
+      "side": 1,
+      "w": 0,
+      "v": -0.1,
+      "depth_mm": 1
+    },
+    {
+      "name": "flank_1_2_2",
+      "side": 1,
+      "w": 0.25,
+      "v": -0.1,
+      "depth_mm": 1
+    },
+    {
+      "name": "flank_1_3_0",
+      "side": 1,
+      "w": -0.25,
+      "v": 0.25,
+      "depth_mm": -1.5
+    },
+    {
+      "name": "flank_1_3_1",
+      "side": 1,
+      "w": 0,
+      "v": 0.25,
+      "depth_mm": -1.5
+    },
+    {
+      "name": "flank_1_3_2",
+      "side": 1,
+      "w": 0.25,
+      "v": 0.25,
+      "depth_mm": -1.5
+    },
+    {
+      "name": "flank_1_4_0",
+      "side": 1,
+      "w": -0.25,
+      "v": 0.5,
+      "depth_mm": 0
+    },
+    {
+      "name": "flank_1_4_1",
+      "side": 1,
+      "w": 0,
+      "v": 0.5,
+      "depth_mm": 0
+    },
+    {
+      "name": "flank_1_4_2",
+      "side": 1,
+      "w": 0.25,
+      "v": 0.5,
+      "depth_mm": 0
+    }
+  ],
+  "flank_policy": "Authored waist-to-upper-pelvis skin envelope. Interior-to-lateral rays avoid the separate hanging arm. Reference must be inside torso; not inferred iliac bone landmarks."
 }

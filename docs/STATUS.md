@@ -1,5 +1,19 @@
 # Current development status
 
+## Lateral torso / stage C handoff - 2026-10-24
+
+Added 30-control `profile="flank"` with guarded interior-to-lateral registration.
+Blender 5.2.2 LTS: 83,496 protected vertices exact, max move 3.14497 mm;
+source/topology/rollback/failure cleanup/native readback/input hash and outside
+origin rejection pass. Actual front/oblique comparisons inspected; changes are
+subtle. One process/two threads, exited. Bounded static stage C tool/application
+criteria have evidence; anatomical simplification, shallow scapulae, costal
+waviness and broad axillary groove remain. Next is D upper arm/elbow/forearm,
+then hands/fingers. Full goal remains active.
+Current native: `runs/human/flank-transition/flank-transition.blend`.
+[API, comparisons and stage evidence](reference/anatomy/body/TORSO.md#flank-and-upper-pelvis-envelope).
+
+
 ## Posterior axillary junction repair - 2026-10-24
 
 Reused the volume-preserving surface brush on two registered posterior paths.

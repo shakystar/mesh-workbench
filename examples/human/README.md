@@ -1,5 +1,12 @@
 # Human modeling entry point
 
+Current native: `runs/human/flank-transition/flank-transition.blend`.
+Run `torso/flank.py` on the preserved axillary native into a fresh folder.
+`torso/check_flank.py` takes the result folder and checks lateral-origin rejection.
+Current matched views: `docs/assets/human/torso/flank/`.
+Earlier axillary pass:
+
+
 Current native: `runs/human/axillary-junction/axillary-transitions.blend`.
 Run `torso/axilla.py` on the preserved posterior-torso native into a fresh folder.
 Current matched junction renders: `docs/assets/human/torso/axilla/`.

@@ -139,3 +139,39 @@ checks. One process/two threads; exited. The saved result is
 | --- | --- | --- |
 | Back | ![](../../../assets/human/torso/axilla/before-back.png) | ![](../../../assets/human/torso/axilla/after-back.png) |
 | Oblique | ![](../../../assets/human/torso/axilla/before-oblique.png) | ![](../../../assets/human/torso/axilla/after-oblique.png) |
+
+## Flank and upper-pelvis envelope
+
+`profile="flank"` adds 30 lateral controls registered in the existing torso frame.
+Interior-to-lateral rays select the torso exit before the hanging arm. Exit
+normal and distance guards reject invalid registration; the reference frame is
+still authored and requires an upright body centered on Y=0. This is not automatic
+limb isolation for arbitrary meshes. Existing pelvic/abdominal relationships
+motivate the skin envelope; numerical widths and offsets are authored.
+
+`examples/human/torso/flank.py` applies the profile to the preserved axillary
+native. `check_flank.py` checks an outside-origin rejection without mutation or
+renders. Current result: `runs/human/flank-transition/flank-transition.blend`,
+object `Flank transition study`, reversible layer `MW torso flank`.
+Blender 5.2.2 LTS: max displacement 3.14497 mm, 4,772 changed vertices,
+83,496 outside-box vertices exact, minimum changed polygon area ratio 0.96628.
+Source/topology/rollback/invalid profile/reference order/late-failure cleanup/
+native readback/input hash and lateral-origin rejection pass. One Blender at a
+time, two threads, exited. Front/oblique saved-model comparisons show subtle
+waist-to-upper-pelvis width changes, not a detailed iliac crest reconstruction.
+
+### Stage C handoff
+
+The bounded static torso-tool criteria now have evidence: front/back controls,
+costal/abdominal relationships, posterior planes, local axillary fairing, lateral
+waist/pelvic connection, protected regions and reversible application. Actual
+front/side/back render evidence is above, with matched local comparisons.
+Anatomical simplification, shallow scapulae, costal waviness and a broad axillary
+groove remain. This is not anatomical validation or a realistic finished torso.
+Next is stage D upper arm/elbow/forearm, followed by hand/finger structure. The
+full goal remains active; pelvis/legs/feet and cross-character reuse are pending.
+
+| View | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/torso/flank/before-front.png) | ![](../../../assets/human/torso/flank/after-front.png) |
+| Oblique | ![](../../../assets/human/torso/flank/before-oblique.png) | ![](../../../assets/human/torso/flank/after-oblique.png) |

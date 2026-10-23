@@ -1,7 +1,7 @@
 # Proportional anatomy knowledge and registration
 
 Registered torso skin controls: `mesh_workbench.regions.torso.compile_controls`
-uses `torso-surface-v1`, with `profile="abdomen"` for costal/abdominal relief and `profile="back"` for posterior planes. [API, authored dimensions and limits](reference/anatomy/body/TORSO.md).
+uses `torso-surface-v1`, with `profile="abdomen"` for costal/abdominal relief and `profile="back"` for posterior planes. `profile="flank"` uses guarded lateral torso exits. [API, authored dimensions and limits](reference/anatomy/body/TORSO.md).
 
 
 Reusable modules cover the neutral oral region, front-visible nasal base and
