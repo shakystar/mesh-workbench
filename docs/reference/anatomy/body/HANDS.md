@@ -251,3 +251,28 @@ integrated review list. Stage D active; one process/two threads, exited.
 | --- | --- | --- |
 | Front | ![](../../../assets/human/hands/thumb/before-front.png) | ![](../../../assets/human/hands/thumb/after-front.png) |
 | Oblique | ![](../../../assets/human/hands/thumb/before-oblique.png) | ![](../../../assets/human/hands/thumb/after-oblique.png) |
+
+## Finger section controls - 2026-10-24
+
+Added `hand.compile_fingers` and atomic `apply_palms(profile="fingers")`.
+80 controls per hand register four distal radial sections and two palmar/dorsal
+joint stations on the included upright stock. Local 4 mm kernels add up to
+.45 mm skin relief. Interior-exit/radius guards reject unsuitable registration.
+This is authored skin shaping, not bone detection or anatomical validation.
+
+Blender 5.2.2 LTS: 160 controls, max move .49384 mm, surface residual .02037 mm,
+minimum polygon area ratio .88543. 131,067 outside-box vertices and 7,028 thumb
+region vertices unchanged. Source/topology/rollback/invalid registration/
+second-hand cleanup/six gap rays/native readback/input hash pass.
+Actual front and oblique views show small distal-width changes. Angular terminal
+caps, planar palm and a thumb-root notch remain. Next: terminal-cap silhouette,
+then bounded hand-stage review. Stage D active. One process/two threads, exited.
+
+Current native: `runs/human/finger-contours/finger-contours.blend`, object
+`Finger contour study`. Example: `examples/human/hands/fingers.py` takes the
+thumb-outline native and a fresh output folder.
+
+| View | Before | After |
+| --- | --- | --- |
+| Front | ![](../../../assets/human/hands/fingers/before-front.png) | ![](../../../assets/human/hands/fingers/after-front.png) |
+| Oblique | ![](../../../assets/human/hands/fingers/before-oblique.png) | ![](../../../assets/human/hands/fingers/after-oblique.png) |

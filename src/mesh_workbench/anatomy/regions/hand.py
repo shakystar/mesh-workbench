@@ -83,8 +83,8 @@ def apply_palms(source,centers,name='Palm shaped study',profile='palm'):
     from .. import curve_fit
     if name in bpy.data.objects:raise ValueError('Output exists')
     if len(centers)!=2:raise ValueError('Two palm centers required')
-    if profile not in ('palm','thumb'):raise ValueError('Unknown hand profile')
-    compiler=compile_palm if profile=='palm' else compile_thumb_outline
+    if profile not in ('palm','thumb','fingers'):raise ValueError('Unknown hand profile')
+    compiler={'palm':compile_palm,'thumb':compile_thumb_outline,'fingers':compile_fingers}[profile]
     diagrams=[compiler(source,side,center) for side,center in zip((-1,1),centers)]
     a,b=[d['region'] for d in diagrams]
     if a['max'][0]>=b['min'][0]:raise ValueError('Palm regions overlap')
@@ -163,3 +163,41 @@ def compile_thumb_outline(source,side,center_x):
         'region':{'min':[xs[0],-.05,.840],'max':[xs[1],.05,.900],'feather_mm':6},
         'registration':{'side':side,'center_x':center_x},'sections':sections,
         'limits':'Upright skin continuity fit; endpoints fixed at control samples, not anatomical inference.'}
+
+
+def compile_fingers(source,side,center_x):
+    """Register four skin sections per digit and two joint relief stations."""
+    import numpy as np
+    from mathutils import Vector
+    from mathutils.bvhtree import BVHTree
+    sculpt.editable(source)
+    if side not in (-1,1):raise ValueError('Hand side must be -1 or 1')
+    center_x=sculpt.number(center_x,-2,2,'palm center')
+    if center_x*side<=0:raise ValueError('Palm center must match side')
+    kb=json.loads(files('mesh_workbench').joinpath('knowledge/hand-structure-v1.json').read_text())
+    p=sculpt.coordinates(source);tree=BVHTree.FromPolygons(p.tolist(),[list(f.vertices) for f in source.data.polygons])
+    controls=[]
+    for digit,(u,length,radius) in enumerate(zip(kb['finger_centers'],kb['finger_lengths'],kb['finger_radii'])):
+        # Distal section expansion blends into unchanged shaft. Joint marks are
+        # authored skin relief, never a claim that underlying bones were detected.
+        for station,(t,relief) in enumerate(((.04,.00035),(.08,.00045),(.15,.0002),(.23,0),(.34,.00035),(.64,.0004))):
+            z=.825-length+length*t
+            x=center_x+side*(u*(1+.1*(1-t))+.2*(.85-z))
+            y=-.002-.004*(1-t)
+            for axis,sign in ((0,-1),(0,1),(1,-1),(1,1)):
+                # Joint relief only on palmar/dorsal faces; keep lateral gaps.
+                if station>=4 and axis==0:continue
+                direction=Vector((sign if axis==0 else 0,sign if axis==1 else 0,0))
+                hit,normal,_,distance=tree.ray_cast(Vector((x,y,z)),direction)
+                if hit is None or normal.dot(direction)<=0 or not .001<distance<radius*1.6:
+                    raise ValueError('Finger reference must exit its local skin envelope')
+                a=np.asarray(hit);b=a.copy()
+                delta=relief if station<4 else (relief if sign==1 else -relief*.5)
+                b[axis]+=sign*delta
+                controls.append({'name':f'finger_{digit}_{station}_{axis}_{sign}','source':a.tolist(),'target':b.tolist()})
+    xs=sorted((center_x-side*.05,center_x+side*.06))
+    return {'units':'m','label':'finger contours '+str(side),'surface_interpolation':True,
+        'radius_mm':4,'max_displacement_mm':1.5,'controls':controls,
+        'region':{'min':[xs[0],-.035,.738],'max':[xs[1],.035,.813],'feather_mm':2},
+        'registration':{'side':side,'center_x':center_x},
+        'limits':'Fixed upright procedural hand only; authored distal and joint skin relief, no bone detection or nails.'}

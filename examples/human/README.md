@@ -1,5 +1,9 @@
 # Human modeling entry point
 
+Current hand: `hands/fingers.py` takes thumb-outline native and a fresh output folder.
+Recorded native: `runs/human/finger-contours/finger-contours.blend`.
+160 controls; terminal caps remain angular.
+
 Current native: `runs/human/thumb-outline/thumb-outline.blend`.
 `hands/thumb.py` takes hand-transitions native and a fresh folder; it checks
 actual section continuity in addition to preservation and failure paths.
