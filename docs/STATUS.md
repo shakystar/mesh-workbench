@@ -2,6 +2,25 @@
 
 ## Compact camera exterior — 2026-10-23
 
+Exterior integration revision addresses the four user-marked areas. A tapered
+section grip replaces the rounded block and projecting top plate. The control
+panel, gasket and body seat extend down to align with the screen; lower fasteners
+move with the panel. Its finish is closer to the body. The display now has a
+cut-through bezel, recessed glass, a backing and an actual body recess; exposed
+display-corner screws are removed. Native result:
+`runs/compact-camera-integration/camera.blend`.
+
+Focused checks cover display glass/bezel non-intersection and the affected panel
+bores, gasket contact and button supports. Front and rear views cover the changed
+exterior. Blender 5.2.2 LTS passed these checks. Both views were inspected;
+a broad shading band introduced by the body recess was corrected with explicit
+face corner normals and the rear view was rendered again. The final rear image
+shows an even body surface below the extended panel and around the inset display.
+The front image predates this final body-normal correction but shows the current
+grip geometry. Blender exited; one process and two CPU threads were used at a
+time. This remains a static visual model, not a manufacturing validation.
+Previous revisions follow.
+
 Button seating revision: MENU, PLAY and navigation controls now use real panel
 apertures. Separate button shafts run through guide sleeves into a body cavity;
 retaining flanges and a navigation carrier complete the static assembly.

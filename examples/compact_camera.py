@@ -39,7 +39,7 @@ def build(output):
 
     silver = material('Satin aluminium', (.46,.49,.51), .85,.3)
     black = material('Black anodised metal', (.018,.022,.026), .7,.28)
-    panel_finish = material('Satin control panel', (.022,.027,.031), .35,.48)
+    panel_finish = material('Satin control panel', (.025,.03,.033), .15,.55)
     rubber = material('Charcoal leather', (.025,.03,.033), 0,.7)
     brass = material('Warm index accent', (.66,.31,.08), .8,.27)
     glass = material('Coated optical glass', (.025,.105,.13), .32,.09,.35)
@@ -93,8 +93,14 @@ def build(output):
         (3.4,60,18),(6.35,60,18),(6.75,59.7,17.7)],silver)
     casing('Upper recessed gasket',[(68.8,59.4,17.4),(69.5,59.4,17.4)],black)
     casing('Lower recessed gasket',[(6.5,59.4,17.4),(7.2,59.4,17.4)],black)
-    box('Sculpted front grip',(22,17,51),(-44,-19,35),rubber,7)
-    box('Grip upper accent',(19,12,2),(-44,-22,61),black,.7)
+    # Taper both ends into the body; no separate projecting top plate.
+    grip=assign(sectionstock.create('Tapered front grip',[
+        [8,-44,-16.6,7,1.0],[10,-44,-18.5,9,3.0],
+        [16,-44,-20.6,10.5,5.0],[47,-44,-20.6,10.5,5.0],
+        [54,-44,-19.6,10,4.0],[59,-44,-17.8,8.8,2.2],
+        [63,-44,-16.6,7,1.0]],exponent=4,segments=128),rubber)
+    materials.finish([grip], 'Grip fine grain', role='rubber', color=(.025,.03,.033,1),
+                     roughness=.7, variation=.03, grain_mm=.5, bump_mm=.025, seed=19)
     # Lens axis: -Y. Ring bores and the glass share the same centre.
     ring('Mount flange',(10,-18,40),4,30,23,silver)
     ring('Brass mount index',(10,-22,40),1.2,28.8,23,brass)
@@ -167,14 +173,17 @@ def build(output):
     label('FRAME',(-7,-18.6,74),4,black)
     label('35 / 2',(33,-18.7,58),2.3,white)
     # Rear display and a small control cluster.
-    box('Rear display surround',(81,1.8,52),(-10,18.5,38),black,.65)
-    box('Rear display glass',(74,.5,45),(-10,19.5,38),screen,.2)
+    display_stock=box('Display bezel stock',(80,1.2,52),(-10,17.9,38),black,.35)
+    display_frame=mechanical.cut_box(display_stock,'Inset display bezel',(76,3,48),(-10,17.9,38),.6)
+    display_stock.hide_render=True;display_stock.hide_set(True);parts.append(display_frame)
+    display_glass=box('Rear display glass',(75.6,.4,47.6),(-10,18.1,38),screen,.15)
+    box('Display backing',(76,.4,48),(-10,17.6,38),black,.15)
     for x in (-39,19):
         for z in (23,53):
-            box('Display frame horizontal %s %s'%(x,z),(5,.2,.4),(x,19.85,z),white,.08)
-            box('Display frame vertical %s %s'%(x,z),(.4,.2,4),(x+(2.4 if x<0 else -2.4),19.85,z),white,.08)
-    label('1/125   F2.8   ISO 200',(22,19.9,20),2,white,rear=True)
-    panel=box('Rear service panel',(24,.7,49),(43,17.85,43),panel_finish,.18)
+            box('Display frame horizontal %s %s'%(x,z),(5,.2,.4),(x,18.42,z),white,.08)
+            box('Display frame vertical %s %s'%(x,z),(.4,.2,4),(x+(2.4 if x<0 else -2.4),18.42,z),white,.08)
+    label('1/125   F2.8   ISO 200',(22,18.45,20),2,white,rear=True)
+    panel=box('Rear service panel',(24,.7,55),(43,17.85,40),panel_finish,.18)
     controls_before=set(bpy.data.objects)
     ring('Navigation seated bezel',(43,18.7,35),.45,8.8,8.35,silver,(0,1,0))
     ring('Rear navigation wheel',(43,18.8,35),1.15,8.1,3.7,black,(0,1,0))
@@ -198,7 +207,7 @@ def build(output):
         stock.hide_render=True;stock.hide_set(True)
         parts.append(result)
         return result
-    for x,z in ((33,21),(53,21),(33,65),(53,65),(-51,65),(-51,12)):
+    for x,z in ((33,15),(53,15),(33,65),(53,65)):
         screw('Rear panel screw %s %s'%(x,z),x,18.2 if x>0 else 17.8,z)
     for x in (-60,60):
         box('Strap mounting plate '+str(x),(1.5,9,12),(x,0,64),black,.5)
@@ -210,16 +219,18 @@ def build(output):
     # uncut construction objects hidden; the first native model stays untouched.
     pocket=mechanical.cut_box(body,'Body battery pocket',(32,22,18),(-33,0,15),1.2)
     body.hide_render=True;body.hide_set(True);parts.append(pocket)
-    flange=box('Panel seat flange',(24.9,2,49.9),(43,16.6,43),black,.8)
+    flange=box('Panel seat flange',(24.9,2,55.9),(43,16.6,40),black,.8)
     supported_body=enclosure.boolean(pocket,flange,'UNION','Body panel support')
     pocket.hide_render=True;pocket.hide_set(True)
     flange.hide_render=True;flange.hide_set(True);parts.append(supported_body)
-    seated_body=mechanical.cut_box(supported_body,'Body with panel seat',(24.5,2,49.5),(43,18.2,43),.55)
+    seated_body=mechanical.cut_box(supported_body,'Body with panel seat',(24.5,2,55.5),(43,18.2,40),.55)
     supported_body.hide_render=True;supported_body.hide_set(True);parts.append(seated_body)
-    panel_gasket_stock=box('Panel gasket stock',(24,.3,49),(43,17.35,43),rubber,.1)
-    panel_gasket=mechanical.cut_box(panel_gasket_stock,'Panel perimeter gasket',(21.6,1,46.6),(43,17.35,43),.4)
+    display_body=mechanical.cut_box(seated_body,'Body display recess',(80.4,2.2,52.4),(-10,18,38),.5)
+    seated_body.hide_render=True;seated_body.hide_set(True);parts.append(display_body);seated_body=display_body
+    panel_gasket_stock=box('Panel gasket stock',(24,.3,55),(43,17.35,40),rubber,.1)
+    panel_gasket=mechanical.cut_box(panel_gasket_stock,'Panel perimeter gasket',(21.6,1,52.6),(43,17.35,40),.4)
     panel_gasket_stock.hide_render=True;panel_gasket_stock.hide_set(True);parts.append(panel_gasket)
-    for i,(x,z) in enumerate(((33,21),(53,21),(33,65),(53,65))):
+    for i,(x,z) in enumerate(((33,15),(53,15),(33,65),(53,65))):
         bore=construction.strut('Panel fastener cutter',(x,16.8,z),(x,20,z),.65,48)
         drilled=enclosure.boolean(panel,bore,'DIFFERENCE','Drilled service panel '+str(i))
         mechanical.remove(bore)
@@ -307,6 +318,13 @@ def build(output):
     world=latch_root.matrix_world.copy();latch_root.parent=door_root;latch_root.matrix_world=world
     for obj in hatch_parts:
         world=obj.matrix_world.copy();obj.parent=door_root;obj.matrix_world=world
+    # Rebuild face corner normals after body recess cuts to avoid broad
+    # interpolation bands across the narrow remaining outer skin.
+    body_normals=[(0,0,0)]*len(seated_body.data.loops)
+    for face in seated_body.data.polygons:
+        face.use_smooth=False
+        for index in face.loop_indices:body_normals[index]=tuple(face.normal)
+    seated_body.data.normals_split_custom_set(body_normals)
     # Bottom tripod socket is separate from the hatch.
     ring('Tripod socket',(4,0,2.45),1.3,4,2.5,silver,(0,0,1))
     # Focused static geometry check only, before adding the presentation floor.
@@ -328,7 +346,7 @@ def build(output):
     battery_access=tree(battery).ray_cast(Vector((-38,0,0)),Vector((0,0,1)),10)[0] is not None
     hatch_closed=tree(hatch_parts[0]).ray_cast(Vector((-33,0,0)),Vector((0,0,1)),10)[0] is not None
     panel_bores=all(tree(panel).ray_cast(Vector((x,16,z)),Vector((0,1,0)),5)[0] is None
-                    for x,z in ((33,21),(53,21),(33,65),(53,65)))
+                    for x,z in ((33,15),(53,15),(33,65),(53,65)))
     control_apertures=all(tree(panel).ray_cast(Vector((43,16,z)),Vector((0,1,0)),5)[0] is None
                           for z,_,_ in button_specs)
     shafts_clear=all(not tree(shaft).overlap(tree(panel)) and
@@ -342,6 +360,8 @@ def build(output):
     mechanical.remove(probe)
     if not all((control_apertures,shafts_clear,oversized_rejected,guides_attached)):
         raise ValueError('Button aperture/shaft clearance or negative fit check failed')
+    display_clear=not tree(display_frame).overlap(tree(display_glass))
+    if not display_clear:raise ValueError('Inset display glass intersects bezel')
     latch_fits=not tree(latch_tongue).overlap(tree(receiver))
     def bounds(ob,axis):
         values=[(ob.matrix_world@v.co)[axis] for v in ob.data.vertices]
@@ -365,13 +385,14 @@ def build(output):
     output.mkdir(parents=True)
     report={'blender':bpy.app.version_string,'mesh_parts':len(parts),'finite_geometry':not errors,
             'scope':'Camera exterior, controls and battery/card hatch; two static hatch poses, not a motion sweep.',
-            'threads':2,'renders':['rear-controls'],
+            'threads':2,'renders':['front','rear-controls'],
             'opening_clear':opening_clear,'battery_access':battery_access,
             'closed_hatch_covers_opening':hatch_closed,'open_hatch_clears_opening':hatch_open,
             'hatch_angle_degrees':105,'button_radial_clearance_mm':.2,
             'control_apertures_open':control_apertures,'button_shafts_clear':shafts_clear,
             'guide_supports_attached':bool(guides_attached),
             'oversized_shaft_rejected':oversized_rejected,'shaft_radial_clearance_mm':.2,
+            'display_glass_bezel_clear':display_clear,
             'panel_bores_open':panel_bores,'panel_gasket_contact':panel_contact,
             'door_seal_seat_contact':seal_contact,'latch_fits_receiver':latch_fits,
             'latch_releases_before_opening':latch_released}
@@ -391,7 +412,8 @@ def build(output):
     scene.render.threads_mode='FIXED';scene.render.threads=2
     scene.view_settings.view_transform='AgX'
     bpy.ops.wm.save_as_mainfile(filepath=str((output/'camera.blend').resolve()))
-    for view,pos,target,scale in [('rear-controls',(-125,240,155),(0,4,48),160)]:
+    for view,pos,target,scale in [('front',(175,-260,155),(0,-8,42),185),
+                                ('rear-controls',(-125,240,155),(0,4,48),160)]:
         if view=='hatch-open':
             floor.hide_render=True
             latch_root.location.x-=2

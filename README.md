@@ -17,6 +17,8 @@ Seated buttons, marked dials and panel screws define the controls. The bottom
 battery/card hatch has an actual opening, liner, gasket seat and retracting latch.
 The rear panel seats in a body recess with a perimeter gasket and through-holes
 for separate screws. Fixed and moving hinge knuckles share one pin axis.
+The grip tapers into the body without a projecting cap; the rear panel aligns
+with a recessed display and narrow bezel.
 [Generator](examples/compact_camera.py) · [Scope and checks](docs/STATUS.md)
 
 | Refined front | Lens and aperture |
