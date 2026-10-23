@@ -1,10 +1,11 @@
 # Proportional anatomy knowledge and registration
 
 Reusable modules cover the neutral oral region, front-visible nasal base and
-periorbital surface.
+periorbital surface and external-ear relief.
 The oral module contains six semantic feature groups, 20 normalized controls and
 seven brush paths. The nasal module adds five groups, 19 controls and six paths.
 The periorbital module adds six groups, 19 controls and five paths per eye.
+The auricle module adds five groups, 19 controls and six paths per ear.
 Each stores source references separately from authored modeling proportions.
 
 ## Knowledge versus authored proportions
@@ -81,7 +82,8 @@ made from this geometry-only pass.
 | Oral region | Semantic definitions, proportional guide, manual landmark fitting |
 | Nasal base and alae | Semantic definitions, proportional guide, shared oral reference |
 | Periorbital surface | Eyelid/crease/brow guides, per-eye canthal-axis fitting |
-| Orbital cavities, eyeballs, ears, upper nasal bridge | No reusable knowledge modules yet |
+| External ear surface | Lateral projection, proportional guides, paired reversible application |
+| Orbital cavities, eyeballs, ear canals, upper nasal bridge | No reusable knowledge modules yet |
 | Skull, neck, torso, limbs, hands and feet | No reusable knowledge modules yet |
 | Automatic landmark detection | Not implemented |
 | Pose/expression, age or body-type models | Not implemented |
@@ -190,3 +192,51 @@ after five successful paths, and compatibility of the original oral `apply` API.
 The current human example additionally verifies closed manifold geometry and
 source/baseline preservation. These checks do not establish anatomical accuracy
 or rendered realism.
+
+## External ear and side projection
+
+[`auricle-v1.json`](../src/mesh_workbench/knowledge/auricle-v1.json) records helix,
+antihelix, concha, lobule and tragus groups, referencing the
+[NIH/NHGRI external-ear anatomy page](https://elementsofmorphology.nih.gov/anatomy-ear.shtml).
+Descriptions are independently worded; no reference images or measured ratios
+are copied. All numerical proportions remain authored defaults.
+
+Set `knowledge_id: auricle-v1` and `side: negative_x` or `positive_x`. Four
+manually identified visible points are required: `anterior`, `posterior`,
+`superior`, `inferior`. The model faces -Y, with Z up. Anterior/posterior span
+sets Y width; upper/lower references set independent heights. `midline_x`
+defaults to zero. This module requires approximately level anterior/posterior
+references and does not automatically correct rotated ears.
+
+The path tool now supports `side_negative_x` and `side_positive_x` projection.
+Both use Y/Z controls, cast toward the selected side and change only X. Positive
+brush displacement is outward; negative is inward. Each affected vertex must be
+visible from that same side, protecting the opposite ear and hidden nearby sheets.
+The existing front path behavior is unchanged.
+
+Supported implementation ranges: half-width 4–30 mm, upper/lower heights 8–50 mm,
+front/back height difference at most 10% of half-width, and upper/lower horizontal
+offset at most 25% of half-width. These are tool limits, not normality criteria.
+The default target-to-visible-surface tolerance remains 5 mm. Wrong-side,
+inverted, missing, nonfinite and off-surface references fail without retaining
+partial results. The existing `relief` multiplier applies; `bow_width` does not.
+
+Six paths provide helix relief, antihelix stem/branch, a shallow conchal recess,
+lobule and tragus support. They do not create a free-standing rolled rim, cartilage
+thickness or an auditory canal. This does not complete anatomical ear modeling.
+
+```text
+blender -b --factory-startup -t 2 --python-exit-code 2 --python examples/human_ears.py -- runs/human-eye-fit/fitted-eyes.blend runs/human-ear-fit
+```
+
+The example reuses the paired-region local subdivision workflow, preserves the
+current face source and applies both ears in one reversible result. Only selected
+ear patch faces are subdivided. Native geometry and reports are saved without a
+render; source/baseline objects remain available and are hidden after success.
+
+Focused Blender 5.2.2 LTS check: `tests/ear_fit_test.py` uses 18/26 mm widths and
+44/56 mm heights on two pairs of curved sheets with occluded backing surfaces.
+It checks side directions, unchanged Y/Z, opposite/hidden surface protection,
+source preservation, caps and rollback, six invalid batches, and the existing
+front-path effect/failure check. The human example verifies protection, rollback
+and manifold edges. No anatomical accuracy or new rendered-quality claim is made.

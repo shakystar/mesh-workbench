@@ -61,7 +61,7 @@ def apply_many(obj, targets, name, **options):
 
 
 def knowledge(module_id='oral-neutral-v1'):
-    if module_id not in ('oral-neutral-v1','nasal-base-v1','periorbital-v1'):
+    if module_id not in ('oral-neutral-v1','nasal-base-v1','periorbital-v1','auricle-v1'):
         raise ValueError('Unknown anatomy knowledge module')
     return json.loads(files('mesh_workbench').joinpath('knowledge/'+module_id+'.json').read_text())
 
@@ -72,6 +72,10 @@ def compile_diagram(obj, target, *, bow_width=1.0, relief=1.0, tolerance_mm=5):
     Target units are metres, front faces -Y, Z is up. Left/right mean diagram
     negative/positive X. Required targets must lie near the visible surface.
     """
+    if target.get('knowledge_id')=='auricle-v1':
+        from .anatomy_ear import compile_ear
+        if bow_width!=1:raise ValueError('bow_width applies only to the oral module')
+        return compile_ear(obj,target,relief=relief,tolerance_mm=tolerance_mm)
     if target.get('knowledge_id')=='periorbital-v1':
         from .anatomy_orbital import compile_orbital
         if bow_width!=1:raise ValueError('bow_width applies only to the oral module')

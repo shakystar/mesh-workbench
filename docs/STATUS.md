@@ -2,6 +2,24 @@
 
 ## Human proportion base — 2026-10-23
 
+Auricle knowledge: `auricle-v1.json` adds five semantic groups, 19 controls and
+six paths per ear. `anatomy.path_stroke` supports explicit positive/negative-X
+side views in addition to front projection. Same-view visibility protects opposite
+and occluded surfaces. Four manual references scale each ear's width and heights.
+
+Blender 5.2.2 LTS: `tests/ear_fit_test.py` passes two paired proportion fixtures
+(18/26 mm widths, 44/56 mm heights), outward direction, unchanged Y/Z, caps,
+source preservation and rollback. All 9,882 hidden vertices per fixture remain
+unchanged; protected counts are 12,068 / 11,988. Maximum movement: 0.479 / 0.702 mm.
+Six invalid batches and the existing front-path effect/failure check pass.
+Evidence: `runs/ear-fit/verification.json`. The current human application locally
+subdivides ear patches and preserves existing facial edits:
+`runs/human-ear-fit/fitted-ears.blend`. No new renders; canals, cartilage thickness,
+free-standing helix rims and anatomical accuracy remain outside this pass.
+The human result preserves 75,230 protected vertices and source/baseline geometry,
+passes all-layer rollback and has zero nonmanifold edges. Maximum movement is
+0.700 mm. One Blender process and two CPU threads were used; Blender exited.
+
 Periorbital knowledge: `periorbital-v1.json` adds six semantic groups, 19 controls
 and five paths per eye. Four references determine the canthal axis and independent
 lid heights. `apply_many` applies disjoint regions to one new snapshot while

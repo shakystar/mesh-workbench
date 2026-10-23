@@ -36,9 +36,9 @@ def bind(obj, diagram):
 
 
 def path_stroke(obj, command):
-    """Project a front-diagram polyline; deform only its visible surface footprint.
+    """Project a front/side polyline; deform only its visible surface footprint.
 
-    Radius is in the diagram plane, not geodesic. Positive distance moves forward.
+    Radius is in the diagram plane, not geodesic. Positive distance moves outward.
     One path creates one reversible layer, with no accumulation at sample joins.
     """
     bpy.context.view_layer.update()
@@ -50,10 +50,14 @@ def path_stroke(obj, command):
     names=command.get('anchors',[])
     if not isinstance(names,list) or len(names)<2 or len(names)>128:
         raise ValueError('Expected 2..128 named path anchors')
+    view=command.get('view','front')
+    views={'front':(0,1,-1),'side_positive_x':(1,0,1),'side_negative_x':(1,0,-1)}
+    if view not in views:raise ValueError('Unsupported path projection view')
+    horizontal,depth,outward=views[view];plane=[horizontal,2]
     points=np.array([_point(diagram['landmarks'][name]) for name in names])
-    uv=points[:,[0,2]]
+    uv=points[:,plane]
     if np.any(np.linalg.norm(np.diff(uv,axis=0),axis=1)<1e-8):
-        raise ValueError('Consecutive path anchors must differ in front view')
+        raise ValueError('Consecutive path anchors must differ in the diagram view')
     label=command.get('label','Anatomy path')
     if not isinstance(label,str) or not 1<=len(label)<=48:raise ValueError('Invalid layer label')
     radius=sculpt.number(command['radius_mm'],.1,30,'radius')/1000
@@ -64,9 +68,13 @@ def path_stroke(obj, command):
     lo,hi=np.asarray(region['min']),np.asarray(region['max'])
     original=sculpt.coordinates(obj)
     tree=BVHTree.FromPolygons(original.tolist(),[list(p.vertices) for p in obj.data.polygons])
-    ray_y=float(original[:,1].min()-1)
+    ray_depth=float(original[:,depth].min()-1 if outward<0 else original[:,depth].max()+1)
+    direction=np.zeros(3);direction[depth]=-outward
+    def cast(p):
+        origin=np.zeros(3);origin[horizontal]=p[0];origin[2]=p[1];origin[depth]=ray_depth
+        return tree.ray_cast(Vector(origin),Vector(direction))[0]
     def project(p):
-        hit=tree.ray_cast(Vector((float(p[0]),ray_y,float(p[1]))),Vector((0,1,0)))[0]
+        hit=cast(p)
         if hit is None:raise ValueError('Diagram path misses surface')
         hit=np.asarray(hit)
         if np.any(hit<lo) or np.any(hit>hi):raise ValueError('Path outside selected region')
@@ -83,16 +91,16 @@ def path_stroke(obj, command):
     nearest=np.full(len(original),np.inf)
     for a,b in zip(uv[:-1],uv[1:]):
         ab=b-a
-        t=np.clip(((original[:,[0,2]]-a)@ab)/np.dot(ab,ab),0,1)
-        nearest=np.minimum(nearest,np.linalg.norm(original[:,[0,2]]-(a+t[:,None]*ab),axis=1))
+        t=np.clip(((original[:,plane]-a)@ab)/np.dot(ab,ab),0,1)
+        nearest=np.minimum(nearest,np.linalg.norm(original[:,plane]-(a+t[:,None]*ab),axis=1))
     weights=np.maximum(0,1-(nearest/radius)**2)**2*mask
     # A rear surface or another sheet at the same diagram coordinate stays protected.
     for i in np.flatnonzero(weights):
-        hit=tree.ray_cast(Vector((float(original[i,0]),ray_y,float(original[i,2]))),Vector((0,1,0)))[0]
-        if hit is None or abs(hit.y-original[i,1])>1e-5:weights[i]=0
+        hit=cast(original[i,plane])
+        if hit is None or abs(hit[depth]-original[i,depth])>1e-5:weights[i]=0
     changed=np.flatnonzero(np.abs(weights*distance)>1e-10)
     if not len(changed):raise ValueError('Path produced no deformation')
-    coords=original.copy();coords[:,1]-=weights*distance
+    coords=original.copy();coords[:,depth]+=outward*weights*distance
     key=layers.begin(obj)
     try:
         inv=obj.matrix_world.inverted()

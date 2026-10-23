@@ -81,10 +81,12 @@ profile, not nostril cavities or detailed lip topology.
 
 ## Registered mouth paths
 
-`anatomy.path_stroke(obj, command)` follows a front-view polyline of named
-`anchors`. Unlike the point brush, its radius is measured in the X/Z diagram
-plane. Positive `distance_mm` moves the visible surface toward -Y; negative
-distance recesses it. Landmark Y coordinates do not set the resulting depth.
+`anatomy.path_stroke(obj, command)` follows a projected polyline of named
+`anchors`. `view` defaults to `front` (X/Z plane, outward -Y). The side views
+`side_positive_x` and `side_negative_x` use the Y/Z plane with outward +X/-X.
+Unlike the point brush, its radius is measured in the diagram plane. Positive
+`distance_mm` moves the visible surface outward; negative distance recesses it.
+The landmark's depth coordinate does not set the resulting surface depth.
 Each vertex receives one falloff weight based on the nearest path segment,
 so overlapping segments do not accumulate displacement within a stroke.
 
@@ -93,7 +95,7 @@ An additional visibility ray excludes rear surfaces. Paths are sampled at
 at most 1 mm spacing (or half the radius when smaller) to reject misses and
 out-of-region centerlines before creating a key. The per-path displacement
 limit is enforced before editing; multiple layers can add together.
-This is front-projected authoring, not a geodesic path or automatic anatomy fit.
+This is orthographically projected authoring, not a geodesic path or automatic anatomy fit.
 
 ![Mouth registration](assets/human-mouth-diagram.png)
 

@@ -24,9 +24,10 @@ The guides are authored for this model.
 [Registration diagram](docs/assets/human-anatomy-diagram.png).
 
 [Proportional anatomy knowledge](docs/ANATOMY_KNOWLEDGE.md) separates oral, nasal
-and periorbital feature relationships from authored ratios. Manual landmarks fit
+and periorbital/ear feature relationships from authored ratios. Manual landmarks fit
 regional guides to different widths, heights and supported eye tilts. Both eye
 regions can share one reversible result; failed batches leave no partial output.
+Ear guides use side projection with opposite/hidden-surface protection.
 Whole-body knowledge and automatic landmark detection remain unimplemented.
 
 Latest mouth pass: [brush diagram](docs/assets/human-mouth-diagram.png).

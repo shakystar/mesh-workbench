@@ -1,0 +1,236 @@
+{
+  "schema_version": 1,
+  "id": "auricle-v1",
+  "scope": "Lateral surface relief; no auditory canal or free-standing helix.",
+  "sources": {
+    "nih_ear": {
+      "url": "https://elementsofmorphology.nih.gov/anatomy-ear.shtml",
+      "accessed": "2026-10-23",
+      "use": "Terminology only; no reference images or numerical measurements copied."
+    }
+  },
+  "coordinate_policy": "U runs anterior to posterior along world Y; V scales independently above/below center. All ratios are authored modeling defaults.",
+  "features": {
+    "helix": {
+      "description": "Outer ear rim.",
+      "anchors": [
+        "helix_root",
+        "helix_top",
+        "helix_low"
+      ],
+      "source": "nih_ear"
+    },
+    "antihelix": {
+      "description": "Branched inner cartilaginous ridge.",
+      "anchors": [
+        "anti_low",
+        "anti_fork",
+        "anti_upper",
+        "anti_front"
+      ],
+      "source": "nih_ear"
+    },
+    "concha": {
+      "description": "Depression leading toward the auditory canal.",
+      "anchors": [
+        "concha_top",
+        "concha_mid",
+        "concha_low"
+      ],
+      "source": "nih_ear"
+    },
+    "lobule": {
+      "description": "Soft lower part of the auricle.",
+      "anchors": [
+        "lobule_front",
+        "lobule_mid",
+        "lobule_back"
+      ],
+      "source": "nih_ear"
+    },
+    "tragus": {
+      "description": "Prominence anterior to the auditory meatus.",
+      "anchors": [
+        "tragus_top",
+        "tragus_low"
+      ],
+      "source": "nih_ear"
+    }
+  },
+  "relations": [
+    [
+      "helix",
+      "outer_to",
+      "antihelix"
+    ],
+    [
+      "antihelix",
+      "bounds",
+      "concha"
+    ],
+    [
+      "tragus",
+      "bounds",
+      "concha"
+    ],
+    [
+      "lobule",
+      "below",
+      "helix"
+    ]
+  ],
+  "required_target_landmarks": [
+    "anterior",
+    "posterior",
+    "superior",
+    "inferior"
+  ],
+  "landmarks_uv": {
+    "helix_root": [
+      -0.65,
+      0.35
+    ],
+    "helix_front": [
+      -0.6,
+      0.7
+    ],
+    "helix_top": [
+      0,
+      0.86
+    ],
+    "helix_back": [
+      0.65,
+      0.65
+    ],
+    "helix_mid": [
+      0.8,
+      0.1
+    ],
+    "helix_low": [
+      0.55,
+      -0.55
+    ],
+    "anti_low": [
+      0.15,
+      -0.45
+    ],
+    "anti_mid": [
+      0.25,
+      0.05
+    ],
+    "anti_fork": [
+      0.12,
+      0.4
+    ],
+    "anti_upper": [
+      0.25,
+      0.65
+    ],
+    "anti_front": [
+      -0.3,
+      0.48
+    ],
+    "concha_top": [
+      -0.18,
+      0.18
+    ],
+    "concha_mid": [
+      -0.23,
+      -0.05
+    ],
+    "concha_low": [
+      -0.15,
+      -0.3
+    ],
+    "lobule_front": [
+      -0.2,
+      -0.72
+    ],
+    "lobule_mid": [
+      0.1,
+      -0.82
+    ],
+    "lobule_back": [
+      0.35,
+      -0.7
+    ],
+    "tragus_top": [
+      -0.63,
+      0.04
+    ],
+    "tragus_low": [
+      -0.6,
+      -0.2
+    ]
+  },
+  "paths": [
+    {
+      "label": "helix",
+      "anchors": [
+        "helix_root",
+        "helix_front",
+        "helix_top",
+        "helix_back",
+        "helix_mid",
+        "helix_low"
+      ],
+      "radius_half_width_ratio": 0.18,
+      "distance_half_width_ratio": 0.05,
+      "max_displacement_half_width_ratio": 0.065
+    },
+    {
+      "label": "antihelix stem",
+      "anchors": [
+        "anti_low",
+        "anti_mid",
+        "anti_fork",
+        "anti_upper"
+      ],
+      "radius_half_width_ratio": 0.14,
+      "distance_half_width_ratio": 0.035,
+      "max_displacement_half_width_ratio": 0.05
+    },
+    {
+      "label": "antihelix branch",
+      "anchors": [
+        "anti_fork",
+        "anti_front"
+      ],
+      "radius_half_width_ratio": 0.13,
+      "distance_half_width_ratio": 0.025,
+      "max_displacement_half_width_ratio": 0.04
+    },
+    {
+      "label": "concha",
+      "anchors": [
+        "concha_top",
+        "concha_mid",
+        "concha_low"
+      ],
+      "radius_half_width_ratio": 0.3,
+      "distance_half_width_ratio": -0.045,
+      "max_displacement_half_width_ratio": 0.06
+    },
+    {
+      "label": "lobule",
+      "anchors": [
+        "lobule_front",
+        "lobule_mid",
+        "lobule_back"
+      ],
+      "radius_half_width_ratio": 0.24,
+      "distance_half_width_ratio": 0.03,
+      "max_displacement_half_width_ratio": 0.045
+    },
+    {
+      "label": "tragus",
+      "anchors": [
+        "tragus_top",
+        "tragus_low"
+      ],
+      "radius_half_width_ratio": 0.18,
+      "distance_half_width_ratio": 0.035,
+      "max_displacement_half_width_ratio": 0.05
+    }
+  ]
+}

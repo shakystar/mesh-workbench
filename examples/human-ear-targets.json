@@ -1,0 +1,23 @@
+{
+  "note": "Authored Y/Z ear references with measured side-surface X on Fitted eye guides; not automatic landmark detection.",
+  "targets": [
+    {
+      "units": "m", "knowledge_id": "auricle-v1", "side": "negative_x",
+      "landmarks": {
+        "anterior": [-0.084688306, -0.002, 1.628],
+        "posterior": [-0.087407112, 0.026, 1.628],
+        "superior": [-0.085850775, 0.012, 1.653],
+        "inferior": [-0.085876137, 0.012, 1.603]
+      }
+    },
+    {
+      "units": "m", "knowledge_id": "auricle-v1", "side": "positive_x",
+      "landmarks": {
+        "anterior": [0.084678590, -0.002, 1.628],
+        "posterior": [0.087405890, 0.026, 1.628],
+        "superior": [0.085843414, 0.012, 1.653],
+        "inferior": [0.085939497, 0.012, 1.603]
+      }
+    }
+  ]
+}
