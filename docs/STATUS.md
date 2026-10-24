@@ -1,5 +1,23 @@
 # Current development status
 
+## Columella-philtrum junction refinement - 2026-10-24
+
+Added `nose.compile_columella`: registered central stations independently control
+subtip projection and basal recession. A tapered continuous field protects the
+entrance rims/lips outside the 5.6 mm strip. Two surface-fitting candidates were
+rejected for visible basal artifacts; continuous deformation removes those new
+artifacts while retaining a small curvature/contact adjustment.
+
+Blender 5.2.2 LTS: 35 controls, maximum .25483 mm movement, 198,118 protected
+vertices exact, .01038 mm surface residual. Source, rollback, invalid stations,
+late failure cleanup, saved readback and profile/basal inspection pass. Broad
+simplified anatomy remains. [Actual comparisons](reference/anatomy/body/NASAL_CONNECTIONS.md#columella-philtrum-junction---2026-10-24).
+
+Only native: `runs/human/current/character.blend`, 15.02 MiB. Disable the new
+`MW columella philtrum junction` layer to recover the preceding state. Verified
+candidate promoted and rejected natives removed. Blender exited; two threads.
+
+
 ## Alar-cheek attachment refinement - 2026-10-24
 
 Registered lateral rows now separate attachment fairing and outer alar volume.

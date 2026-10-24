@@ -45,6 +45,33 @@ def apply(source, registration, name='Nasal connections study', **amounts):
     return curve_fit.apply(source, compile_controls(source,registration,**amounts),name)
 
 
+def compile_columella(source, registration, *, projection_mm=.25, junction_mm=.25):
+    """Registered central strip: subtip projection and recessed basal junction.
+
+    The caller registers a narrow strip between the entrance rims and above
+    the upper lip. Height stations carry separate projection/junction weights.
+    This does not infer the subnasale or an anatomical nasolabial angle.
+    """
+    projection=sculpt.number(projection_mm,-1,1,'projection')/1000
+    junction=sculpt.number(junction_mm,-1,1,'junction')/1000
+    stations=np.asarray(registration['stations'],float)
+    if stations.ndim!=2 or stations.shape[1]!=3 or not 4<=len(stations)<=12 or not np.isfinite(stations).all() or np.any(np.diff(stations[:,0])<=0) or np.any(np.abs(stations[:,1:])>1):
+        raise ValueError('Ordered finite columella stations required')
+    width=sculpt.number(registration['half_width_mm'],1,3,'strip width')/1000
+    points=sculpt.coordinates(source)
+    tree=BVHTree.FromPolygons(points.tolist(),[list(p.vertices) for p in source.data.polygons])
+    controls=[]
+    for i,(z,pweight,jweight) in enumerate(stations):
+        for j,x in enumerate([-width*.75,-width*.4,0,width*.4,width*.75]):
+            hit,normal,_,_=tree.ray_cast(Vector((x,-1,z)),Vector((0,1,0)),2)
+            if hit is None or normal.y>=-.01:raise ValueError('Columella ray misses entering skin')
+            p=np.asarray(hit);q=p.copy();q[1]+=(-projection*pweight+junction*jweight)*np.cos(np.pi*x/(2*width))**2
+            controls.append(dict(name=f'columella_{i}_{j}',source=p.tolist(),target=q.tolist()))
+    return dict(units='m',label='columella philtrum junction',radius_mm=12,max_displacement_mm=.8,
+                surface_interpolation=False,region=dict(min=[-width,-.15,float(stations[0,0]-.002)],
+                max=[width,-.035,float(stations[-1,0]+.002)],feather_mm=.5),controls=controls)
+
+
 def compile_attachment(source, registration, *, fairing=.25, volume_mm=.2):
     """Fair registered lateral rows while keeping the medial nose outside bounds.
 

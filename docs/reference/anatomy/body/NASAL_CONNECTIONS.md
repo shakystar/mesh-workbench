@@ -110,3 +110,53 @@ and source/hash checks. Rejected candidate was removed; one human native remains
 | --- | --- | --- |
 | Oblique | ![](../../../assets/human/nose/attachment/before-oblique.png) | ![](../../../assets/human/nose/attachment/after-oblique.png) |
 | Profile | ![](../../../assets/human/nose/attachment/before-profile.png) | ![](../../../assets/human/nose/attachment/after-profile.png) |
+
+## Columella-philtrum junction - 2026-10-24
+
+Scope: central subtip/columella curvature and basal contact with the philtrum.
+`nose.compile_columella` takes explicitly registered ordered height stations
+with separate projection and junction weights. A narrow central strip keeps
+the lateral entrance rims and lips outside its deformation bounds. This is
+manual surface registration, not automatic subnasale detection or an anatomical
+nasolabial-angle target. Existing NIH surface terminology in this document
+motivates the distinction; the offset amounts are authored design choices.
+
+`examples/human/nose/refine/columella.py` takes the current native and a fresh
+folder. Thirty-five surface controls span seven heights and five lateral stations,
+with .25 mm projection and .25 mm junction recession. A cosine-squared lateral
+weight reduces the offset smoothly toward the protected sides. The registered half-width is 2.8 mm and lower
+boundary is above the upper lip. A continuous compact-support deformation and a reversible layer
+preserve topology and prior layers. Required checks cover source/outside-region
+equality, rollback, invalid station order, injected layer-finish failure cleanup,
+control-to-surface residual and saved readback, followed by profile/basal views.
+Only this region is tested; one Blender process and two numerical/CPU threads.
+
+The first 21-control candidate produced a small slot-like basal indentation
+and was rejected despite passing numeric guards. The corrected profile reduces
+the junction offset and adds tapered lateral stations. Only the specific
+profile/basal checks are repeated for this visible defect.
+
+The tapered surface-interpolating candidate still showed a small pointed
+indentation: mesh-fitting amplification reached .963 mm for .25 mm authored
+offsets. It was also rejected. The selected method uses the continuous RBF
+field with 12 mm support rather than exact sampled-surface interpolation, and
+a stricter .8 mm displacement cap. Target-surface residual remains checked.
+
+Selected pass: Blender 5.2.2 LTS, 35 controls, maximum movement .25483 mm,
+198,118 protected vertices exact, 361 moved vertices, minimum changed-face area
+ratio .95303 and maximum target-surface residual .01038 mm. Source, rollback,
+invalid station order, late-failure cleanup and saved native readback pass.
+Actual profile and basal views confirm a subtle central curvature/contact change
+without the new slot/point seen in the rejected fits. The broad, simplified
+nasolabial surface remains; this is not a completed realistic nose.
+
+Only native: `runs/human/current/character.blend`, 15,747,055 bytes (15.02 MiB).
+Disable `MW columella philtrum junction` for the exact preceding state. The
+accepted native was promoted after source-hash and saved-readback verification;
+both rejected natives and the temporary backup were removed. Reports and
+comparison images remain. No other model or anatomical region was changed.
+
+| View | Before | After |
+| --- | --- | --- |
+| Profile | ![](../../../assets/human/nose/columella/before-profile.png) | ![](../../../assets/human/nose/columella/after-profile.png) |
+| Basal | ![](../../../assets/human/nose/columella/before-basal.png) | ![](../../../assets/human/nose/columella/after-basal.png) |

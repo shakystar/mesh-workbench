@@ -6,7 +6,7 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Only human native | `runs/human/current/character.blend`; editable current body/eyes, 13.29 MiB |
+| Only human native | `runs/human/current/character.blend`; editable current body/eyes, 15.02 MiB |
 | Human cleanup evidence | `runs/human/current/`; 73 old natives/backups removed by user request; historical paths below are not live files |
 | Historical forefoot prototype (native removed) | `runs/human/forefoot-stock/forefoot-stock.blend`; not attached; images `docs/assets/human/legs/toes/` |
 | Historical hand prototype (native removed) | `runs/human/hand-stock-curved/hand-stock.blend`; not attached |

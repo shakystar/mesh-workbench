@@ -11,7 +11,7 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 Actual Blender renders created with this toolkit.
 
 [Latest nose controls and comparison](docs/reference/anatomy/body/NASAL_CONNECTIONS.md).
-The sole local editable native is `runs/human/current/character.blend` (13.29 MiB);
+The sole local editable native is `runs/human/current/character.blend` (15.02 MiB);
 historical native snapshots were removed at user request.
 
 **Current human model, actually rendered:** registered oral volume controls with
