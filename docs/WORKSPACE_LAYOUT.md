@@ -6,11 +6,10 @@ is included in the final check.
 
 | Category | Location |
 | --- | --- |
-| Current human native | `runs/human/integrated/integrated.blend`; preserved input in `runs/human/feet-tapered/` |
-| Second character | `runs/human/variant-reuse/reused.blend`; registration/guides alongside; proportion source `runs/human/variant-b-limbs/`; images `docs/assets/human/variant/` |
-| Annotated integration | `runs/human/guided-complete/guided.blend` and `guides.json`; clean source remains integrated native |
-| Separate forefoot prototype | `runs/human/forefoot-stock/forefoot-stock.blend`; not attached; images `docs/assets/human/legs/toes/` |
-| Separate hand prototype | `runs/human/hand-stock-curved/hand-stock.blend`; not attached |
+| Only human native | `runs/human/current/character.blend`; editable current body/eyes, 9.82 MiB |
+| Human cleanup evidence | `runs/human/current/`; 73 old natives/backups removed by user request; historical paths below are not live files |
+| Historical forefoot prototype (native removed) | `runs/human/forefoot-stock/forefoot-stock.blend`; not attached; images `docs/assets/human/legs/toes/` |
+| Historical hand prototype (native removed) | `runs/human/hand-stock-curved/hand-stock.blend`; not attached |
 | Current human images | `docs/assets/human/integration/`; foot details `legs/tapered/`; hand details in `hands/caps/`; prior torso views in `torso/`; prior details in `ears/`, `chin/`, `mouth/`, `eyes/`, `nose/` |
 | Human scripts / target JSON | `examples/human/scripts/`, `examples/human/eyes/`, `examples/human/nose/`, `examples/human/recipes/` |
 | Drill examples | `examples/drill/{assembly,realism,surface,base}/` |

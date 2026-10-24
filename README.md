@@ -10,6 +10,10 @@ Early **0.1.0** implementation. Built for iterative work by people and coding ag
 
 Actual Blender renders created with this toolkit.
 
+[Latest nose controls and comparison](docs/reference/anatomy/body/NASAL_CONNECTIONS.md).
+The sole local editable native is `runs/human/current/character.blend` (9.82 MiB);
+historical native snapshots were removed at user request.
+
 **Current human model, actually rendered:** registered oral volume controls with
 sampled-surface fitting, preserved eyelid support, forward gaze and nasal work.
 Lip volume is more distinct and local philtrum/lower-fold transitions are

@@ -1,5 +1,36 @@
 # Current development status
 
+## Lower-nose refinement and single editable file - 2026-10-24
+
+[Tip/alar/columella controls and actual comparisons](reference/anatomy/body/NASAL_CONNECTIONS.md)
+are implemented and checked in Blender 5.2.2 LTS. 39 registered controls,
+1.30935 mm maximum displacement, 189,869 protected vertices. Source/topology,
+rollback, invalid rays, late failure cleanup and native readback pass.
+Three-view inspection shows incremental tip/rim changes; regular oval apertures
+and broad attachments remain limitations.
+
+**Only current human native:** `runs/human/current/character.blend`, 9.82 MiB.
+User-requested compaction retains visible body, eyes, floor, lights/camera and
+current editable keys. Geometry/topology/key coordinates and groups read back
+exactly. 102 unused historical mesh datablocks were removed from the scene.
+73 historical native/backup files (12.37 GiB) were then deleted. Older paths below
+are historical evidence, not available local native files. Code/reports/images
+remain. Both Blender runs exited; no background modeling process remains.
+
+
+## Drill local output cleanup - 2026-10-24
+
+At the user's request, `runs/drill/` now retains only the latest edited model,
+`runs/drill/drill-twist-bit/drill.blend` (31,204,346 bytes). Removed 2,218 older
+model, preview and verification files, totaling 2,299,307,361 bytes.
+Blender 5.2.2 LTS factory-startup background readback passed with 110 objects,
+110 meshes, no linked libraries and no unpacked external file paths. The retained
+file's SHA256 is unchanged: `5eaf1397af53650459ae2043407ac70dd372194c8dd4782afb52c06d8572f4b0`.
+Historical local evidence paths below are no longer available. Older generation
+flows requiring the removed surface baseline cannot run as written. Public
+source, recipes and documentation previews remain unchanged. No geometry edits
+or new renders were performed.
+
 ## Existing local tools reused on the variant - 2026-10-24
 
 The unchanged oral-relief and bilateral calf APIs now compile against separately

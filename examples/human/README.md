@@ -1,5 +1,10 @@
 # Human modeling entry point
 
+**Only retained native:** `runs/human/current/character.blend` (9.82 MiB).
+`integration/compact.py` preserves the visible editable scene and verifies saved
+geometry/keys. Historical native paths below were removed at user request;
+code, reports and images remain. Latest nose source: `nose/refine/connections.py`.
+
 Final second character: `runs/human/variant-reuse/reused.blend`.
 `integration/reuse.py` takes variant native, original assembly JSON and a fresh
 folder; reuses oral/calf APIs and re-registers guides.
