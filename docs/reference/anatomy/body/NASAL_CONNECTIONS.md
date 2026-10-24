@@ -64,3 +64,49 @@ shape keys restore the current mesh's pre-nasal state, not all earlier topology
 versions. Local cleanup plan/result and compact readback evidence are in
 `runs/human/current/`.
 
+
+## Alar-cheek attachment pass - 2026-10-24
+
+Scope: lateral alar volume and cheek attachment only; tip and entrance rims
+remain outside the deformation bounds. `compile_attachment` samples registered
+lateral rows, retaining endpoints and blending their depth toward a smooth
+endpoint transition. `fairing` and `volume_mm` separately control the attachment
+and shallow alar volume. `apply_attachments` compiles both sides before mutation,
+rejects overlapping bounds and removes both intermediates on late failure.
+
+The example `examples/human/nose/refine/attachment.py` takes the current native
+and a fresh output directory. It uses four rows with six stations on each side.
+The first .65 fairing setting exceeded the unchanged 3 mm displacement guard;
+the selected default is .25 with .2 mm volume. The central |X| <= 13.5 mm band
+containing tip and entrance rims is excluded. These are registered geometric
+bounds for this character, not automatic anatomical detection.
+
+Acceptance: source/outside-region/central-nose equality, layer rollback, invalid
+station order, second-side failure cleanup, sampled slope-change reduction,
+saved readback and actual oblique/profile comparisons. Blender is limited to
+one process and two CPU/numerical threads. Final current native is replaced only
+after inspection; earlier state remains in the reversible layers.
+
+The initial 6 mm support radius passed numeric guards but produced a new
+side-view bump, so that candidate was rejected. The corrected pass uses a
+12 mm support radius and 2 mm region feather; visual acceptance is checked
+again because of that specific defect. The current native remains untouched
+until a candidate is accepted.
+
+Selected result: Blender 5.2.2 LTS, 48 controls in two reversible layers, maximum
+movement 2.485 mm and minimum changed-face area ratio .63758. 197,035 protected
+vertices and 7,808 central-nose vertices remain exact. All listed checks pass.
+Summed sampled changes in lateral slope decreased 24.5%; this is a local
+geometric measure, not an anatomical accuracy score. The corrected side view
+removes the new bump and softens the original attachment transition. A broad
+attachment and stylized alar shape remain.
+
+Current `runs/human/current/character.blend` is 13,931,813 bytes (13.29 MiB).
+Both new layers can be set to zero to recover the exact previous state. The
+accepted candidate replaced the original only after readback/image inspection
+and source/hash checks. Rejected candidate was removed; one human native remains.
+
+| View | Before | After |
+| --- | --- | --- |
+| Oblique | ![](../../../assets/human/nose/attachment/before-oblique.png) | ![](../../../assets/human/nose/attachment/after-oblique.png) |
+| Profile | ![](../../../assets/human/nose/attachment/before-profile.png) | ![](../../../assets/human/nose/attachment/after-profile.png) |

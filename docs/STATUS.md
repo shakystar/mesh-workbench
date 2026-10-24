@@ -1,5 +1,21 @@
 # Current development status
 
+## Alar-cheek attachment refinement - 2026-10-24
+
+Registered lateral rows now separate attachment fairing and outer alar volume.
+48 controls across two reversible layers preserve 197,035 outside-region vertices
+and 7,808 central-nose vertices exactly. Blender 5.2.2 LTS: maximum 2.485 mm
+movement; sampled lateral slope changes decrease 24.5%. Source, rollback,
+invalid stations, second-side failure cleanup and saved native readback pass.
+An initial narrow-radius side-view bump was rejected; the corrected 12 mm radius
+softens the attachment, with broad/stylized shape still visible.
+
+[Actual oblique/profile comparison](reference/anatomy/body/NASAL_CONNECTIONS.md#alar-cheek-attachment-pass---2026-10-24).
+Only native: `runs/human/current/character.blend`, 13.29 MiB. Disable both
+`MW alar cheek` layers to recover its exact prior state. Candidate files were
+removed after verified promotion. One Blender process/two threads; exited.
+
+
 ## Lower-nose refinement and single editable file - 2026-10-24
 
 [Tip/alar/columella controls and actual comparisons](reference/anatomy/body/NASAL_CONNECTIONS.md)

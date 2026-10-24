@@ -43,3 +43,63 @@ def compile_controls(source, registration, *, tip_mm=1.0, ala_mm=.8, columella_m
 
 def apply(source, registration, name='Nasal connections study', **amounts):
     return curve_fit.apply(source, compile_controls(source,registration,**amounts),name)
+
+
+def compile_attachment(source, registration, *, fairing=.25, volume_mm=.2):
+    """Fair registered lateral rows while keeping the medial nose outside bounds.
+
+    Sample X stations must run from ala toward cheek. Endpoint skin depth is
+    retained; interior depth blends toward a smooth endpoint interpolation.
+    Volume is an independent shallow outward offset on the alar half.
+    """
+    blend = sculpt.number(fairing,0,1,'fairing')
+    volume = sculpt.number(volume_mm,-1,1,'volume')/1000
+    side=registration['side']
+    xs=np.asarray(registration['stations'],float)
+    zs=np.asarray(registration['heights'],float)
+    if side not in (-1,1) or xs.ndim!=1 or not 4<=len(xs)<=10 or not np.isfinite(xs).all() or np.any(np.diff(xs)<=0) or xs[0]<=0:
+        raise ValueError('Ordered positive alar stations required')
+    if zs.ndim!=1 or not 2<=len(zs)<=10 or not np.isfinite(zs).all() or np.any(np.diff(zs)<=0):
+        raise ValueError('Ordered attachment heights required')
+    points=sculpt.coordinates(source)
+    tree=BVHTree.FromPolygons(points.tolist(),[list(p.vertices) for p in source.data.polygons])
+    controls=[]
+    t=(xs-xs[0])/(xs[-1]-xs[0]);smooth=t*t*(3-2*t)
+    for row,z in enumerate(zs):
+        hits=[]
+        for x in xs:
+            hit,normal,_,_=tree.ray_cast(Vector((side*x,-1,z)),Vector((0,1,0)),2)
+            if hit is None or normal.y>=-.01:raise ValueError('Attachment ray misses entering skin')
+            hits.append(np.asarray(hit))
+        hits=np.asarray(hits)
+        target_y=hits[0,1]*(1-smooth)+hits[-1,1]*smooth
+        for i,p in enumerate(hits):
+            q=p.copy();q[1]+=blend*(target_y[i]-p[1])-volume*np.sin(np.pi*t[i])**2*(1-t[i])
+            controls.append(dict(name=f'attachment_{side}_{row}_{i}',source=p.tolist(),target=q.tolist()))
+    return dict(units='m',label=f'alar cheek {side}',radius_mm=12,max_displacement_mm=3,
+                surface_interpolation=True,region=registration['region'],controls=controls)
+
+
+def apply_attachments(source, registrations, name='Alar cheek study', **amounts):
+    if len(registrations)!=2 or {r['side'] for r in registrations}!={-1,1}:
+        raise ValueError('Two distinct alar sides required')
+    diagrams=[compile_attachment(source,r,**amounts) for r in registrations]
+    left,right=[d['region'] for d in diagrams]
+    if np.all(np.maximum(left['min'],right['min'])<np.minimum(left['max'],right['max'])):
+        raise ValueError('Alar regions overlap')
+    created=[];reports=[]
+    try:
+        for i,diagram in enumerate(diagrams):
+            obj,report=curve_fit.apply(created[-1] if created else source,diagram,name if i==1 else name+' temporary')
+            created.append(obj);reports.append(report)
+        interim=created.pop(0);mesh=interim.data
+        import bpy
+        bpy.data.objects.remove(interim,do_unlink=True)
+        if mesh.users==0:bpy.data.meshes.remove(mesh)
+        return created[0],diagrams,reports
+    except Exception:
+        import bpy
+        for obj in reversed(created):
+            mesh=obj.data;bpy.data.objects.remove(obj,do_unlink=True)
+            if mesh.users==0:bpy.data.meshes.remove(mesh)
+        raise
